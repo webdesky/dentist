@@ -1,0 +1,509 @@
+
+.main-content .main-content-inner {
+    float: right;
+    width: 90%;
+}
+
+.pos-rel .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    background-color: #438eb9;
+    color: #fff;
+    font-size: 15px;
+    padding: 7px 14px 10px;
+}
+
+.pos-rel .nav-tabs>li>a, .nav-tabs>li>a:focus { 
+    font-size: 15px;
+    padding: 7px 14px 10px;
+    border-color: #438eb9;
+    background-color: #f4f4f4;
+    color: #111;  
+}                      
+  
+#popup-manage .modal-dialog {
+	width: 1020px;
+    margin: 30px auto;
+	top: 20px;
+}
+
+#popup-manage #myModal5 .modal-content {
+    max-height: inherit;
+    min-height: inherit;
+    overflow: hidden;
+}
+
+#popup-manage .modal-body span.businesss {
+	margin-right: 25px;
+    font-size: 16px;
+    display: inline-block;
+    position: relative;
+    bottom: 7px;   
+}
+
+#popup-manage .modal-body .inline {
+    padding: 9px 7px 10px;
+}
+
+#popup-manage .modal-body h2.set-persondetails {
+    font-size: 16px;
+    padding: 8px 10px 0px;
+    clear: both;
+    font-weight: 600;
+    color: #438eb9;
+}
+
+#popup-manage .modal-body h2.set-persondetails span {
+	
+}
+
+#popup-manage label {
+    font-weight: 400;
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.manaegs-btss button.btn-default {
+    background: #fff !important;
+    color: #ccc !important;
+    font-weight: normal !important;
+    height: 34px;
+    border: solid 1px #ccc;
+} 
+
+
+.main-content-inner .page-content .widget-box {
+    border: 1px solid #438eb9; 
+}  
+
+
+/*   radio button colorfull css start  */            
+
+	
+
+/*   radio button colorfull css end  */
+
+
+
+
+
+
+
+
+
+ /*  
+
+.pos-rel .nav-tabs>li>a, .nav-tabs>li>a:focus {
+    font-size: 14px;
+    border-color: #438eb9;
+    background-color: #F9F9F9;
+    color: #666;
+    max-width: 100%;
+    width: 250px;
+    text-align: center;
+    display: inline-block;
+}  */
+
+ 
+
+.pos-rel .nav-tabs li a i {  
+    margin-right: 5px;	
+}
+
+.widget-main .pos-rel .tab-content {
+    border-width: 0;
+    border: solid 1px #438eb9;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.widget-body .widget-main .no-steps-container .tab-content .form-control {
+    margin-bottom: 10px;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.1), -1px 0 2px rgba(0,0,0,0.05) !important;  	
+}
+
+.widget-body .widget-main .no-steps-container .tab-content .form-control:hover {
+	-webkit-box-shadow: 0 0 7px 3px rgba(68,80,85,.17) !important;
+    box-shadow: 0 0 7px 3px rgba(68,80,85,.15) !important;
+	border: solid 1px #ddd;
+}
+
+textarea {
+	height: auto !important;
+}
+
+.pos-rel .step-pane .form-control { 
+
+}
+
+#mainten-tables td input[type=text], input[type=password], input[type=email], input[type=datetime] ,input[type=date] ,select {
+	width: 100%;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.1), -1px 0 2px rgba(0,0,0,0.05) !important;
+    height: 34px;
+}
+
+#mainten-tables .master-set { 
+    width: 141px;
+    overflow: hidden;	
+}
+
+#mainten-tables .table.table-bordered>thead>tr>th {
+    border-left-color: #ccc;
+    /* border-bottom: none; */           
+    border-right: solid 1px #ccc;
+}   
+
+#mainten-tables .table-bordered, .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
+    border: 1px solid #ccc;
+	border-right: solid 1px #ccc
+}
+
+.pos-rel .step-pane .form-control {
+	height: 34px;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.1), -1px 0 2px rgba(0,0,0,0.05) !important;
+}
+
+.pos-rel .step-pane .form-control:hover {
+	-webkit-box-shadow: 0 0 7px 3px rgba(68,80,85,.17) !important;
+    box-shadow: 0 0 7px 3px rgba(68,80,85,.15) !important;
+    border: solid 1px #ddd;	
+}
+
+#mainten-tables tr td b {
+	
+}
+
+
+/*  Popup model css start  */
+
+
+
+#popup-manage .modal-dialog {
+margin: 0px auto;
+}
+
+#popup-manage .modal-backdrop.fade {
+opacity: 0.1;
+filter: alpha(opacity=0.1);
+}
+
+#popup-manage .modal-content {
+position: relative;
+background-color: #FFF;
+border: 1px solid #3b91c0;
+border-radius: 0px;
+-webkit-box-shadow:none; 
+ box-shadow: none;
+background-clip: padding-box;
+outline: 0;
+}
+
+
+#popup-manage .modal-header {
+    padding: 8px 20px;
+	margin-bottom: 8px;
+    background-color: #438eb9;
+    background: -webkit-linear-gradient(top, #438eb9, #03A9F4);
+    border: solid 1px #438eb9;
+    color: #fff;
+    background: -moz-linear-gradient(top, #f8f8f8, #f2f2f2);
+    background: -ms-linear-gradient(top, #f8f8f8, #f2f2f2);
+    background: -o-linear-gradient(top, #f8f8f8, #f2f2f2);
+    background: linear-gradient(top, #f8f8f8, #f2f2f2);
+}
+
+#popup-manage .modal-header .close {
+    font-size: 24px;
+    color: #fff;
+    opacity: 1;
+    font-weight: normal;
+    
+}
+
+#popup-manage .modal-body {
+    overflow: hidden;
+    padding: 5px 15px 5px;
+}
+
+.contacts-details {
+    margin-bottom: 15px;	
+}
+
+.contacts-details .btns12 {
+    margin-top: 6px;
+    margin-left: 12px;
+    background: #fff;
+    border: solid 1px #2d97cd;
+    cursor: pointer;
+    padding: 4px 18px;
+    font-size: 14px;
+    color: #3c91c0;
+    font-weight: 600;
+}
+
+.contacts-details .btns12 i {
+    margin-right: 8px;	
+}
+
+.input-group .input-group-addon, .input-group>.btn {
+    border-radius: 0!important;
+    cursor: pointer;
+}
+
+#popup-manage .modal-footer {
+    border-top-color: #fff;
+    background-color: #fff;
+}
+
+#popup-manage .btn-default {
+    background-color: #fff !important;
+    color: #d15b47 !important;
+    border: solid 1px #d15b47;
+    margin-bottom: 7px;
+    margin-top: 5px;
+    padding: 6.5px 12px;	
+}
+
+#popup-manage .btn-default1 {
+    background-color: #fff !important;
+    color: #269ad4 !important;
+    border: solid 1px #269ad4;
+    margin-bottom: 7px;
+    margin-top: 5px;
+    padding: 6px 12px;
+    font-size: 14px;
+    position: relative;
+    top: 2px;
+}
+
+#popup-manage .modal-content {
+	max-height: 800px;
+    min-height: 800px;
+    overflow: auto;
+}
+
+#myModal7 .btns123 {
+    margin-top: 20px;
+    margin-bottom: 6px;
+    margin-left: 12px;
+    background: #fff;
+    border: solid 1px #2d97cd;
+    cursor: pointer;
+    padding: 7px 18px;
+    font-size: 14px;
+    color: #3c91c0;
+    font-weight: 600;	
+}
+
+#myModal7 .btns123 i {
+    margin-right: 8px;	
+}
+
+#popup-manage .modal-open .modal {
+    top: 20px;
+}
+
+#popup-manage .modal-footer {
+    padding-top: 0px;
+    padding-bottom: 8px;
+}
+
+#popup-manage .table-responsive {
+    margin-bottom: -12px;
+    overflow: initial;
+}
+
+#popup-manage .table>thead>tr>th {
+    padding: 2px 5px 4px;
+}
+
+.modal-open .modal {
+    overflow-x: hidden;
+    overflow: hidden;
+    top: 0;            
+}
+
+#popup-manage .form-control {
+    height: 28px;
+}
+
+.pos-rel span.input-group-addon { 
+	padding: 9px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1;
+    color: #000;
+    text-align: center;
+    /* background: -webkit-linear-gradient(top, #438eb9, #03A9F4); */
+    /* background: -moz-linear-gradient(top, #f8f8f8, #f2f2f2); */
+    /* background: -ms-linear-gradient(top, #f8f8f8, #f2f2f2); */
+    /* background: -o-linear-gradient(top, #f8f8f8, #f2f2f2); */
+    /* background: linear-gradient(top, #f8f8f8, #f2f2f2); */
+    border: 1px solid #999;  
+}
+
+.pos-rel span.input-group-addon i {
+	margin-right: 4px;
+    font-size: 14px;
+}
+
+#popup-manage .inline input[type=radio] {
+    margin: 0px 0 2px;
+    line-height: normal;
+    width: 28px;
+    height: 20px;
+}
+
+#popup-manage .inline span { 
+    margin-top: 0;
+    display: inline-block;
+    position: relative;
+    top: -6px;
+    font-size: 14px;	
+}
+
+#popup-manage span.businesss {
+	
+}
+
+
+/*  Popup model css end  */
+
+
+
+
+
+
+
+/* add sales css start */
+
+
+
+.tab-contentss12 {
+	
+}
+
+.tab-contentss12 .manages-bottoms {
+    margin-bottom: 25px;
+    overflow: hidden;
+}
+
+.tab-contentss12 .manuee-collsio {
+
+}
+
+.tab-contentss12 .desires-sets1 { 
+    border: solid 1px #ddd;
+    padding: 20px 16px 10px;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.1), -1px 0 2px rgba(0,0,0,0.05) !important;    
+}
+
+.tab-contentss12 .manuee-collsio {
+    margin-top: 17px;
+}
+
+.contacts-dedhhf .btns12 {
+    margin-top: 6px;
+    margin-left: 12px;
+    background: #fff;
+    border: solid 1px #2d97cd;
+    cursor: pointer;
+    padding: 7px 18px;
+    font-size: 14px;
+    color: #3c91c0;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.contacts-dedhhf .btns12 i {
+    margin-right: 8px;           
+}
+
+.add-invoicedetails {
+    overflow: hidden;
+    clear: both;
+    border-top: solid 1px #ccc;
+    padding-top: 5px;                   
+}
+
+.add-invoicedetails h4 {
+    color: #438eb9;
+    margin-bottom: 17px;	
+}
+
+.add-invoicedetails .mainten-tables {         
+	
+}
+
+.add-invoicedetails .btn-default { 
+    background-color: #fff !important;
+    color: #d15b47 !important;
+    border: solid 1px #d15b47;
+    margin-bottom: 7px;
+    margin-top: 5px;
+	padding: 7px 12px;                                  
+}
+
+.add-invoicedetails .btn-default1 {
+    background-color: #fff !important;
+    color: #269ad4 !important;
+    border: solid 1px #269ad4;
+    margin-bottom: 7px;
+    margin-top: 5px;
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+.modelsss {
+    margin-top: 25px;
+    border-top: solid 1px #ccc;
+    padding-top: 25px;	
+}
+
+#packagessgess .add-invoicedetails {
+    border: none; 
+    padding-top: 5px;
+}
+
+
+/* add sales css end */
+
+@media (max-width: 767px) {
+	
+	
+	
+#fuelux-wizard-container ul.steps>li {
+    /*  display: block !important;
+    text-align: center;
+    width: 100%;
+	overflow: hidden;
+	clear: both;  */
+}
+
+#popup-manage .modal-dialog {
+    width: 100%;
+    margin: 30px auto;
+	top: 0;
+}
+
+
+
+#popup-manage .table-responsive {
+    margin-bottom: -12px;
+    overflow: auto;
+}
+
+#popup-manage .modal-open .modal {
+    top: 0 !important;
+}
+	
+	
+	
+}
+
+
+
+               
+
+
+
+
+
