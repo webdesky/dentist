@@ -9,7 +9,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+                <a class="navbar-brand" href="index.html">Dentist</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -214,7 +214,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="<?php echo base_url('admin/logout')?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -238,8 +238,9 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="<?php echo base_url('/admin/')?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
+                        
                         <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Doctors<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -252,22 +253,22 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li>
+                       <!--  <li>
                             <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
                         </li>
                         <li>
                             <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
-                        </li>
+                        </li> -->
                         <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Patients<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="panels-wells.html">Panels and Wells</a>
+                                    <a href="<?php echo base_url('admin/register/')?>">Add Patients</a>
                                 </li>
                                 <li>
-                                    <a href="buttons.html">Buttons</a>
+                                    <a href="<?php echo base_url('admin/users_list/')?>">View Patients</a>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <a href="notifications.html">Notifications</a>
                                 </li>
                                 <li>
@@ -278,11 +279,11 @@
                                 </li>
                                 <li>
                                     <a href="grid.html">Grid</a>
-                                </li>
+                                </li> -->
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li>
+                        <!-- <li>
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -307,12 +308,12 @@
                                             <a href="#">Third Level Item</a>
                                         </li>
                                     </ul>
-                                    <!-- /.nav-third-level -->
+                                   
                                 </li>
                             </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
+                            
+                        </li> -->
+                        <!-- <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -321,12 +322,13 @@
                                 <li>
                                     <a href="login.html">Login Page</a>
                                 </li>
-                            </ul>
+                            </ul> -->
                             <!-- /.nav-second-level -->
-                        </li>
+                        <!-- </li> -->
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
             <!-- /.navbar-static-side -->
         </nav>
+
