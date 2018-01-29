@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
 class Admin extends CI_Controller
 {
     function __construct()
@@ -26,10 +29,17 @@ class Admin extends CI_Controller
             $this->load->view('admin/login', $data);
         }
     }
+<<<<<<< HEAD
     
     public function add_doctor()
     {
         if ($this->checkSession()) {
+=======
+
+     public function add_doctor()
+    {
+         if ($this->checkSession()) {
+>>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
             $data['body'] = 'add_doctor';
             $this->load_view($data);
         } else {
@@ -41,7 +51,11 @@ class Admin extends CI_Controller
     {
         if (!empty($this->session->userdata['user_role'])) {
             $log = $this->session->userdata['user_role'];
+<<<<<<< HEAD
             if (!empty($log)) {
+=======
+            if (isset($log)) {
+>>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
                 return true;
             } else {
                 return false;
@@ -71,6 +85,7 @@ class Admin extends CI_Controller
             if ($this->form_validation->run() == false) {
                 $this->load->view('login');
             } else {
+<<<<<<< HEAD
                 
                 if ($this->checkSession()) {
                     $log = $this->session->userdata['user_role'];
@@ -84,12 +99,23 @@ class Admin extends CI_Controller
 
                     }
                     
+=======
+               
+                if ($this->checkSession()) {
+                    //echo 'hi';
+                    redirect('admin/dashboard');
+>>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
                 }
             }
         }
     }
+<<<<<<< HEAD
     
     
+=======
+
+   
+>>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
     public function load_view($page_data)
     {
         $this->load->view('common/templates/default', $page_data);
@@ -135,7 +161,11 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('confirm_password', 'Confirm Password', 'trim|required|matches[new_password]|md5');
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('errors', validation_errors());
+<<<<<<< HEAD
             $data['body'] = 'change_password';
+=======
+            $data['body'] = 'changepassword';
+>>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
             $this->load_view($data);
         } else {
             if ($this->checkSession()) {
@@ -143,9 +173,15 @@ class Admin extends CI_Controller
                     'password' => $this->input->post('new_password', TRUE)
                 );
                 $where  = array(
+<<<<<<< HEAD
                     'id' => $this->session->userdata('id')
                 );
                 $table  = 'users';
+=======
+                    'id' => 1
+                );
+                $table  = 'admins';
+>>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
                 $result = $this->Common_model->updateFields($table, $data, $where);
                 redirect('admin/change_password', 'refresh');
             }
@@ -183,6 +219,7 @@ class Admin extends CI_Controller
         $port_data = $this->Common_model->get_matching_record($table, $val);
         echo json_encode($port_data);
     }
+<<<<<<< HEAD
     
     
     public function insertDoctor()
@@ -332,6 +369,166 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|alpha|min_length[2]');
         $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|alpha|min_length[2]');
         if (empty($id)) {
+=======
+       
+
+     public function insertDoctor($id=null)
+    {
+        
+         
+                  if(empty($id)){
+                  $this->form_validation->set_rules('doctor_fname', 'doctor_fname', 'trim|required');
+                  $this->form_validation->set_rules('doctor_lname', 'doctor_lname', 'trim|required');
+                  $this->form_validation->set_rules('doctor_email', 'doctor_email', 'trim|required');
+                  $this->form_validation->set_rules('doctor_lname', 'doctor_lname', 'trim|required');
+
+                  $this->form_validation->set_rules('doctor_mobile_no', 'doctor_mobile_no', 'trim|required');
+                  $this->form_validation->set_rules('doctor_password', 'doctor_password', 'trim|required');
+                    }
+                     if ($this->form_validation->run() == false) 
+                     {
+                         $data['body'] = 'add_doctor';
+                         $this->load->view('common/templates/default', $data);
+
+                        //echo "hello";
+                     } else {
+                       
+                        if ($this->checkSession())
+                                {
+                         $data=$this->input->post();
+                         $data['doctor_user_id']= $this->session->userdata['user_role'];
+                        
+                        unset($data['submit']);
+                        $config['upload_path'] = 'uploads/';
+                        $config['allowed_types'] = 'jpg|jpeg|png|gif';
+                        $config['file_name'] = $_FILES['doctor_image']['name'];
+                       
+                        //Load upload library and initialize configuration
+                        $this->load->library('upload',$config);
+                        $this->upload->initialize($config);
+                        
+                        if($this->upload->do_upload('doctor_image')){
+                              $data['doctor_image']=$config['upload_path'].$config['file_name'];
+                        }
+
+                        $insert_id=$this->Common_model->insertData('doctor',$data);
+                        if($insert_id){
+                            $this->session->set_flashdata("info_message","Doctor Added Successfully..");
+                            redirect("admin/add_doctor");
+                                      }
+
+                                 }
+                         }
+
+       }
+   
+    
+
+    public function get_doctor(){
+
+        $data['doctorList'] =$this->Common_model->GetJoinRecord('doctor','doctor_user_id','user_role','role_id');
+
+        $data['body'] = 'list_doctor';
+        $this->load->view('common/templates/default', $data);
+
+    }
+
+    public function edit_doctor(){
+
+        $id=$this->uri->segment(3);
+        $data['doctor']=json_encode($this->Common_model->getsingle('doctor',$where="doctor_id=$id"));
+        $data['body'] = 'edit_doctor';
+        $this->load->view('common/templates/default', $data);
+
+    }
+
+    public function updateDoctor(){
+            if ($this->input->post())
+          {
+                   $data=$this->input->post();
+
+                  $this->form_validation->set_rules('doctor_fname', 'doctor_fname', 'trim|required');
+                  $this->form_validation->set_rules('doctor_lname', 'doctor_lname', 'trim|required');
+                  $this->form_validation->set_rules('doctor_email', 'doctor_email', 'trim|required');
+                  $this->form_validation->set_rules('doctor_lname', 'doctor_lname', 'trim|required');
+
+                  $this->form_validation->set_rules('doctor_mobile_no', 'doctor_mobile_no', 'trim|required');
+                  
+                     if ($this->form_validation->run() == false) 
+                     {
+                         $id=$data['doctor_id'];
+
+                         $data['doctor']=json_encode($this->Common_model->getsingle('doctor',$where="doctor_id=$id"));
+                         $data['body'] = 'edit_doctor';
+                         $this->load->view('common/templates/default', $data);
+
+                       
+                     } else {
+                       
+                        if ($this->checkSession())
+                                {
+                        
+
+                         $data['doctor_user_id']= $this->session->userdata['user_role'];
+                         $doctor_id=$data['doctor_id'];
+                         unset($data['doctor_id']);
+                         unset($data['submit']);
+                        
+                        $config['upload_path'] = 'uploads/';
+                        $config['allowed_types'] = 'jpg|jpeg|png|gif';
+                        $config['file_name'] = $_FILES['doctor_image']['name'];
+
+                        if($config['file_name']==''){
+
+                            $data['doctor_image']=$data['old_doctor_image'];
+                            unset($data['old_doctor_image']);
+                        }else{
+                        //Load upload library and initialize configuration
+                        $this->load->library('upload',$config);
+                        $this->upload->initialize($config);
+                            
+                        if($this->upload->do_upload('doctor_image')){
+                              $data['doctor_image']=$config['upload_path'].$config['file_name'];
+                              
+
+                              unlink($data['old_doctor_image']);
+                              unset($data['old_doctor_image']);
+                        }
+
+                        }
+                         
+                        
+                        
+                        $insert_id=$this->Common_model->updateFields('doctor',$data,$where="doctor_id=$doctor_id");
+                        if($insert_id){
+                            $this->session->set_flashdata("info_message","Doctor updated Successfully..");
+                            redirect("admin/get_doctor");
+                                     }
+
+                                 }
+                         }
+
+       }
+    }
+
+    public function updateStatus()
+    {
+       $doctor_id=  $this->input->post('id');
+       $status =$this->input->post('status');
+       if($status==0){
+        $data['doctor_status']=1;
+       }else{
+        $data['doctor_status']=0;
+       }
+       return $insert_id=$this->Common_model->updateFields('doctor',$data,$where="doctor_id=$doctor_id");
+    }
+
+    public function register($id=null)
+    {        
+        $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|alpha|min_length[2]');
+        $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|alpha|min_length[2]');
+        if(empty($id)){
+>>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
             $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]');
             $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]|alpha_numeric');
         }
@@ -369,7 +566,11 @@ class Admin extends CI_Controller
                     'gender' => $gender,
                     'blood_group' => $blood_group,
                     'is_active' => $status,
+<<<<<<< HEAD
                     'user_role' => $user_role,
+=======
+                    'user_role'=>$user_role,
+>>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
                     'created_at' => date('Y-m-d H:i:s')
                 );
                 
@@ -386,14 +587,20 @@ class Admin extends CI_Controller
                         }
                     }
                 }
+<<<<<<< HEAD
                 if (!empty($id)) {
                     $where = array(
                         'id' => $id
                     );
+=======
+                if(!empty($id)){
+                    $where = array('id'=>$id);
+>>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
                     unset($data['created_at']);
                     unset($data['email']);
                     unset($data['password']);
                     $result = $this->Common_model->updateFields('users', $data, $where);
+<<<<<<< HEAD
                 } else {
                     $result = $this->Common_model->insertData('users', $data);
                 }
@@ -425,11 +632,39 @@ class Admin extends CI_Controller
         $where1            = array(
             'role_id >' => $this->session->userdata('user_role')
         );
+=======
+                }else{
+                     $result = $this->Common_model->insertData('users', $data);
+                }
+                $this->users_list();    
+            }
+        }   
+    }
+
+    public function users_list(){
+        $where             = array(
+            'user_role >' => $this->session->userdata('user_role')
+        );
+
+        $where1             = array(
+            'role_id >' => $this->session->userdata('user_role')
+        );
+        $data['users'] = $this->Common_model->getAllwhere('users', $where);
+        $data['user_role'] = $this->Common_model->getAllwhere('user_role', $where1);
+        $data['body'] = 'users_list';
+        $this->load_view($data);
+    }
+
+    public function edit_user($id){
+        $where             = array('id ' => $id);
+        $where1            = array('role_id >' => $this->session->userdata('user_role'));
+>>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
         $data['user_role'] = $this->Common_model->getAllwhere('user_role', $where1);
         $data['users']     = $this->Common_model->getAllwhere('users', $where);
         $data['body']      = 'edit_user';
         $this->load_view($data);
     }
+<<<<<<< HEAD
     
     public function delete()
     {
@@ -440,3 +675,103 @@ class Admin extends CI_Controller
         $this->Common_model->delete('users', $where);
     }
 }
+=======
+
+    public function delete(){
+        $id = $this->input->post('id');
+        $where = array('id'=>$id);
+        $this->Common_model->delete('users', $where);
+    }
+
+
+     public function delete_doctor(){
+        $id = $this->input->post('id');
+        $where = array('doctor_id'=>$id);
+        $this->Common_model->delete('doctor', $where);
+    }
+
+    public function schedule(){
+             $data['body'] = 'add_schedule';
+             $data['doctor']=$this->Common_model->getAll('doctor');
+            
+             $this->load->view('common/templates/default', $data);
+    }
+
+    public function addSchedule($id=null){
+                $data=$this->input->post();
+                echo "<pre>";
+                print_r($data);
+
+
+    }
+
+    public function Appointment(){
+             $data['body'] = 'add_appointment';
+                    
+            $where             = array(
+                    'user_role' => 2
+                );
+             $wheres            = array(
+                  'user_role ' => 3
+                );
+            
+             $data['doctor'] = $this->Common_model->getAllwhere('users', $where);
+             $data['patient'] = $this->Common_model->getAllwhere('users', $wheres);
+             
+                
+             $this->load->view('common/templates/default', $data);
+    }
+
+    public function addAppointment($id=null){
+
+            if(empty($id)){
+            $this->form_validation->set_rules('patient_id', 'patient_id', 'trim|required');
+            $this->form_validation->set_rules('doctor_id', 'doctor_id', 'trim|required');
+            $this->form_validation->set_rules('appointment_date', 'appointment_date', 'trim|required');
+            $this->form_validation->set_rules('appointment_time', 'appointment_time', 'trim|required');
+            $this->form_validation->set_rules('problem', 'problem', 'trim|required');
+                 }
+
+            if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('errors', validation_errors());
+            $data['body'] = 'add_appointment';
+            $where             = array(
+                    'user_role' => 2
+                );
+             $wheres            = array(
+                  'user_role ' => 3
+                );
+            
+             $data['doctor'] = $this->Common_model->getAllwhere('users', $where);
+             $data['patient'] = $this->Common_model->getAllwhere('users', $wheres);
+             
+                
+             $this->load->view('common/templates/default', $data);
+        } else {
+            if ($this->checkSession()) {
+             $data=$this->input->post();
+             
+             $data = array(
+                    'appointment_id'=>'AP'.mt_rand(100000, 999999),
+                    'patient_id' => $data['patient_id'],
+                    'doctor_id' => $data['doctor_id'],
+                    'appointment_date' => $data['appointment_date'],
+                    'appointment_time' =>$data['appointment_time'],
+                    'problem' => $data['problem'],
+                    'created_at' => date('Y-m-d H:i:s')
+                );
+
+             $result = $this->Common_model->insertData('appointment', $data);
+             if($result){
+                    $this->session->set_flashdata("info_message","Appointment Added Successfully..");
+                    redirect("admin/Appointment");
+             }
+
+
+         }
+     }
+
+    }
+
+}
+>>>>>>> 0786823f878c3f8c24f632c1152420691182d40e

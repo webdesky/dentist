@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "name": "yes",
   "authors": [
@@ -19,3 +20,26 @@
     "tests"
   ]
 }
+=======
+{
+  "name": "yes",
+  "authors": [
+    "yes"
+  ],
+  "description": "bootstrap",
+  "main": "bower",
+  "keywords": [
+    "bower"
+  ],
+  "license": "yes",
+  "homepage": "yes",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
+>>>>>>> 0786823f878c3f8c24f632c1152420691182d40e

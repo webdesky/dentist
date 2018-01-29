@@ -16,11 +16,23 @@
     <link href="<?php echo base_url('asset/vendor/metisMenu/metisMenu.min.css');?>" rel="stylesheet">
     <link href="<?php echo base_url('asset/dist/css/sb-admin-2.css');?>" rel="stylesheet">
     <link href="<?php echo base_url('asset/vendor/font-awesome/css/font-awesome.min.css');?>" rel="stylesheet" type="text/css">
+<<<<<<< HEAD
+=======
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+
+>>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
     
     <script src="<?php echo base_url('asset/vendor/jquery/jquery.min.js');?>"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="<?php echo base_url('asset/vendor/bootstrap/js/bootstrap.min.js');?>"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+<<<<<<< HEAD
+=======
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+
+>>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
 </head>
 <body>
