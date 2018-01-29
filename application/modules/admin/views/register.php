@@ -1,11 +1,9 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-<<<<<<< HEAD
+
             <h1 class="page-header">User Section</h1>
-=======
-            <h1 class="page-header">User</h1>
->>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
+
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -26,7 +24,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6 col-lg-offset-2">
-                            <form role="form" method="post" action="<?php echo base_url('admin/register') ?>" class="registration_form" enctype="multipart/form-data">
+                            <form role="form" method="post" action="<?php echo base_url('doctor/profile') ?>" class="registration_form" enctype="multipart/form-data">
                                 
                                 <div class="form-group">
                                     <label>First Name *</label>

@@ -1,3 +1,4 @@
+
 <?php
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
@@ -28,3 +29,4 @@ class Common_model extends CI_Model
 }
 // SELECT doctor_id, GROUP_CONCAT(day SEPARATOR ', ')
 // FROM schedule GROUP BY doctor_id
+

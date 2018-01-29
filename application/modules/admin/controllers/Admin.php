@@ -1,3 +1,4 @@
+
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -9,15 +10,19 @@ class Admin extends CI_Controller
       
     }
     
-    public function index($msg = NULL)
+        public function index($msg = NULL)
     {
         if (!empty($this->session->userdata['user_role'])) {
             $log = $this->session->userdata['user_role'];
-            if (isset($log) && $log == 1) {
-                $this->dashboard();
-            } else {
+            if ($log == 1) {
+                    redirect('admin/dashboard');
+                } else if ($log == 2) {
+                    redirect('doctor/dashboard');
+                } else if ($log == 3) {
+                    redirect('patient/dashboard');
+                } else {
                 $this->load->view('admin/login', $msg);
-            }
+            }  
         } else {
             if (isset($msg) && !empty($msg)) {
                 $data['msg'] = $msg;
@@ -476,7 +481,66 @@ class Admin extends CI_Controller
         $this->model->delete('appointment', $where);
     }
 
+    public function profile(){
+        $where = array('id' => $this->session->userdata('id'));
+        $data['users']      = $this->model->getAllwhere('users', $where);
+        
+        $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|alpha|min_length[2]');
+        $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|alpha|min_length[2]');
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+        $this->form_validation->set_rules('date_of_birth', 'Date Of Birth', 'trim|required');
+        
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('errors', validation_errors());
+            $data['body']       = 'profile';
+            $this->controller->load_view($data);
+        } else {
+            if ($this->controller->checkSession()) {
+                $user_role   = '3';
+                $first_name  = $this->input->post('first_name');
+                $last_name   = $this->input->post('last_name');
+                $email       = $this->input->post('email');
+                $address     = $this->input->post('address');
+                $phone_no    = $this->input->post('phone');
+                $mobile_no   = $this->input->post('mobile');
+                $dob         = $this->input->post('date_of_birth');
+                $gender      = $this->input->post('gender');
+                $blood_group = $this->input->post('blood_group');
+                
+                $data = array(
+                    'first_name' => $first_name,
+                    'last_name' => $last_name,
+                    'email' => $email,
+                    'address' => $address,
+                    'phone_no' => $phone_no,
+                    'mobile' => $mobile_no,
+                    'date_of_birth' => $dob,
+                    'gender' => $gender,
+                    'blood_group' => $blood_group,
+                );
+                
+                
+                // if (isset($_FILES['image']['name']) && !empty($_FILES['image']['name'])) {
+                //     $count = count($_FILES['image']['name']);
+                //     for ($i = 0; $i < $count; $i++) {
+                //         if ($_FILES['image']['error'][$i] == 0) {
+                //             if (move_uploaded_file($_FILES['image']['tmp_name'][$i], 'asset/uploads/' . $_FILES['image']['name'][$i])) {
+                                
+                //                 $data['profile_pic'] = $_FILES['image']['name'][$i];
+                //             }
+                //         }
+                //     }
+                // }
+
+                $result = $this->model->updateFields('users', $data, $where);
+               redirect('/admin/profile', 'refresh');
+
+            }
+        } 
+    }
+
 
 
 
 }
+
