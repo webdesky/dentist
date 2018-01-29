@@ -241,7 +241,7 @@
                             <a href="<?php echo base_url('/admin/')?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         
-                        <li>
+                        <!-- <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Doctors<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -251,14 +251,9 @@
                                     <a href="<?php echo base_url('admin/get_doctor') ?>">Doctor List</a>
                                 </li>
                             </ul>
-                            <!-- /.nav-second-level -->
+                           
                         </li>
-                       <!--  <li>
-                            <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
-                        </li>
-                        <li>
-                            <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
-                        </li> -->
+                       
                         <li>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i> Patients<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -268,21 +263,10 @@
                                 <li>
                                     <a href="<?php echo base_url('admin/users_list/')?>">View Patients</a>
                                 </li>
-                                <!-- <li>
-                                    <a href="notifications.html">Notifications</a>
-                                </li>
-                                <li>
-                                    <a href="typography.html">Typography</a>
-                                </li>
-                                <li>
-                                    <a href="icons.html"> Icons</a>
-                                </li>
-                                <li>
-                                    <a href="grid.html">Grid</a>
-                                </li> -->
+                                
                             </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
+                          
+                        </li> -->
 
                         <li>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i> Schedule<span class="fa arrow"></span></a>
@@ -303,9 +287,9 @@
                                 <li>
                                     <a href="<?php echo base_url('admin/Appointment/')?>">Add Appointment</a>
                                 </li>
-                                <!-- <li>
-                                    <a href="<?php echo base_url('admin/users_list/')?>">View Schedule</a>
-                                </li> -->
+                                 <li>
+                                    <a href="<?php echo base_url('admin/appointment_list/')?>">View Appointment</a>
+                                </li> 
 
                             </ul>
                         </li>

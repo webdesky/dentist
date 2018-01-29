@@ -176,7 +176,7 @@ class Admin extends CI_Controller
        
 
      public function insertDoctor($id=null)
-    {
+         {
         
          
                   if(empty($id)){
@@ -468,7 +468,12 @@ class Admin extends CI_Controller
     }
 
     public function addAppointment($id=null){
-
+            $this->form_validation->set_rules('patient_id', 'patient_id', 'trim|required');
+            $this->form_validation->set_rules('doctor_id', 'doctor_id', 'trim|required');
+            $this->form_validation->set_rules('appointment_date', 'appointment_date', 'trim|required');
+            $this->form_validation->set_rules('appointment_time', 'appointment_time', 'trim|required');
+            $this->form_validation->set_rules('problem', 'problem', 'trim|required');
+           
             if(empty($id)){
             $this->form_validation->set_rules('patient_id', 'patient_id', 'trim|required');
             $this->form_validation->set_rules('doctor_id', 'doctor_id', 'trim|required');
@@ -478,8 +483,10 @@ class Admin extends CI_Controller
                  }
 
             if ($this->form_validation->run() == false) {
+            
             $this->session->set_flashdata('errors', validation_errors());
-            $data['body'] = 'add_appointment';
+            $data['body'] = 'edit_appointment';
+           
             $where             = array(
                     'user_role' => 2
                 );
@@ -489,6 +496,10 @@ class Admin extends CI_Controller
             
              $data['doctor'] = $this->Common_model->getAllwhere('users', $where);
              $data['patient'] = $this->Common_model->getAllwhere('users', $wheres);
+
+            $where1            = array('ap_id ' => $id);
+            
+            $data['appointment']=$this->Common_model->GetJoinRecord('appointment','doctor_id','users','id','' ,$where1);
              
                 
              $this->load->view('common/templates/default', $data);
@@ -505,17 +516,63 @@ class Admin extends CI_Controller
                     'problem' => $data['problem'],
                     'created_at' => date('Y-m-d H:i:s')
                 );
-
-             $result = $this->Common_model->insertData('appointment', $data);
-             if($result){
-                    $this->session->set_flashdata("info_message","Appointment Added Successfully..");
-                    redirect("admin/Appointment");
-             }
+                   
+                if(!empty($id)){
+                 
+                    $where = array('ap_id'=>$id);
+                    unset($data['created_at']);
+                    unset($data['appointment_id']);
+                    $result = $this->Common_model->updateFields('appointment', $data, $where);
+                }else{
+                     $result = $this->Common_model->insertData('appointment', $data);
+                }
+           
+                             $this->session->set_flashdata("info_message","Appointment updated Successfully..");
+                            redirect("admin/appointment_list");
+            
 
 
          }
      }
 
     }
+
+    public function appointment_list(){
+         $where             = array(
+                    'user_role' => 2
+                );
+        $data['appointmentList'] =$this->Common_model->GetJoinRecord('appointment','doctor_id','users','id','' ,$where);
+       
+        $data['body'] = 'list_appointment';
+        $this->load->view('common/templates/default', $data);
+    }
+
+    public function edit_appointment($id){
+
+              $where             = array(
+                    'user_role' => 2
+                );
+                 $wheres            = array(
+                  'user_role ' => 3
+                );
+            
+             $data['doctor'] = $this->Common_model->getAllwhere('users', $where);
+             $data['patient'] = $this->Common_model->getAllwhere('users', $wheres);
+       
+              $where1            = array('ap_id ' => $id);
+            
+            $data['appointment']=$this->Common_model->GetJoinRecord('appointment','doctor_id','users','id','' ,$where1);
+               
+                $data['body']      = 'edit_appointment';
+                $this->load_view($data);
+    }
+
+
+    public function delete_appointment(){
+        $id = $this->input->post('id');
+        $where = array('ap_id'=>$id);
+        $this->Common_model->delete('appointment', $where);
+    }
+
 
 }

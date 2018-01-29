@@ -214,6 +214,30 @@ class Common_model extends CI_Model
         }
     }
 
+
+    function GetAppointmentList()
+    {
+        $this->db->select("*");
+        $this->db->from("appointment as ap");
+        //$this->db->join('users as u', 'ap.patient_id = u.id' ,'left');
+        $this->db->join('users as us', 'us.id = ap.doctor_id','left');
+       // $this->db->join("$tablejointhree", "$tablejointhree.$field_third = $table.$field_first");
+       // $this->db->where("u.user_role", '3');
+       // $this->db->where("u.user_role", '2');
+        $q = $this->db->get();
+
+        if ($q->num_rows() > 0) {
+            foreach ($q->result() as $rows) {
+                $data[] = $rows;
+            }
+            $q->free_result();
+            return $data;
+        }
+    }
+
+   
+    
+
     function GetSalerecords_for_view($table)
     {
         $this->db->select("*");
