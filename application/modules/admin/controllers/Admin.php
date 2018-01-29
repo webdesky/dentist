@@ -428,6 +428,7 @@ class Admin extends CI_Controller
         $this->Common_model->delete('users', $where);
     }
 
+
      public function delete_doctor(){
         $id = $this->input->post('id');
         $where = array('doctor_id'=>$id);
@@ -516,4 +517,5 @@ class Admin extends CI_Controller
      }
 
     }
+
 }
