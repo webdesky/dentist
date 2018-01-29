@@ -1,0 +1,21 @@
+{
+  "name": "yes",
+  "authors": [
+    "yes"
+  ],
+  "description": "bootstrap",
+  "main": "bower",
+  "keywords": [
+    "bower"
+  ],
+  "license": "yes",
+  "homepage": "yes",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
