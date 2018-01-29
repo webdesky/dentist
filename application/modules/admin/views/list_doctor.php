@@ -40,6 +40,7 @@
                                 <tbody>
                                 <?php 
  								$count=1;
+                                if($doctorList){
                                 foreach ($doctorList as  $value) { ?>
                                 	<tr class="odd gradeX">
                                         <td><?php echo $count; ?></td>
@@ -65,12 +66,12 @@
                                        
                                         <td class="center"><?php echo $value->role_name; ?></td>
                                         <td class="center"><a href="<?php echo base_url('admin/edit_doctor/').$value->doctor_id; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a href="<?php echo base_url('admin/edit_doctor/').$value->doctor_id; ?>"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                        <a href="javascript:void(0)" onclick="delete_user('<?php echo $value->doctor_id?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                         <i class="fa fa fa-plus" aria-hidden="true" onclick="updateStatus(<?php echo $value->doctor_id; ?>,<?php echo $value->doctor_status; ?>)"></i>
                                         </td>
 
                                     </tr>
-                                 <?php $count++; } ?>
+                                 <?php $count++; } }?>
                                     
                                     
                                 </tbody>
@@ -106,5 +107,22 @@
 				   
 
         	  	}
+
+                function delete_user(id) {
+                        if (confirm("Are you sure want to delete?")) {
+                            $.ajax({
+                                url: "<?php echo base_url('admin/delete_doctor')?>",
+                                method: "POST",
+                                data: {
+                                    id: id,
+                                },
+                                success: function(response) {
+                                    window.location.reload();
+                                },
+
+                            });
+                        }
+                        return false;
+                    }
         	  
         </script>

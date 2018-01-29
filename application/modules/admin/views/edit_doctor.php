@@ -90,7 +90,9 @@
 
                                         <div class="form-group">
                                             <label>Date of Birth</label>
-                                        <input type="Date" id="datepicker" id="doctor_dob" value="<?php  echo $data->doctor_dob;?>" name="doctor_dob" class="form-control">
+                                              <label>Date of Birth</label>
+                                        <input type="text" id="datepicker" name="doctor_dob" class="form-control" value="<?php  echo $data->doctor_dob;?>" autocomplete="off" readonly="readonly" required="required" >
+                                        
                                         </div>
 
                                      
@@ -174,8 +176,6 @@
 
       
 
-          <script type="text/javascript" src="<?php echo base_url("asset/js/jquery.js");?>"></script> 
-          <script type="text/javascript" src="<?php echo base_url("asset/js/validation.js");?>"></script>
         <script type="text/javascript">
         $(document).ready(function(){
             $(".registration_form").validate({
@@ -192,3 +192,9 @@
         });
 
         </script>
+
+         <script type="text/javascript">
+    $(document).ready(function() {
+        $("#datepicker").datepicker();
+    });
+</script>

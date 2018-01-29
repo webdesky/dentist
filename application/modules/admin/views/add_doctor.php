@@ -26,7 +26,7 @@
 
                      <?php if ($info_message = $this->session->flashdata('info_message')): ?>
                         <div id="form-messages" class="alert alert-success" role="alert"><?php echo $info_message; ?></div>
-                 <?php endif ?> 
+                    <?php endif ?> 
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <button class="btn btn-primary"><i class="fa fa-th-list">&nbsp;Doctors List</i></button>
@@ -90,7 +90,7 @@
 
                                         <div class="form-group">
                                             <label>Date of Birth</label>
-                                        <input type="Date" id="datepicker" id="doctor_dob" name="doctor_dob" class="form-control">
+                                        <input type="text" id="datepicker" name="doctor_dob" class="form-control" autocomplete="off" readonly="readonly" required="required" >
                                         </div>
 
                                      
@@ -157,8 +157,7 @@
 
       
 
-          <script type="text/javascript" src="<?php echo base_url("asset/js/jquery.js");?>"></script> 
-          <script type="text/javascript" src="<?php echo base_url("asset/js/validation.js");?>"></script>
+         
         <script type="text/javascript">
         $(document).ready(function(){
             $(".registration_form").validate({
@@ -175,3 +174,9 @@
         });
 
         </script>
+
+        <script type="text/javascript">
+    $(document).ready(function() {
+        $("#datepicker").datepicker();
+    });
+</script>
