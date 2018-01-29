@@ -1,11 +1,9 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-<<<<<<< HEAD
+
             <h1 class="page-header">User List</h1>
-=======
-            <h1 class="page-header">User</h1>
->>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
+
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -14,11 +12,8 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-<<<<<<< HEAD
                     <a class="btn btn-primary" href="<?php echo base_url('admin/add_user')?>"><i class="fa fa-th-list">&nbsp;Add User</i></a>
-=======
-                    <button class="btn btn-primary"><i class="fa fa-th-list">&nbsp;Users List</i></button>
->>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
+
                 </div>
                 <div class="panel-body">
                     <div class="row">

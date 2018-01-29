@@ -8,7 +8,7 @@
                 <!-- /.col-lg-12 -->
             </div>
 
-
+           
              <!-- /.row -->
             <div class="row">
                 
@@ -29,18 +29,23 @@
                     <?php endif ?> 
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <button class="btn btn-primary"><i class="fa fa-th-list">&nbsp;Add Appointment</i></button>
+                            <button class="btn btn-primary"><i class="fa fa-th-list">&nbsp;Edit Appointment</i></button>
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6 col-lg-offset-2">
-                                    <form role="form" method="post" action="<?php echo base_url('admin/addAppointment') ?>" class="registration_form" enctype="multipart/form-data">
+                                    <form role="form" method="post" action="<?php echo base_url('admin/addAppointment/'.$appointment[0]->ap_id) ?>" class="registration_form" enctype="multipart/form-data">
+
+                                        <div class="form-group">
+                                            <label>Appointment Id *</label>
+                                           <input type="text" readonly="readonly" value="<?php echo $appointment[0]->appointment_id ?>" class="form-control">
+                                        </div>
                                         <div class="form-group">
                                             <label>Patient ID * </label>
                                              <select class="form-control" name="patient_id" id="patient_id">
-                                                <option>Select Patient id</option>
+                                                
                                                  <?php foreach ($patient as $key => $value) { ?>
-                                                      <option value="<?php echo $value->id; ?>"><?php echo $value->id;?></option>
+                                                      <option value="<?php echo $value->id; ?>" <?php if($appointment[0]->patient_id==$value->id){ echo 'selected';}?>><?php echo $value->id;?></option>
                                                 <?php } ?>
                                              </select>
                                             <span><?php echo form_error('patient_id'); ?></span>
@@ -49,9 +54,9 @@
                                         <div class="form-group">
                                             <label>Doctor Name * </label>
                                              <select class="form-control" name="doctor_id">
-                                                <option>Select Doctor </option>
+                                              
                                                  <?php foreach ($doctor as $key => $value) { ?>
-                                                      <option value="<?php echo $value->id; ?>"><?php echo $value->first_name;?></option>
+                                                      <option value="<?php echo $value->id; ?>" <?php if($appointment[0]->doctor_id==$value->id){ echo 'selected';}?>><?php echo $value->first_name;?></option>
                                                 <?php } ?>
                                              </select>
                                             <span><?php echo form_error('doctor_id'); ?></span>
@@ -62,10 +67,10 @@
                                             <label>Appointment Date *</label>
                                             <div class="col-lg-12">
                                                 <div class="col-lg-6">
-                                                  <input type="text" id="startdate" name="appointment_date" id="appointment_date" class="form-control" autocomplete="off" readonly="readonly"  placeholder="Start Time">
+                                                  <input type="text" id="startdate" name="appointment_date" id="appointment_date" value="<?php echo $appointment[0]->appointment_date; ?>" class="form-control" autocomplete="off" readonly="readonly"  placeholder="Start Time">
                                               </div>
                                               <div class="col-lg-6">
-                                               <input type="text" id="timepicker" name="appointment_time" class="form-control" autocomplete="off" readonly="readonly"  placeholder="Start Time">
+                                               <input type="text" id="timepicker" name="appointment_time" class="form-control" value="<?php echo $appointment[0]->appointment_time; ?>" autocomplete="off" readonly="readonly"  placeholder="Start Time">
                                             </div>
                                             </div>
                                            
@@ -73,24 +78,9 @@
 
                                         <div class="form-group">
                                             <label>Problem *</label>
-                                            <textarea class="form-control" rows="5" id="problem" name="problem" placeholder="Problem"></textarea>
+                                            <textarea class="form-control" rows="5" id="problem" " name="problem" placeholder="Problem"><?php echo $appointment[0]->problem; ?></textarea>
                                         </div>
                                             
-                                         
-                                           
-                                       <!--  <div class="form-group">
-                                            <label>Status</label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="doctor_status"  value="1" checked>Active
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="doctor_status"  value="0">Inactive
-                                            </label>
-                                            
-                                        </div> -->
-                                      
-                                        
-                                       
                                         
                                         <button type="submit" value="Save"  class="btn btn-success">Save</button>
                                         <button type="reset" class="btn btn-default">Reset</button>
@@ -111,22 +101,7 @@
  </div>
 </div>
      
-        <script type="text/javascript">
-        $(document).ready(function(){
-            $(".registration_form").validate({
-                rules :{
-                    "fname" :"required",
-                    
-                    
-                },
-            submitHandler : function(form) {
-                form.submit();
-            }
-            });
-
-        });
-
-        </script>
+        
 
         <script type="text/javascript">
     $(document).ready(function() {
