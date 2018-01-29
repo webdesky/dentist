@@ -332,11 +332,11 @@ class Admin extends CI_Controller
         return $insert_id = $this->Common_model->updateFields('doctor', $data, $where = "doctor_id=$doctor_id");
     }
     
-    public function add_user($id = null)
-    {
-        $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|alpha|min_length[2]');
-        $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|alpha|min_length[2]');
-        if (empty($id)) {
+    // public function add_user($id = null)
+    // {
+    //     $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|alpha|min_length[2]');
+    //     $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|alpha|min_length[2]');
+    //     if (empty($id)) {
 
        
 
@@ -420,21 +420,7 @@ class Admin extends CI_Controller
         }
     }
     
-    public function users_list()
-    {
-        $where = array(
-            'user_role >' => $this->session->userdata('user_role')
-        );
         
-        $where1            = array(
-            'role_id >' => $this->session->userdata('user_role')
-        );
-        $data['users']     = $this->Common_model->getAllwhere('users', $where);
-        $data['user_role'] = $this->Common_model->getAllwhere('user_role', $where1);
-        $data['body']      = 'users_list';
-        $this->load_view($data);
-    }
-    
     
     public function users_list(){
         $where             = array(
@@ -468,7 +454,7 @@ class Admin extends CI_Controller
         );
         $this->Common_model->delete('users', $where);
     }
-}
+
 
 
      public function delete_doctor(){

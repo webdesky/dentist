@@ -77,11 +77,7 @@ $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => '127.0.0.1',
 	'username' => 'root',
-<<<<<<< HEAD
 	'password' => 'Webdesky@2017',
-=======
-	'password' => '',
->>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
 	'database' => 'dentist',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',

@@ -22,19 +22,12 @@
             <?php echo $msg;?>
         </div>
         <?php }?>
-<<<<<<< HEAD
-        <form action="<?php echo base_url('admin/verifylogin')?>" method="post" id="login">
-            <label for="name">Username:</label>
-            <input type="name" id="username" name="username" autocomplete="off" required="required" placeholder="Username" required="required">
-            <label for="username">Password:</label>
-            <input type="password" id="passowrd" name="password" autocomplete="off" required="required" placeholder="Password" required="required"/>
-=======
+
         <form action="<?php echo base_url('admin/verifylogin')?>" method="post">
             <label for="name">Username:</label>
             <input type="name" id="username" name="username" autocomplete="off" required="required" placeholder="Username">
             <label for="username">Password:</label>
             <input type="password" id="passowrd" name="password" autocomplete="off" required="required" placeholder="Password" />
->>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
             <div id="lower">
                 <input type="submit" value="Login" name="submit">
             </div>

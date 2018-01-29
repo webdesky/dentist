@@ -4,18 +4,18 @@ node_modules
 .sass-cache
 
 
-asset/
-application/config/
-application/cache/
-application/config/database.php
-application/core/
-application/helpers/
-application/hooks/
-application/language/
-application/logs/
-application/models/
-application/.htaccess
-application/index.html
-application/third_party/
-application/views/
-system/
+/asset/*
+/application/config/*
+/application/cache/*
+/application/config/database.php
+/application/core/*
+/application/helpers/*
+/application/hooks/*
+/application/language/*
+/application/logs/*
+/application/models/*
+/application/.htaccess
+/application/index.html
+/application/third_party/*
+/application/views/*
+/system/*
