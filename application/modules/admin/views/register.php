@@ -1,7 +1,11 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
+<<<<<<< HEAD
+            <h1 class="page-header">User Section</h1>
+=======
             <h1 class="page-header">User</h1>
+>>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
         </div>
         <!-- /.col-lg-12 -->
     </div>

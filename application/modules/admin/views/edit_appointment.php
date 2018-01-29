@@ -81,21 +81,6 @@
                                             <textarea class="form-control" rows="5" id="problem" " name="problem" placeholder="Problem"><?php echo $appointment[0]->problem; ?></textarea>
                                         </div>
                                             
-                                         
-                                           
-                                       <!--  <div class="form-group">
-                                            <label>Status</label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="doctor_status"  value="1" checked>Active
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="doctor_status"  value="0">Inactive
-                                            </label>
-                                            
-                                        </div> -->
-                                      
-                                        
-                                       
                                         
                                         <button type="submit" value="Save"  class="btn btn-success">Save</button>
                                         <button type="reset" class="btn btn-default">Reset</button>

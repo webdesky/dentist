@@ -22,6 +22,7 @@
             <?php echo $msg;?>
         </div>
         <?php }?>
+
         <form action="<?php echo base_url('admin/verifylogin')?>" method="post">
             <label for="name">Username:</label>
             <input type="name" id="username" name="username" autocomplete="off" required="required" placeholder="Username">

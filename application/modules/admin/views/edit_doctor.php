@@ -90,9 +90,13 @@
 
                                         <div class="form-group">
                                             <label>Date of Birth</label>
+<<<<<<< HEAD
+                                        <input type="Date" id="datepicker" id="doctor_dob" value="<?php  echo $data->doctor_dob;?>" name="doctor_dob" class="form-control">
+=======
                                               <label>Date of Birth</label>
                                         <input type="text" id="datepicker" name="doctor_dob" class="form-control" value="<?php  echo $data->doctor_dob;?>" autocomplete="off" readonly="readonly" required="required" >
                                         
+>>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
                                         </div>
 
                                      
@@ -176,6 +180,11 @@
 
       
 
+<<<<<<< HEAD
+          <script type="text/javascript" src="<?php echo base_url("asset/js/jquery.js");?>"></script> 
+          <script type="text/javascript" src="<?php echo base_url("asset/js/validation.js");?>"></script>
+=======
+>>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
         <script type="text/javascript">
         $(document).ready(function(){
             $(".registration_form").validate({
@@ -191,6 +200,9 @@
 
         });
 
+<<<<<<< HEAD
+        </script>
+=======
         </script>
 
          <script type="text/javascript">
@@ -198,3 +210,4 @@
         $("#datepicker").datepicker();
     });
 </script>
+>>>>>>> 0786823f878c3f8c24f632c1152420691182d40e

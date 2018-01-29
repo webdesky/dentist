@@ -1,4 +1,4 @@
-        <div id="wrapper">
+<div id="wrapper">
 
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -275,7 +275,7 @@
                                     <a href="<?php echo base_url('admin/Schedule/')?>">Add Schedule</a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo base_url('admin/users_list/')?>">View Schedule</a>
+                                    <a href="<?php echo base_url('admin/list_schedule/')?>">View Schedule</a>
                                 </li>
 
                             </ul>

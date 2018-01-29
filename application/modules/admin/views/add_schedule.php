@@ -7,8 +7,7 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-
-
+               
              <!-- /.row -->
             <div class="row">
                 
@@ -37,17 +36,19 @@
                                     <form role="form" method="post" action="<?php echo base_url('admin/addSchedule') ?>" class="registration_form" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label>Doctor Name </label>
-                                             <select class="form-control" name="fk_doctor_id">
+                                             <select class="form-control" name="doctor_id">
                                                 <option>Select Doctor</option>
                                                  <?php foreach ($doctor as $key => $value) { ?>
-                                                      <option value="<?php echo $value['doctor_id']; ?>"><?php echo $value['doctor_fname'].' '.$value['doctor_lname']; ?></option>
+                                                      <option value="<?php echo $value->id; ?>"><?php echo $value->first_name; ?></option>
                                                 <?php } ?>
                                              </select>
                                             <span><?php echo form_error('fk_doctor_id'); ?></span>
                                         </div>
                                         <div class="form-group">
                                             <label>Available Days</label>
-                                            <select class="form-control" name="schedule[]" multiple="multiple">
+                                            <div class="col-lg-12">
+                                                <div class="col-lg-4">
+                                            <select class="form-control" name="schedule[]" >
                                                 <option>Select Option</option>
                                                 <option value="sunday">Sunday</option>
                                                 <option value="Monday">Monday</option>
@@ -59,8 +60,24 @@
                                                 
                                             </select>
                                         </div>
+                                        <div class="col-lg-3">
+                                            <input type="text" id="starttime" name="starttime[]" class="form-control date" autocomplete="off" readonly="readonly"  placeholder="Start Time">
+                                        </div>
+                                        <div class="col-lg-3">
+                                             <input type="text" id="endtime" name="endtime[]" class="form-control date" autocomplete="off" readonly="readonly"  placeholder="Start Time">
+                                         </div>
 
-                                        <div class="form-group row">
+                                         <div class="col-lg-2">
+                                               <i class="fa fa-plus" aria-hidden="true" id="add"></i>
+                                         </div>
+
+                                         </div>
+
+                                            <div id="app"></div>
+                                        </div>
+                                        
+
+                                        <!-- <div class="form-group row">
                                             <label>Available Time</label>
                                             <div class="col-lg-12">
                                                 <div class="col-lg-6">
@@ -71,10 +88,10 @@
                                             </div>
                                             </div>
                                            
-                                        </div>
+                                        </div> -->
                                             
-                                         <div class="form-group row">
-                                            <label>Available Time</label>
+                                         <!-- <div class="form-group row">
+                                            <label>Per Patient Time</label>
                                           
                                                 
                                                   <input type="text" id="timepicker" name="time" class="form-control" autocomplete="off" readonly="readonly"  placeholder="Start Time">
@@ -90,7 +107,7 @@
                                             </label>
                                             
                                         </div>
-                                      
+                                       -->
                                         
                                        
                                         
@@ -106,7 +123,7 @@
                     </div>
                     <!-- /.panel -->
                 </div>
-                <!-- /.col-lg-12 -->
+                <!-- /.col-lg-12 --
             </div>
             <!-- row -->
 
@@ -114,36 +131,46 @@
 </div>
      
         <script type="text/javascript">
-        $(document).ready(function(){
-            $(".registration_form").validate({
-                rules :{
-                    "fname" :"required",
-                    
-                    
-                },
-            submitHandler : function(form) {
-                form.submit();
-            }
-            });
+                $(document).ready(function(){
+                     
+                        $("#add").click(function(){
 
+                            $("#app").append('<div class="col-lg-12"><div class="col-lg-4"><select class="form-control " name="schedule[]" ><option>Select Option</option><option value="sunday">Sunday</option><option value="Monday">Monday</option><option value="tuesday">Tuesday</option><option value="wednesday">Wednesday</option><option value="thursday">Thursday</option><option value="friday">Friday</option><option value="saturday">Saturday</option></select></div> <div class="col-lg-3"><input type="text" id="starttime" name="starttime[]" class="form-control date" autocomplete="off" readonly="readonly"  placeholder="Start Time"></div><div class="col-lg-3"><input type="text" id="endtime" name="endtime[]" class="form-control date" autocomplete="off" readonly="readonly"  placeholder="Start Time"></div></div>');
+
+
+                                     $('.date').each(function(){
+                                        $(this).timepicker();
+                                    });
+
+                        });
+
+                      
+            
+                });
+       
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+            $('.date').each(function(){
+                        $(this).timepicker();
+                    });
         });
-
         </script>
 
-        <script type="text/javascript">
-    $(document).ready(function() {
-        $("#startdate").datepicker();
-        $("#enddate").datepicker();
-         $('#timepicker').timepicker({
-            timeFormat: 'h:mm p',
-            interval: 60,
-            minTime: '10',
-            maxTime: '6:00pm',
-            defaultTime: '11',
-            startTime: '10:00',
-            dynamic: false,
-            dropdown: true,
-            scrollbar: true
-                 });
-    });
-</script>
+        <<!-- script type="text/javascript">
+            $(document).ready(function() {
+                $("#starttime").timepicker();
+                $("#endtime").timepicker();
+                 $('#timepicker').timepicker({
+                    timeFormat: 'h:mm p',
+                    interval: 60,
+                    minTime: '10',
+                    maxTime: '6:00pm',
+                    defaultTime: '11',
+                    startTime: '10:00',
+                    dynamic: false,
+                    dropdown: true,
+                    scrollbar: true
+                         });
+            });
+</script> -->

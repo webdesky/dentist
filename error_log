@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [23-Nov-2017 13:25:52 Etc/GMT] PHP Fatal error:  Can't use function return value in write context in /home/webdeqgk/public_html/erp/application/modules/admin/views/login.php on line 15
 [23-Nov-2017 13:28:25 Etc/GMT] PHP Fatal error:  Can't use function return value in write context in /home/webdeqgk/public_html/erp/application/modules/admin/views/login.php on line 15
 [28-Nov-2017 13:11:49 Etc/GMT] PHP Fatal error:  Can't use function return value in write context in /home/webdeqgk/public_html/erp/application/modules/admin/views/login.php on line 15
@@ -37,3 +38,44 @@
 [12-Jan-2018 10:35:35 Etc/GMT] PHP Fatal error:  Cannot use object of type stdClass as array in /home/webdeqgk/public_html/erp/application/modules/admin/views/edit_form_wizard.php on line 221
 [12-Jan-2018 10:36:40 Etc/GMT] PHP Fatal error:  Cannot use object of type stdClass as array in /home/webdeqgk/public_html/erp/application/modules/admin/views/edit_form_wizard.php on line 220
 [12-Jan-2018 10:36:43 Etc/GMT] PHP Fatal error:  Cannot use object of type stdClass as array in /home/webdeqgk/public_html/erp/application/modules/admin/views/edit_form_wizard.php on line 220
+=======
+[23-Nov-2017 13:25:52 Etc/GMT] PHP Fatal error:  Can't use function return value in write context in /home/webdeqgk/public_html/erp/application/modules/admin/views/login.php on line 15
+[23-Nov-2017 13:28:25 Etc/GMT] PHP Fatal error:  Can't use function return value in write context in /home/webdeqgk/public_html/erp/application/modules/admin/views/login.php on line 15
+[28-Nov-2017 13:11:49 Etc/GMT] PHP Fatal error:  Can't use function return value in write context in /home/webdeqgk/public_html/erp/application/modules/admin/views/login.php on line 15
+[28-Nov-2017 13:13:01 Etc/GMT] PHP Fatal error:  Can't use function return value in write context in /home/webdeqgk/public_html/erp/application/modules/admin/views/login.php on line 15
+[28-Nov-2017 13:13:03 Etc/GMT] PHP Fatal error:  Can't use function return value in write context in /home/webdeqgk/public_html/erp/application/modules/admin/views/login.php on line 15
+[28-Nov-2017 13:13:04 Etc/GMT] PHP Fatal error:  Can't use function return value in write context in /home/webdeqgk/public_html/erp/application/modules/admin/views/login.php on line 15
+[12-Dec-2017 14:59:06 Etc/GMT] PHP Fatal error:  Cannot use isset() on the result of an expression (you can use "null !== expression" instead) in /home/webdeqgk/public_html/erp/application/modules/admin/controllers/Admin.php on line 3300
+[13-Dec-2017 14:29:42 Etc/GMT] PHP Fatal error:  Cannot redeclare Admin::get_item_data() in /home/webdeqgk/public_html/erp/application/modules/admin/controllers/Admin.php on line 4407
+[27-Dec-2017 11:00:57 Etc/GMT] PHP Fatal error:  Cannot redeclare Common_model::get_sales_all_records() in /home/webdeqgk/public_html/erp/application/modules/admin/models/Common_model.php on line 385
+[27-Dec-2017 11:00:59 Etc/GMT] PHP Fatal error:  Cannot redeclare Common_model::get_sales_all_records() in /home/webdeqgk/public_html/erp/application/modules/admin/models/Common_model.php on line 385
+[27-Dec-2017 11:01:00 Etc/GMT] PHP Fatal error:  Cannot redeclare Common_model::get_sales_all_records() in /home/webdeqgk/public_html/erp/application/modules/admin/models/Common_model.php on line 385
+[27-Dec-2017 11:01:00 Etc/GMT] PHP Fatal error:  Cannot redeclare Common_model::get_sales_all_records() in /home/webdeqgk/public_html/erp/application/modules/admin/models/Common_model.php on line 385
+[27-Dec-2017 11:01:00 Etc/GMT] PHP Fatal error:  Cannot redeclare Common_model::get_sales_all_records() in /home/webdeqgk/public_html/erp/application/modules/admin/models/Common_model.php on line 385
+[27-Dec-2017 11:01:00 Etc/GMT] PHP Fatal error:  Cannot redeclare Common_model::get_sales_all_records() in /home/webdeqgk/public_html/erp/application/modules/admin/models/Common_model.php on line 385
+[27-Dec-2017 11:01:06 Etc/GMT] PHP Fatal error:  Cannot redeclare Common_model::get_sales_all_records() in /home/webdeqgk/public_html/erp/application/modules/admin/models/Common_model.php on line 385
+[27-Dec-2017 11:01:15 Etc/GMT] PHP Fatal error:  Cannot redeclare Common_model::get_sales_all_records() in /home/webdeqgk/public_html/erp/application/modules/admin/models/Common_model.php on line 385
+[27-Dec-2017 11:01:15 Etc/GMT] PHP Fatal error:  Cannot redeclare Common_model::get_sales_all_records() in /home/webdeqgk/public_html/erp/application/modules/admin/models/Common_model.php on line 385
+[27-Dec-2017 11:01:21 Etc/GMT] PHP Fatal error:  Cannot redeclare Common_model::get_sales_all_records() in /home/webdeqgk/public_html/erp/application/modules/admin/models/Common_model.php on line 385
+[27-Dec-2017 11:01:27 Etc/GMT] PHP Fatal error:  Cannot redeclare Common_model::get_sales_all_records() in /home/webdeqgk/public_html/erp/application/modules/admin/models/Common_model.php on line 385
+[27-Dec-2017 11:01:29 Etc/GMT] PHP Fatal error:  Cannot redeclare Common_model::get_sales_all_records() in /home/webdeqgk/public_html/erp/application/modules/admin/models/Common_model.php on line 385
+[27-Dec-2017 11:01:30 Etc/GMT] PHP Fatal error:  Cannot redeclare Common_model::get_sales_all_records() in /home/webdeqgk/public_html/erp/application/modules/admin/models/Common_model.php on line 385
+[27-Dec-2017 11:01:31 Etc/GMT] PHP Fatal error:  Cannot redeclare Common_model::get_sales_all_records() in /home/webdeqgk/public_html/erp/application/modules/admin/models/Common_model.php on line 385
+[27-Dec-2017 11:01:31 Etc/GMT] PHP Fatal error:  Cannot redeclare Common_model::get_sales_all_records() in /home/webdeqgk/public_html/erp/application/modules/admin/models/Common_model.php on line 385
+[27-Dec-2017 11:01:32 Etc/GMT] PHP Fatal error:  Cannot redeclare Common_model::get_sales_all_records() in /home/webdeqgk/public_html/erp/application/modules/admin/models/Common_model.php on line 385
+[27-Dec-2017 11:01:32 Etc/GMT] PHP Fatal error:  Cannot redeclare Common_model::get_sales_all_records() in /home/webdeqgk/public_html/erp/application/modules/admin/models/Common_model.php on line 385
+[27-Dec-2017 11:01:34 Etc/GMT] PHP Fatal error:  Cannot redeclare Common_model::get_sales_all_records() in /home/webdeqgk/public_html/erp/application/modules/admin/models/Common_model.php on line 385
+[27-Dec-2017 11:01:36 Etc/GMT] PHP Fatal error:  Cannot redeclare Common_model::get_sales_all_records() in /home/webdeqgk/public_html/erp/application/modules/admin/models/Common_model.php on line 385
+[27-Dec-2017 11:41:50 Etc/GMT] PHP Fatal error:  Cannot redeclare Common_model::get_sales_all_records() in /home/webdeqgk/public_html/erp/application/modules/admin/models/Common_model.php on line 385
+[27-Dec-2017 11:41:50 Etc/GMT] PHP Fatal error:  Cannot redeclare Common_model::get_sales_all_records() in /home/webdeqgk/public_html/erp/application/modules/admin/models/Common_model.php on line 385
+[27-Dec-2017 11:41:58 Etc/GMT] PHP Fatal error:  Cannot redeclare Common_model::get_sales_all_records() in /home/webdeqgk/public_html/erp/application/modules/admin/models/Common_model.php on line 385
+[28-Dec-2017 07:19:29 Etc/GMT] PHP Fatal error:  Cannot redeclare Admin::delete_exploter_banch_details() in /home/webdeqgk/public_html/erp/application/modules/admin/controllers/Admin.php on line 4244
+[12-Jan-2018 10:33:07 Etc/GMT] PHP Parse error:  syntax error, unexpected '=', expecting ')' in /home/webdeqgk/public_html/erp/application/modules/admin/controllers/Admin.php on line 2676
+[12-Jan-2018 10:33:27 Etc/GMT] PHP Parse error:  syntax error, unexpected '=>' (T_DOUBLE_ARROW), expecting ')' in /home/webdeqgk/public_html/erp/application/modules/admin/controllers/Admin.php on line 2676
+[12-Jan-2018 10:33:29 Etc/GMT] PHP Parse error:  syntax error, unexpected '=>' (T_DOUBLE_ARROW), expecting ')' in /home/webdeqgk/public_html/erp/application/modules/admin/controllers/Admin.php on line 2676
+[12-Jan-2018 10:35:25 Etc/GMT] PHP Fatal error:  Cannot use object of type stdClass as array in /home/webdeqgk/public_html/erp/application/modules/admin/views/edit_form_wizard.php on line 221
+[12-Jan-2018 10:35:32 Etc/GMT] PHP Fatal error:  Cannot use object of type stdClass as array in /home/webdeqgk/public_html/erp/application/modules/admin/views/edit_form_wizard.php on line 221
+[12-Jan-2018 10:35:35 Etc/GMT] PHP Fatal error:  Cannot use object of type stdClass as array in /home/webdeqgk/public_html/erp/application/modules/admin/views/edit_form_wizard.php on line 221
+[12-Jan-2018 10:36:40 Etc/GMT] PHP Fatal error:  Cannot use object of type stdClass as array in /home/webdeqgk/public_html/erp/application/modules/admin/views/edit_form_wizard.php on line 220
+[12-Jan-2018 10:36:43 Etc/GMT] PHP Fatal error:  Cannot use object of type stdClass as array in /home/webdeqgk/public_html/erp/application/modules/admin/views/edit_form_wizard.php on line 220
+>>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
