@@ -52,7 +52,7 @@
                                             <select class="form-control" name="schedule[]" >
                                                 <option>Select Option</option>
                                                 <option value="sunday">Sunday</option>
-                                                <option value="Monday">Monday</option>
+                                                <option value="monday">Monday</option>
                                                 <option value="tuesday">Tuesday</option>
                                                 <option value="wednesday">Wednesday</option>
                                                 <option value="thursday">Thursday</option>
@@ -70,6 +70,7 @@
 
                                          <div class="col-lg-2">
                                                <i class="fa fa-plus" aria-hidden="true" id="add"></i>
+                                               <i class="fa fa-minus" aria-hidden="true" id="removeButton"></i>
                                          </div>
 
                                          </div>
@@ -133,19 +134,42 @@
      
         <script type="text/javascript">
                 $(document).ready(function(){
-                     
+                        var counter = 2;
                         $("#add").click(function(){
 
-                            $("#app").append('<div class="col-lg-12"><div class="col-lg-4"><select class="form-control " name="schedule[]" ><option>Select Option</option><option value="sunday">Sunday</option><option value="Monday">Monday</option><option value="tuesday">Tuesday</option><option value="wednesday">Wednesday</option><option value="thursday">Thursday</option><option value="friday">Friday</option><option value="saturday">Saturday</option></select></div> <div class="col-lg-3"><input type="text" id="starttime" name="starttime[]" class="form-control date" autocomplete="off" readonly="readonly"  placeholder="Start Time"></div><div class="col-lg-3"><input type="text" id="endtime" name="endtime[]" class="form-control date" autocomplete="off" readonly="readonly"  placeholder="Start Time"></div></div>');
+                            if(counter>14){
+                                        alert("Only 14 textboxes allow");
+                                        return false;
+                                }
+
+                            $("#app").append('<div class="col-lg-12" id="box'+ counter +'"><div class="col-lg-4"><select class="form-control " name="schedule[]" ><option>Select Option</option><option value="sunday">Sunday</option><option value="Monday">Monday</option><option value="tuesday">Tuesday</option><option value="wednesday">Wednesday</option><option value="thursday">Thursday</option><option value="friday">Friday</option><option value="saturday">Saturday</option></select></div> <div class="col-lg-3"><input type="text" id="starttime" name="starttime[]" class="form-control date" autocomplete="off" readonly="readonly"  placeholder="Start Time"></div><div class="col-lg-3"><input type="text" id="endtime" name="endtime[]" class="form-control date" autocomplete="off" readonly="readonly"  placeholder="Start Time"></div></div>');
 
 
                                      $('.date').each(function(){
                                         $(this).timepicker();
+
                                     });
+
+                                     
+                               
+
+                                     counter++;
 
                         });
 
-                      
+
+                         $("#removeButton").click(function () {
+                             console.log(counter);
+                            if(counter==1){
+                                  alert(counter);
+                                  return false;
+                               }
+
+                             counter--;
+
+                                $("#box" + counter).remove();
+
+                             });
             
                 });
        

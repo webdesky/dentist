@@ -166,8 +166,13 @@ class Admin extends CI_Controller
 
 
      
-    public function register($id=null)
+    public function register($id=null,$user_role=null)
     {        
+
+        $role=$user_role;
+        
+         
+       
         $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|alpha|min_length[2]');
         $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|alpha|min_length[2]');
         if(empty($id)){
@@ -180,10 +185,11 @@ class Admin extends CI_Controller
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('errors', validation_errors());
             $data['body'] = 'register';
+            $data['user_role']="$role";
             $this->load_view($data);
         } else {
             if ($this->controller->checkSession()) {
-                $user_role   = '3';
+                $user_role   = $this->input->post('user_role');
                 $first_name  = $this->input->post('first_name');
                 $last_name   = $this->input->post('last_name');
                 $email       = $this->input->post('email');
@@ -213,7 +219,7 @@ class Admin extends CI_Controller
                     'created_at' => date('Y-m-d H:i:s')
                 );
                 
-                
+
                 if (isset($_FILES['image']['name']) && !empty($_FILES['image']['name'])) {
                     $count = count($_FILES['image']['name']);
                     for ($i = 0; $i < $count; $i++) {
@@ -235,29 +241,33 @@ class Admin extends CI_Controller
                     unset($data['created_at']);
                     unset($data['email']);
                     unset($data['password']);
+
                     $result = $this->model->updateFields('users', $data, $where);
 
                 } else {
                     $result = $this->model->insertData('users', $data);
                 }
-                $this->users_list();
+                $this->users_list($user_role);
             }
         }
     }
     
         
     
-    public function users_list(){
+    public function users_list($user_role){
+        
+
         $where             = array(
-            'user_role >' => $this->session->userdata('user_role')
+            'user_role ' => $user_role
         );
 
         $where1             = array(
-            'role_id >' => $this->session->userdata('user_role')
+            'role_id ' => $user_role
         );
         $data['users'] = $this->model->getAllwhere('users', $where);
         $data['user_role'] = $this->model->getAllwhere('user_role', $where1);
         $data['body'] = 'users_list';
+        
         $this->load_view($data);
     }
 
@@ -297,38 +307,47 @@ class Admin extends CI_Controller
 
     public function addSchedule($id=null){
                 $data=$this->input->post();
-                $id=$data['doctor_id'];
+                
+                $doctor_id=$data['doctor_id'];
+              // $sc_id=$data['sc_id'];
                 $new=[];
                 foreach ($data['schedule'] as $daykey => $day) {
                    foreach ($data['starttime'] as $timekey => $time) {
                         foreach ($data['endtime'] as $endkey => $end) {
-                          $new[$daykey]['doctor_id']=$id;
+                           
+                          $new[$daykey]['doctor_id']=$doctor_id;
                           $new[$daykey]['day']=$day;
                           $new[$daykey]['starttime']=$time;
                           $new[$daykey]['endtime']=$end;
                           $new[$daykey]['created_at']=date('Y-m-d H:i:s');
-
+                        //  @$new[$daykey]['sc_id']=$data['sc_id'][$daykey];
+                            
+                         
+                      }
                         }
                    }
-                }
+                
 
+               
                 if (!empty($id)) {
-
-                    
-                    unset($new['created_at']);
-                  
-                    $id = $this->model->updateBatch('schedule', $new, 'doctor_id');
+                     $where             = array(
+                    'doctor_id' => $doctor_id
+                      );
+                    $delete= $this->model->delete('schedule',$where);
+                    //unset($new['created_at']);
+                    $result=  $this->model->insertBatch('schedule',$new);
+                   // $result = $this->model->updateBatch('schedule', $new, 'sc_id');
 
                 } else {
-                   $id=  $this->model->insertBatch('schedule',$new);
+                   
+                   $result=  $this->model->insertBatch('schedule',$new);
                 }
                
             //  $id=  $this->model->insertBatch('schedule',$new);
-              if(!empty($id)){
+              
                 $this->session->set_flashdata("info_message","schedule added Successfully..");
                 redirect("admin/schedule");
-              }
-
+              
 
     }
 
@@ -344,13 +363,15 @@ class Admin extends CI_Controller
     public function edit_schedule($id){
           $data['body'] = 'edit_schedule';
           $where             = array(
-                    'doctor_id' => $id
+                    'schedule.doctor_id' => $id
                 );
          $where1 = array(
                     'user_role' => 2
                 );
-             $data['doctor']=$this->model->getAllwhere('users',$where1);
-          $data['schedule']=$this->model->GetJoinRecord('schedule','doctor_id','users','id','',$where);
+           $data['doctor']=$this->model->getAllwhere('users',$where1);
+           
+           $data['schedule']=$this->model->GetJoinRecord('schedule','doctor_id','users','id','schedule.sc_id,schedule.doctor_id,schedule.day,schedule.starttime,schedule.endtime,users.first_name',$where);
+          
           $this->load->view('common/templates/default', $data);
 
     }

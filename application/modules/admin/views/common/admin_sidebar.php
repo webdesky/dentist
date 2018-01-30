@@ -80,6 +80,32 @@
                           
                         </li> -->
 
+                          <li>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Doctor<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo base_url('admin/register/null/2')?>">Add Doctor</a>
+                                </li>
+                                 <li>
+                                    <a href="<?php echo base_url('admin/users_list/2')?>">View Doctor</a>
+                                </li> 
+
+                            </ul>
+                        </li>
+
+                         <li>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Patient<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo base_url('admin/register/null/3')?>">Add Patient</a>
+                                </li>
+                                 <li>
+                                    <a href="<?php echo base_url('admin/users_list/3')?>">View Patient</a>
+                                </li> 
+
+                            </ul>
+                        </li>
+
                         <li>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i> Schedule<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -87,7 +113,7 @@
                                     <a href="<?php echo base_url('admin/Schedule/')?>">Add Schedule</a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo base_url('admin/users_list/')?>">View Schedule</a>
+                                    <a href="<?php echo base_url('admin/list_schedule/')?>">View Schedule</a>
                                 </li>
 
                             </ul>
@@ -105,6 +131,21 @@
 
                             </ul>
                         </li>
+
+                        <li>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Rights<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo base_url('admin/doctor_rights/')?>">Doctor</a>
+                                </li>
+                                 <li>
+                                    <a href="<?php echo base_url('admin/appointment_list/')?>">Patient</a>
+                                </li> 
+
+                            </ul>
+                        </li>
+
+                       
                         <!-- <li>
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">

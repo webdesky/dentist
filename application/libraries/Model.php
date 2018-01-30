@@ -88,7 +88,7 @@ class Model
     
     function GetJoinRecord($table, $field_first, $tablejointo, $field_second, $field_val = '', $where = "",$group_by='')
     {
-        $this->CI->db->cache_on();
+        
         if (!empty($field_val)) {
             $this->CI->db->select("$field_val");
         } else {
@@ -103,7 +103,8 @@ class Model
             $this->CI->db->group_by("$table.$field_first");
         }
         $q = $this->CI->db->get();
-        $this->CI->db->cache_off();
+       // echo $this->CI->db->last_query();die;
+        //$this->CI->db->cache_off();
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $rows) {
                 $data[] = $rows;
@@ -115,7 +116,7 @@ class Model
     
     function getAllwhere($table, $where = '', $order_fld = '', $order_type = '', $select = 'all', $limit = '', $offset = '')
     {
-        $this->CI->db->cache_on();
+        //$this->CI->db->cache_on();
         if ($order_fld != '' && $order_type != '') {
             $this->CI->db->order_by($order_fld, $order_type);
         }
@@ -133,7 +134,7 @@ class Model
             $this->CI->db->limit($limit);
         }
         $q        = $this->CI->db->get($table);
-        $this->CI->db->cache_off();
+       // $this->CI->db->cache_off();
         //echo $this->db->last_query(); 
         $num_rows = $q->num_rows();
         if ($num_rows > 0) {
