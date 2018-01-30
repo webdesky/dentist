@@ -78,8 +78,8 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="dob">Gender:</label>
                                     <div class="col-sm-10">
-                                        <label class="radio-inline"><input type="radio" name="gender" value="male" <?php if($users[0]->blood_group=="male"){ echo 'checked';}?>>Male</label>
-                                        <label class="radio-inline"><input type="radio" name="gender" value="female" <?php if($users[0]->blood_group=="female"){ echo 'checked';}?>>Female</label>
+                                        <label class="radio-inline"><input type="radio" name="gender" value="male" <?php if($users[0]->gender=="male"){ echo 'checked';}?>>Male</label>
+                                        <label class="radio-inline"><input type="radio" name="gender" value="female" <?php if($users[0]->gender=="female"){ echo 'checked';}?>>Female</label>
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>

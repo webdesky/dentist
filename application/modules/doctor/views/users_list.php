@@ -38,7 +38,7 @@
                                     <td><?php echo $users_list->mobile;?></td>
                                     <td><?php echo $users_list->gender;?></td>
                                     <td><?php if($users_list->user_role==2){ echo 'Doctor';}elseif($users_list->user_role==3){ echo 'Patient';}else{echo 'Admin';}?></td>
-                                    <td><a href="<?php echo base_url('admin/edit_user/'.$users_list->id)?>"><span class="glyphicon glyphicon-edit"></span></a> | <a href="javascript:void(0)" onclick="delete_user('<?php echo $users_list->id?>')"><span class="glyphicon glyphicon-trash"></span></a></td>
+                                    <td><a href="<?php echo base_url('doctor/edit_user/'.$users_list->id)?>"><span class="glyphicon glyphicon-edit"></span></a> | <a href="javascript:void(0)" onclick="delete_user('<?php echo $users_list->id?>')"><span class="glyphicon glyphicon-trash"></span></a></td>
                                   </tr>
                                   <?php $i++;}?>
                                 </tbody>
@@ -68,6 +68,7 @@
             method: "POST",
             data: {
                 id: id,
+                table:'user'
             },
             success: function(response) {
                 window.location.reload();

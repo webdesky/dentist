@@ -37,7 +37,7 @@
 
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
+                    <ul class="nav" id="side-menu" class="sidebar-menu">
                         <li class="sidebar-search">
                             <div class="input-group custom-search-form">
                                 <input type="text" class="form-control" placeholder="Search...">
@@ -54,16 +54,64 @@
                         </li>
                         
                         <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Patients<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
+                            <a href="#"><i class="fa fa-wheelchair"></i> Patients<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level treeview-menu">
                                 <li>
-                                    <a href="<?php echo base_url('doctor/user/')?>">Add Patients</a>
+                                    <a href="<?php echo base_url('doctor/register/')?>">Add Patients</a>
                                 </li>
                                 <li>
                                     <a href="<?php echo base_url('doctor/users_list/')?>">View Patients</a>
                                 </li>
+                                <li>
+                                    <a href="<?php echo base_url('doctor/add_document/')?>">Add Document</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url('doctor/document_list/')?>">Document List</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
+                        </li>
+
+                        <li>
+                            <a href="#"><i class="fa fa-edit" aria-hidden="true"></i> Appointment<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level treeview-menu">
+                                <li>
+                                    <a href="<?php echo base_url('doctor/Appointment/')?>">Add Appointment</a>
+                                </li>
+                                 <li>
+                                    <a href="<?php echo base_url('doctor/appointment_list/')?>">View Appointment</a>
+                                </li> 
+
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#"><i class="fa fa-book" aria-hidden="true"></i> Prescription<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level treeview-menu">
+                                <li>
+                                    <a href="<?php echo base_url('doctor/case_study/')?>">Add Patient Case Study</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url('doctor/case_study_list/')?>">Patient Case Study List</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">Add Prescription</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">Prescription List</a>
+                                </li> 
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i> Message<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level treeview-menu">
+                                <li>
+                                    <a href="<?php echo base_url('doctor/send_message/')?>">Send Message</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url('doctor/message_list/')?>">Message List</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -72,3 +120,30 @@
             <!-- /.navbar-static-side -->
         </nav>
 
+
+<style type="text/css">
+.sidebar-menu .treeview-menu {
+    position: relative;
+    display: none;
+    list-style: none;
+    padding: 5px 0 10px;
+    margin: 0;
+    padding-left: 35px;
+    
+}
+    /*.sidebar-menu .treeview-menu > li > a {
+    padding: 5px 5px 5px 20px;
+    display: block;
+    color: #a6a6a6;
+    letter-spacing: 0.3px;
+}
+.sidebar-menu .treeview-menu > li::before {
+    left: 0;
+    top: 13px;
+    width: 15px;
+    content: ' ';
+    position: absolute;
+    display: inline-block;
+    border: 1px solid rgba(59, 70, 72, 0.5);
+}*/
+</style>

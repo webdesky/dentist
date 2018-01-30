@@ -22,5 +22,10 @@
     <script src="<?php echo base_url('asset/vendor/bootstrap/js/bootstrap.min.js');?>"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+
+    <script src="<?php echo base_url('asset/ckeditor/ckeditor.js'); ?>"></script>
+    <link rel="stylesheet" href="<?php base_url('asset/ckeditor/contents.css'); ?>">
+
+
 </head>
 <body>
