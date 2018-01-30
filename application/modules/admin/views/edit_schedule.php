@@ -45,21 +45,26 @@
                                             <span><?php echo form_error('fk_doctor_id'); ?></span>
                                         </div>
                                         <div class="form-group">
-                                            <label>Available Days</label>
-                                            <?php  foreach ($schedule as $key => $value) {
 
-                                                 // echo "<pre>";
-                                                 // print_r($schedule);
+                                            <label>Available Days</label>
+                                              <div class="col-lg-2 col-lg-offset-10">
+                                               <i class="fa fa-plus" aria-hidden="true" id="add"></i>
+                                               <i class="fa fa-minus" aria-hidden="true" id="removeButton"></i>
+                                                </div>
+                                            <?php  foreach ($schedule as $key => $value) {
+                                                    
+                                              
                                                 ?>
                                                 
                                               
                                             <div class="col-lg-12">
                                                 <div class="col-lg-4">
-                                            <select class="form-control" name="schedule[]" >
+                                                   
+                                                 <select class="form-control" name="schedule[]" >
 
                                                 
                                                 <option value="sunday"  <?php if($schedule[$key]->day=='sunday'){ echo 'selected';}?>>Sunday</option>
-                                                <option value="Monday" <?php if($schedule[$key]->day=='monday'){ echo 'selected';}?>>Monday</option>
+                                                <option value="monday" <?php if($schedule[$key]->day=='monday'){ echo 'selected';}?>>Monday</option>
                                                 <option value="tuesday" <?php if($schedule[$key]->day=='tuesday'){ echo 'selected';}?>>Tuesday</option>
                                                 <option value="wednesday" <?php if($schedule[$key]->day=='wednesday'){ echo 'selected';}?>>Wednesday</option>
                                                 <option value="thursday" <?php if($schedule[$key]->day=='thursday'){ echo 'selected';}?>>Thursday</option>
@@ -69,21 +74,23 @@
                                             </select>
                                         </div>
                                         <div class="col-lg-3">
+                                            
                                             <input type="text" id="starttime" name="starttime[]" value="<?php echo $schedule[$key]->starttime; ?>" class="form-control date" autocomplete="off" readonly="readonly"  placeholder="Start Time">
                                         </div>
                                         <div class="col-lg-3">
                                              <input type="text" id="endtime" name="endtime[]" value="<?php echo $schedule[$key]->endtime; ?>" class="form-control date" autocomplete="off" readonly="readonly"  placeholder="Start Time">
                                          </div>
-
+                                        
                                          
+                                        
+
 
                                          </div>
-
+                                              
                                          <?php   } ?>
-                                         <div class="col-lg-4 col-lg-offset-10">
-                                               <i class="fa fa-plus" aria-hidden="true" id="add"></i>
-                                         </div>
 
+
+                                        
                                          <!-- lg 12 ends -->
 
                                             <div id="app"></div>
@@ -145,19 +152,42 @@
      
         <script type="text/javascript">
                 $(document).ready(function(){
-                     
+                        var counter = 2;
                         $("#add").click(function(){
 
-                            $("#app").append('<div class="col-lg-12"><div class="col-lg-4"><select class="form-control " name="schedule[]" ><option>Select Option</option><option value="sunday">Sunday</option><option value="Monday">Monday</option><option value="tuesday">Tuesday</option><option value="wednesday">Wednesday</option><option value="thursday">Thursday</option><option value="friday">Friday</option><option value="saturday">Saturday</option></select></div> <div class="col-lg-3"><input type="text" id="starttime" name="starttime[]" class="form-control date" autocomplete="off" readonly="readonly"  placeholder="Start Time"></div><div class="col-lg-3"><input type="text" id="endtime" name="endtime[]" class="form-control date" autocomplete="off" readonly="readonly"  placeholder="Start Time"></div></div>');
+                            if(counter>14){
+                                        alert("Only 14 textboxes allow");
+                                        return false;
+                                }
+
+                            $("#app").append('<div class="col-lg-12" id="box'+ counter +'"><div class="col-lg-4"><select class="form-control " name="schedule[]" ><option>Select Option</option><option value="sunday">Sunday</option><option value="Monday">Monday</option><option value="tuesday">Tuesday</option><option value="wednesday">Wednesday</option><option value="thursday">Thursday</option><option value="friday">Friday</option><option value="saturday">Saturday</option></select></div> <div class="col-lg-3"><input type="text" id="starttime" name="starttime[]" class="form-control date" autocomplete="off" readonly="readonly"  placeholder="Start Time"></div><div class="col-lg-3"><input type="text" id="endtime" name="endtime[]" class="form-control date" autocomplete="off" readonly="readonly"  placeholder="Start Time"></div></div>');
 
 
                                      $('.date').each(function(){
                                         $(this).timepicker();
+
                                     });
+
+                                     
+                               
+
+                                     counter++;
 
                         });
 
-                      
+
+                         $("#removeButton").click(function () {
+                             console.log(counter);
+                            if(counter==1){
+                                  alert(counter);
+                                  return false;
+                               }
+
+                             counter--;
+
+                                $("#box" + counter).remove();
+
+                             });
             
                 });
        
@@ -167,6 +197,8 @@
             $('.date').each(function(){
                         $(this).timepicker();
                     });
+
+
         });
         </script>
 

@@ -33,15 +33,23 @@
                                 <?php 
  								$count=1;
                                 if($scheduleList){
-                                foreach ($scheduleList as  $value) { ?>
+                                foreach ($scheduleList as  $value) {
+
+                                    $days=$value->Days;
+                                    $data=explode(",",$days);
+                                    $sortedDays=array_unique($data);
+                                    $day=implode(",",$sortedDays);
+                                    
+
+                                 ?>
                                 	<tr class="odd gradeX">
                                         <td><?php echo $count; ?></td>
                                         
                                         
                                         <td class="center"><?php echo $value->first_name; ?></td>
                                        
-                                       
-                                        <td class="center"><?php echo $value->Days; ?></td>
+                                         
+                                         <td class="center"><?php echo $day ?></td>
                                        
                                         
                                        

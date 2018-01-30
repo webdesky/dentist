@@ -15,6 +15,7 @@
 </style>
 
     <!-- /.row -->
+
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
@@ -24,10 +25,11 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6 col-lg-offset-2">
-                            <form role="form" method="post" action="<?php echo base_url('doctor/profile') ?>" class="registration_form" enctype="multipart/form-data">
-                                
+                            <form role="form" method="post" action="<?php echo base_url('admin/register') ?>" class="registration_form" enctype="multipart/form-data">
+                                    
                                 <div class="form-group">
                                     <label>First Name *</label>
+                                    <input type="hidden" name="user_role" value="<?php echo $user_role; ?>">
                                     <input class="form-control" type="text" placeholder="First Name" name="first_name" autocomplete="off" required="required" value="<?php echo set_value('first_name');?>" >
                                     <span class="red"><?php echo form_error('first_name'); ?></span>
                                 </div>

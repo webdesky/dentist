@@ -62,7 +62,7 @@
                                             <label>Appointment Date *</label>
                                             <div class="col-lg-12">
                                                 <div class="col-lg-6">
-                                                  <input type="text" id="startdate" name="appointment_date" id="appointment_date" class="form-control" autocomplete="off" readonly="readonly"  placeholder="Start Time">
+                                                  <input type="text" id="startdate" name="appointment_date" id="appointment_date" class="form-control" autocomplete="off" readonly="readonly"  placeholder="Start Date">
                                               </div>
                                               <div class="col-lg-6">
                                                <input type="text" id="timepicker" name="appointment_time" class="form-control" autocomplete="off" readonly="readonly"  placeholder="Start Time">
