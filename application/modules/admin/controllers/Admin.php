@@ -171,11 +171,12 @@ class Admin extends CI_Controller
 
         $role=$user_role;
         
-         
+
        
         $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|alpha|min_length[2]');
         $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|alpha|min_length[2]');
         if(empty($id)){
+            $this->form_validation->set_rules('user_name', 'User Name', 'trim|required|is_unique[users.username]');
             $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]');
             $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]|alpha_numeric');
         }
@@ -191,6 +192,7 @@ class Admin extends CI_Controller
             if ($this->controller->checkSession()) {
                 $user_role   = $this->input->post('user_role');
                 $first_name  = $this->input->post('first_name');
+                $user_name   =$this->input->post('user_name');
                 $last_name   = $this->input->post('last_name');
                 $email       = $this->input->post('email');
                 $password    = $this->input->post('password');
@@ -205,6 +207,7 @@ class Admin extends CI_Controller
                 $data = array(
                     'first_name' => $first_name,
                     'last_name' => $last_name,
+                    'username' =>$user_name,
                     'email' => $email,
                     'password' => MD5($password),
                     'address' => $address,
@@ -252,6 +255,8 @@ class Admin extends CI_Controller
         }
     }
     
+
+
         
     
     public function users_list($user_role){
@@ -270,6 +275,40 @@ class Admin extends CI_Controller
         
         $this->load_view($data);
     }
+   
+
+    public function subadmin_users_list($user_role){
+        
+
+        $where             = array(
+            'user_role ' => $user_role
+        );
+
+        $where1             = array(
+            'role_id ' => $user_role
+        );
+        $data['users'] = $this->model->getAllwhere('users', $where);
+        $data['user_role'] = $this->model->getAllwhere('user_role', $where1);
+        $data['body'] = 'subadmin_users_list';
+        
+        $this->load_view($data);
+    }
+
+    public function assign_rights($id){
+         $data['user_id']= $id;
+         $data['body']      = 'assign_rights';
+        $this->load_view($data);
+
+    }
+
+    public function addRights(){
+        $data=$this->input->post();
+        echo "<pre>";
+        print_r($data);
+
+
+    }
+    
 
     public function edit_user($id){
         $where             = array('id ' => $id);
@@ -284,10 +323,11 @@ class Admin extends CI_Controller
     public function delete()
     {
         $id    = $this->input->post('id');
+        $table=$this->input->post('table');
         $where = array(
             'id' => $id
         );
-        $this->model->delete('users', $where);
+        $this->model->delete($table, $where);
     }
 
 
@@ -373,6 +413,13 @@ class Admin extends CI_Controller
            $data['schedule']=$this->model->GetJoinRecord('schedule','doctor_id','users','id','schedule.sc_id,schedule.doctor_id,schedule.day,schedule.starttime,schedule.endtime,users.first_name',$where);
           
           $this->load->view('common/templates/default', $data);
+
+    }
+
+    public function delete_schedule(){
+        $id = $this->input->post('id');
+        $where = array('doctor_id'=>$id);
+        $this->model->delete('schedule', $where);
 
     }
 
@@ -558,6 +605,139 @@ class Admin extends CI_Controller
 
             }
         } 
+    }
+
+    public function case_study($id = null)
+    {
+        $where           = array(
+            'user_role' => 3
+        );
+        $data['patient'] = $this->model->getAllwhere('users', $where);
+        $this->form_validation->set_rules('patient_id', 'Patient Name', 'trim|required');
+        $this->form_validation->set_rules('diabetic', 'Diabetic', 'trim|required');
+        $this->form_validation->set_rules('blood_pressure', 'High Blood Pressure', 'trim|required');
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('errors', validation_errors());
+            $data['body'] = 'case_study';
+            if (!empty($id)) {
+                $where              = array(
+                    'id' => $id
+                );
+                $data['case_study'] = $this->model->getAllwhere('case_study', $where);
+                $data['body']       = 'edit_case_study';
+            }
+            $this->controller->load_view($data);
+        } else {
+            if ($this->controller->checkSession()) {
+                
+                $patient_id      = $this->input->post('patient_id');
+                $diabetic        = $this->input->post('diabetic');
+                $blood_pressure  = $this->input->post('blood_pressure');
+                $allergies       = $this->input->post('allergies');
+                $problem         = $this->input->post('problem');
+                $others          = $this->input->post('others');
+                $medical_history = $this->input->post('medical_history');
+                $status          = $this->input->post('status');
+                $reference       = $this->input->post('reference');
+                
+                $data = array(
+                    'patient_id' => $patient_id,
+                    'diabetic' => $diabetic,
+                    'blood_pressure' => $blood_pressure,
+                    'allergies' => $allergies,
+                    'problem' => $problem,
+                    'others' => $others,
+                    'medical_history' => $medical_history,
+                    'is_active' => $status,
+                    'reference' => $reference,
+                    'created_at' => date('Y-m-d H:i:s')
+                );
+                if (!empty($id)) {
+                    $where = array(
+                        'id' => $id
+                    );
+                    unset($data['created_at']);
+                    $result = $this->model->updateFields('case_study', $data, $where);
+                } else {
+                    $result = $this->model->insertData('case_study', $data);
+                }
+                $this->case_study_list();
+            }
+        }
+        
+    }
+    
+    public function case_study_list()
+    {
+        $where                  = array('doctor_id' => $this->session->userdata('id'));
+        $field_val              = 'case_study.*,users.first_name,users.last_name';
+        $data['documents_list'] = $this->model->GetJoinRecord('case_study', 'patient_id', 'users', 'id', $field_val, $where);
+        $data['body']           = 'case_study_list';
+        $this->controller->load_view($data);
+    }
+
+
+    public function notices($id=null){
+         
+           $this->form_validation->set_rules('title', 'title', 'trim|required');
+           $this->form_validation->set_rules('description', 'description', 'trim|required');
+
+        if(empty($id)){
+        $this->form_validation->set_rules('title', 'title', 'trim|required');
+        $this->form_validation->set_rules('description', 'description', 'trim|required');
+        }
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('errors', validation_errors());
+            $data['body'] = 'add_notice';
+
+            if (!empty($id)) {
+                $where              = array(
+                    'id' => $id
+                );
+                $data['notices'] = $this->model->getAllwhere('notices', $where);
+
+                $data['body']       = 'edit_notices';
+            }
+           
+                $this->load_view($data);
+        }else{
+            if ($this->controller->checkSession()) {
+
+            $title=$this->input->post('title');
+            $description=$this->input->post('description');
+            $start_date=$this->input->post('start_date');
+            $end_date=$this->input->post('end_date');
+
+             $data = array(
+                'title'       =>$title,
+                'description' =>$description,
+                'start_date'  =>date('Y-m-d',strtotime($start_date)),
+                'end_date'    =>date('Y-m-d',strtotime($end_date)),
+                'created_at' => date('Y-m-d H:i:s')
+             );
+           
+             if (!empty($id)) {
+                    $where = array(
+                        'id' => $id
+                    );
+                    unset($data['created_at']);
+                    $result = $this->model->updateFields('notices', $data, $where);
+                } else {
+                    $result = $this->model->insertData('notices', $data);
+                }
+               $this->notices_list();
+       
+
+            }
+        }
+    }
+
+    public function notices_list(){
+        $data['notice_list'] = $this->model->getAll('notices');
+        $data['body']           = 'list_notice';
+        
+        $this->controller->load_view($data);
     }
 
 

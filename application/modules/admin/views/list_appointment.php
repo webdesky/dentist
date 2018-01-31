@@ -19,7 +19,7 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <table width="100%" class="table table-striped table-bordered table-hover" id="appointment">
                                 <thead>
                                     <tr>
                                         <th>SL.No</th>
@@ -75,7 +75,7 @@
 
        <script type="text/javascript">
         		
-
+               $('#appointment').DataTable();
                 function delete_appointment(id) {
                         if (confirm("Are you sure want to delete?")) {
                             $.ajax({
