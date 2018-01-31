@@ -69,7 +69,7 @@
 
                                         <div class="col-lg-2">
                                             <i class="fa fa-plus" aria-hidden="true" id="add"></i>
-                                            <i class="fa fa-minus" aria-hidden="true" id="removeButton"></i>
+                                            
                                         </div>
 
                                     </div>
@@ -106,7 +106,7 @@
                 return false;
             }
 
-            $("#app").append('<div class="col-lg-12" id="box' + counter + '"><div class="col-lg-4"><select class="form-control " name="schedule[]" ><option>Select Option</option><option value="sunday">Sunday</option><option value="Monday">Monday</option><option value="tuesday">Tuesday</option><option value="wednesday">Wednesday</option><option value="thursday">Thursday</option><option value="friday">Friday</option><option value="saturday">Saturday</option></select></div> <div class="col-lg-3"><input type="text" id="starttime" name="starttime[]" class="form-control date" autocomplete="off" readonly="readonly"  placeholder="Start Time"></div><div class="col-lg-3"><input type="text" id="endtime" name="endtime[]" class="form-control date" autocomplete="off" readonly="readonly"  placeholder="Start Time"></div></div>');
+            $("#app").append('<div class="col-lg-12" id="box' + counter + '"><div class="col-lg-4"><select class="form-control " name="schedule[]" ><option>Select Option</option><option value="sunday">Sunday</option><option value="Monday">Monday</option><option value="tuesday">Tuesday</option><option value="wednesday">Wednesday</option><option value="thursday">Thursday</option><option value="friday">Friday</option><option value="saturday">Saturday</option></select></div> <div class="col-lg-3"><input type="text" id="starttime" name="starttime[]" class="form-control date" autocomplete="off" readonly="readonly"  placeholder="Start Time"></div><div class="col-lg-3"><input type="text" id="endtime" name="endtime[]" class="form-control date" autocomplete="off" readonly="readonly"  placeholder="Start Time"></div><i class="fa fa-minus remove" aria-hidden="true" id="removeButton"></i></div>');
 
             $('.date').each(function() {
                 $(this).timepicker();
@@ -116,19 +116,24 @@
 
         });
 
+        $("body").on("click", ".remove", function () {
+        $(this).closest("div").remove();
+         });
 
-        $("#removeButton").click(function() {
-            console.log(counter);
-            if (counter == 1) {
-                alert(counter);
-                return false;
-            }
+        // $("#removeButton").click(function() {
+        //     alert('hi');
+        //     console.log(counter);
+        //     if (counter == 1) {
+        //         alert(counter);
+        //         return false;
+        //     }
 
-            counter--;
+        //     counter--;
 
-            $("#box" + counter).remove();
+        //     var id=$(this).parent();
+        //     console.log(id);
 
-        });
+        // });
 
     });
 </script>

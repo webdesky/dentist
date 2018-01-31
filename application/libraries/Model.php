@@ -148,7 +148,7 @@ class Model
     
     function getAll($table, $order_fld = '', $order_type = '', $select = 'all', $limit = '', $offset = '')
     {
-        $this->CI->db->cache_on();
+        //$this->CI->db->cache_on();
         if ($order_fld != '' && $order_type != '') {
             $this->CI->db->order_by($order_fld, $order_type);
         }
@@ -163,7 +163,7 @@ class Model
             $this->CI->db->limit($limit);
         }
         $q        = $this->CI->db->get($table);
-        $this->CI->db->cache_off();
+       // $this->CI->db->cache_off();
         $num_rows = $q->num_rows();
         if ($num_rows > 0) {
             foreach ($q->result_array() as $rows) {

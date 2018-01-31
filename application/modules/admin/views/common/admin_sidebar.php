@@ -81,7 +81,7 @@
                         </li> -->
 
                           <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Doctor<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa fa-user-md"></i> Doctor<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="<?php echo base_url('admin/register/null/2')?>">Add Doctor</a>
@@ -94,7 +94,7 @@
                         </li>
 
                          <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Patient<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-wheelchair"></i> Patient<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="<?php echo base_url('admin/register/null/3')?>">Add Patient</a>
@@ -107,7 +107,7 @@
                         </li>
 
                         <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Schedule<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-calendar"></i> Schedule<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="<?php echo base_url('admin/Schedule/')?>">Add Schedule</a>
@@ -120,7 +120,7 @@
                         </li>
 
                         <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Appointment<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-pencil"></i> Appointment<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="<?php echo base_url('admin/Appointment/')?>">Add Appointment</a>
@@ -133,17 +133,64 @@
                         </li>
 
                         <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Rights<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-book" aria-hidden="true"></i> Prescription<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level treeview-menu">
+                                <li>
+                                    <a href="<?php echo base_url('admin/case_study/')?>">Add Patient Case Study</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url('admin/case_study_list/')?>">Patient Case Study List</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">Add Prescription</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">Prescription List</a>
+                                </li> 
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#"><i class="fa fa-bell" aria-hidden="true"></i> NoticeBoard<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level treeview-menu">
+                                <li>
+                                    <a href="<?php echo base_url('admin/notices/')?>">Add Notice</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url('admin/notices_list/')?>">Notice List</a>
+                                </li>
+                                
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#"><i class="fa fa fa-user-md"></i> Sub Admin<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?php echo base_url('admin/doctor_rights/')?>">Doctor</a>
+                                    <a href="<?php echo base_url('admin/register/null/4')?>">Add Sub Admin</a>
                                 </li>
                                  <li>
-                                    <a href="<?php echo base_url('admin/appointment_list/')?>">Patient</a>
+                                    <a href="<?php echo base_url('admin/users_list/4')?>">View Sub Admin</a>
+                                </li> 
+
+                                 <li>
+                                     <a href="#"><i class="fa fa fa-user"></i>Assign Rights <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                           <a href="<?php echo base_url('admin/subadmin_users_list/4')?>">View Sub Admin</a>
+                                        </li> 
+                                        <li>
+                                            <a href="#">Patient</a>
+                                        </li>
+                                        
+                                    </ul>
+                                   
                                 </li> 
 
                             </ul>
                         </li>
+
+                        
 
                        
                         <!-- <li>

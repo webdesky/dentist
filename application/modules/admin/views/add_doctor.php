@@ -26,11 +26,10 @@
 
                      <?php if ($info_message = $this->session->flashdata('info_message')): ?>
                         <div id="form-messages" class="alert alert-success" role="alert"><?php echo $info_message; ?></div>
-<<<<<<< HEAD
+
                  <?php endif ?> 
-=======
-                    <?php endif ?> 
->>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
+
+                   
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <button class="btn btn-primary"><i class="fa fa-th-list">&nbsp;Doctors List</i></button>
@@ -94,11 +93,10 @@
 
                                         <div class="form-group">
                                             <label>Date of Birth</label>
-<<<<<<< HEAD
-                                        <input type="Date" id="datepicker" id="doctor_dob" name="doctor_dob" class="form-control">
-=======
+                                     
+
                                         <input type="text" id="datepicker" name="doctor_dob" class="form-control" autocomplete="off" readonly="readonly" required="required" >
->>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
+
                                         </div>
 
                                      
@@ -160,35 +158,11 @@
 
  </div>
 </div>
- <script>tinymce.init({ selector:'textarea#summernote' });</script>
- <script>tinymce.init({ selector:'textarea#education' });</script>
+ 
 
       
 
-<<<<<<< HEAD
-          <script type="text/javascript" src="<?php echo base_url("asset/js/jquery.js");?>"></script> 
-          <script type="text/javascript" src="<?php echo base_url("asset/js/validation.js");?>"></script>
-=======
-         
->>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
-        <script type="text/javascript">
-        $(document).ready(function(){
-            $(".registration_form").validate({
-                rules :{
-                    "fname" :"required",
-                    
-                    
-                },
-            submitHandler : function(form) {
-                form.submit();
-            }
-            });
 
-        });
-
-<<<<<<< HEAD
-        </script>
-=======
         </script>
 
         <script type="text/javascript">
@@ -196,4 +170,4 @@
         $("#datepicker").datepicker();
     });
 </script>
->>>>>>> 0786823f878c3f8c24f632c1152420691182d40e
+
