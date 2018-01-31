@@ -13,12 +13,14 @@
     <link href="<?php echo base_url('asset/vendor/font-awesome/css/font-awesome.min.css');?>" rel="stylesheet">
     <link href="<?php echo base_url('asset/timepicker.css')?>" rel="stylesheet">
     <link href="<?php echo base_url('asset/ckeditor/styles.css'); ?>" rel="stylesheet">
+    <link href="<?php echo base_url('asset/dataTables.min.css'); ?>" rel="stylesheet">
 
     <script src="<?php echo base_url('asset/vendor/jquery/jquery.min.js');?>"></script>
     <script src="<?php echo base_url('asset/js/jquery-ui.js')?>"></script>
     <script src="<?php echo base_url('asset/vendor/bootstrap/js/bootstrap.min.js');?>"></script>
     <script src="<?php echo base_url('asset/js/datatable.js')?>"></script>
-    <script src="<?php echo base_url('asset/ckeditor/ckeditor.js'); ?>"></script>    
     <script src="<?php echo base_url('asset/js/timepicker.js')?>"></script>
+    <script src="<?php echo base_url('asset/ckeditor/ckeditor.js'); ?>"></script>    
+    
 </head>
 <body>

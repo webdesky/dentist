@@ -137,7 +137,7 @@ class Doctor extends CI_Controller
             
             $data['doctor']  = $this->model->getAllwhere('users', $where);
             $data['patient'] = $this->model->getAllwhere('users', $wheres);
-                        
+            
             $this->load->view('common/templates/default', $data);
         } else {
             
@@ -328,16 +328,7 @@ class Doctor extends CI_Controller
         $data['body'] = 'edit_user';
         $this->controller->load_view($data);
     }
-    
-    // public function delete()
-    // {
-    //     $id    = $this->input->post('id');
-    //     $where = array(
-    //         'id' => $id
-    //     );
-    //     $this->model->delete('users', $where);
-    // }
-    
+        
     public function profile()
     {
         $where         = array(
@@ -446,8 +437,6 @@ class Doctor extends CI_Controller
                 
                 
                 if (isset($_FILES['file']['name']) && !empty($_FILES['file']['name'])) {
-                    // $count = count($_FILES['file']['name']);
-                    // for ($i = 0; $i < $count; $i++) {
                     if ($_FILES['file']['error'][$i] == 0) {
                         $f_extension = explode('.', $_FILES['file']['name']); //To breaks the string into array
                         $f_extension = strtolower(end($f_extension)); //end() is used to retrun a last element to the array
@@ -461,7 +450,6 @@ class Doctor extends CI_Controller
                             
                         }
                     }
-                    //}
                 }
                 if (!empty($id)) {
                     $where = array(
@@ -550,7 +538,9 @@ class Doctor extends CI_Controller
     
     public function case_study_list()
     {
-        $where                  = array('doctor_id' => $this->session->userdata('id'));
+        $where                  = array(
+            'doctor_id' => $this->session->userdata('id')
+        );
         $field_val              = 'case_study.*,users.first_name,users.last_name';
         $data['documents_list'] = $this->model->GetJoinRecord('case_study', 'patient_id', 'users', 'id', $field_val, $where);
         $data['body']           = 'case_study_list';
@@ -570,38 +560,96 @@ class Doctor extends CI_Controller
         } else {
             if ($this->controller->checkSession()) {
                 
-                $reciever_id    = $this->input->post('reciever_id');
-                $subject        = $this->input->post('subject');
-                $message        = $this->input->post('message');             
+                $reciever_id = $this->input->post('reciever_id');
+                $subject     = $this->input->post('subject');
+                $message     = $this->input->post('message');
                 
-                $data = array(
+                $data   = array(
                     'reciever_id' => $reciever_id,
-                    'sender_id'=>$this->session->userdata('id'),
+                    'sender_id' => $this->session->userdata('id'),
                     'subject' => $subject,
                     'message' => trim($message),
                     'is_active' => 1,
                     'created_at' => date('Y-m-d H:i:s')
-                );  
-                $result = $this->model->insertData('message', $data);                
+                );
+                $result = $this->model->insertData('message', $data);
             }
         }
     }
-
-    public function message_list(){
-        $where                  = array('sender_id' => $this->session->userdata('id'));
-        $field_val              = 'message.*,users.first_name,users.last_name';
+    
+    public function message_list()
+    {
+        $where                 = array(
+            'sender_id' => $this->session->userdata('id')
+        );
+        $field_val             = 'message.*,users.first_name,users.last_name';
         $data['messages_list'] = $this->model->GetJoinRecord('message', 'reciever_id', 'users', 'id', $field_val, $where);
-        $data['body'] = 'mail_list';
+        $data['body']          = 'mail_list';
         $this->controller->load_view($data);
     }
-
-
+    
+    
     public function delete()
     {
         $id    = $this->input->post('id');
         $table = $this->input->post('table');
-        $where = array('id' => $id);
+        $where = array(
+            'id' => $id
+        );
         $this->model->delete($table, $where);
+    }
+
+
+    public function add_prescription(){
+        $where           = array(
+            'user_role' => 3
+        );
+        $data['patient'] = $this->model->getAllwhere('users', $where);
+        $this->form_validation->set_rules('patient_id', 'Patient Name', 'trim|required');
+        $this->form_validation->set_rules('diabetic', 'Diabetic', 'trim|required');
+        $this->form_validation->set_rules('blood_pressure', 'High Blood Pressure', 'trim|required');
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('errors', validation_errors());
+            $data['body'] = 'add_prescription';
+            $this->controller->load_view($data);
+        } else {
+            if ($this->controller->checkSession()) {
+                
+                $patient_id      = $this->input->post('patient_id');
+                $diabetic        = $this->input->post('diabetic');
+                $blood_pressure  = $this->input->post('blood_pressure');
+                $allergies       = $this->input->post('allergies');
+                $problem         = $this->input->post('problem');
+                $others          = $this->input->post('others');
+                $medical_history = $this->input->post('medical_history');
+                $status          = $this->input->post('status');
+                $reference       = $this->input->post('reference');
+                
+                $data = array(
+                    'patient_id' => $patient_id,
+                    'diabetic' => $diabetic,
+                    'blood_pressure' => $blood_pressure,
+                    'allergies' => $allergies,
+                    'problem' => $problem,
+                    'others' => $others,
+                    'medical_history' => $medical_history,
+                    'is_active' => $status,
+                    'reference' => $reference,
+                    'created_at' => date('Y-m-d H:i:s')
+                );
+                if (!empty($id)) {
+                    $where = array(
+                        'id' => $id
+                    );
+                    unset($data['created_at']);
+                    $result = $this->model->updateFields('case_study', $data, $where);
+                } else {
+                    $result = $this->model->insertData('case_study', $data);
+                }
+                $this->case_study_list();
+            }
+        }
+
     }
     
 }

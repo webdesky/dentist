@@ -1,7 +1,7 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">User</h1>
+            <h1 class="page-header">Patient</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -17,12 +17,12 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <a class="btn btn-primary" href="<?php echo base_url('admin/users_list')?>"><i class="fa fa-th-list">&nbsp;Users List</i></a>
+                    <a class="btn btn-primary" href="<?php echo base_url('doctor/users_list')?>"><i class="fa fa-th-list">&nbsp;Patient List</i></a>
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6 col-lg-offset-2">
-                            <form role="form" method="post" action="<?php echo base_url('admin/register/'.$users[0]->id) ?>" class="registration_form" enctype="multipart/form-data">
+                            <form role="form" method="post" action="<?php echo base_url('doctor/register/'.$users[0]->id) ?>" class="registration_form" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label>User Role *</label>
                                     <select class="form-control" name="user_role" required="required">
@@ -56,7 +56,9 @@
 
                                 <div class="form-group">
                                     <label>Address *</label>
-                                    <textarea class="form-control" rows="5" name="address" placeholder="Address"><?php echo $users[0]->address;?></textarea>
+                                    <textarea class="form-control" rows="5" name="address" placeholder="Address">
+                                        <?php echo $users[0]->address;?>
+                                    </textarea>
                                     <span class="red"><?php echo form_error('address'); ?></span>
                                 </div>
 
@@ -98,12 +100,12 @@
                                     <label>Blood Group</label>
                                     <select class="form-control" name="blood_group">
                                         <option value="">--SELECT--</option>
-                                        <option value="a+" <?php if($users[0]->blood_group=="a+"){?> selected<?php }?>>A+</option>
-                                        <option value="a-" <?php if($users[0]->blood_group=="a-"){?> selected<?php }?>>A-</option>
-                                        <option value="b+" <?php if($users[0]->blood_group=="b+"){?> selected<?php }?>>B+</option>
-                                        <option value="b-" <?php if($users[0]->blood_group=="b-"){?> selected<?php }?>>B-</option>
-                                        <option value="o+" <?php if($users[0]->blood_group=="o+"){?> selected<?php }?>>O+</option>
-                                        <option value="o-" <?php if($users[0]->blood_group=="oO-"){?> selected<?php }?>>O-</option>
+                                        <option value="a+" <?php if($users[0]->blood_group=="a+"){?>  selected<?php }?>>A+</option>
+                                        <option value="a-" <?php if($users[0]->blood_group=="a-"){?>  selected<?php }?>>A-</option>
+                                        <option value="b+" <?php if($users[0]->blood_group=="b+"){?>  selected<?php }?>>B+</option>
+                                        <option value="b-" <?php if($users[0]->blood_group=="b-"){?>  selected<?php }?>>B-</option>
+                                        <option value="o+" <?php if($users[0]->blood_group=="o+"){?>  selected<?php }?>>O+</option>
+                                        <option value="o-" <?php if($users[0]->blood_group=="o-"){?>  selected<?php }?>>O-</option>
                                         <option value="ab+"<?php if($users[0]->blood_group=="ab+"){?> selected<?php }?>> AB+</option>
                                         <option value="ab-"<?php if($users[0]->blood_group=="ab-"){?> selected<?php }?>>AB-</option>
                                     </select>
@@ -113,7 +115,7 @@
                                 <div class="form-group">
                                     <label>Status</label>
                                     <label class="radio-inline">
-                                        <input type="radio" name="status"  value="1"  <?php if($users[0]->is_active=="1"){?> checked<?php }?>>Active
+                                        <input type="radio" name="status"  value="1" <?php if($users[0]->is_active=="1"){?> checked<?php }?>>Active
                                     </label>
                                     <label class="radio-inline">
                                         <input type="radio" name="status"  value="0" <?php if($users[0]->is_active=="0"){?> checked<?php }?>>Inactive
@@ -136,16 +138,7 @@
 
 </div>
 </div>
-<script>
-    tinymce.init({
-        selector: 'textarea#summernote'
-    });
-</script>
-<script>
-    tinymce.init({
-        selector: 'textarea#education'
-    });
-</script>
+
 
 
 <script type="text/javascript">

@@ -17,12 +17,12 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <a class="btn btn-primary" href="<?php echo base_url('admin/case_study_list')?>"><i class="fa fa-th-list">&nbsp;Case Study List</i></a>
+                    <a class="btn btn-primary" href="<?php echo base_url('doctor/case_study_list')?>"><i class="fa fa-th-list">&nbsp;Case Study List</i></a>
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6 col-lg-offset-2">
-                            <form role="form" method="post" action="<?php echo base_url('doctor/register') ?>" class="registration_form" enctype="multipart/form-data">
+                            <form role="form" method="post" action="<?php echo base_url('doctor/case_study') ?>" class="registration_form" enctype="multipart/form-data">
                                 
                                 <div class="form-group">
                                     <label>Patient ID *</label>

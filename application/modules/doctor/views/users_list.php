@@ -17,32 +17,46 @@
                         <div class="col-lg-12">
                             <table class="table table-bordered" id="users">
                                 <thead>
-                                  <tr>
-                                    <th>Sr no.</th>
-                                    <th>Firstname</th>
-                                    <th>Lastname</th>
-                                    <th>Email</th>
-                                    <th>Mobile</th>
-                                    <th>Gender</th>
-                                    <th>User Role</th>
-                                    <th>Action</th>
-                                  </tr>
+                                    <tr>
+                                        <th>Sr no.</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Email</th>
+                                        <th>Mobile</th>
+                                        <th>Gender</th>
+                                        <th>User Role</th>
+                                        <th>Action</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <?php $i=1; foreach($users as $users_list){?>
-                                  <tr>
-                                    <td><?php echo $i; ?></td>
-                                    <td><?php echo $users_list->first_name;?></td>
-                                    <td><?php echo $users_list->last_name;?></td>
-                                    <td><?php echo $users_list->email;?></td>
-                                    <td><?php echo $users_list->mobile;?></td>
-                                    <td><?php echo $users_list->gender;?></td>
-                                    <td><?php if($users_list->user_role==2){ echo 'Doctor';}elseif($users_list->user_role==3){ echo 'Patient';}else{echo 'Admin';}?></td>
-                                    <td><a href="<?php echo base_url('doctor/edit_user/'.$users_list->id)?>"><span class="glyphicon glyphicon-edit"></span></a> | <a href="javascript:void(0)" onclick="delete_user('<?php echo $users_list->id?>')"><span class="glyphicon glyphicon-trash"></span></a></td>
-                                  </tr>
-                                  <?php $i++;}?>
+                                    <?php if(!empty($users)){ $i=1; foreach($users as $users_list){?>
+                                    <tr>
+                                        <td>
+                                            <?php echo $i; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $users_list->first_name;?>
+                                        </td>
+                                        <td>
+                                            <?php echo $users_list->last_name;?>
+                                        </td>
+                                        <td>
+                                            <?php echo $users_list->email;?>
+                                        </td>
+                                        <td>
+                                            <?php echo $users_list->mobile;?>
+                                        </td>
+                                        <td>
+                                            <?php echo $users_list->gender;?>
+                                        </td>
+                                        <td>
+                                            <?php if($users_list->user_role==2){ echo 'Doctor';}elseif($users_list->user_role==3){ echo 'Patient';}else{echo 'Admin';}?>
+                                        </td>
+                                        <td><a href="<?php echo base_url('doctor/edit_user/'.$users_list->id)?>"><span class="glyphicon glyphicon-edit"></span></a> | <a href="javascript:void(0)" onclick="delete_user('<?php echo $users_list->id?>')"><span class="glyphicon glyphicon-trash"></span></a></td>
+                                    </tr>
+                                    <?php $i++;}}?>
                                 </tbody>
-                              </table>
+                            </table>
                         </div>
                     </div>
                     <!-- /.row (nested) -->
@@ -60,22 +74,22 @@
 
 <script type="text/javascript">
     $('#users').DataTable();
-    
-    function delete_user(id) {
-    if (confirm("Are you sure want to delete?")) {
-        $.ajax({
-            url: "<?php echo base_url('admin/delete')?>",
-            method: "POST",
-            data: {
-                id: id,
-                table:'user'
-            },
-            success: function(response) {
-                window.location.reload();
-            },
 
-        });
+    function delete_user(id) {
+        if (confirm("Are you sure want to delete?")) {
+            $.ajax({
+                url: "<?php echo base_url('doctor/delete')?>",
+                method: "POST",
+                data: {
+                    id: id,
+                    table: 'user'
+                },
+                success: function(response) {
+                    window.location.reload();
+                },
+
+            });
+        }
+        return false;
     }
-    return false;
-}
 </script>
