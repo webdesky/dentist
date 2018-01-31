@@ -301,12 +301,76 @@ class Admin extends CI_Controller
 
     }
 
-    public function addRights(){
+    public function addRights($id=null){
+
+        if(empty($id)){
         $data=$this->input->post();
-        echo "<pre>";
-        print_r($data);
+        $role=$data['user_role'];
+                if(isset($_POST['doc_add'])) {
+                         $doc_add='1'; 
+                        }
+                        else{
+                        $doc_add='0';
+                        }
+                 if(isset($_POST['doc_edit'])) {
+                         $doc_edit='1'; 
+                        }
+                        else{
+                        $doc_edit='0';
+                        }
+                if(isset($_POST['doc_delete'])) {
+                         $doc_delete='1'; 
+                        }
+                        else{
+                        $doc_delete='0';
+                        }
+                
+                if(isset($_POST['pat_add'])) {
+                         $pat_add='1'; 
+                        }
+                        else{
+                        $pat_add='0';
+                        }
 
+                if(isset($_POST['pat_edit'])) {
+                         $pat_edit='1'; 
+                        }
+                        else{
+                        $pat_edit='0';
+                        }
 
+                if(isset($_POST['pat_delete'])) {
+                         $pat_delete='1'; 
+                        }
+                        else{
+                        $pat_delete='0';
+                        }
+                     $doctor=implode(",",[$doc_add,$doc_edit,$doc_delete]);
+                     $doct=str_replace(",","",$doctor);
+                     $patient=implode(",",[$pat_add,$pat_edit,$pat_delete]);
+                     $pat=str_replace(",","",$patient);
+                     $right=[$doct,$pat];
+                     
+                       $roles = array(  
+                          'admin_role' =>$role,
+                         
+                        );
+
+                       $rights=$role = array(  
+                          'rights' =>$right,
+                         
+                        );
+                        
+                        $inser_data=array(
+                        'user_id' => $data['user_id'],
+                        '$roles'  =>json_encode($roles),
+                        '$rights' =>json_encode($rights)
+
+                        );
+                        echo "<pre>";
+                        print_r($inser_data);
+
+       }
     }
     
 
