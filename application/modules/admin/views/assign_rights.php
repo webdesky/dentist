@@ -42,14 +42,15 @@
                                     <label class="checkbox-inline">
                                       <b>Doctor:</b>
                                     </label>
+                                    <input type="hidden" name="user_role[]" value="doctor">
                                     <label class="checkbox-inline">
-                                      <input type="checkbox" name="doc[]" value="1">Add
+                                      <input type="checkbox" name="doc_add" value="1">Add
                                     </label>
                                     <label class="checkbox-inline">
-                                      <input type="checkbox" name="doc[]" value="1">Edit
+                                      <input type="checkbox" name="doc_edit" value="1">Edit
                                     </label>
                                     <label class="checkbox-inline">
-                                      <input type="checkbox" name="doc[]" value="1">Delete
+                                      <input type="checkbox" name="doc_delete" value="1">Delete
                                     </label>
                                     </div>
 
@@ -57,19 +58,20 @@
                                     <label class="checkbox-inline">
                                       <b>Patient:</b>
                                     </label>
+                                    <input type="hidden" name="user_role[]" value="patient">
                                     <label class="checkbox-inline">
-                                      <input type="checkbox" name="pat[]" value="1">Add
+                                      <input type="checkbox" name="pat_add" value="1">Add
                                     </label>
                                     <label class="checkbox-inline">
-                                      <input type="checkbox" name="pat[]" value="1">Edit
+                                      <input type="checkbox" name="pat_edit" value="1">Edit
                                     </label>
                                     <label class="checkbox-inline">
-                                      <input type="checkbox" name="pat[]" value="1">Delete
+                                      <input type="checkbox" name="pat_delete" value="1">Delete
                                     </label>
                                    </div>
 
 
-                                <button type="submit" value="Save" class="btn btn-success">Save</button>
+                                <button type="submit"  value="Save" class="btn btn-success">Save</button>
                                 <button type="reset" class="btn btn-default">Reset</button>
                             </form>
                         </div>
@@ -87,4 +89,6 @@
 
 </div>
 </div>
+
+
 
