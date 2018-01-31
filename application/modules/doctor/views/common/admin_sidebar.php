@@ -54,7 +54,7 @@
                     </li>
 
                     <li>
-                        <a href="#"><i class="fa fa-wheelchair"></i> Patients<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-wheelchair-alt" aria-hidden="true"></i> Patients<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level treeview-menu">
                             <li>
                                 <a href="<?php echo base_url('doctor/register/')?>">Add Patients</a>
@@ -67,7 +67,7 @@
                     </li>
 
                     <li>
-                        <a href="#"><i class="fa fa-clone" aria-hidden="true"></i> Document<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-file-text" aria-hidden="true"></i> Document<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level treeview-menu">
                             <li>
                                 <a href="<?php echo base_url('doctor/add_document/')?>">Add Document</a>
@@ -80,7 +80,7 @@
                     </li>
 
                     <li>
-                        <a href="#"><i class="fa fa-edit" aria-hidden="true"></i> Appointment<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-pencil-square" aria-hidden="true"></i> Appointment<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level treeview-menu">
                             <li>
                                 <a href="<?php echo base_url('doctor/Appointment/')?>">Add Appointment</a>
@@ -110,7 +110,19 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i> Message<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-bell" aria-hidden="true"></i> NoticeBoard<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level treeview-menu">
+                                <!-- <li>
+                                    <a href="<?php //echo base_url('admin/notices/')?>">Add Notice</a>
+                                </li> -->
+                                <li>
+                                    <a href="<?php echo base_url('doctor/notices_list/')?>">Notice List</a>
+                                </li>
+                                
+                            </ul>
+                        </li>
+                    <li>
+                        <a href="#"><i class="fa fa-commenting" aria-hidden="true"></i> Message<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level treeview-menu">
                             <li>
                                 <a href="<?php echo base_url('doctor/send_message/')?>">Send Message</a>
@@ -120,6 +132,23 @@
                             </li>
                         </ul>
                     </li>
+
+                    <li>
+                        <a href="#"><i class="fa fa-envelope" aria-hidden="true"></i> Mail<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level treeview-menu">
+                            <li>
+                                <a href="<?php echo base_url('doctor/send_mail/')?>">Send Mail</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url('doctor/mail_list/')?>">Mail by Me</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url('doctor/mail_list_me/')?>">Mail to Me</a>
+                            </li>
+                        </ul>
+                    </li>
+
+
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->

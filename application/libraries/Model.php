@@ -1,21 +1,21 @@
-
 <?php
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Model  
+class Model
 {
-
+    
     var $CI;
+    
     public function __construct($params = array())
     {
         $this->CI =& get_instance();
         $this->CI->load->helper('url');
         $this->CI->config->item('base_url');
-        $this->CI->load->library('session','form_validation');
+        $this->CI->load->library('session', 'form_validation');
         $this->CI->load->database();
-
-       
+        
+        
     }
     function insertData($table, $dataInsert)
     {
@@ -36,11 +36,12 @@ class Model
         $this->CI->db->update($table);
     }
     
-    function get_matching_record($table,$val){
+    function get_matching_record($table, $val)
+    {
         $this->CI->db->select('*');
         $this->CI->db->from($table);
         $this->CI->db->where("port_description LIKE '%$val%'");
-        $q = $this->CI->db->get();
+        $q   = $this->CI->db->get();
         $num = $q->num_rows();
         if ($num > 0) {
             foreach ($q->result() as $rows) {
@@ -50,13 +51,14 @@ class Model
             return $data;
         }
     }
-    function get_matching_record_from_job($table,$val){
+    function get_matching_record_from_job($table, $val)
+    {
         $this->CI->db->select('*');
         $this->CI->db->from($table);
         $this->CI->db->where("job_no LIKE '%$val%'");
         $this->CI->db->order_by('job_id', 'DESC');
         $this->CI->db->limit(1);
-        $q = $this->CI->db->get();
+        $q   = $this->CI->db->get();
         $num = $q->num_rows();
         if ($num > 0) {
             foreach ($q->result() as $rows) {
@@ -86,7 +88,7 @@ class Model
         }
     }
     
-    function GetJoinRecord($table, $field_first, $tablejointo, $field_second, $field_val = '', $where = "",$group_by='')
+    function GetJoinRecord($table, $field_first, $tablejointo, $field_second, $field_val = '', $where = "", $group_by = '')
     {
         
         if (!empty($field_val)) {
@@ -99,12 +101,11 @@ class Model
         if (!empty($where)) {
             $this->CI->db->where($where);
         }
-        if(!empty($group_by)){
+        if (!empty($group_by)) {
             $this->CI->db->group_by("$table.$field_first");
         }
         $q = $this->CI->db->get();
-       // echo $this->CI->db->last_query();die;
-        //$this->CI->db->cache_off();
+        
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $rows) {
                 $data[] = $rows;
@@ -116,7 +117,6 @@ class Model
     
     function getAllwhere($table, $where = '', $order_fld = '', $order_type = '', $select = 'all', $limit = '', $offset = '')
     {
-        //$this->CI->db->cache_on();
         if ($order_fld != '' && $order_type != '') {
             $this->CI->db->order_by($order_fld, $order_type);
         }
@@ -134,8 +134,6 @@ class Model
             $this->CI->db->limit($limit);
         }
         $q        = $this->CI->db->get($table);
-       // $this->CI->db->cache_off();
-        //echo $this->db->last_query(); 
         $num_rows = $q->num_rows();
         if ($num_rows > 0) {
             foreach ($q->result() as $rows) {
@@ -148,7 +146,7 @@ class Model
     
     function getAll($table, $order_fld = '', $order_type = '', $select = 'all', $limit = '', $offset = '')
     {
-        //$this->CI->db->cache_on();
+        
         if ($order_fld != '' && $order_type != '') {
             $this->CI->db->order_by($order_fld, $order_type);
         }
@@ -163,7 +161,7 @@ class Model
             $this->CI->db->limit($limit);
         }
         $q        = $this->CI->db->get($table);
-       // $this->CI->db->cache_off();
+        
         $num_rows = $q->num_rows();
         if ($num_rows > 0) {
             foreach ($q->result_array() as $rows) {
@@ -183,10 +181,9 @@ class Model
             $this->CI->db->select($select);
         }
         $this->CI->db->where($where, NULL, FALSE);
-        $q        = $this->db->get($table);
+        $q = $this->db->get($table);
         $this->CI->db->cache_off();
-        // echo $this->db->last_query();
-        // die;
+        
         $num_rows = $q->num_rows();
         if ($num_rows > 0) {
             foreach ($q->result() as $rows) {
@@ -214,7 +211,7 @@ class Model
         return $q->row();
     }
     
-    function GetJoinRecordNew($table, $field_first, $tablejointo, $field_second,$tablejointhree, $field_third, $field, $value, $field_val)
+    function GetJoinRecordNew($table, $field_first, $tablejointo, $field_second, $tablejointhree, $field_third, $field, $value, $field_val)
     {
         $this->db->cache_on();
         $this->CI->db->select("$field_val");
@@ -226,8 +223,6 @@ class Model
         $this->CI->db->limit(1);
         $q = $this->CI->db->get();
         $this->db->cache_off();
-        // echo $this->db->last_query();
-        // die;
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $rows) {
                 $data[] = $rows;
@@ -236,12 +231,12 @@ class Model
             return $data;
         }
     }
-
+    
     function GetSalerecords_for_view($table)
     {
         $this->CI->db->select("*");
         $this->CI->db->from("$table");
-        $this->CI->db->order_by('job_id','DESC');
+        $this->CI->db->order_by('job_id', 'DESC');
         $q = $this->CI->db->get();
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $rows) {
@@ -265,7 +260,7 @@ class Model
         } else {
             $query = $this->CI->db->get($table);
         }
-
+        
         $this->CI->db->cache_off();
         return $query->result_array();
     }
@@ -277,7 +272,7 @@ class Model
     
     function update($table, $update, $where)
     {
-
+        
         $query = $this->CI->db->where($where)->update($table, $update);
     }
     
@@ -329,16 +324,17 @@ class Model
         $query = $this->CI->db->get('admins'); //data table
         return $query->num_rows();
     }
-
-    public function insertBatch($table,$data){
-        $this->CI->db->insert_batch($table,$data);
+    
+    public function insertBatch($table, $data)
+    {
+        $this->CI->db->insert_batch($table, $data);
         return $this->CI->db->insert_id();
     }
-
-    public function updateBatch($table,$data,$condition){
-        $this->CI->db->update_batch($table,$data, $condition);
-         return $this->CI->db->insert_id(); 
+    
+    public function updateBatch($table, $data, $condition)
+    {
+        $this->CI->db->update_batch($table, $data, $condition);
+        return $this->CI->db->insert_id();
     }
-
+    
 }
-

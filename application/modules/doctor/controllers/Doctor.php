@@ -30,16 +30,6 @@ class Doctor extends CI_Controller
         }
     }
     
-    public function add_doctor()
-    {
-        if ($this->controller->checkSession()) {
-            $data['body'] = 'add_doctor';
-            $this->controller->load_view($data);
-        } else {
-            $this->index();
-        }
-    }
-    
     
     public function dashboard()
     {
@@ -57,6 +47,7 @@ class Doctor extends CI_Controller
         $this->form_validation->set_rules('old_password', 'Old Password', 'trim|required|callback_oldpass_check');
         $this->form_validation->set_rules('new_password', 'New Password', 'trim|required|md5');
         $this->form_validation->set_rules('confirm_password', 'Confirm Password', 'trim|required|matches[new_password]|md5');
+        
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('errors', validation_errors());
             $data['body'] = 'change_password';
@@ -104,8 +95,7 @@ class Doctor extends CI_Controller
         $data['doctor']  = $this->model->getAllwhere('users', $where);
         $data['patient'] = $this->model->getAllwhere('users', $wheres);
         
-        
-        $this->load->view('common/templates/default', $data);
+        $this->controller->load_view($data);
     }
     
     public function addAppointment($id = null)
@@ -138,7 +128,7 @@ class Doctor extends CI_Controller
             $data['doctor']  = $this->model->getAllwhere('users', $where);
             $data['patient'] = $this->model->getAllwhere('users', $wheres);
             
-            $this->load->view('common/templates/default', $data);
+            $this->controller->load_view($data);
         } else {
             
             if ($this->controller->checkSession()) {
@@ -170,8 +160,6 @@ class Doctor extends CI_Controller
                 $this->session->set_flashdata("info_message", "Appointment updated Successfully..");
                 redirect("admin/appointment_list");
                 
-                
-                
             }
         }
         
@@ -186,7 +174,8 @@ class Doctor extends CI_Controller
         $data['appointmentList'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', '', $where);
         
         $data['body'] = 'list_appointment';
-        $this->load->view('common/templates/default', $data);
+        
+        $this->controller->load_view($data);
     }
     
     public function edit_appointment($id)
@@ -328,7 +317,7 @@ class Doctor extends CI_Controller
         $data['body'] = 'edit_user';
         $this->controller->load_view($data);
     }
-        
+    
     public function profile()
     {
         $where         = array(
@@ -482,9 +471,11 @@ class Doctor extends CI_Controller
             'user_role' => 3
         );
         $data['patient'] = $this->model->getAllwhere('users', $where);
+        
         $this->form_validation->set_rules('patient_id', 'Patient Name', 'trim|required');
         $this->form_validation->set_rules('diabetic', 'Diabetic', 'trim|required');
         $this->form_validation->set_rules('blood_pressure', 'High Blood Pressure', 'trim|required');
+        
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('errors', validation_errors());
             $data['body'] = 'case_study';
@@ -564,7 +555,7 @@ class Doctor extends CI_Controller
                 $subject     = $this->input->post('subject');
                 $message     = $this->input->post('message');
                 
-                $data   = array(
+                $data = array(
                     'reciever_id' => $reciever_id,
                     'sender_id' => $this->session->userdata('id'),
                     'subject' => $subject,
@@ -572,6 +563,7 @@ class Doctor extends CI_Controller
                     'is_active' => 1,
                     'created_at' => date('Y-m-d H:i:s')
                 );
+                
                 $result = $this->model->insertData('message', $data);
             }
         }
@@ -598,20 +590,25 @@ class Doctor extends CI_Controller
         );
         $this->model->delete($table, $where);
     }
-
-
-    public function add_prescription(){
+    
+    
+    public function add_prescription()
+    {
         $where           = array(
             'user_role' => 3
         );
         $data['patient'] = $this->model->getAllwhere('users', $where);
+        
         $this->form_validation->set_rules('patient_id', 'Patient Name', 'trim|required');
         $this->form_validation->set_rules('diabetic', 'Diabetic', 'trim|required');
         $this->form_validation->set_rules('blood_pressure', 'High Blood Pressure', 'trim|required');
+        
         if ($this->form_validation->run() == false) {
+            
             $this->session->set_flashdata('errors', validation_errors());
             $data['body'] = 'add_prescription';
             $this->controller->load_view($data);
+            
         } else {
             if ($this->controller->checkSession()) {
                 
@@ -649,7 +646,100 @@ class Doctor extends CI_Controller
                 $this->case_study_list();
             }
         }
-
+        
+    }
+    
+    
+    public function notices_list()
+    {
+        $where               = array(
+            'is_active' => 1
+        );
+        $data['notice_list'] = $this->model->getAllwhere('notices', $where, 'id', 'DESC');
+        $data['body']        = 'list_notice';
+        $this->controller->load_view($data);
+    }
+    
+    public function send_mail()
+    {
+        $data['users'] = $this->model->getAllwhere('users');
+        
+        $this->form_validation->set_rules('reciever_id', 'Mail to', 'trim|required');
+        $this->form_validation->set_rules('subject', 'Subject', 'trim|required');
+        $this->form_validation->set_rules('message', 'Message', 'trim|required');
+        
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('errors', validation_errors());
+            $data['body'] = 'send_message';
+            $this->controller->load_view($data);
+        } else {
+            if ($this->controller->checkSession()) {
+                
+                $reciever_id = $this->input->post('reciever_id');
+                $subject     = $this->input->post('subject');
+                $message     = $this->input->post('message');
+                
+                $data = array(
+                    'reciever_id' => $reciever_id,
+                    'sender_id' => $this->session->userdata('id'),
+                    'subject' => $subject,
+                    'message' => trim($message),
+                    'is_active' => 1,
+                    'created_at' => date('Y-m-d H:i:s')
+                );
+                
+                $config = Array(
+                    'protocol' => 'smtp',
+                    'smtp_host' => 'ssl://smtp.googlemail.com',
+                    'smtp_port' => 465,
+                    'smtp_user' => 'webdeskytechnical@gmail.com',
+                    'smtp_pass' => 'webdesky@2017',
+                    'mailtype' => 'html',
+                    'charset' => 'iso-8859-1'
+                );
+                
+                $this->load->library('email', $config);
+                $this->email->set_newline("\r\n");
+                
+                $this->email->from($this->session->userdata('email'), "Admin Team");
+                $this->email->to($reciever_id);
+                $this->email->subject($subject);
+                $this->email->message($message);
+                
+                // if($this->email->send()){     
+                //     $error['message'] = "Mail sent...";   
+                // }else{
+                //     $error['message'] = show_error($this->email->print_debugger());
+                // }
+                
+                $result = $this->model->insertData('mail', $data);
+                
+                $this->mail_list();
+            }
+        }
+    }
+    
+    public function mail_list()
+    {
+        $where             = array(
+            'sender_id' => $this->session->userdata('id')
+        );
+        $data['mail_list'] = $this->model->getAllwhere('mail', $where, 'id', 'DESC');
+        $data['body']      = 'message_list';
+        $this->controller->load_view($data);
+        
+    }
+    
+    public function mail_list_me()
+    {
+        
+        $where             = array(
+            'reciever_id' => $this->session->userdata('email')
+        );
+        $field_val         = 'mail.*,users.first_name,users.last_name';
+        $data['mail_list'] = $this->model->GetJoinRecord('mail', 'sender_id', 'users', 'id', $field_val, $where);
+        $data['body']      = 'message_to_me';
+        $this->controller->load_view($data);
     }
     
 }
