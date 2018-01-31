@@ -48,13 +48,10 @@
                                     <?php echo $value->created_at;  ?>
                                 </td>
                             </tr>
-                            <?php $count++; } }?>
-
-
+                            <?php $count++; }}?>
                         </tbody>
                     </table>
                     <!-- /.table-responsive -->
-
                 </div>
                 <!-- /.panel-body -->
             </div>
@@ -63,6 +60,4 @@
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
-
-
 </div>

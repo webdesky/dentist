@@ -15,7 +15,7 @@
             <?php endif ?>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Mail List
+                    Mail To Me
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
