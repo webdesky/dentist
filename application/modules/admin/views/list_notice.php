@@ -19,9 +19,11 @@
                             Notices List
                         </div>
                         <?php 
-                            $rights     =   explode(',',trim($this->session->userdata('rights')->rights,'"'));   
-                            $right4     =   str_split($rights[4]);
                             $user_role  =   $this->session->userdata('user_role'); 
+                            if($user_role==4){
+                                $rights     =   explode(',',trim($this->session->userdata('rights')->rights,'"'));   
+                                $right4     =   str_split($rights[4]);
+                            }
                         ?>
                         <!-- /.panel-heading -->
                         <div class="panel-body">

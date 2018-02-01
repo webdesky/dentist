@@ -18,9 +18,11 @@
                             Appointment List
                         </div>
                         <?php 
-                            $rights     =   explode(',',trim($this->session->userdata('rights')->rights,'"'));   
-                            $right3     =   str_split($rights[3]);
                             $user_role  =   $this->session->userdata('user_role'); 
+                            if($user_role==4){
+                                $rights     =   explode(',',trim($this->session->userdata('rights')->rights,'"'));   
+                                $right3     =   str_split($rights[3]);
+                            }
                         ?>
                         <!-- /.panel-heading -->
                         <div class="panel-body">

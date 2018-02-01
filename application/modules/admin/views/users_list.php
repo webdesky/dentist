@@ -13,10 +13,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <?php 
-                        $rights     =   explode(',',trim($this->session->userdata('rights')->rights,'"'));   
-                        $right0     =   str_split($rights[0]);
                         $user_role  =   $this->session->userdata('user_role'); 
-
+                        if($user_role==4){
+                            $rights     =   explode(',',trim($this->session->userdata('rights')->rights,'"'));   
+                            $right0     =   str_split($rights[0]);
+                        }
                         if($user_role==1 || ($user_role==4 && $right0[0]==1)){
                     ?>
                     <a class="btn btn-primary" href="<?php echo base_url('admin/register/null/4')?>"><i class="fa fa-th-list">&nbsp;Add Subadmin</i></a>

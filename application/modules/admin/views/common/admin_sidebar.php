@@ -35,14 +35,16 @@
         <!-- /.navbar-top-links -->
 
         <?php 
-            $rights     =   explode(',',trim($this->session->userdata('rights')->rights,'"'));   
-            $right0     =   str_split($rights[0]);
-            $right1     =   str_split($rights[1]);
-            $right2     =   str_split($rights[2]);
-            $right3     =   str_split($rights[3]);
-            $right4     =   str_split($rights[4]);
-            $right5     =   str_split($rights[5]);
             $user_role  =   $this->session->userdata('user_role'); 
+            if($user_role==4){
+                $rights     =   explode(',',trim($this->session->userdata('rights')->rights,'"'));   
+                $right0     =   str_split($rights[0]);
+                $right1     =   str_split($rights[1]);
+                $right2     =   str_split($rights[2]);
+                $right3     =   str_split($rights[3]);
+                $right4     =   str_split($rights[4]);
+                $right5     =   str_split($rights[5]);
+            }
         ?>
 
 

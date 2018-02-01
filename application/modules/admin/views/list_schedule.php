@@ -19,9 +19,11 @@
                             Schedule List
                         </div>
                     <?php 
-                        $rights     =   explode(',',trim($this->session->userdata('rights')->rights,'"'));   
-                        $right2     =   str_split($rights[2]);
                         $user_role  =   $this->session->userdata('user_role'); 
+                        if($user_role==4){
+                            $rights     =   explode(',',trim($this->session->userdata('rights')->rights,'"'));   
+                            $right2     =   str_split($rights[2]);
+                        }
                     ?>
 
                         <!-- /.panel-heading -->
@@ -68,7 +70,7 @@
 
                                             <a href="<?php echo base_url('admin/edit_schedule/').$value->doctor_id; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                         
-                                        <?php }  if($user_role==1 || ($user_role==4 && $right2[2]==1)){?>?>
+                                        <?php }  if($user_role==1 || ($user_role==4 && $right2[2]==1)){?>
 
                                             <a href="javascript:void(0)" onclick="delete_schedule('<?php echo $value->doctor_id?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 
