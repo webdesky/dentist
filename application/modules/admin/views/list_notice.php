@@ -18,6 +18,11 @@
                         <div class="panel-heading">
                             Notices List
                         </div>
+                        <?php 
+                            $rights     =   explode(',',trim($this->session->userdata('rights')->rights,'"'));   
+                            $right4     =   str_split($rights[4]);
+                            $user_role  =   $this->session->userdata('user_role'); 
+                        ?>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <table width="100%" class="table table-striped table-bordered table-hover" id="notice">
@@ -28,7 +33,9 @@
                                         <th>Description</th>
                                         <th>Start Date</th>
                                         <th>End date</th>
+                                       <?php if($user_role==1 || ($user_role==4 && $right4[1]==1 || $right4[2]==1)){?>
                                         <th>Action</th>
+                                        <?php }?>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,11 +52,20 @@
                                           <td class="center"><?php echo $value['end_date'];  ?></td>
                                         
                                        
+                                        <?php if($user_role==1 || ($user_role==4 && $right4[1]==1 || $right4[2]==1)){?>
+
+                                        <td class="center">
+                                            <?php if($user_role==1 || ($user_role==4 && $right4[1]==1)){?>
+                                            <a href="<?php echo base_url('admin/notices/').$value['id']; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                            <?php }if($user_role==1 || ($user_role==4 && $right4[2]==1)){?>
+
+                                            <a href="javascript:void(0)" onclick="delete_notices('<?php echo $value['id']?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+
+                                            <?php }?>
                                         
-                                        <td class="center"><a href="<?php echo base_url('admin/notices/').$value['id']; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a href="javascript:void(0)" onclick="delete_notices('<?php echo $value['id']?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                                        <!-- <i class="fa fa fa-plus" aria-hidden="true" onclick="updateStatus(<?php echo $value->doctor_id; ?>,<?php echo $value->doctor_status; ?>)"></i> -->
                                         </td>
+
+                                    <?php }?>
 
                                     </tr>
                                  <?php $count++; } }?>

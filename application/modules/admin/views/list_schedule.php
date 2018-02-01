@@ -18,6 +18,12 @@
                         <div class="panel-heading">
                             Schedule List
                         </div>
+                    <?php 
+                        $rights     =   explode(',',trim($this->session->userdata('rights')->rights,'"'));   
+                        $right2     =   str_split($rights[2]);
+                        $user_role  =   $this->session->userdata('user_role'); 
+                    ?>
+
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <table width="100%" class="table table-striped table-bordered table-hover" id="schedule">
@@ -26,22 +32,23 @@
                                         <th>SL.No</th>
                                         <th>Doctor Name</th>
                                         <th>Days Available</th>
+                                        <?php if($user_role==1 || ($user_role==4 && $right2[1]==1 || $right2[2]==1)){?>
                                         <th>Action</th>
+                                        <?php }?>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 <?php 
- 								$count=1;
-                                if(!empty($scheduleList)){
-                                foreach ($scheduleList as  $value) {
+     								$count=1;
+                                    if(!empty($scheduleList)){
+                                    foreach ($scheduleList as  $value) {
 
-                                    $days=$value->Days;
-                                    $data=explode(",",$days);
-                                    $sortedDays=array_unique($data);
-                                    $day=implode(",",$sortedDays);
-                                    
-
-                                 ?>
+                                        $days       =   $value->Days;
+                                        $data       =   explode(",",$days);
+                                        $sortedDays =   array_unique($data);
+                                        $day        =   implode(",",$sortedDays);
+                                        
+                                     ?>
                                 	<tr class="odd gradeX">
                                         <td><?php echo $count; ?></td>
                                         
@@ -53,11 +60,23 @@
                                        
                                         
                                        
+                                        <?php if($user_role==1 || ($user_role==4 && $right2[1]==1 || $right2[2]==1)){?>
+
+                                        <td class="center">
+
+                                        <?php if($user_role==1 || ($user_role==4 && $right2[1]==1)){?>
+
+                                            <a href="<?php echo base_url('admin/edit_schedule/').$value->doctor_id; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                         
-                                        <td class="center"><a href="<?php echo base_url('admin/edit_schedule/').$value->doctor_id; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a href="javascript:void(0)" onclick="delete_schedule('<?php echo $value->doctor_id?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                                        <!-- <i class="fa fa fa-plus" aria-hidden="true" onclick="updateStatus(<?php echo $value->doctor_id; ?>,<?php echo $value->doctor_status; ?>)"></i> -->
+                                        <?php }  if($user_role==1 || ($user_role==4 && $right2[2]==1)){?>?>
+
+                                            <a href="javascript:void(0)" onclick="delete_schedule('<?php echo $value->doctor_id?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+
+                                        <?php }?>
+                                        
                                         </td>
+
+                                        <?php }?>
 
                                     </tr>
                                  <?php $count++; } }?>

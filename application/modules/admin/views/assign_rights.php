@@ -1,5 +1,3 @@
-
-
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
@@ -36,42 +34,34 @@
                     <div class="row">
                         <div class="col-lg-6 col-lg-offset-2">
                             <form role="form" method="post" action="<?php echo base_url('admin/addRights') ?>" class="registration_form" enctype="multipart/form-data">
-                               
-                                    <div class="form-group">   
-                                        <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-                                    <label class="checkbox-inline">
-                                      <b>Doctor:</b>
-                                    </label>
-                                    <input type="hidden" name="user_role[]" value="doctor">
-                                    <label class="checkbox-inline">
-                                      <input type="checkbox" name="doc_add" value="1">Add
-                                    </label>
-                                    <label class="checkbox-inline">
-                                      <input type="checkbox" name="doc_edit" value="1">Edit
-                                    </label>
-                                    <label class="checkbox-inline">
-                                      <input type="checkbox" name="doc_delete" value="1">Delete
-                                    </label>
-                                    </div>
+                                <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
 
-                                     <div class="form-group">   
-                                    <label class="checkbox-inline">
-                                      <b>Patient:</b>
-                                    </label>
-                                    <input type="hidden" name="user_role[]" value="patient">
-                                    <label class="checkbox-inline">
-                                      <input type="checkbox" name="pat_add" value="1">Add
-                                    </label>
-                                    <label class="checkbox-inline">
-                                      <input type="checkbox" name="pat_edit" value="1">Edit
-                                    </label>
-                                    <label class="checkbox-inline">
-                                      <input type="checkbox" name="pat_delete" value="1">Delete
-                                    </label>
-                                   </div>
+                                <?php 
+                                $rights = explode(',',trim($user_rights->rights,'"'));
+                                $i=0;
+                                foreach ($rights_menu as $menu) {
+                                    
+                                    $right = str_split($rights[$i]);
+                            ?>
 
+                                <div class="form-group">
 
-                                <button type="submit"  value="Save" class="btn btn-success">Save</button>
+                                    <label class="checkbox-inline">
+                                      <b><?php echo ucfirst($menu->menu_name);?>:</b>
+                                    </label>
+                                    <input type="hidden" name="user_role[]" value="<?php echo $menu->menu_name;?>">
+                                    <label class="checkbox-inline">
+                                      <input type="checkbox" name="<?php echo $menu->menu_name;?>_add" value="1" <?php if($right[0]==1){ echo 'checked';}?>>Add
+                                    </label>
+                                    <label class="checkbox-inline">
+                                      <input type="checkbox" name="<?php echo $menu->menu_name;?>_edit" value="1" <?php if($right[1]==1){ echo 'checked';}?>>Edit
+                                    </label>
+                                    <label class="checkbox-inline">
+                                      <input type="checkbox" name="<?php echo $menu->menu_name;?>_delete" value="1" <?php if($right[2]==1){ echo 'checked';}?>>Delete
+                                    </label>
+                                </div>
+                                <?php $i++;}?>
+                                <button type="submit" value="Save" class="btn btn-success">Save</button>
                                 <button type="reset" class="btn btn-default">Reset</button>
                             </form>
                         </div>
@@ -89,6 +79,3 @@
 
 </div>
 </div>
-
-
-

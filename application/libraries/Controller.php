@@ -21,7 +21,6 @@ class Controller
     public function verifylogin($data)
     {
         
-        
         if ($data) {
             $this->CI->form_validation->set_rules('username', 'username', 'trim|required');
             $this->CI->form_validation->set_rules('password', 'password', 'trim|required|callback_check_database');
@@ -31,7 +30,7 @@ class Controller
                 
                 if ($this->checkSession()) {
                     $log = $this->CI->session->userdata['user_role'];
-                    if ($log == 1) {
+                    if ($log == 1 || $log == 4) {
                         redirect('admin/dashboard');
                     } else if ($log == 2) {
                         redirect('doctor/dashboard');

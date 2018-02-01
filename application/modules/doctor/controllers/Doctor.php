@@ -262,10 +262,10 @@ class Doctor extends CI_Controller
                 if (isset($_FILES['image']['name']) && !empty($_FILES['image']['name'])) {
                     $count = count($_FILES['image']['name']);
                     for ($i = 0; $i < $count; $i++) {
-                        if ($_FILES['image']['error'][$i] == 0) {
-                            if (move_uploaded_file($_FILES['image']['tmp_name'][$i], 'asset/uploads/' . $_FILES['image']['name'][$i])) {
+                        if ($_FILES['image']['error'] == 0) {
+                            if (move_uploaded_file($_FILES['image']['tmp_name'], 'asset/uploads/' . $_FILES['image']['name'])) {
                                 
-                                $data['profile_pic'] = $_FILES['image']['name'][$i];
+                                $data['profile_pic'] = $_FILES['image']['name'];
                             }
                         }
                     }
