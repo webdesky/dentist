@@ -741,5 +741,18 @@ class Doctor extends CI_Controller
         $data['body']      = 'message_to_me';
         $this->controller->load_view($data);
     }
+
+    public function get_user()
+    {
+        
+        $where          = array('id' => $this->input->post('id'),'is_active'=>1);
+
+        $patient_list   = $this->model->getAllwhere('users', $where, 'id', 'DESC');
+
+        echo json_encode($patient_list, TRUE);
+
+        
+        
+    }
     
 }

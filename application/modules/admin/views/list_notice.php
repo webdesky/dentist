@@ -1,4 +1,3 @@
-
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
@@ -19,8 +18,8 @@
                             Notices List
                         </div>
                         <?php 
-                            $user_role  =   $this->session->userdata('user_role'); 
-                            if($user_role==4){
+                            $user_role      =   $this->session->userdata('user_role'); 
+                            if($user_role == 4 ){
                                 $rights     =   explode(',',trim($this->session->userdata('rights')->rights,'"'));   
                                 $right4     =   str_split($rights[4]);
                             }
@@ -90,9 +89,11 @@
         </div>
 
      
-         <script type="text/javascript">
-            $('#notice').DataTable();
-             function delete_notices(id) {
+<script type="text/javascript">
+    
+    $('#notice').DataTable();
+    
+    function delete_notices(id) {
         if (confirm("Are you sure want to delete?")) {
             $.ajax({
                 url: "<?php echo base_url('admin/delete')?>",
