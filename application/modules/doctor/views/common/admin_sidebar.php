@@ -105,7 +105,7 @@
                                 <a href="<?php echo base_url('doctor/add_prescription/');?>">Add Prescription</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)">Prescription List</a>
+                                <a href="<?php echo base_url('doctor/prescription_list/');?>">Prescription List</a>
                             </li>
                         </ul>
                     </li>
@@ -145,6 +145,19 @@
                             <li>
                                 <a href="<?php echo base_url('doctor/mail_list_me/')?>">Mail to Me</a>
                             </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#"><i class="fa fa-wrench" aria-hidden="true"></i> Inventory<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level treeview-menu">
+                            <li>
+                                <a href="<?php echo base_url('doctor/add_inventory/')?>">Inventory Request</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url('doctor/inventory_list/')?>">Inventory Request by Me</a>
+                            </li>
+                            
                         </ul>
                     </li>
 

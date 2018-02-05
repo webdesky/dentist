@@ -592,16 +592,19 @@ class Doctor extends CI_Controller
     }
     
     
-    public function add_prescription()
+    public function add_prescription($id = null)
     {
-        $where           = array(
-            'user_role' => 3
+
+        $where = array(
+            'doctor_id' => $this->session->userdata('id'),
+            'is_active' => 1
         );
-        $data['patient'] = $this->model->getAllwhere('users', $where);
+        
+        $data['patient'] = $this->model->getAllwhere('appointment', $where, 'ap_id', 'DESC', 'patient_id,appointment_id');
         
         $this->form_validation->set_rules('patient_id', 'Patient Name', 'trim|required');
-        $this->form_validation->set_rules('diabetic', 'Diabetic', 'trim|required');
         $this->form_validation->set_rules('blood_pressure', 'High Blood Pressure', 'trim|required');
+        $this->form_validation->set_rules('weight', 'Weight', 'trim|required');
         
         if ($this->form_validation->run() == false) {
             
@@ -612,26 +615,30 @@ class Doctor extends CI_Controller
         } else {
             if ($this->controller->checkSession()) {
                 
-                $patient_id      = $this->input->post('patient_id');
-                $diabetic        = $this->input->post('diabetic');
-                $blood_pressure  = $this->input->post('blood_pressure');
-                $allergies       = $this->input->post('allergies');
-                $problem         = $this->input->post('problem');
-                $others          = $this->input->post('others');
-                $medical_history = $this->input->post('medical_history');
-                $status          = $this->input->post('status');
-                $reference       = $this->input->post('reference');
+                $patient_id     = $this->input->post('patient_id');
+                $appointment_id = $this->input->post('appointment_id');
+                $weight         = $this->input->post('weight');
+                $blood_pressure = $this->input->post('blood_pressure');
+                $reference      = $this->input->post('reference_by');
+                $patient_type   = $this->input->post('patient_type');
+                $patient_notes  = $this->input->post('patient_notes');
+                $visiting_fees  = $this->input->post('visiting_fees');
+                $chief_complain = $this->input->post('chief_complain');
+                $medicine_name  = $this->input->post('medicine_name');
+                $diagnosis_name = $this->input->post('diagnosis_name');
                 
                 $data = array(
                     'patient_id' => $patient_id,
-                    'diabetic' => $diabetic,
+                    'doctor_id' => $this->session->userdata('id'),
+                    'appointment_id' => $appointment_id,
+                    'weight' => $weight,
                     'blood_pressure' => $blood_pressure,
-                    'allergies' => $allergies,
-                    'problem' => $problem,
-                    'others' => $others,
-                    'medical_history' => $medical_history,
-                    'is_active' => $status,
                     'reference' => $reference,
+                    'type' => $patient_type,
+                    'patient_note' => $patient_notes,
+                    'chief_complain' => $chief_complain,
+                    'visiting_fee' => $visiting_fees,
+                    'is_active' => 1,
                     'created_at' => date('Y-m-d H:i:s')
                 );
                 if (!empty($id)) {
@@ -639,14 +646,94 @@ class Doctor extends CI_Controller
                         'id' => $id
                     );
                     unset($data['created_at']);
-                    $result = $this->model->updateFields('case_study', $data, $where);
+                    $result = $this->model->updateFields('prescription', $data, $where);
                 } else {
-                    $result = $this->model->insertData('case_study', $data);
+                    $result = $this->model->insertData('prescription', $data);
+                    $where  = array(
+                        'appointment_id' => $appointment_id
+                    );
+                    $data   = array(
+                        'is_active' => 0
+                    );
+                    $result = $this->model->updateFields('appointment', $data, $where);
+                    
                 }
-                $this->case_study_list();
+                
+                
+                if (!empty($medicine_name[0])) {
+                    
+                    $medicine_type        = $this->input->post('medicine_type');
+                    $medicine_instruction = $this->input->post('medicine_instruction');
+                    $medicine_days        = $this->input->post('medicine_days');
+                    
+                    if (!empty($id)) {
+                        $where = array(
+                            'prescription_id' => $id
+                        );
+                        $this->model->delete('medicine', $where);
+                    }
+                    for ($i = 0; $i < count($medicine_name); $i++) {
+                        $data = array(
+                            'patient_id' => $patient_id,
+                            'doctor_id' => $this->session->userdata('id'),
+                            'prescription_id' => $result,
+                            'medicine_name' => $medicine_name[$i],
+                            'medicine_type' => $medicine_type[$i],
+                            'instruction' => $medicine_instruction[$i],
+                            'days' => $medicine_days[$i],
+                            'is_active' => 1,
+                            'created_at' => date('Y-m-d H:i:s')
+                        );
+                        
+                        $medicine = $this->model->insertData('medicine', $data);
+                    }
+                }
+                
+                
+                
+                if (!empty($diagnosis_name[0])) {
+                    $diagnosis_instruction = $this->input->post('diagnosis_instruction');
+                    
+                    if (!empty($id)) {
+                        $where = array(
+                            'prescription_id' => $id
+                        );
+                        $this->model->delete('diagnosis', $where);
+                    }
+                    
+                    for ($i = 0; $i < count($diagnosis_name); $i++) {
+                        $data = array(
+                            'patient_id' => $patient_id,
+                            'prescription_id' => $result,
+                            'doctor_id' => $this->session->userdata('id'),
+                            'diagnosis' => $diagnosis_name[$i],
+                            'instruction' => $diagnosis_instruction[$i],
+                            'is_active' => 1,
+                            'created_at' => date('Y-m-d H:i:s')
+                        );
+                        
+                        
+                        $diagnosis = $this->model->insertData('diagnosis', $data);
+                        
+                    }
+                    
+                }
+                
+                $this->prescription_list();
             }
         }
         
+    }
+    
+    public function prescription_list()
+    {
+        $where                     = array(
+            'doctor_id' => $this->session->userdata('id')
+        );
+        $field_val                 = 'prescription.*, users.first_name,users.last_name';
+        $data['prescription_list'] = $this->model->GetJoinRecord('prescription', 'patient_id', 'users', 'id', $field_val, $where);
+        $data['body']              = 'prescription_list';
+        $this->controller->load_view($data);
     }
     
     
@@ -741,18 +828,129 @@ class Doctor extends CI_Controller
         $data['body']      = 'message_to_me';
         $this->controller->load_view($data);
     }
-
+    
     public function get_user()
     {
-        
-        $where          = array('id' => $this->input->post('id'),'is_active'=>1);
-
-        $patient_list   = $this->model->getAllwhere('users', $where, 'id', 'DESC');
-
+        $where        = array(
+            'id' => $this->input->post('id'),
+            'is_active' => 1
+        );
+        $patient_list = $this->model->getAllwhere('users', $where, 'id', 'DESC');
         echo json_encode($patient_list, TRUE);
+    }
+    
+    public function view_prescription($id = null)
+    {
+        
+        $where = array(
+            'prescription.id' => $id
+        );
+        
+        $field_val = 'prescription.*,users.first_name,users.last_name,users.date_of_birth,users.gender';
+        
+        $data['prescription'] = $this->model->GetJoinRecord('prescription', 'patient_id', 'users', 'id', $field_val, $where);
+        
+        $where1 = array(
+            'prescription_id' => $id
+        );
+        
+        $data['medicine'] = $this->model->getAllwhere('medicine', $where1, 'id', 'DESC');
+        
+        $data['diagnosis'] = $this->model->getAllwhere('diagnosis', $where1, 'id', 'DESC');
+        
+        $data['body'] = 'view_prescription';
+        
+        $this->controller->load_view($data);
+    }
+    
+    
+    public function edit_prescription($id = null)
+    {
+        
+        $where = array(
+            'prescription.id' => $id
+        );
+        
+        $field_val = 'prescription.*,users.first_name,users.last_name,users.date_of_birth,users.gender';
+        
+        $data['prescription'] = $this->model->GetJoinRecord('prescription', 'patient_id', 'users', 'id', $field_val, $where);
+        
+        $where1 = array(
+            'prescription_id' => $id
+        );
+        
+        $data['medicine'] = $this->model->getAllwhere('medicine', $where1, 'id', 'DESC');
+        
+        $data['diagnosis'] = $this->model->getAllwhere('diagnosis', $where1, 'id', 'DESC');
+        
+        $data['body'] = 'edit_prescription';
+        
+        $this->controller->load_view($data);
+        
+    }
 
-        
-        
+    public function delete_prescription(){
+        $id = $this->input->post('id');
+        $this->Common_model->multiple_delete($id);
+
+    }
+
+    public function add_inventory($id=null){
+        $this->form_validation->set_rules('equipment_name', 'Equipment Name', 'trim|required');
+        $this->form_validation->set_rules('no_of_equipment', 'No of Equipment', 'trim|required|numeric|xss_clean');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('errors', validation_errors());
+            $data['body'] = 'inventory';
+            $this->controller->load_view($data);
+        } else {
+            if ($this->controller->checkSession()) {
+
+                $equipment_name  = $this->input->post('equipment_name');
+                $no_of_equipment = $this->input->post('no_of_equipment');
+                $others          = $this->input->post('others');
+
+                $data = array(  
+                                'doctor_id' => $this->session->userdata('id'), 
+                                'equipment_name'=>$equipment_name,
+                                'no_of_equipment'=>$no_of_equipment,
+                                'others'=>$others,
+                                'is_active'=>1,
+                                'created_at'=>date('Y-m-d H:i:s')
+                            );
+
+                if (!empty($id)) {
+                    $where = array(
+                        'id' => $id
+                    );
+                    unset($data['created_at']);
+                    $result = $this->model->updateFields('inventory', $data, $where);
+                }else{
+                    $result = $this->model->insertData('inventory', $data);
+                }
+
+                $this->inventory_list();
+
+            }
+        }
+    }
+
+    public function inventory_list(){
+        $where             = array(
+            'doctor_id' => $this->session->userdata('id')
+        );
+        $data['inventory_list'] = $this->model->getAllwhere('inventory', $where, 'id', 'DESC');
+        $data['body']      = 'inventory_list';
+        $this->controller->load_view($data);
+
+    }
+
+    public function edit_inventory($id){
+        $where             = array('doctor_id' => $this->session->userdata('id'),'id'=>$id);
+        $data['inventory'] = $this->model->getAllwhere('inventory', $where);
+        $data['body']      = 'edit_inventory';
+        $this->controller->load_view($data);
+
     }
     
 }

@@ -130,6 +130,6 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $("#datepicker").datepicker();
+        $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
     });
 </script>

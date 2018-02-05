@@ -44,20 +44,20 @@
             <div class="col-md-10 col-sm-10 manage-forms">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header"> Add Prescription</h1>
+                        <h1 class="page-header"> Edit Prescription</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
                 <div class="panel panel-default thumbnail">
                     <div class="panel-heading no-print">
                         <div class="btn-group">
-                            <a class="btn btn-primary" href="#"> <i class="fa fa-list"></i>  Prescription List </a>
+                            <a class="btn btn-primary" href="#"> <i class="fa fa-list"></i>  Prescription </a>
                         </div>
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12 col-sm-12 table-responsive">
-                                <form action="<?php echo base_url('doctor/add_prescription')?>" method="post" accept-charset="utf-8">
+                                <form action="<?php echo base_url('doctor/add_prescription/'.$prescription[0]->id)?>" method="post" accept-charset="utf-8">
                                     <!-- Information -->
                                     <table class="table">
                                         <thead>
@@ -65,24 +65,19 @@
                                                 <th width="33.33%">
                                                     <ul class="list-unstyled">
                                                         <li>
-                                                            <select name="patient_id" class="invoice-input form-control" onchange="get_patient_data(this)">
-                                                                <option value="">--Select Patient--</option>
-                                                                <?php if(!empty($patient)){ foreach($patient as $value){?>
-                                                                <option data-appointment="<?php echo $value->appointment_id;?>" value="<?php echo $value->patient_id;?>"><?php echo $value->patient_id;?></option>
-                                                                <?php }}?>
-                                                            </select>
+                                                            <input type='text' name="patient_id" class="invoice-input form-control" value="<?php echo $prescription[0]->patient_id;?>">
                                                             <span class="red"><?php echo form_error('patient_id'); ?></span>
                                                         </li>
                                                         <li>
-                                                            <input type="text" placeholder="Patient  Name" class="invoice-input form-control" id="patient_name" name="patient_name">
+                                                            <input type="text" placeholder="Patient  Name" class="invoice-input form-control" id="patient_name" name="patient_name" value="<?php echo ucwords($prescription[0]->first_name.' '.$prescription[0]->last_name);?>">
                                                             <span class="red"><?php echo form_error('patient_name'); ?></span>
                                                         </li>
                                                         <li>
-                                                            <input type="text" placeholder="Sex" class="invoice-input form-control" id="sex" name="sex">
+                                                            <input type="text" placeholder="Sex" class="invoice-input form-control" id="sex" name="sex" value="<?php echo $prescription[0]->gender;?>">
                                                             <span class="red"><?php echo form_error('sex'); ?></span>
                                                         </li>
                                                         <li>
-                                                            <input type="text" placeholder="Date of Birth" class="invoice-input form-control datepicker hasDatepicker" id="date_of_birth" name="date_of_birth">
+                                                            <input type="text" placeholder="Date of Birth" class="invoice-input form-control datepicker hasDatepicker" id="date_of_birth" name="date_of_birth" value="<?php echo $prescription[0]->date_of_birth;?>">
                                                             <span class="red"><?php echo form_error('date_of_birth'); ?></span>
                                                         </li>
                                                     </ul>
@@ -90,15 +85,15 @@
                                                 <th width="33.33%">
                                                     <ul class="list-unstyled">
                                                         <li>
-                                                            <input type="text" name="weight" placeholder="Weight" required="required" class="invoice-input form-control">
+                                                            <input type="text" name="weight" placeholder="Weight" required="required" class="invoice-input form-control" value="<?php echo $prescription[0]->weight;?>">
                                                             <span class="red"><?php echo form_error('weight'); ?></span>
                                                         </li>
                                                         <li>
-                                                            <input type="text" name="blood_pressure" placeholder="Blood Pressure" class="invoice-input form-control">
+                                                            <input type="text" name="blood_pressure" placeholder="Blood Pressure" class="invoice-input form-control" value="<?php echo $prescription[0]->blood_pressure;?>">
                                                             <span class="red"><?php echo form_error('blood_pressure'); ?></span>
                                                         </li>
                                                         <li>
-                                                            <input type="text" name="reference_by" placeholder="Reference" class="invoice-input form-control">
+                                                            <input type="text" name="reference_by" placeholder="Reference" class="invoice-input form-control" value="<?php echo $prescription[0]->reference;?>">
                                                             <span class="red"><?php echo form_error('reference_by'); ?></span>
                                                         </li>
                                                         <li>
@@ -112,7 +107,7 @@
                                                 </th>
                                                 <th width="33.33%">
                                                     <ul class="list-unstyled">
-                                                        <li><input type="text" name="appointment_id" id="appointment_id" value="" class="invoice-input form-control" placeholder="Appointment ID"></li>
+                                                        <li><input type="text" name="appointment_id" id="appointment_id" value="<?php echo $prescription[0]->appointment_id;?>" class="invoice-input form-control" placeholder="Appointment ID" ></li>
                                                         <li><input type="text" name="date" required="required" value="<?php echo date('Y-m-d')?>" class="invoice-input form-control" placeholder="Date" id="datepicker"></li>
                                                         <li><input type="text" value="Demo Hospital Limited" class="invoice-input form-control" placeholder="Hospital Name"></li>
                                                         <li><input type="text" value="105, Magnet Tower, Indore, 452001" class="invoice-input form-control" placeholder="Address"></li>
@@ -121,7 +116,7 @@
                                             </tr>
                                             <tr>
                                                 <th colspan="2">
-                                                    <textarea type="text" required="" placeholder="Chief Complain" name="chief_complain" class="invoice-input form-control"></textarea>
+                                                    <textarea type="text" required="" placeholder="Chief Complain" name="chief_complain" class="invoice-input form-control"><?php echo ucfirst($prescription[0]->chief_complain);?></textarea>
                                                 </th>
                                                 <!-- <th>
                                                     <div class="btn-group">
@@ -152,12 +147,13 @@
                                             </tr>
                                         </thead>
                                         <tbody id="medicine">
+                                        <?php if(!empty($medicine)){ foreach($medicine as $medicines){?>
                                             <tr>
-                                                <td><input type="text" name="medicine_name[]" autocomplete="off" class="medicine form-control" placeholder="Medicine Name">
+                                                <td><input type="text" name="medicine_name[]" autocomplete="off" class="medicine form-control" placeholder="Medicine Name" value="<?php echo ucfirst($medicines->medicine_name);?>">
                                                 </td>
-                                                <td><input type="text" name="medicine_type[]" autocomplete="off" class="form-control" placeholder="Medicine Type"></td>
-                                                <td><textarea name="medicine_instruction[]" class="form-control" placeholder="Instruction"></textarea></td>
-                                                <td><input type="text" name="medicine_days[]" autocomplete="off" class="form-control" placeholder="Days"></td>
+                                                <td><input type="text" name="medicine_type[]" autocomplete="off" class="form-control" placeholder="Medicine Type" value="<?php echo ucfirst($medicines->medicine_type);?>"></td>
+                                                <td><textarea name="medicine_instruction[]" class="form-control" placeholder="Instruction"><?php echo $medicines->instruction;?></textarea></td>
+                                                <td><input type="text" name="medicine_days[]" autocomplete="off" class="form-control" placeholder="Days" value="<?php echo $medicines->days;?>"></td>
                                                 <td>
                                                     <div class="btn btn-group">
                                                         <button type="button" class="btn btn-sm btn-primary MedAddBtn">Add</button>
@@ -165,6 +161,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
+                                        <?php }}?>
                                         </tbody>
                                     </table>
 
@@ -179,9 +176,11 @@
                                             </tr>
                                         </thead>
                                         <tbody id="diagnosis">
+                                        <?php if(!empty($diagnosis)){ foreach($diagnosis as $value){?>
                                             <tr>
-                                                <td><input type="text" name="diagnosis_name[]" autocomplete="off" class="form-control" placeholder="Diagnosis"></td>
-                                                <td><textarea name="diagnosis_instruction[]" class="form-control" placeholder="Instruction"></textarea></td>
+                                                <td><input type="text" name="diagnosis_name[]" autocomplete="off" class="form-control" placeholder="Diagnosis" value="<?php echo ucfirst($value->diagnosis);?>"></td>
+                                                <td><textarea name="diagnosis_instruction[]" class="form-control" placeholder="Instruction"><?php echo ucfirst($value->instruction);?>
+                                                </textarea></td>
                                                 <td>
                                                     <div class="btn btn-group">
                                                         <button type="button" class="btn btn-sm btn-primary DiaAddBtn">Add</button>
@@ -189,6 +188,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
+                                        <?php }}?>
                                         </tbody>
                                     </table>
 
@@ -200,7 +200,7 @@
                                             <div class="form-group row">
                                                 <label for="visiting_fees" class="col-xs-3 col-form-label">Visiting Fees</label>
                                                 <div class="col-xs-9">
-                                                    <input name="visiting_fees" type="text" class="form-control" id="visiting_fees" placeholder="Visiting Fees">
+                                                    <input name="visiting_fees" type="text" class="form-control" id="visiting_fees" placeholder="Visiting Fees" value="<?php echo $prescription[0]->visiting_fee;?>">
                                                     <span class="red"><?php echo form_error('visiting_fees'); ?></span>
                                                 </div>
                                             </div>
@@ -208,7 +208,7 @@
                                             <div class="form-group row">
                                                 <label for="patient_notes" class="col-xs-3 col-form-label">Patient Notes</label>
                                                 <div class="col-xs-9">
-                                                    <textarea name="patient_notes" class="form-control" placeholder="Patient Notes"></textarea>
+                                                    <textarea name="patient_notes" class="form-control" placeholder="Patient Notes"><?php echo ucfirst($prescription[0]->patient_note);?></textarea>
                                                     <span class="red"><?php echo form_error('patient_notes'); ?></span>
                                                 </div>
                                             </div>
@@ -233,28 +233,11 @@
             </div>
         </div>
     </div>
-    <!-- Modal -->
-    <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Case Study</h4>
-                    </div>
-                    <div class="modal-body" id="caseStudyOutput">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <a href="http://hospitalnew.bdtask.com/demo6/dashboard_doctor/prescription/case_study/create" class="btn btn-primary">Add Patient Case Study</a>
-                    </div>
-                </div>
-            </div>
-        </div>
- -->
+    
 
     <script type="text/javascript">
         $(document).ready(function() {
+            
             // medicine list
             $('body').on('keyup change click', '.medicine', function() {
                 $(this).autocomplete({
@@ -302,28 +285,6 @@
 
     });
 
-
-        function get_patient_data(str){
-            var appointment_id = $(str).find(':selected').data("appointment");
-            $('#appointment_id').val(appointment_id);
-            $.ajax({
-                type: 'POST',
-                url: "<?php echo base_url('doctor/get_user')?>",
-                dataType: 'json',
-                data: {
-                    id:str.value
-                },
-                success: function(data) {
-                    if(data[0]!=""){
-                        var first_name =  data[0].first_name.toUpperCase();
-                        var last_name  =  data[0].last_name.toUpperCase();
-                        $('#patient_name').val(first_name+' '+last_name);    
-                        $('#sex').val(data[0].gender);  
-                        $('#date_of_birth').val(data[0].date_of_birth);
-                    }       
-                }
-            });
-        }
     </script>
 
 </div>

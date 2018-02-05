@@ -136,13 +136,13 @@
                                 <a href="<?php echo base_url('admin/case_study_list/')?>">Patient Case Study List</a>
                             </li>
                         <?php if($user_role==1 || ($user_role==4 && $right4[0]==1)){?>
-                            <li>
+                            <!-- <li>
                                 <a href="javascript:void(0)">Add Prescription</a>
-                            </li>
+                            </li> -->
                         <?php }?>
-                            <li>
+                           <!--  <li>
                                 <a href="javascript:void(0)">Prescription List</a>
-                            </li>
+                            </li> -->
                         </ul>
                     </li>
 
@@ -182,6 +182,42 @@
 
                                 </ul>
                             </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-commenting" aria-hidden="true"></i> Message<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level treeview-menu">
+                            <li>
+                                <a href="<?php echo base_url('admin/send_message/')?>">Send Message</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url('admin/message_list/')?>">Message List</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#"><i class="fa fa-envelope" aria-hidden="true"></i> Mail<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level treeview-menu">
+                            <li>
+                                <a href="<?php echo base_url('admin/send_mail/')?>">Send Mail</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url('admin/mail_list/')?>">Mail to Me</a>
+                            </li>
+                            <!-- <li>
+                                <a href="<?php //echo base_url('admin/mail_list_me/')?>">Mail to Me</a>
+                            </li> -->
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#"><i class="fa fa-wrench" aria-hidden="true"></i> Inventory<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level treeview-menu">
+                            <li>
+                                <a href="<?php echo base_url('admin/inventory_list/')?>">Inventory Requests</a>
+                            </li>
+                            
                         </ul>
                     </li>
 

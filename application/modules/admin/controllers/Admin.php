@@ -388,6 +388,16 @@ class Admin extends CI_Controller
         );
         $this->model->delete($table, $where);
     }
+
+    public function change_status()
+    {
+        $id     = $this->input->post('id');
+        $table  = $this->input->post('table');
+        $where  = array('id' => $id);
+        $data   = array('is_active'=>0);
+        $result = $this->model->updateFields($table, $data, $where);
+
+    }
     
     
     
@@ -809,6 +819,198 @@ class Admin extends CI_Controller
         $data['body']        = 'list_notice';
         
         $this->controller->load_view($data);
+    }
+
+    public function send_mail()
+    {
+        $where             = array(
+            'user_role != ' => $this->session->userdata('user_role')
+        );
+
+        $data['users'] = $this->model->getAllwhere('users',$where);
+
+            
+        $this->form_validation->set_rules('reciever_id', 'Mail to', 'trim|required');
+        $this->form_validation->set_rules('subject', 'Subject', 'trim|required');
+        $this->form_validation->set_rules('message', 'Message', 'trim|required');
+        
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('errors', validation_errors());
+            $data['body'] = 'send_message';
+            $this->controller->load_view($data);
+        } else {
+            if ($this->controller->checkSession()) {
+                
+                $reciever_id = $this->input->post('reciever_id');
+                $subject     = $this->input->post('subject');
+                $message     = $this->input->post('message');
+                
+                $data = array(
+                    'reciever_id' => $reciever_id,
+                    'sender_id' => $this->session->userdata('id'),
+                    'subject' => $subject,
+                    'message' => trim($message),
+                    'is_active' => 1,
+                    'created_at' => date('Y-m-d H:i:s')
+                );
+                
+                $config = Array(
+                    'protocol' => 'smtp',
+                    'smtp_host' => 'ssl://smtp.googlemail.com',
+                    'smtp_port' => 465,
+                    'smtp_user' => 'webdeskytechnical@gmail.com',
+                    'smtp_pass' => 'webdesky@2017',
+                    'mailtype' => 'html',
+                    'charset' => 'iso-8859-1'
+                );
+                
+                $this->load->library('email', $config);
+                $this->email->set_newline("\r\n");
+                
+                $this->email->from($this->session->userdata('email'), "Admin Team");
+                $this->email->to($reciever_id);
+                $this->email->subject($subject);
+                $this->email->message($message);
+                
+                // if($this->email->send()){     
+                //     $error['message'] = "Mail sent...";   
+                // }else{
+                //     $error['message'] = show_error($this->email->print_debugger());
+                // }
+                
+                $result = $this->model->insertData('mail', $data);
+                
+                $this->mail_list();
+            }
+        }
+    }
+    
+    public function mail_list()
+    {
+        $where             = array(
+            'reciever_id' => $this->session->userdata('email'),
+            'sender_id !=' => $this->session->userdata('id')
+        );
+    
+        $field_val = 'mail.*,users.first_name,users.last_name';
+
+        $data['mail_list'] = $this->model->GetJoinRecord('mail', 'sender_id', 'users', 'id', $field_val, $where);
+
+
+        $data['body']      = 'message_list';
+        $this->controller->load_view($data);
+        
+    }
+
+    public function send_message()
+    {
+
+        $where             = array(
+            'user_role != ' => $this->session->userdata('user_role')
+        );
+
+        $data['users'] = $this->model->getAllwhere('users',$where);
+
+
+        $this->form_validation->set_rules('reciever_id', 'Mail to', 'trim|required');
+        $this->form_validation->set_rules('subject', 'Subject', 'trim|required');
+        $this->form_validation->set_rules('message', 'Message', 'trim|required');
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('errors', validation_errors());
+            $data['body'] = 'send_mail';
+            $this->controller->load_view($data);
+        } else {
+            if ($this->controller->checkSession()) {
+                
+                $reciever_id = $this->input->post('reciever_id');
+                $subject     = $this->input->post('subject');
+                $message     = $this->input->post('message');
+                
+                $data = array(
+                    'reciever_id' => $reciever_id,
+                    'sender_id' => $this->session->userdata('id'),
+                    'subject' => $subject,
+                    'message' => trim($message),
+                    'is_active' => 1,
+                    'created_at' => date('Y-m-d H:i:s')
+                );
+                
+                $result = $this->model->insertData('message', $data);
+            }
+        }
+    }
+    
+    public function message_list()
+    {
+        $where             = array(
+            'reciever_id' => $this->session->userdata('id'),
+            'sender_id !=' => $this->session->userdata('id')
+        );
+    
+        $field_val = 'message.*,users.first_name,users.last_name';
+
+        $data['messages_list'] = $this->model->GetJoinRecord('message', 'sender_id', 'users', 'id', $field_val, $where);
+
+        $data['body']          = 'mail_list';
+        $this->controller->load_view($data);
+    }
+
+    public function add_inventory($id=null){
+        $this->form_validation->set_rules('equipment_name', 'Equipment Name', 'trim|required');
+        $this->form_validation->set_rules('no_of_equipment', 'No of Equipment', 'trim|required|numeric|xss_clean');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('errors', validation_errors());
+            $data['body'] = 'inventory';
+            $this->controller->load_view($data);
+        } else {
+            if ($this->controller->checkSession()) {
+
+                $equipment_name  = $this->input->post('equipment_name');
+                $no_of_equipment = $this->input->post('no_of_equipment');
+                $others          = $this->input->post('others');
+
+                $data = array(  
+                                'doctor_id' => $this->session->userdata('id'), 
+                                'equipment_name'=>$equipment_name,
+                                'no_of_equipment'=>$no_of_equipment,
+                                'others'=>$others,
+                                'is_active'=>1,
+                                'created_at'=>date('Y-m-d H:i:s')
+                            );
+
+                if (!empty($id)) {
+                    $where = array(
+                        'id' => $id
+                    );
+                    unset($data['created_at']);
+                    $result = $this->model->updateFields('inventory', $data, $where);
+                }else{
+                    $result = $this->model->insertData('inventory', $data);
+                }
+
+                $this->inventory_list();
+
+            }
+        }
+    }
+
+    public function inventory_list(){
+        
+        $field_val  =  'inventory.*,users.first_name,users.last_name';
+        $where      = array('inventory.is_active'=>1);
+        $data['inventory_list'] = $this->model->GetJoinRecord('inventory', 'doctor_id', 'users', 'id', $field_val,$where);
+        $data['body']      = 'inventory_list';
+        $this->controller->load_view($data);
+
+    }
+
+    public function edit_inventory($id){
+        $where             = array('id'=>$id);
+        $data['inventory'] = $this->model->getAllwhere('inventory', $where);
+        $data['body']      = 'edit_inventory';
+        $this->controller->load_view($data);
+
     }
     
 }

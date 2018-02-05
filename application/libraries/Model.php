@@ -104,8 +104,7 @@ class Model
         if (!empty($group_by)) {
             $this->CI->db->group_by("$table.$field_first");
         }
-        $q = $this->CI->db->get();
-        
+        $q = $this->CI->db->get();        
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $rows) {
                 $data[] = $rows;
@@ -211,13 +210,17 @@ class Model
         return $q->row();
     }
     
-    function GetJoinRecordNew($table, $field_first, $tablejointo, $field_second, $tablejointhree, $field_third, $field, $value, $field_val)
+    function GetJoinRecordNew($table, $field_first, $tablejointo, $field_second, $tablejointhree, $field_third,$tablejoinfour, $field_four, $field, $value, $field_val)
     {
         $this->db->cache_on();
         $this->CI->db->select("$field_val");
         $this->CI->db->from("$table");
         $this->CI->db->join("$tablejointo", "$tablejointo.$field_second = $table.$field_first");
         $this->CI->db->join("$tablejointhree", "$tablejointhree.$field_third = $table.$field_first");
+        if($tablejoinfour && $field_four){
+            $this->CI->db->join("$tablejoinfour", "$tablejoinfour.$field_four = $table.$field_first");    
+        }
+        
         $this->CI->db->where("$table.$field", "$value");
         //$this->db->group_by("$table.$field_first");
         $this->CI->db->limit(1);
@@ -231,7 +234,8 @@ class Model
             return $data;
         }
     }
-    
+
+
     function GetSalerecords_for_view($table)
     {
         $this->CI->db->select("*");
