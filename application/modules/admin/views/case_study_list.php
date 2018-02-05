@@ -48,7 +48,7 @@
                                         <td class="center"><?php echo $value->blood_pressure; ?></td>
                                         <td class="center"><?php echo $value->medical_history; ?></td>
                                         <td class="center"><?php echo $value->reference; ?></td>                                        
-                                        <td class="center"><a href="<?php echo base_url('doctor/case_study/'.$value->id); ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <td class="center"><a href="<?php echo base_url('admin/case_study/'.$value->id); ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                         <a href="javascript:void(0)" onclick="delete_case_study('<?php echo $value->id?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>

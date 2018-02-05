@@ -22,7 +22,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6 col-lg-offset-2">
-                            <form role="form" method="post" action="<?php echo base_url('doctor/profile/') ?>" class="registration_form" class="form-horizontal">
+                            <form role="form" method="post" action="<?php echo base_url('admin/profile/') ?>" class="registration_form" class="form-horizontal">
 
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="first name">  First Name:</label>

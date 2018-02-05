@@ -33,7 +33,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6 col-lg-offset-2">
-                            <form role="form" method="post" action="<?php echo base_url('doctor/send_message') ?>" class="registration_form">
+                            <form role="form" method="post" action="<?php echo base_url('admin/send_message') ?>" class="registration_form">
                                 <div class="form-group">
                                     <label>Send To * </label>
                                     <select class="form-control" name="reciever_id">

@@ -59,9 +59,9 @@
                                 <td class="center"> 
                                    <!--  <a href="<?php //echo base_url('admin/edit_inventory/'.$value->id); ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> 
                                     |  -->
-                                    <a href="javascript:void(0)" onclick="delete_inventory('<?php echo $value->id?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                    <a href="javascript:void(0)" onclick="delete_inventory('<?php echo $value->id?>')"><i class="fa fa-trash-o" aria-hidden="true" title="delete"></i></a>
                                     |
-                                    <a href="javascript:void(0)" onclick="update_inventory_status('<?php echo $value->id?>')"><i class="fal fa-hourglass-start"></i></a>
+                                    <a href="javascript:void(0)" onclick="update_inventory_status('<?php echo $value->id?>')"><i class="fa fa-hourglass-start" title="change status"></i></a>
                                 </td>
                             </tr>
                             <?php $count++; }}?>

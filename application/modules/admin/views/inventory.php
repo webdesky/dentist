@@ -17,12 +17,12 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <a class="btn btn-primary" href="<?php echo base_url('doctor/add_inventory')?>"><i class="fa fa-th-list">&nbsp;Inventory Request</i></a>
+                    <a class="btn btn-primary" href="javascript:void(0)"><i class="fa fa-th-list">&nbsp;Inventory</i></a>
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6 col-lg-offset-2">
-                            <form role="form" method="post" action="<?php echo base_url('doctor/add_inventory') ?>" class="registration_form">
+                            <form role="form" method="post" action="#" class="registration_form">
                                 <div class="form-group">
                                     <label>Equipment Name *</label>
                                     <input class="form-control" type="text" name="equipment_name" placeholder="Equipment Name" autocomplete="off" required="required" value="<?php echo set_value('equipment_name'); ?>">

@@ -67,7 +67,7 @@
                     </li>
                 
                     <li>
-                        <a href="#"><i class="fa fa fa-user-md"></i> Doctor<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-user-md"></i> Doctor<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                         <?php if($user_role==1 || ($user_role==4 && $right0[0]==1)){?>
                             <li>
@@ -164,7 +164,7 @@
                     <?php if($user_role==1){?>
 
                     <li>
-                        <a href="#"><i class="fa fa fa-user-md"></i> Sub Admin<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-users"></i> Sub Admin<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="<?php echo base_url('admin/register/null/4')?>">Add Sub Admin</a>
@@ -174,7 +174,7 @@
                             </li>
 
                             <li>
-                                <a href="#"><i class="fa fa fa-user"></i> Rights <span class="fa arrow"></span></a>
+                                <a href="#"><i class="fa fa-users"></i> Rights <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li>
                                         <a href="<?php echo base_url('admin/subadmin_users_list/4')?>">Assign Rights</a>

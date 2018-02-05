@@ -81,7 +81,7 @@
     function delete_notices(id) {
         if (confirm("Are you sure want to delete?")) {
             $.ajax({
-                url: "<?php echo base_url('admin/delete')?>",
+                url: "<?php echo base_url('doctor/delete')?>",
                 method: "POST",
                 data: {
                     id: id,
