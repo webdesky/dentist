@@ -37,7 +37,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6 col-lg-offset-2">
-                                    <form role="form" method="post" action="<?php echo base_url('admin/insertDoctor') ?>" class="registration_form" enctype="multipart/form-data">
+                                    <form role="form" method="post" id="commentForm" action="<?php echo base_url('admin/insertDoctor') ?>" class="registration_form" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label>First Name *</label>
                                             <input class="form-control" type="text" id="doctor_fname" placeholder="First Name" name="doctor_fname" >
@@ -163,11 +163,15 @@
       
 
 
-        </script>
+   
 
         <script type="text/javascript">
     $(document).ready(function() {
         $("#datepicker").datepicker();
+
+
+        // validate the comment form when it is submitted
+        $("#commentForm").validate();
     });
 </script>
 

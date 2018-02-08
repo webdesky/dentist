@@ -120,25 +120,11 @@
         $(this).closest("div").remove();
          });
 
-        // $("#removeButton").click(function() {
-        //     alert('hi');
-        //     console.log(counter);
-        //     if (counter == 1) {
-        //         alert(counter);
-        //         return false;
-        //     }
-
-        //     counter--;
-
-        //     var id=$(this).parent();
-        //     console.log(id);
-
-        // });
-
     });
 </script>
 <script type="text/javascript">
     $(document).ready(function() {
+
         $('.date').each(function() {
             $(this).timepicker();
         });

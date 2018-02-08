@@ -75,8 +75,19 @@
 </div>
    <script type="text/javascript">
      $(document).ready(function() {
-     $("#start_date").datepicker();
-     $("#end_date").datepicker();
+            $("#start_date").datepicker();
+            $("#end_date").datepicker();
+
+             $(".registration_form").validate({
+                rules :{
+                    "title"      :"required",
+                    "description":"required",
+                   
+                },
+             submitHandler : function(form) {
+                form.submit();
+                }
+            });
 
 		});
 	</script>

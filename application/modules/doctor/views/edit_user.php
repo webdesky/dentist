@@ -33,6 +33,12 @@
                                     </select>
                                     <span><?php echo form_error('user_role'); ?></span>
                                 </div>
+
+                                <div class="form-group">
+                                    <label>User Name *</label>
+                                    <input class="form-control" type="text" placeholder="User Name" name="user_name" autocomplete="off" required="required" value="<?php echo $users[0]->username;?>" >
+                                    <span class="red"><?php echo form_error('user_name'); ?></span>
+                                </div>
                                 <div class="form-group">
                                     <label>First Name *</label>
                                     <input class="form-control" type="text" placeholder="First Name" name="first_name" autocomplete="off" required="required" value="<?php echo $users[0]->first_name;?>" >

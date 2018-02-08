@@ -1,7 +1,7 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Message List</h1>
+            <h1 class="page-header">Mail List</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -15,7 +15,7 @@
             <?php endif ?>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Message List
+                    Mail List
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -32,8 +32,8 @@
                         <tbody>
                             <?php 
                                 $count=1;
-                                if($messages_list){
-                                foreach ($messages_list as  $message) { ?>
+                                if($mail_list){
+                                foreach ($mail_list as  $message) { ?>
                             <tr class="odd gradeX">
                                 <td>
                                     <?php echo $count; ?>
@@ -47,7 +47,7 @@
                                 <td class="center">
                                     <?php echo $message->message; ?>
                                 </td>
-                                <td class="center"><a href="javascript:void(0)" onclick="delete_message('<?php echo $message->id?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                <td class="center"><a href="javascript:void(0)" onclick="delete_mail('<?php echo $message->id?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                 </td>
                             </tr>
                             <?php $count++; } }?>
@@ -65,14 +65,14 @@
 </div>
 
 <script type="text/javascript">
-    function delete_message(id) {
+    function delete_mail(id) {
         if (confirm("Are you sure want to delete?")) {
             $.ajax({
-                url: "<?php echo base_url('doctor/delete_message')?>",
+                url: "<?php echo base_url('admin/delete')?>",
                 method: "POST",
                 data: {
                     id: id,
-                    table: 'message'
+                    table: 'mail'
                 },
                 success: function(response) {
                     window.location.reload();

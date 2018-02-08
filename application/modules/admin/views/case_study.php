@@ -22,8 +22,18 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6 col-lg-offset-2">
-                            <form role="form" method="post" action="<?php echo base_url('admin/register') ?>" class="registration_form" enctype="multipart/form-data">
+                            <form role="form" method="post" action="<?php echo base_url('admin/case_study') ?>" class="registration_form" enctype="multipart/form-data">
                                 
+                                <div class="form-group">
+                                    <label>Doctor ID *</label>
+                                    <select class="form-control" name="doctor_id">
+                                        <option value="">--Select Doctor--</option>
+                                        <?php foreach($doctor as $doctors){?>
+                                        <option value="<?php echo $doctors->id;?>"><?php echo ucwords($doctors->first_name.' '.$doctors->last_name);?></option>
+                                        <?php }?>
+                                    </select>
+                                    <span class="red"><?php echo form_error('doctor_id'); ?></span>
+                                </div>
                                 <div class="form-group">
                                     <label>Patient ID *</label>
                                     <select class="form-control" name="patient_id">
@@ -32,7 +42,7 @@
                                         <option value="<?php echo $patients->id;?>"><?php echo ucwords($patients->first_name.' '.$patients->last_name);?></option>
                                         <?php }?>
                                     </select>
-                                    <span class="red"><?php echo form_error('first_name'); ?></span>
+                                    <span class="red"><?php echo form_error('patient_id'); ?></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Food Allergies </label>
@@ -100,3 +110,21 @@
 
 </div>
 </div>
+<script type="text/javascript">
+     $(document).ready(function(){
+            
+            $(".registration_form").validate({
+                rules :{
+                    "doctor_id"    :"required",
+                    "patient_id"    :"required",
+                   
+                },
+             submitHandler : function(form) {
+                form.submit();
+                }
+            });
+
+         
+
+        });
+</script>

@@ -78,7 +78,7 @@
 
                                 <div class="form-group">
                                     <label>Problem *</label>
-                                    <textarea class="form-control" rows="5" id="problem" " name="problem " placeholder="Problem "><?php echo $appointment[0]->problem; ?></textarea>
+                                    <textarea class="form-control" rows="5" id="problem" name="problem" placeholder="Problem"><?php echo $appointment[0]->problem; ?></textarea>
                                         </div>
                                             
                                         

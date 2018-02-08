@@ -25,6 +25,24 @@ class Common_model extends CI_Model
             
         }
     }
+
+    public function getCaseStudy(){
+        $this->db->select('us.first_name as doctor_name','u.first_name as patient_name');
+        $this->db->from('case_study as cs');
+        $this->db->join('users as u',"u.id=cs.patient_id");
+        $this->db->join('users as us',"us.id=cs.doctor_id");
+        $q = $this->db->get();
+        
+        $num_rows = $q->num_rows();
+        if ($num_rows > 0) {
+            foreach ($q->result() as $rows) {
+                $data[] = $rows;
+            }
+            $q->free_result();
+            
+            return $data;
+        } else {
+            
+        }
+    }
 }
-// SELECT doctor_id, GROUP_CONCAT(day SEPARATOR ', ')
-// FROM schedule GROUP BY doctor_id

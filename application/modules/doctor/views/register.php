@@ -25,6 +25,11 @@
                             <form role="form" method="post" action="<?php echo base_url('doctor/register') ?>" class="registration_form" enctype="multipart/form-data">
                                 
                                 <div class="form-group">
+                                    <label>User Name *</label>
+                                    <input class="form-control" type="text" placeholder="User Name" name="user_name" autocomplete="off" required="required" value="<?php echo set_value('user_name');?>" >
+                                    <span class="red"><?php echo form_error('user_name'); ?></span>
+                                </div>
+                                <div class="form-group">
                                     <label>First Name *</label>
                                     <input class="form-control" type="text" placeholder="First Name" name="first_name" autocomplete="off" required="required" value="<?php echo set_value('first_name');?>" >
                                     <span class="red"><?php echo form_error('first_name'); ?></span>
