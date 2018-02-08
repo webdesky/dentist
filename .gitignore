@@ -4,6 +4,7 @@ node_modules
 .sass-cache
 
 
+/application.zip
 /asset/*
 /application/config/database.php
 /application/cache/*
