@@ -284,8 +284,7 @@ class Admin extends CI_Controller
     
     public function users_list($user_role = null)
     {
-        
-        
+
         $where = array(
             'user_role ' => $user_role
         );
@@ -427,9 +426,7 @@ class Admin extends CI_Controller
     public function schedule()
     {
         $data['body']   = 'add_schedule';
-        $where          = array(
-            'user_role' => 2
-        );
+        $where          = array('user_role' => 2);
         $data['doctor'] = $this->model->getAllwhere('users', $where);
         $this->controller->load_view($data);
     }
@@ -443,7 +440,6 @@ class Admin extends CI_Controller
         foreach ($data['schedule'] as $daykey => $day) {
             foreach ($data['starttime'] as $timekey => $time) {
                 foreach ($data['endtime'] as $endkey => $end) {
-                    
                     $new[$daykey]['doctor_id']  = $doctor_id;
                     $new[$daykey]['day']        = $day;
                     $new[$daykey]['starttime']  = $time;

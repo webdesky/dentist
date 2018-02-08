@@ -1,4 +1,3 @@
-
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -9,13 +8,10 @@ class Controller
     public function __construct($params = array())
     {
         $this->CI =& get_instance();
-        
         $this->CI->load->helper('url');
         $this->CI->config->item('base_url');
         $this->CI->load->library('session', 'form_validation');
-        $this->CI->load->database();
-        
-        
+        $this->CI->load->database();   
     }
     
     public function verifylogin($data)
@@ -38,8 +34,7 @@ class Controller
                         redirect('patient/dashboard');
                     } else {
                         
-                    }
-                    
+                    } 
                 }
             }
         }
@@ -72,13 +67,8 @@ class Controller
         echo '</pre>';
     }
     
-    
-    
     public function load_view($page_data)
     {
         $this->CI->load->view('common/templates/default', $page_data);
     }
-    
-    
-
 }
