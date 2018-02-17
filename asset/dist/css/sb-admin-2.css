@@ -16,6 +16,46 @@ body {
   /*height:auto!important;*/
   background-color: white;
 }
+
+ul.nav.nav-second-level {
+    position: relative;
+}
+
+.sidebar-menu .nav-second-level:before {
+    width: 1px;
+    bottom: 0;
+    background: rgba(59, 70, 72, 0.5);
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 37px;
+    right: 0;
+    display: block;
+    z-index: 99;
+}
+
+.sidebar-menu .nav-second-level > li::before {
+    left: 38px;
+    top: 20px;
+    width: 14px;
+    content: ' ';
+    position: absolute;
+    display: inline-block;
+    border: 1px solid rgba(59, 70, 72, 0.5);
+    z-index: 99;
+}
+
+/*.nav>li.active>a:focus {
+  background: #ddd;
+}*/
+
+/* .sidebar ul li a:hover, .sidebar ul li a.active:hover {
+    background: none;
+} */
+
+
+
+
 @media (min-width: 768px) {
   #page-wrapper {
     position: inherit;
@@ -96,7 +136,7 @@ body {
   border-bottom: none !important;
 }
 .sidebar .nav-second-level li a {
-  padding-left: 37px;
+  padding-left: 60px;
 }
 .sidebar .nav-third-level li a {
   padding-left: 52px;
@@ -433,4 +473,22 @@ table.dataTable thead .sorting:after {
     border-right-width: 14px;
     border-left-width: 0;
   }
+}
+.red{
+    color: red;
+}
+.registration_form1 .form-group {
+    margin-bottom: 15px;
+    overflow: hidden;
+
+}
+table.dataTable thead th {
+    position: relative;
+    background-image: none !important;
+}
+ 
+table.dataTable thead th.sorting:after,
+table.dataTable thead th.sorting_asc:after,
+table.dataTable thead th.sorting_desc:after {
+    color: #FFFFFF;
 }

@@ -21,7 +21,7 @@
                 <div class="panel-body">
                     <table width="100%" class="table table-striped table-bordered table-hover" id="notice">
                         <thead>
-                            <tr>
+                            <tr class="bg-primary">
                                 <th>Sr.No</th>
                                 <th>From</th>
                                 <th>Subject</th>
@@ -64,3 +64,8 @@
     </div>
     <!-- /.row -->
 </div>
+<script type="text/javascript">
+    $(document).ready(function(){
+    $('#notice').DataTable();
+});
+</script>

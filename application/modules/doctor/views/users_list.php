@@ -5,6 +5,7 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
+
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
@@ -18,7 +19,7 @@
                             <div class="table-responsive">
                             <table class="table table-bordered" id="users">
                                 <thead>
-                                    <tr>
+                                    <tr class="bg-primary">
                                         <th>Sr no.</th>
                                         <th>First Name</th>
                                         <th>Last Name</th>
@@ -36,10 +37,10 @@
                                             <?php echo $i; ?>
                                         </td>
                                         <td>
-                                            <?php echo $users_list->first_name;?>
+                                            <?php echo ucfirst($users_list->first_name);?>
                                         </td>
                                         <td>
-                                            <?php echo $users_list->last_name;?>
+                                            <?php echo ucfirst($users_list->last_name);?>
                                         </td>
                                         <td>
                                             <?php echo $users_list->email;?>

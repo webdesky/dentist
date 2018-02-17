@@ -5,6 +5,8 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
+
+    
     <!-- row -->
     <div class="row">
         <div class="col-lg-12">
@@ -22,7 +24,7 @@
                     <div class="table-responsive">
                     <table width="100%" class="table table-striped table-bordered table-hover" id="notice">
                         <thead>
-                            <tr>
+                            <tr class="bg-primary">
                                 <th>Sr.No</th>
                                 <th>Equipment Name</th>
                                 <th>No of Equipment</th>
