@@ -211,6 +211,7 @@ class Admin extends CI_Controller
         
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('errors', validation_errors());
+            $data['category']  =  $this->model->getAll('category');
             $data['body']      = 'register';
             $data['user_role'] = "$role";
             $this->controller->load_view($data);
@@ -293,6 +294,7 @@ class Admin extends CI_Controller
             'role_id ' => $user_role
         );
         $data['role']=$user_role;
+
         $data['users']     = $this->model->getAllwhere('users', $where);
         $data['user_role'] = $this->model->getAllwhere('user_role', $where1);
         $data['body']      = 'users_list';
