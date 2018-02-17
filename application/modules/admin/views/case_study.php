@@ -145,6 +145,7 @@
                             </div>
                             <div class="col-md-12" align="center">
                                 <input type="submit" name="submit" class="btn btn-success" value="Save">
+
                                 <button type="reset" class="btn btn-default">Reset</button>
                             </div>
                             </form>
