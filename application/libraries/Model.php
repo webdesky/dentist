@@ -216,11 +216,15 @@ class Model
         $this->CI->db->select("$field_val");
         $this->CI->db->from("$table");
         $this->CI->db->join("$tablejointo", "$tablejointo.$field_second = $table.$field_first");
-        $this->CI->db->join("$tablejointhree", "$tablejointhree.$field_third = $table.$field_first");
-        if($tablejoinfour && $field_four){
-            $this->CI->db->join("$tablejoinfour", "$tablejoinfour.$field_four = $table.$field_first");    
+
+        if($tablejointhree && $field_third){
+            $this->CI->db->join("$tablejointhree", "$tablejointhree.$field_third = $table.$field_first");
+
+            if($tablejoinfour && $field_four){
+                $this->CI->db->join("$tablejoinfour", "$tablejoinfour.$field_four = $table.$field_first");    
+            }
         }
-        
+
         $this->CI->db->where("$table.$field", "$value");
         //$this->db->group_by("$table.$field_first");
         $this->CI->db->limit(1);
@@ -298,9 +302,7 @@ class Model
     function insertPasswordResetString($email_address, $password_reset_key)
     {
         $this->CI->db->where('email', $email_address);
-        $this->CI->db->update(USERS, array(
-            "password_reset_key" => $password_reset_key
-        ));
+        $this->CI->db->update(USERS, array("password_reset_key" => $password_reset_key));
     }
     
     function exists($fields)

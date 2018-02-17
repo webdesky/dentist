@@ -20,9 +20,9 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    <li><a href="<?php echo base_url('patient/profile')?>"><i class="fa fa-user fa-fw"></i> User Profile</a>
                     </li>
-                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    <li><a href="<?php echo base_url('patient/change_password')?>"><i class="fa fa-gear fa-fw"></i> Settings</a>
                     </li>
                     <li class="divider"></li>
                     <li><a href="<?php echo base_url('admin/logout')?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
@@ -49,20 +49,41 @@
                         <!-- /input-group -->
                     </li>
                     <li>
-                        <a href="<?php echo base_url('/admin/')?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        <a href="<?php echo base_url('patient/appointment_list') ?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+
+                    </li>
+                    <li>
+                       <!--  <a href="<?php echo base_url('/patient/patient_status')?>"><i class="fa fa-dashboard fa-fw"></i> Status</a> -->
+                        <a href="#"><i class="fa fa-wrench fa-fw"></i> Documents<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo base_url('patient/add_document')?>">Add Documents</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url('patient/document_list')?>">Documents List</a>
+                                </li>
+                            </ul>
                     </li>
 
-                    <!-- <li>
-                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Doctors<span class="fa arrow"></span></a>
+                     <li>
+                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Prescription<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="<?php //echo base_url('admin/add_doctor') ?>">Add Doctor</a>
+                                <a href="<?php echo base_url('patient/prescription_list')?>"><i class="fa fa-dashboard fa-fw"></i> Prescription List</a>
                             </li>
-                            <li>
-                                <a href="<?php //echo base_url('admin/get_doctor') ?>">Doctor List</a>
-                            </li>
+                            
                         </ul>
-                    </li> -->
+                    </li>
+
+                    <li>
+                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Appointment <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="<?php echo base_url('patient/appointment_list') ?>"><i class="fa fa-bar-chart-o fa-fw"></i> Appointment List<span class="fa arrow"></span></a>
+                            </li>
+                            
+                        </ul>
+                    </li>
                     
                 </ul>
             </div>

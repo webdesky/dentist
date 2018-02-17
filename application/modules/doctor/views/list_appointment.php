@@ -85,7 +85,7 @@
     function delete_appointment(id) {
         if (confirm("Are you sure want to delete?")) {
             $.ajax({
-                url: "<?php echo base_url('doctor/delete')?>",
+                url: "<?php echo base_url('doctor/delete_appointment')?>",
                 method: "POST",
                 data: {
                     id: id,

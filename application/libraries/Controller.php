@@ -16,7 +16,6 @@ class Controller
     
     public function verifylogin($data)
     {
-        
         if ($data) {
             $this->CI->form_validation->set_rules('username', 'username', 'trim|required');
             $this->CI->form_validation->set_rules('password', 'password', 'trim|required|callback_check_database');
@@ -44,7 +43,6 @@ class Controller
     {
         if (!empty($this->CI->session->userdata('user_role'))) {
             $log = $this->CI->session->userdata('user_role');
-            
             if (!empty($log)) {
                 return true;
             } else {

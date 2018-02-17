@@ -46,19 +46,6 @@
                                     <span class="red"><?php echo form_error('patient_id'); ?></span>
                                 </div>
 
-
-
-                                <div class="form-group row">
-                                    <label>Attach File *</label>
-                                    <div class="col-lg-12">
-                                        <div class="col-lg-6">
-                                            <input type="file" id="file" name="file" required="required">
-                                        </div>
-                                         <span class="red"><?php echo form_error('file'); ?></span>
-                                    </div>
-
-                                </div>
-
                                 <div class="form-group">
                                     <label>Description *</label>
                                     <textarea class="form-control" rows="5" id="description" name="description" placeholder="Description">
@@ -67,6 +54,14 @@
                                     <script type="text/javascript">
                                         CKEDITOR.replace('description');
                                     </script>
+                                </div>
+
+                                 <div class="form-group row">
+                                    <label>Attach File *</label>
+                                    
+                                            <input type="file" id="file" name="file" required="required" class="form-control">
+                                        
+                                         <span class="red"><?php echo form_error('file'); ?></span>
                                 </div>
 
                                 <button type="submit" value="Save" class="btn btn-success">Save</button>

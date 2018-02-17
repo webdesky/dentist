@@ -31,16 +31,37 @@ class Doctor extends CI_Controller
     }
     
     
-    public function dashboard()
+     public function dashboard()
     {
         if ($this->controller->checkSession()) {
-            $data['body'] = 'main_bar';
+            $data['body'] = 'dashboard';
+            $where    = array(
+            'is_active' => 1,
+            'doctor_id' =>$this->session->userdata('id')
+            );
+           
+          
+            $where3      = array(
+            'user_role' => 2,
+            'doctor_id' =>$this->session->userdata('id')
+            );
+             $where4 = array(
+          
+            'reciever_id ' => $this->session->userdata('id')
+        );
+        
+            $field_val = 'message.*,users.first_name,users.last_name';
+            $data['messages_list'] = $this->model->GetJoinRecord('message', 'sender_id', 'users', 'id', $field_val, $where4);
+            $data['totalAppointment'] = $this->model->getcount('appointment',$where);
+            
+           
+            $data['appointmentList'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', '', $where3);
+           
             $this->controller->load_view($data);
         } else {
             $this->index();
         }
     }
-    
     
     public function change_password()
     {
@@ -100,7 +121,7 @@ class Doctor extends CI_Controller
         $this->form_validation->set_rules('patient_id', 'patient_id', 'trim|required');
         $this->form_validation->set_rules('appointment_date', 'appointment_date', 'trim|required');
         $this->form_validation->set_rules('appointment_time', 'appointment_time', 'trim|required');
-        $this->form_validation->set_rules('problem', 'problem', 'trim|required');
+        //$this->form_validation->set_rules('problem', 'problem', 'trim|required');
         
         if (empty($id)) {
             $this->form_validation->set_rules('patient_id', 'patient_id', 'trim|required');
@@ -132,13 +153,13 @@ class Doctor extends CI_Controller
                 $data = $this->input->post();
                 
                 $data = array(
-                    'appointment_id' => 'AP' . mt_rand(100000, 999999),
-                    'patient_id' => $data['patient_id'],
-                    'doctor_id' => $data['doctor_id'],
-                    'appointment_date' => $data['appointment_date'],
-                    'appointment_time' => $data['appointment_time'],
-                    'problem' => $data['problem'],
-                    'created_at' => date('Y-m-d H:i:s')
+                    'appointment_id'     => 'AP' . mt_rand(100000, 999999),
+                    'patient_id'         => $data['patient_id'],
+                    'doctor_id'          => $data['doctor_id'],
+                    'appointment_date'   => $data['appointment_date'],
+                    'appointment_time'   => $data['appointment_time'],
+                    'problem'            => $data['problem'],
+                    'created_at'         => date('Y-m-d H:i:s')
                 );
                 
                 if (!empty($id)) {
@@ -154,13 +175,14 @@ class Doctor extends CI_Controller
                 }
                 
                 $this->session->set_flashdata("info_message", "Appointment updated Successfully..");
-                redirect("admin/appointment_list");
+                redirect("doctor/appointment_list");
                 
             }
         }
         
     }
     
+
     
     public function appointment_list()
     {
@@ -187,8 +209,9 @@ class Doctor extends CI_Controller
         $data['appointment'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', '', $where1);
         
         $data['body'] = 'edit_appointment';
-        
-        $this->load_view($data);
+
+        $this->controller->load_view($data);
+
     }
     
     
@@ -218,6 +241,7 @@ class Doctor extends CI_Controller
         } else {
             if ($this->controller->checkSession()) {
                 $user_role   = '3';
+                $username    = $this->input->post('user_name');
                 $first_name  = $this->input->post('first_name');
                 $last_name   = $this->input->post('last_name');
                 $email       = $this->input->post('email');
@@ -231,6 +255,7 @@ class Doctor extends CI_Controller
                 $status      = $this->input->post('status');
                 
                 $data = array(
+                    'username'   =>$username,
                     'first_name' => $first_name,
                     'last_name' => $last_name,
                     'email' => $email,
@@ -400,7 +425,7 @@ class Doctor extends CI_Controller
                 
                 
                 if (isset($_FILES['file']['name']) && !empty($_FILES['file']['name'])) {
-                    if ($_FILES['file']['error'][$i] == 0) {
+                    if ($_FILES['file']['error'] == 0) {
                         $f_extension = explode('.', $_FILES['file']['name']); //To breaks the string into array
                         $f_extension = strtolower(end($f_extension)); //end() is used to retrun a last element to the array
                         $f_newfile   = "";
@@ -429,8 +454,13 @@ class Doctor extends CI_Controller
     
     public function document_list()
     {
-        $where                  = array('doctor_id' => $this->session->userdata('id'));
-        $data['documents_list'] = $this->model->GetJoinRecord('documents', 'patient_id', 'users', 'id', '', $where);
+
+        $where                  = array(
+            'doctor_id' => $this->session->userdata('id')
+        );
+        $field_val="documents.id as did,users.first_name,documents.description,documents.file,users.id,users.last_name";
+        $data['documents_list'] = $this->model->GetJoinRecord('documents', 'patient_id', 'users', 'id', $field_val, $where);
+
         $data['body']           = 'document_list';
         $this->controller->load_view($data);
     }
@@ -527,6 +557,7 @@ class Doctor extends CI_Controller
                 );
                 
                 $result = $this->model->insertData('message', $data);
+                $this->message_list();
             }
         }
     }

@@ -1,7 +1,7 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Send Mail</h1>
+            <h1 class="page-header">Send Message</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -33,13 +33,13 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6 col-lg-offset-2">
-                            <form role="form" method="post" action="<?php echo base_url('admin/send_mail') ?>" class="registration_form">
+                            <form role="form" method="post" action="<?php echo base_url('admin/send_message') ?>" class="registration_form">
                                 <div class="form-group">
                                     <label>Send To * </label>
                                     <select class="form-control" name="reciever_id">
                                         <option value="">--SELECT USER--</option>
                                         <?php foreach($users as $user){?>
-                                        <option value="<?php echo $user->email;?>"><?php echo ucwords($user->first_name.' '.$user->last_name);?></option>
+                                        <option value="<?php echo $user->id;?>"><?php echo ucwords($user->first_name.' '.$user->last_name);?></option>
                                         <?php }?>
                                     </select>
                                     <span class="red"><?php echo form_error('reciever_id'); ?></span>
@@ -47,7 +47,7 @@
 
                                 <div class="form-group">
                                     <label>Subject * </label>
-                                    <input type="text" id="subject" name="subject" class="form-control" required="required">
+                                    <input type="text" id="subject" name="subject" class="form-control">
                                     <span class="red"><?php echo form_error('subject'); ?></span>
                                 </div>
 
@@ -79,3 +79,18 @@
 
 </div>
 </div>
+
+<script type="text/javascript">
+      $(document).ready(function() {
+       $(".registration_form").validate({
+                rules :{
+                    "reciever_id"      :"required",
+                    "subject"          :"required",
+                   
+                },
+             submitHandler : function(form) {
+                form.submit();
+                }
+            });
+         });
+</script>

@@ -50,7 +50,7 @@
                         <!-- /input-group -->
                     </li>
                     <li>
-                        <a href="<?php echo base_url('')?>"><i class="fa fa-home" aria-hidden="true"></i> Dashboard</a>
+                        <a href="<?php echo base_url('doctor/dashboard')?>"><i class="fa fa-home" aria-hidden="true"></i> Dashboard</a>
                     </li>
 
                     <li>
