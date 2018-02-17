@@ -31,7 +31,7 @@
                             <div class="table-responsive">
                             <table width="100%" class="table table-striped table-bordered table-hover" id="schedule">
                                 <thead>
-                                    <tr>
+                                    <tr class="bg-primary">
                                         <th>SL.No</th>
                                         <th>Doctor Name</th>
                                         <th>Days Available</th>
@@ -73,7 +73,7 @@
                                         
                                         <?php }  if($user_role==1 || ($user_role==4 && $right2[2]==1)){?>
 
-                                            <a href="javascript:void(0)" onclick="delete_schedule('<?php echo $value->doctor_id?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                            | <a href="javascript:void(0)" onclick="delete_schedule('<?php echo $value->doctor_id?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 
                                         <?php }?>
                                         

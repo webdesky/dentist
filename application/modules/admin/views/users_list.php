@@ -39,7 +39,7 @@
                             <div class="table-responsive">
                             <table class="table table-bordered" id="users">
                                 <thead>
-                                    <tr>
+                                    <tr class="bg-primary">
                                         <th>Sr no.</th>
                                         <th>Firstname</th>
                                         <th>Lastname</th>

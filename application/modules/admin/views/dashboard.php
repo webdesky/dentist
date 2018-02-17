@@ -87,8 +87,8 @@
                     <div class="col-lg-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-tasks "></i> Current Appointments
-                    </div>
+                            <i class="fa fa-tasks"></i> Current Appointments
+                        </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="row">
@@ -96,7 +96,7 @@
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-hover table-striped">
                                             <thead>
-                                                <tr>
+                                                <tr class="bg-primary">
                                                     <th>#</th>
                                                     <th>Appoitnment Id</th>
                                                     <th>Patient ID</th>
@@ -148,7 +148,7 @@
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-hover table-striped">
                                             <thead>
-                                                <tr>
+                                                <tr class="bg-primary">
                                                     <th>#</th>
                                                     <th>To</th>
                                                     <th>Subject</th>

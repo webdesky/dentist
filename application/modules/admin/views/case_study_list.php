@@ -22,7 +22,7 @@
                             <div class="table-responsive">
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
-                                    <tr>
+                                    <tr class="bg-primary">
                                         <th>Sr.No</th>
                                         <th>Patient Name</th>
                                         <th>Problem</th>
@@ -71,6 +71,7 @@
         </div>
 
 <script type="text/javascript">
+$('#dataTables-example').DataTable();
     function delete_case_study(id) {
         if (confirm("Are you sure want to delete?")) {
             $.ajax({

@@ -20,7 +20,7 @@
                         <div class="col-lg-12">
                             <table class="table table-bordered" id="users">
                                 <thead>
-                                  <tr>
+                                  <tr class="bg-primary">
                                     <th>Sr no.</th>
                                     <th>Firstname</th>
                                     <th>Lastname</th>

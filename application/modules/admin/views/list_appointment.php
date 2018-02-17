@@ -29,7 +29,7 @@
                             <div class="table-responsive">
                             <table width="100%" class="table table-striped table-bordered table-hover" id="appointment">
                                 <thead>
-                                    <tr>
+                                    <tr class="bg-primary">
                                         <th>SL.No</th>
                                         <th>Appintment Type</th>
                                         <th>Appointment Id</th>

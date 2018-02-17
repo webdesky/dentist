@@ -17,7 +17,7 @@ body {
   background-color: white;
 }
 
-ul.nav.nav-second-level {
+ul.nav.nav-second-level, ul.nav-third-level {
     position: relative;
 }
 
@@ -34,7 +34,7 @@ ul.nav.nav-second-level {
     z-index: 99;
 }
 
-.sidebar-menu .nav-second-level > li::before {
+.sidebar-menu .nav-second-level > li::before, .sidebar .nav-third-level li::before {
     left: 38px;
     top: 20px;
     width: 14px;
@@ -139,7 +139,7 @@ ul.nav.nav-second-level {
   padding-left: 60px;
 }
 .sidebar .nav-third-level li a {
-  padding-left: 52px;
+  padding-left: 60px;
 }
 @media (min-width: 768px) {
   .sidebar {
