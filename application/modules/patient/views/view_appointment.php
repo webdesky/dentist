@@ -30,50 +30,39 @@
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-lg-6 col-lg-offset-2">
-                                    <form role="form" method="post" class="registration_form" enctype="multipart/form-data">
+                                <div class="col-lg-12 col-md-12">
+                                    <form role="form" method="post" class="registration_form1" enctype="multipart/form-data">
 
-                                        <div class="form-group">
-                                            <label>Appointment Id *</label>
-                                           <input type="text" readonly="readonly" value="<?php echo $appointment[0]->appointment_id ?>" class="form-control" disabled="disabled">
+                                        <div class="form-group"> <label class="col-md-2">Doctor Name</label>
+                                            <div class="col-lg-6"> <input type="text" readonly="readonly" value="<?php echo $appointment[0]->appointment_id ?>" class="form-control" disabled="disabled"> <span><?php echo form_error('doctor_id'); ?></span> </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Patient ID * </label>
-                                             <select class="form-control" name="patient_id" id="patient_id" disabled="disabled">
+
+                                        <div class="form-group"> <label class="col-md-2">Patient ID </label>
+                                            <div class="col-lg-6"> <select class="form-control" name="patient_id" id="patient_id" disabled="disabled">
                                                 
                                                  <?php foreach ($patient as $key => $value) { ?>
                                                       <option value="<?php echo $value->id; ?>" <?php if($appointment[0]->patient_id==$value->id){ echo 'selected';}?>><?php echo $value->first_name." ".$value->first_name;?></option>
                                                 <?php } ?>
-                                             </select>
-                                            <span><?php echo form_error('patient_id'); ?></span>
+                                             </select> <span><?php echo form_error('patient_id'); ?></span> </div>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label>Doctor Name * </label>
-                                             <select class="form-control" name="doctor_id"  disabled="disabled">
+                                        <div class="form-group"> <label class="col-md-2">Doctor Name </label>
+                                            <div class="col-lg-6"> <select class="form-control" name="doctor_id"  disabled="disabled">
                                                  <?php foreach ($doctor as $key => $value) { ?>
                                                       <option value="<?php echo $value->id; ?>" <?php if($appointment[0]->doctor_id==$value->id){ echo 'selected';}?>><?php echo $value->first_name;?></option>
                                                 <?php } ?>
-                                             </select>
-                                            <span><?php echo form_error('doctor_id'); ?></span>
+                                             </select> <span><?php echo form_error('doctor_id'); ?></span> </div>
                                         </div>
-                                        
 
-                                        <div class="form-group row">
-                                            <label>Appointment Date *</label>
-                                            <div class="col-lg-12">
-                                                <div class="col-lg-6">
-                                                  <input type="text" id="startdate" name="appointment_date" id="appointment_date" value="<?php echo $appointment[0]->appointment_date; ?>" class="form-control" autocomplete="off" readonly="readonly"  placeholder="Start Time" disabled="disabled">
-                                              </div>
-                                              <div class="col-lg-6">
+                                        <div class="form-group"> <label class="col-md-2">Appointment Date </label>
+                                            <div class="col-lg-3"> <input type="text" id="startdate" name="appointment_date" id="appointment_date" value="<?php echo $appointment[0]->appointment_date; ?>" class="form-control" autocomplete="off" readonly="readonly"  placeholder="Start Time" disabled="disabled">
+                                            </div>
+                                            <div class="col-lg-3">
                                                <input type="text" id="timepicker" name="appointment_time" class="form-control" value="<?php echo $appointment[0]->appointment_time; ?>" autocomplete="off" readonly="readonly"  placeholder="Start Time" disabled="disabled">
                                             </div>
-                                            </div>
                                         </div>
-
-                                        <div class="form-group">
-                                            <label>Problem *</label>
-                                            <textarea class="form-control" rows="5" id="problem" " name="problem" placeholder="Problem" disabled="disabled"><?php echo $appointment[0]->problem; ?></textarea>
+                                        <div class="form-group"> <label class="col-md-2">Problem </label>
+                                            <div class="col-lg-6"> <textarea class="form-control" rows="5" id="problem" " name="problem" placeholder="Problem" disabled="disabled"><?php echo $appointment[0]->problem; ?></textarea></div>
                                         </div>
                                         <button type="button" class="btn btn-default" onclick="go_back();">Back</button>
                                     </form>

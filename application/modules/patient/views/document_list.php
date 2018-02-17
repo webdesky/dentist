@@ -19,10 +19,9 @@
                         <div class="panel-body">
 
                             <div class="table-responsive">
-
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
-                                    <tr>
+                                    <tr class="bg-primary">
                                         <th>Sr.No</th>
                                         <th>Doctor Name</th>
                                         <th>Description</th>
@@ -69,26 +68,30 @@
         </div>
 
        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#dataTables-example').DataTable();
+            });
         		
 
-                function delete_doc(id) {
-                        if (confirm("Are you sure want to delete?")) {
-                            $.ajax({
-                                url: "<?php echo base_url('admin/delete')?>",
-                                method: "POST",
-                                data: {
-                                    id: id,
-                                    table: 'documents'
-                                },
-                                success: function(response) {
-                                    window.location.reload();
-                                },
+            function delete_doc(id) {
+                if (confirm("Are you sure want to delete?")) {
+                    $.ajax({
+                        url: "<?php echo base_url('admin/delete')?>",
+                        method: "POST",
+                        data: {
+                            id: id,
+                            table: 'documents'
+                        },
+                        success: function(response) {
+                            window.location.reload();
+                        },
 
-                            });
-                        }
-                        return false;
-                    }
+                    });
+                }
+                return false;
+            }
 
                 </script>
         	  
+
 
