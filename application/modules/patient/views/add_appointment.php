@@ -8,7 +8,17 @@
                 <!-- /.col-lg-12 -->
             </div>
 
+<style type="text/css">
+    .red{
+        color: red;
+    }
 
+    .registration_form1 .form-group {
+        margin-bottom: 15px;
+        overflow: hidden;
+
+    }
+</style>
              <!-- /.row -->
             <div class="row">
                 

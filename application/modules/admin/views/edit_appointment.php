@@ -8,7 +8,17 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+<style type="text/css">
+    .red{
+        color: red;
+    }
 
+    .registration_form1 .form-group {
+        margin-bottom: 15px;
+        overflow: hidden;
+
+    }
+</style>
            
              <!-- /.row -->
             <div class="row">
@@ -34,64 +44,82 @@
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-lg-6 col-lg-offset-2">
-                                    <form role="form" method="post" action="<?php echo base_url('admin/addAppointment/'.$appointment[0]->ap_id) ?>" class="registration_form" enctype="multipart/form-data">
-
+                                <div class="col-lg-12 col-lg-12">
+                                    <form role="form" method="post" action="<?php echo base_url('admin/addAppointment/'.$appointment[0]->ap_id) ?>" class="registration_form1" enctype="multipart/form-data">
+                                    
+                                    <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Appointment Id *</label>
-                                           <input type="text" readonly="readonly" value="<?php echo $appointment[0]->appointment_id ?>" class="form-control">
+                                            <label class="col-md-3">Appointment Id *</label>
+                                             <div class="col-md-9">
+                                                <input type="text" readonly="readonly" value="<?php echo $appointment[0]->appointment_id ?>" class="form-control">
+                                              </div>
                                         </div>
+                                    </div>
 
+                                     <div class="col-md-6">
                                          <div class="form-group">
-                                            <label>Appointment Type * </label>
-                                             <select class="form-control" name="appointment_type" id="appointment_type">
-                                                <option>Select Appointment  Type</option>
-                                                 <option value="On Call" <?php if($appointment[0]->appointment_type=='On Call'){ echo 'selected';}?>>On Call</option>
-                                                  <option value="Online" <?php if($appointment[0]->appointment_type=='Online'){ echo 'selected';}?>>Online</option>
-                                             </select>
+                                            <label class="col-md-3">Appointment Type * </label>
+                                             <div class="col-md-9">
+                                                 <select class="form-control" name="appointment_type" id="appointment_type">
+                                                    <option>Select Appointment  Type</option>
+                                                     <option value="On Call" <?php if($appointment[0]->appointment_type=='On Call'){ echo 'selected';}?>>On Call</option>
+                                                      <option value="Online" <?php if($appointment[0]->appointment_type=='Online'){ echo 'selected';}?>>Online</option>
+                                                 </select>
+                                               </div>
                                             <span><?php echo form_error('appointment_type'); ?></span>
                                         </div>
+                                      </div>
 
+                                       <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Patient ID * </label>
-                                             <select class="form-control" name="patient_id" id="patient_id">
-                                                
-                                                 <?php foreach ($patient as $key => $value) { ?>
-                                                      <option value="<?php echo $value->id; ?>" <?php if($appointment[0]->patient_id==$value->id){ echo 'selected';}?>><?php echo $value->id;?></option>
-                                                <?php } ?>
-                                             </select>
+                                            <label class="col-md-3">Patient ID * </label>
+                                             <div class="col-md-9">
+                                                 <select class="form-control" name="patient_id" id="patient_id">
+                                                    
+                                                     <?php foreach ($patient as $key => $value) { ?>
+                                                          <option value="<?php echo $value->id; ?>" <?php if($appointment[0]->patient_id==$value->id){ echo 'selected';}?>><?php echo $value->id;?></option>
+                                                    <?php } ?>
+                                                 </select>
+                                               </div>
                                             <span><?php echo form_error('patient_id'); ?></span>
                                         </div>
+                                      </div>
 
+                                       <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Doctor Name * </label>
-                                             <select class="form-control" name="doctor_id">
-                                              
-                                                 <?php foreach ($doctor as $key => $value) { ?>
-                                                      <option value="<?php echo $value->id; ?>" <?php if($appointment[0]->doctor_id==$value->id){ echo 'selected';}?>><?php echo $value->first_name;?></option>
-                                                <?php } ?>
-                                             </select>
+                                            <label class="col-md-3">Doctor Name * </label>
+                                             <div class="col-md-9">
+                                                   <select class="form-control" name="doctor_id">
+                                                    
+                                                       <?php foreach ($doctor as $key => $value) { ?>
+                                                            <option value="<?php echo $value->id; ?>" <?php if($appointment[0]->doctor_id==$value->id){ echo 'selected';}?>><?php echo $value->first_name;?></option>
+                                                      <?php } ?>
+                                                   </select>
+                                                </div>
                                             <span><?php echo form_error('doctor_id'); ?></span>
                                         </div>
+                                      </div>
                                         
-
-                                        <div class="form-group row">
-                                            <label>Appointment Date *</label>
-                                            <div class="col-lg-12">
-                                                <div class="col-lg-6">
-                                                  <input type="text" id="startdate" name="appointment_date" id="appointment_date" value="<?php echo $appointment[0]->appointment_date; ?>" class="form-control" autocomplete="off" readonly="readonly"  placeholder="Start Time">
-                                              </div>
-                                              <div class="col-lg-6">
-                                               <input type="text" id="timepicker" name="appointment_time" class="form-control" value="<?php echo $appointment[0]->appointment_time; ?>" autocomplete="off" readonly="readonly"  placeholder="Start Time">
-                                            </div>
-                                            </div>
-                                           
-                                        </div>
-
+                                       <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Problem *</label>
-                                            <textarea class="form-control" rows="5" id="problem" " name="problem" placeholder="Problem"><?php echo $appointment[0]->problem; ?></textarea>
+                                            <label class="col-md-3">Appointment Date *</label>
+                                            <div class="col-md-9">
+                                               
+                                                  <input type="text" id="startdate" name="appointment_date" id="appointment_date" value="<?php echo $appointment[0]->appointment_date; ?>" class="form-control" autocomplete="off" readonly="readonly"  placeholder="Start Time" style="width: 50%; float:left; ">
+                                              
+                                                  <input type="text" id="timepicker" name="appointment_time" class="form-control" value="<?php echo $appointment[0]->appointment_time; ?>" autocomplete="off" readonly="readonly"  placeholder="Start Time" style="width: 50%;">
+                                           </div>
                                         </div>
+                                      </div>
+
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-md-3">Problem *</label>
+                                            <div class="col-md-9">
+                                                <textarea class="form-control" rows="5" id="problem" " name="problem" placeholder="Problem"><?php echo $appointment[0]->problem; ?></textarea>
+                                            </div>
+                                        </div>
+                                      </div>
                                             
                                         
                                         <button type="submit" value="Save"  class="btn btn-success">Save</button>

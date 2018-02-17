@@ -41,7 +41,8 @@
                         <div class="col-lg-12 col-md-12">
 
                             <form role="form" method="post"  action="<?php echo base_url('admin/register') ?>" class="registration_form1" enctype="multipart/form-data">
-                                
+                                <?php if($user_role==2){ ?>
+
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-md-3">Doctor Category*</label>
@@ -53,11 +54,12 @@
                                             <?php   } ?>
 
                                         </select>    
-                                        </div>           
-                                       
                                         <span class="red"><?php echo form_error('category'); ?></span>
+                                         </div>      
                                     </div>
                                 </div>
+
+                                <?php } ?>
 
                               <div class="col-md-6">
                                 <div class="form-group">
