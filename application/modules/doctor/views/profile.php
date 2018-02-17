@@ -22,8 +22,15 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6 col-lg-offset-2">
-                            <form role="form" method="post" action="<?php echo base_url('doctor/profile/') ?>" class="registration_form" class="form-horizontal">
+                            <form role="form" method="post" action="<?php echo base_url('doctor/profile/') ?>" class="registration_form" class="form-horizontal" enctype="multipart/form-data">
 
+                                <div class="form-group">
+                                    
+                                    <div class="col-sm-10">
+                                       <img src="<?php echo base_url('asset/uploads/').$users[0]->profile_pic ?>" style="max-width: 300px;max-height: 300px;">
+                                    </div>
+                                </div>
+                                
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="first name">  First Name:</label>
                                     <div class="col-sm-10">
@@ -102,6 +109,12 @@
                                     <label class="control-label col-sm-2" for="address">  Address:</label>
                                     <div class="col-sm-10">
                                         <textarea class="form-control" name="address" placeholder="Enter Address"><?php echo $users[0]->address;?></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="image">  Profile Pic:</label>
+                                    <div class="col-sm-10">
+                                       <input type="file" name="image" class="form-control">
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>

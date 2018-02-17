@@ -292,6 +292,7 @@ class Admin extends CI_Controller
         $where1            = array(
             'role_id ' => $user_role
         );
+        $data['role']=$user_role;
         $data['users']     = $this->model->getAllwhere('users', $where);
         $data['user_role'] = $this->model->getAllwhere('user_role', $where1);
         $data['body']      = 'users_list';
@@ -557,6 +558,7 @@ class Admin extends CI_Controller
                 $data = $this->input->post();
                 
                 $data = array(
+                    'appointment_type'=> $data['appointment_type'],
                     'appointment_id' => 'AP' . mt_rand(100000, 999999),
                     'patient_id' => $data['patient_id'],
                     'doctor_id' => $data['doctor_id'],
@@ -590,10 +592,24 @@ class Admin extends CI_Controller
         $where                   = array(
             'user_role' => 2
         );
-        $data['appointmentList'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', '', $where);
+        $data['appointmentList'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', 'appointment.ap_id,appointment.appointment_id,appointment.appointment_time,appointment.appointment_date,users.first_name,users.last_name,appointment.is_active,appointment.appointment_type,appointment.patient_id', $where);
         
         $data['body'] = 'list_appointment';
         $this->controller->load_view($data);
+    }
+
+    public function update_status()
+    {
+        echo $id    = $this->input->post('id');
+        echo $active    = $this->input->post('active');
+        $data = array(
+                    'is_active'=> $active
+                    
+                );
+        $where = array(
+            'ap_id' => $id
+        );
+        $this->model->update('appointment', $data,$where);
     }
     
     public function edit_appointment($id)

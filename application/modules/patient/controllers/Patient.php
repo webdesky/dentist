@@ -33,8 +33,7 @@ class Patient extends CI_Controller
     public function dashboard()
     {
         if ($this->controller->checkSession()) {
-            $data['body'] = 'main_bar';
-            $this->controller->load_view($data);
+            $this->appointment_list();
         } else {
             $this->index();
         }
@@ -46,7 +45,8 @@ class Patient extends CI_Controller
             'user_role' => 2,
             'patient_id'=> $this->session->userdata('id')
         );
-        $data['appointmentList'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', '', $where);
+
+        $data['appointmentList'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', 'appointment.ap_id,users.first_name,appointment.problem,appointment.is_active,appointment.appointment_date,appointment.appointment_time,appointment.appointment_id,users.last_name', $where);
         
         $data['body'] = 'appointment_list';
         $this->controller->load_view($data);
@@ -377,6 +377,74 @@ class Patient extends CI_Controller
         echo  '1';
      }
     
+    }
+
+    public function addAppointment($id = null)
+    {
+        
+        
+        $this->form_validation->set_rules('doctor_id', 'doctor_id', 'trim|required');
+        $this->form_validation->set_rules('appointment_date', 'appointment_date', 'trim|required');
+        $this->form_validation->set_rules('appointment_time', 'appointment_time', 'trim|required');
+        $this->form_validation->set_rules('problem', 'problem', 'trim|required');
+        
+        if (empty($id)) {
+        
+            $this->form_validation->set_rules('doctor_id', 'doctor_id', 'trim|required');
+            $this->form_validation->set_rules('appointment_date', 'appointment_date', 'trim|required');
+            $this->form_validation->set_rules('appointment_time', 'appointment_time', 'trim|required');
+            $this->form_validation->set_rules('problem', 'problem', 'trim|required');
+        }
+        
+        if ($this->form_validation->run() == false) {
+            
+            $this->session->set_flashdata('errors', validation_errors());
+            $data['body'] = 'add_appointment';
+            
+            $where  = array(
+                'user_role' => 2
+            );
+            $wheres = array(
+                'user_role ' => 3
+            );
+            
+            $data['doctor']  = $this->model->getAllwhere('users', $where);
+            $data['patient'] = $this->model->getAllwhere('users', $wheres);
+            $this->controller->load_view($data);
+        } else {
+            
+            if ($this->controller->checkSession()) {
+                
+                $data = $this->input->post();
+                
+                $data = array(
+                    'appointment_type'=>'Online',
+                    'appointment_id' => 'AP' . mt_rand(100000, 999999),
+                    'patient_id' => $this->session->userdata('id'),
+                    'doctor_id' => $data['doctor_id'],
+                    'appointment_date' => $data['appointment_date'],
+                    'appointment_time' => $data['appointment_time'],
+                    'is_active'        =>'0',
+                    'problem' => $data['problem'],
+                    'created_at' => date('Y-m-d H:i:s')
+                );
+                
+                if (!empty($id)) {
+                    
+                    $where = array(
+                        'ap_id' => $id
+                    );
+                    unset($data['created_at']);
+                    unset($data['appointment_id']);
+                    $result = $this->model->updateFields('appointment', $data, $where);
+                } else {
+                    $result = $this->model->insertData('appointment', $data);
+                }
+                
+                $this->session->set_flashdata("info_message", "Appointment updated Successfully..");
+                redirect("patient/appointment_list/");
+            }
+        }
     }
 
      

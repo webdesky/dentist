@@ -100,3 +100,20 @@
 
 </div>
 </div>
+<script type="text/javascript">
+     $(document).ready(function(){
+            
+            $(".registration_form").validate({
+                rules :{
+                    "patient_id"    :"required",
+                   
+                },
+             submitHandler : function(form) {
+                form.submit();
+                }
+            });
+
+         
+
+        });
+</script>

@@ -26,15 +26,18 @@
                         ?>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
+                            <div class="table-responsive">
                             <table width="100%" class="table table-striped table-bordered table-hover" id="appointment">
                                 <thead>
                                     <tr>
                                         <th>SL.No</th>
+                                        <th>Appintment Type</th>
                                         <th>Appointment Id</th>
                                         <th>Patient_id</th>
                                         <th>Doctor Name</th>
                                         <th>Appointment Date</th>
                                         <th>Appointment Time</th>
+                                        <th>Status</th>
                                         <?php if($user_role==1 || ($user_role==4 && $right3[1]==1 || $right3[2]==1)){?>
                                         <th>Action</th>
                                         <?php }?>
@@ -47,13 +50,21 @@
                                 foreach ($appointmentList as  $value) { ?>
                                 	<tr class="odd gradeX">
                                         <td><?php echo $count; ?></td>
-                                        
+                                        <td><?php  echo $value->appointment_type;?></td>
                                         <td><?php echo $value->appointment_id; ?></td>
                                         <td class="center"><?php echo $value->patient_id; ?></td>
                                         <td class="center"><?php echo $value->first_name.' '. $value->last_name; ?></td>
                                         <td class="center"><?php echo $value->appointment_date; ?></td>
                                         <td class="center"><?php echo $value->appointment_time; ?></td>
-                                       
+                                        <td class="center">
+                                                <?php  if($value->is_active==0){ ?>
+                                                 <button class="btn btn-danger" onclick="updateStatus('<?php echo $value->ap_id ?>','<?php echo $value->is_active ?>')">Pending</button>
+                                                <?php }else{?>
+                                                 <button class="btn btn-success" onclick="updateStatus('<?php echo $value->ap_id ?>','<?php echo $value->is_active ?>')">Approved</button>
+
+
+                                                 <?php } ?>
+                                        </td>
                                        <?php if($user_role==1 || ($user_role==4 && $right3[1]==1 || $right3[2]==1)){?>
                                         
                                         <td class="center">
@@ -76,6 +87,7 @@
                                     
                                 </tbody>
                             </table>
+                        </div>
                             <!-- /.table-responsive -->
                           
                         </div>
@@ -109,6 +121,30 @@
                         }
                         return false;
                     }
+
+                function updateStatus(ap_id,active){
+                        
+                         if(active==0){
+                            data=1;
+                         }else{
+                            data=0;
+                         }
+                         if (confirm("Are you sure want to approved?")) {
+                            $.ajax({
+                                url: "<?php echo base_url('admin/update_status')?>",
+                                method: "POST",
+                                data: {
+                                    id: ap_id,
+                                    active:data,
+                                },
+                                success: function(response) {
+                                   window.location.reload();
+                                },
+
+                            });
+                        }
+                        return false;
+                }
 
                 </script>
         	  

@@ -1,15 +1,15 @@
-
+    
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-9">
                     <h1 class="page-header">Appointment </h1>
                 </div>
-                <div class="col-lg-3">
+                <!-- <div class="col-lg-3">
                     <button class="page-header btn btn-primary"><i class="fa fa-th-list">&nbsp;Csv </i></button>
                     <button class="page-header btn btn-primary"><i class="fa fa-th-list">&nbsp;Excel</i></button>
                     <button class="page-header btn btn-primary"><i class="fa fa-th-list">&nbsp;PDF </i></button>
                     <button class="page-header btn btn-primary"><i class="fa fa-th-list">&nbsp;Print </i></button>
-                </div>
+                </div> -->
                 <!-- /.col-lg-12 -->
             </div>
             <!-- row -->
@@ -24,14 +24,16 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
+                            <div class="table-responsive">
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
                                         <th>SL.No</th>
                                         <th>Appointment Id</th>
-                                        <th>Type</th>
                                         <th>Doctor Name</th>
+                                        <th>Problem</th>
                                         <th>Date</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -41,15 +43,28 @@
                                 if(!empty($appointmentList))
                                 {
                                     foreach ($appointmentList as  $value) 
-                                    { ?>
+                                    { 
+
+                                        ?>
                                     	<tr class="odd gradeX">
                                             <td><?php echo $count; ?></td>
                                             
                                             <td><?php echo $value->appointment_id; ?></td>
-                                            <td class="center"><?php echo $value->problem; ?></td>
+                                            
                                             <td class="center"><?php echo $value->first_name." ".$value->last_name; ?></td>
-                                           
+                                            <td class="center"><?php echo $value->problem; ?></td>
                                             <td class="center"><?php echo date('d/m/Y',strtotime($value->appointment_date))." ".date('h:i:A',strtotime($value->appointment_time)); ?></td>
+                                            <td><?php
+                                                if($value->is_active==0){  ?>
+
+                                                <button class="btn btn-danger">Pending</button>
+
+                                               <?php  }else{ ?>
+                                               <button class="btn btn-success">Approved</button>
+
+
+                                             <?php  }
+                                             ?></td>
                                             <td class="center"><a href="<?php echo base_url('patient/view_appointment/').$value->ap_id; ?>">View</a>
                                             </td>
 
@@ -67,6 +82,7 @@
                                 ?>
                                 </tbody>
                             </table>
+                        </div>
                             <!-- /.table-responsive -->
                           
                         </div>
