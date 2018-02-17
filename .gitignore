@@ -4,9 +4,10 @@ node_modules
 .sass-cache
 
 
+
 application.zip
 asset/*
-/application/config/database.php
+/application/config/*
 /application/cache/*
 /application/core/*
 /application/helpers/*
@@ -22,4 +23,5 @@ asset/*
 /install/*
 /dentist_latest.zip
 /application/modules.zip
+
 

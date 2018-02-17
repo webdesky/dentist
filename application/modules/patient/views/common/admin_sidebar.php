@@ -54,7 +54,9 @@
                     </li>
                     <li>
                        <!--  <a href="<?php echo base_url('/patient/patient_status')?>"><i class="fa fa-dashboard fa-fw"></i> Status</a> -->
-                        <a href="#"><i class="fa fa-wrench fa-fw"></i> Documents<span class="fa arrow"></span></a>
+
+                        <a href="#"><i class="fa fa-file-text"></i> Documents<span class="fa arrow"></span></a>
+
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="<?php echo base_url('patient/add_document')?>">Add Documents</a>
@@ -66,10 +68,22 @@
                     </li>
 
                      <li>
-                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Prescription<span class="fa arrow"></span></a>
+
+                        <a href="#"><i class="fa fa-book"></i> Prescription<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="<?php echo base_url('patient/prescription_list')?>"><i class="fa fa-dashboard fa-fw"></i> Prescription List</a>
+                            </li>
+                            
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#"><i class="fa fa-pencil-square"></i> Appointment <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                             <li>
+                                <a href="<?php echo base_url('patient/addAppointment') ?>"><i class="fa fa-bar-chart-o fa-fw"></i>Add Appointment<span class="fa arrow"></span></a>
+
                             </li>
                             
                         </ul>

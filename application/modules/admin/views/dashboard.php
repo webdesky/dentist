@@ -78,7 +78,9 @@
              
             </div>
             <!-- /.row -->
-            <div class="row">
+
+            <div class="row" style="margin-top: 25px;">
+
                 <div class="col-lg-12">
                    
                     <!-- /.panel -->

@@ -36,6 +36,17 @@
         color: red;
         
     }
+
+
+    @media (max-width: 767px) {
+
+        #page-wrapper .panel-default .form-group .form-control {
+                width: 63%;
+                max-width: 100%;
+        }
+
+    }
+
     
     </style>
     

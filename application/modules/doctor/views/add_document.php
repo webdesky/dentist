@@ -36,7 +36,7 @@
                             <form role="form" method="post" action="<?php echo base_url('doctor/add_document') ?>" class="registration_form" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label>Patient * </label>
-                                    <select class="form-control" name="patient_id" id="patient_id">
+                                    <select class="form-control" name="patient_id" id="patient_id" required="required">
                                         <option>--Select Patient--</option>
                                          <?php foreach ($patient as $key => $value) { ?>
                                             <option value="<?php echo $value->id; ?>"><?php echo ucwords($value->first_name.' '.$value->last_name);?>
@@ -59,7 +59,9 @@
                                  <div class="form-group row">
                                     <label>Attach File *</label>
                                     
-                                            <input type="file" id="file" name="file" required="required" class="form-control">
+
+                                            <input type="file" id="file" name="file"  class="form-control">
+
                                         
                                          <span class="red"><?php echo form_error('file'); ?></span>
                                 </div>

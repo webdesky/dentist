@@ -69,6 +69,7 @@ class Admin extends CI_Controller
     {
         if ($this->controller->checkSession()) {
             $data['body'] = 'dashboard';
+
             $where        = array(
                 'is_active' => 1
             );
@@ -93,7 +94,6 @@ class Admin extends CI_Controller
             $data['totalPatient']     = $this->model->getcount('users', $where1);
             $data['totalDoctor']      = $this->model->getcount('users', $where2);
             $data['appointmentList']  = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', '', $where3);
-            
             $this->controller->load_view($data);
         } else {
             $this->index();
@@ -144,8 +144,16 @@ class Admin extends CI_Controller
             $this->controller->load_view($data);
         } else {
             if ($this->controller->checkSession()) {
-                $data  = array('password' => md5($this->input->post('new_password', TRUE)));
-                $where = array('id' => $this->session->userdata('id'));
+
+
+                $data  = array(
+                    'password' => md5($this->input->post('new_password', TRUE))
+                );
+                $where = array(
+                    
+                    'id' => $this->session->userdata('id')
+                );
+
                 $table = 'users';
                 $result = $this->model->updateFields($table, $data, $where);
                 redirect('admin/change_password', 'refresh');
@@ -189,7 +197,7 @@ class Admin extends CI_Controller
     public function register($id = null, $user_role = null)
     {
         $role = $user_role;
-        
+
         $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|alpha|min_length[2]');
         $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|alpha|min_length[2]');
         $this->form_validation->set_rules('dob', 'Date Of Birth', 'trim|required');
@@ -263,12 +271,20 @@ class Admin extends CI_Controller
             }
         }
     }
-    
+   
     
     public function users_list($user_role = null)
     {
-        $where = array('user_role ' => $user_role);
-        $where1            = array('role_id ' => $user_role);
+
+        $where = array(
+            'user_role ' => $user_role
+        );
+        
+        $where1            = array(
+            'role_id ' => $user_role
+        );
+        $data['role']=$user_role;
+
         $data['users']     = $this->model->getAllwhere('users', $where);
         $data['user_role'] = $this->model->getAllwhere('user_role', $where1);
         $data['body']      = 'users_list';
@@ -490,6 +506,7 @@ class Admin extends CI_Controller
                 $data = $this->input->post();
                 
                 $data = array(
+                    'appointment_type'=> $data['appointment_type'],
                     'appointment_id' => 'AP' . mt_rand(100000, 999999),
                     'patient_id' => $data['patient_id'],
                     'doctor_id' => $data['doctor_id'],
@@ -517,10 +534,28 @@ class Admin extends CI_Controller
     
     public function appointment_list()
     {
-        $where                   = array('user_role' => 2);
-        $data['appointmentList'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', '', $where);
+
+        $where                   = array(
+            'user_role' => 2
+        );
+        $data['appointmentList'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', 'appointment.ap_id,appointment.appointment_id,appointment.appointment_time,appointment.appointment_date,users.first_name,users.last_name,appointment.is_active,appointment.appointment_type,appointment.patient_id', $where);
+        
         $data['body'] = 'list_appointment';
         $this->controller->load_view($data);
+    }
+
+    public function update_status()
+    {
+        echo $id    = $this->input->post('id');
+        echo $active    = $this->input->post('active');
+        $data = array(
+                    'is_active'=> $active
+                    
+                );
+        $where = array(
+            'ap_id' => $id
+        );
+        $this->model->update('appointment', $data,$where);
     }
     
     public function edit_appointment($id)
@@ -535,7 +570,6 @@ class Admin extends CI_Controller
         $where1 = array('ap_id ' => $id);
         
         $data['appointment'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', '', $where1);
-        
         $data['body'] = 'edit_appointment';
         $this->controller->load_view($data);
     }
@@ -589,21 +623,26 @@ class Admin extends CI_Controller
                 
                 
                 if (isset($_FILES['image']['name']) && !empty($_FILES['image']['name'])) {
-                    if (move_uploaded_file($_FILES['image']['tmp_name'], 'asset/uploads/' . $_FILES['image']['name'])){
-                        $data['profile_pic'] = $_FILES['image']['name'];
-                    }
+
+                     if (move_uploaded_file($_FILES['image']['tmp_name'], 'asset/uploads/' . $_FILES['image']['name'])) {
+                
+                                $data['profile_pic'] = $_FILES['image']['name'];
+                        }
                     /*$count = count($_FILES['image']['name']);
                     for ($i = 0; $i < $count; $i++) {
-                    if ($_FILES['image']['error'][$i] == 0) {
-                    if (move_uploaded_file($_FILES['image']['tmp_name'][$i], 'asset/uploads/' . $_FILES['image']['name'][$i])) {
-                    
-                    $data['profile_pic'] = $_FILES['image']['name'][$i];
-                    }
-                    }
+                        if ($_FILES['image']['error'][$i] == 0) {
+                            if (move_uploaded_file($_FILES['image']['tmp_name'][$i], 'asset/uploads/' . $_FILES['image']['name'][$i])) {
+>>>>>>> a8efd675ac5c56fadf558494c61425a84d8344de
+                
+                                $data['profile_pic'] = $_FILES['image']['name'][$i];
+                            }
+                        }
                     }*/
                 }
-                
+               
                 $result = $this->model->updateFields('users', $data, $where);
+
+
                 redirect('/admin/profile', 'refresh');
                 
             }
@@ -612,8 +651,14 @@ class Admin extends CI_Controller
     
     public function case_study($id = null)
     {
-        $where           = array('user_role' => 3);
-        $where1          = array('user_role' => 2);
+
+        $where           = array(
+            'user_role' => 3
+        );
+        $where1           = array(
+            'user_role' => 2
+        );
+
         $data['patient'] = $this->model->getAllwhere('users', $where);
         $data['doctor']  = $this->model->getAllwhere('users', $where1);
         $this->form_validation->set_rules('patient_id', 'Patient Name', 'trim|required');
@@ -671,7 +716,9 @@ class Admin extends CI_Controller
     {
         $where                  = array('doctor_id' => $this->session->userdata('id'));
         $field_val              = 'case_study.*,users.first_name,users.last_name';
-        $data['documents_list'] = $this->model->GetJoinRecord('case_study', 'patient_id', 'users', 'id', $field_val);
+
+        $data['documents_list'] = $this->model->GetJoinRecord('case_study', 'patient_id', 'users', 'id',$field_val);
+
         $data['body']           = 'case_study_list';
         $this->controller->load_view($data);
     }
@@ -752,24 +799,25 @@ class Admin extends CI_Controller
                 $subject     = $this->input->post('subject');
                 $message     = $this->input->post('message');
                 $sender_id   = $this->session->userdata('id');
-                
-                $data        = array(
-                    'reciever_id' => $reciever_id,
-                    'sender_id' => $sender_id,
-                    'subject' => $subject,
-                    'message' => trim($message),
-                    'is_active' => 1,
-                    'created_at' => date('Y-m-d H:i:s')
+
+                $data = array(
+                    'reciever_id'    => $reciever_id,
+                    'sender_id'      =>   $sender_id,
+                    'subject'        => $subject,
+                    'message'        => trim($message),
+                    'is_active'      => 1,
+                    'created_at'     => date('Y-m-d H:i:s')
+
                 );
                 
                 $config = Array(
-                    'protocol' => 'smtp',
-                    'smtp_host' => 'ssl://smtp.googlemail.com',
-                    'smtp_port' => 465,
-                    'smtp_user' => 'webdeskytechnical@gmail.com',
-                    'smtp_pass' => 'webdesky@2017',
-                    'mailtype' => 'html',
-                    'charset' => 'iso-8859-1'
+                    'protocol'       => 'smtp',
+                    'smtp_host'      => 'ssl://smtp.googlemail.com',
+                    'smtp_port'      => 465,
+                    'smtp_user'      => 'webdeskytechnical@gmail.com',
+                    'smtp_pass'      => 'webdesky@2017',
+                    'mailtype'       => 'html',
+                    'charset'        => 'iso-8859-1'
                 );
                 
                 $this->load->library('email', $config);
@@ -793,10 +841,14 @@ class Admin extends CI_Controller
     
     public function mail_list()
     {
-        $where             = array('sender_id =' => $this->session->userdata('id'));
-        $field_val         = 'mail.*,users.first_name,users.last_name';
+
+        $where = array(
+            
+            'sender_id =' => $this->session->userdata('id')
+        );
+        $field_val = 'mail.*,users.first_name,users.last_name';
         $data['mail_list'] = $this->model->GetJoinRecord('mail', 'reciever_id', 'users', 'id', $field_val, $where);
-        $data['body']      = 'mail_list';
+        $data['body'] = 'mail_list';
         $this->controller->load_view($data);
     }
     
@@ -813,18 +865,21 @@ class Admin extends CI_Controller
             $this->controller->load_view($data);
         } else {
             if ($this->controller->checkSession()) {
+
                 $reciever_id = $this->input->post('reciever_id');
                 $subject     = $this->input->post('subject');
                 $message     = $this->input->post('message');
                 $sender_id   = $this->session->userdata('id');
                 
                 $data = array(
-                    'reciever_id' => $reciever_id,
-                    'sender_id'   => $sender_id,
-                    'subject'     => $subject,
-                    'message'     => trim($message),
-                    'is_active'   => 1,
-                    'created_at'  => date('Y-m-d H:i:s')
+
+                    'reciever_id'    => $reciever_id,
+                    'sender_id'      => $sender_id,
+                    'subject'        => $subject,
+                    'message'        => trim($message),
+                    'is_active'      => 1,
+                    'created_at'     => date('Y-m-d H:i:s')
+
                 );
                 
                 $result = $this->model->insertData('message', $data);
@@ -835,10 +890,15 @@ class Admin extends CI_Controller
     
     public function message_list()
     {
-        $where = array('sender_id ' => $this->session->userdata('id'));
-        $field_val             = 'message.*,users.first_name,users.last_name';
+        $where = array(
+          
+            'sender_id ' => $this->session->userdata('id')
+        );
+        
+        $field_val = 'message.*,users.first_name,users.last_name';
         $data['messages_list'] = $this->model->GetJoinRecord('message', 'reciever_id', 'users', 'id', $field_val, $where);
-        $data['body']          = 'message_list';
+        $data['body'] = 'message_list';
+
         $this->controller->load_view($data);
     }
     
@@ -906,6 +966,21 @@ class Admin extends CI_Controller
         } else {
             echo '1';
         }
+    }
+
+    public function check_password(){
+        $old_password=$this->input->post('data');
+        $where = array(
+            'id'            =>  $this->session->userdata('id'),
+            'password'      =>  md5($old_password)
+        );
+     
+     $result=$this->model->getsingle('users',$where);
+     if(!empty($result)){
+       echo '0';
+     }else{
+        echo  '1';
+     }
     }
     
 }

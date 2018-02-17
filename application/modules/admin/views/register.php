@@ -1,8 +1,11 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-
-            <h1 class="page-header">User Section</h1>
+            <?php if($user_role==2){ ?>
+            <h1 class="page-header">Add Doctor</h1>
+            <?php }else{?>
+            <h1 class="page-header">Add Patient</h1>
+            <?php } ?>
 
         </div>
         <!-- /.col-lg-12 -->
@@ -20,18 +23,26 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <a class="btn btn-primary" href="<?php echo base_url('admin/users_list')?>"><i class="fa fa-th-list">&nbsp;Users List</i></a>
+                    <?php if($user_role==2){ ?>
+                    <a class="btn btn-primary" href="<?php echo base_url('admin/users_list/2')?>"><i class="fa fa-th-list">&nbsp;Doctor List</i></a>
+                    <?php }else{ ?>
+
+                     <a class="btn btn-primary" href="<?php echo base_url('admin/users_list/3')?>"><i class="fa fa-th-list">&nbsp;  Patient List</i></a>
+                    <?php } ?>
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6 col-lg-offset-2">
+
                             <form role="form" method="post"  action="<?php echo base_url('admin/register') ?>" class="registration_form" enctype="multipart/form-data">
                                     
 
                                 <div class="form-group">
                                     <label>User Name *</label>
                                     <input type="hidden" name="user_role" value="<?php echo $user_role; ?>">
+
                                     <input class="form-control" type="text" placeholder="User Name" name="user_name" autocomplete="off"   value="<?php echo set_value('user_name');?>" >
+
                                     <span class="red"><?php echo form_error('user_name'); ?></span>
                                 </div>
 

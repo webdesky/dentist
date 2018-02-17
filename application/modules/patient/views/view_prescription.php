@@ -42,6 +42,8 @@ function ageCalculator($dob){
                             <div class="col-sm-12" >
 
                                 <!-- Headline -->
+
+                                <div class="table-responsive">
                                 <table class="table" >
                                     <thead>
                                         <tr class="bg-primary">
@@ -83,11 +85,13 @@ function ageCalculator($dob){
                                                 ?>,
                                                 <strong>Sex</strong>: <?php echo $prescription[0]->gender;?>,
                                                 <strong>Weight</strong>: <?php echo $prescription[0]->weight;?>,
+
                                                 <strong>BP</strong>: <?php echo $prescription[0]->blood_pressure;?>,
                                                 <!-- <strong>Insurance Name</strong>: </td> -->
                                         </tr>
                                     </tfoot>
                                 </table>
+
 
                             </div>
                         </div>

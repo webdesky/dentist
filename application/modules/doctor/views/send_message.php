@@ -47,7 +47,7 @@
 
                                 <div class="form-group">
                                     <label>Subject * </label>
-                                    <input type="text" id="subject" name="subject" class="form-control" required="required">
+                                    <input type="text" id="subject" name="subject" class="form-control" >
                                     <span class="red"><?php echo form_error('subject'); ?></span>
                                 </div>
 
@@ -79,3 +79,17 @@
 
 </div>
 </div>
+<script type="text/javascript">
+      $(document).ready(function() {
+       $(".registration_form").validate({
+                rules :{
+                    "reciever_id"      :"required",
+                    "subject"          :"required",
+                   
+                },
+             submitHandler : function(form) {
+                form.submit();
+                }
+            });
+         });
+</script>

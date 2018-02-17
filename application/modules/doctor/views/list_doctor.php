@@ -18,6 +18,7 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
+                            <div class="table-responsive">
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
@@ -75,6 +76,7 @@
                                     
                                 </tbody>
                             </table>
+                        </div>
                             <!-- /.table-responsive -->
                           
                         </div>

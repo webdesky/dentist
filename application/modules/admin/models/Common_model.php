@@ -31,6 +31,7 @@ class Common_model extends CI_Model
         $this->db->join('users as u',"u.id=cs.patient_id");
         $this->db->join('users as us',"us.id=cs.doctor_id");
         $q = $this->db->get();
+
         $num_rows = $q->num_rows();
         if ($num_rows > 0) {
             foreach ($q->result() as $rows) {

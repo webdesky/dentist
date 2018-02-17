@@ -1,4 +1,7 @@
-
+<?php  echo "<pre>";
+print_r($schedule);
+die;
+?>
 <style type="text/css">
     .red{
         color: red;
@@ -56,7 +59,7 @@
                                                
                                                 </div>
                                             <?php  foreach ($schedule as $key => $value) {
-                                                    
+
                                               
                                                 ?>
                                                 

@@ -15,6 +15,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">
+                            <div class="table-responsive">
                             <table class="table table-bordered" id="users">
                                 <thead>
                                     <tr>
@@ -57,6 +58,7 @@
                                     <?php $i++;}}?>
                                 </tbody>
                             </table>
+                        </div>
                         </div>
                     </div>
                     <!-- /.row (nested) -->

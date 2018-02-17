@@ -34,6 +34,7 @@
 | the active record class
 */
 
+
 // The following values will probably need to be changed.
 $db['default']['username'] = "root";
 $db['default']['password'] = "Webdesky@2017";
@@ -52,6 +53,7 @@ $db['default']['dbcollat'] = "utf8_general_ci";
 
 $active_group = "default";
 $active_record = TRUE;
+
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */

@@ -35,6 +35,18 @@
                             <div class="row">
                                 <div class="col-lg-6 col-lg-offset-2">
                                     <form role="form" method="post" action="<?php echo base_url('admin/addAppointment') ?>" class="registration_form" enctype="multipart/form-data">
+
+                                        <div class="form-group">
+                                            <label>Appointment Type * </label>
+                                             <select class="form-control" name="appointment_type" id="appointment_type">
+                                                <option>Select Appointment  Type</option>
+                                                 <option value="On Call">On Call</option>
+                                                  <option value="Online">Online</option>
+                                             </select>
+                                            <span><?php echo form_error('appointment_type'); ?></span>
+                                        </div>
+
+
                                         <div class="form-group">
                                             <label>Patient ID * </label>
                                              <select class="form-control" name="patient_id" id="patient_id">
