@@ -37,9 +37,9 @@
                                         <div class="col-md-9">
                                         <select class="form-control" name="category" >
                                             <option>Select Category</option>
-                                            <?php //foreach ($category as $key => $value) { ?>
-                                            <option value="<?php //echo $value['id']; ?>"><?php //echo $value['name']; ?></option>
-                                            <?php   //} ?>
+                                            <?php foreach ($category as $key => $value) { ?>
+                                            <option value="<?php echo $value['id']; ?>"><?php echo $value['name']; ?></option>
+                                            <?php   } ?>
                                         </select>    
                                         <span class="red"><?php echo form_error('category'); ?></span>
                                          </div>      

@@ -20,7 +20,7 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
-                    <table width="100%" class="table table-striped table-bordered table-hover" id="notice">
+                    <table class="table table-bordered display nowrap" cellspacing="0" width="100%" id="notice">
                         <thead>
                             <tr class="bg-primary">
                                 <th>Sr.No</th>
@@ -32,7 +32,7 @@
                         </thead>
                         <tbody>
                             <?php $count=1; if($mail_list){ foreach ($mail_list as  $value) {?>
-                            <tr class="odd gradeX">
+                            <tr class="odd gradeX" id="tr_<?php echo $count?>">
                                 <td>
                                     <?php echo $count; ?>
                                 </td>
@@ -66,6 +66,8 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-    $('#notice').DataTable();
-});
+        $('#notice').DataTable({
+            responsive: true
+        });
+    });
 </script>

@@ -4,10 +4,10 @@ node_modules
 .sass-cache
 
 
-
+!.gitignore
 application.zip
-asset/*
 /application/config/*
+/application/config/database.php
 /application/cache/*
 /application/core/*
 /application/helpers/*

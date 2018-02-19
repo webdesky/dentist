@@ -20,7 +20,7 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
-                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                    <table class="table table-bordered display nowrap" cellspacing="0" width="100%" id="dataTables-example">
                         <thead>
                             <tr class="bg-primary">
                                 <th>SL.No</th>
@@ -37,7 +37,7 @@
                                 $count=1;
                                 if($appointmentList){
                                 foreach ($appointmentList as  $value) { ?>
-                            <tr class="odd gradeX">
+                            <tr class="odd gradeX" id="tr_<?php echo $count;?>">
                                 <td>
                                     <?php echo $count; ?>
                                 </td>
@@ -58,7 +58,7 @@
                                     <?php echo $value->appointment_time; ?>
                                 </td>
                                 <td class="center"><a href="<?php echo base_url('doctor/edit_appointment/').$value->ap_id; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                    <a href="javascript:void(0)" onclick="delete_appointment('<?php echo $value->ap_id?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                    <a href="javascript:void(0)" onclick="delete_appointment('<?php echo $value->ap_id?>','<?php echo $count;?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                     <!-- <i class="fa fa fa-plus" aria-hidden="true" onclick="updateStatus(<?php echo $value->doctor_id; ?>,<?php echo $value->doctor_status; ?>)"></i> -->
                                 </td>
 
@@ -84,24 +84,33 @@
 </div>
 
 <script type="text/javascript">
-$(document).ready(function(){
+$(document).ready(function() {
     $('#dataTables-example').DataTable();
 });
-    function delete_appointment(id) {
-        if (confirm("Are you sure want to delete?")) {
-            $.ajax({
-                url: "<?php echo base_url('doctor/delete_appointment')?>",
-                method: "POST",
-                data: {
-                    id: id,
-                    table: 'appointment'
-                },
-                success: function(response) {
-                    window.location.reload();
-                },
 
-            });
-        }
-        return false;
-    }
+function delete_appointment(id, tr_id) {
+    swal({
+        title: "Are you sure?",
+        text: "Are you sure that you want to Delete?",
+        type: "warning",
+        showCancelButton: true,
+        closeOnConfirm: false,
+        confirmButtonText: "Yes, Delete it!",
+        confirmButtonColor: "#ec6c62"
+    }, function() {
+        $.ajax({
+            url: "<?php echo base_url('doctor/delete_appointment')?>",
+            data: {
+                id: id,
+                table: 'appointment'
+            },
+            type: "POST"
+        }).done(function(data) {
+            swal("Deleted!", "Record was successfully deleted!", "success");
+            $('#tr_' + tr_id).remove();
+        }).error(function(data) {
+            swal("Oops", "We couldn't connect to the server!", "error");
+        });
+    });
+}
 </script>

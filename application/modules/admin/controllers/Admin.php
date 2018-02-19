@@ -210,7 +210,7 @@ class Admin extends CI_Controller
         
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('errors', validation_errors());
-           // $data['category']  =  $this->model->getAll('category');
+            $data['category']  =  $this->model->getAll('category');
             $data['body']      = 'register';
             $data['user_role'] = "$role";
             $this->controller->load_view($data);
@@ -636,11 +636,8 @@ class Admin extends CI_Controller
     
     public function profile()
     {
-        $where         = array(
-            'id' => $this->session->userdata('id')
-        );
-        $data['users'] = $this->model->getAllwhere('users', $where);
-        
+        $where                  = array('id' => $this->session->userdata('id'));
+        $data['users']          = $this->model->getAllwhere('users', $where);
         $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|alpha|min_length[2]');
         $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|alpha|min_length[2]');
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
