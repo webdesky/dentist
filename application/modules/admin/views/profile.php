@@ -24,9 +24,9 @@
                             <form role="form" method="post" action="<?php echo base_url('admin/profile/') ?>" class="registration_form1" class="form-horizontal" enctype="multipart/form-data">
 
                             <?php if(!empty($users[0]->profile_pic)){?>
-                                <div class="form-group">
-                                    <div class="col-sm-10">
-                                       <img src="<?php echo base_url('asset/uploads/').$users[0]->profile_pic ?>" style="max-width: 300px;max-height: 300px;">
+                                <div class="col-md-12" align="center">
+                                    <div class="form-group">
+                                    <img src="<?php echo base_url('asset/uploads/').$users[0]->profile_pic ?>" style="max-width: 300px;max-height: 300px;">
                                     </div>
                                 </div>
                             <?php }?>

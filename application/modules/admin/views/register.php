@@ -35,11 +35,11 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Doctor Category*</label>
                                         <div class="col-md-9">
-                                        <select class="form-control" name="category" >
+                                        <select class="form-control" name="category" id="category" >
                                             <option>Select Category</option>
-                                            <?php //foreach ($category as $key => $value) { ?>
-                                            <option value="<?php //echo $value['id']; ?>"><?php //echo $value['name']; ?></option>
-                                            <?php   //} ?>
+                                            <?php foreach ($category as $key => $value) { ?>
+                                            <option value="<?php echo $value['id']; ?>"><?php echo $value['name']; ?></option>
+                                            <?php   } ?>
                                         </select>    
                                         <span class="red"><?php echo form_error('category'); ?></span>
                                          </div>      
@@ -99,7 +99,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                             <?php if($user_role==2){ ?>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="col-md-3">Specialization *</label>
@@ -109,6 +109,7 @@
                                 </div>
                                 </div>
                             </div>
+                            <?php } ?>
 
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -230,11 +231,13 @@
 <script type="text/javascript">
         $(document).ready(function(){
             
-            $(".registration_form").validate({
+            $(".registration_form1").validate({
+                
                 rules :{
                     "first_name"    :"required",
                     "user_name"     :"required",
                     "password"      :"required",
+                    "category"      :"required",
                 },
              submitHandler : function(form) {
                 form.submit();

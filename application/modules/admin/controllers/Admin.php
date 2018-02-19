@@ -202,15 +202,17 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|alpha|min_length[2]');
         $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|alpha|min_length[2]');
         $this->form_validation->set_rules('dob', 'Date Of Birth', 'trim|required');
+         $this->form_validation->set_rules('category', 'category', 'trim|required');
         if (empty($id)) {
             $this->form_validation->set_rules('user_name', 'User Name', 'trim|required|is_unique[users.username]');
             $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]');
             $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]|alpha_numeric');
-        }
+             $this->form_validation->set_rules('category', 'category', 'trim|required');
+         }
         
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('errors', validation_errors());
-           // $data['category']  =  $this->model->getAll('category');
+            $data['category']  =  $this->model->getAll('category');
             $data['body']      = 'register';
             $data['user_role'] = "$role";
             $this->controller->load_view($data);
@@ -230,6 +232,11 @@ class Admin extends CI_Controller
                 $gender      = $this->input->post('gender');
                 $blood_group = $this->input->post('blood_group');
                 $status      = $this->input->post('status');
+            if($user_role==2){
+                $category           = $this->input->post('category');
+                $specialization     = $this->input->post('specialization');
+            }
+              
                 
                 $data = array(
                     'first_name' => $first_name,
@@ -270,6 +277,14 @@ class Admin extends CI_Controller
                     $result = $this->model->updateFields('users', $data, $where);
                 } else {
                     $result = $this->model->insertData('users', $data);
+                    if($user_role==2){
+                        $data= array(
+                            'doctor_id'         =>  $result,
+                            'category'          =>  $category,
+                            'specialization'    =>  $specialization
+                        );
+                        $data=$this->model->insertData('doctor',$data);
+                    }
                 }
                 $this->users_list($user_role);
             }

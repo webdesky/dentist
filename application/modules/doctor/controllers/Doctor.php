@@ -324,9 +324,11 @@ class Doctor extends CI_Controller
     
     public function profile()
     {
-        $where         = array('id' => $this->session->userdata('id'));
-        $data['users'] = $this->model->getAllwhere('users', $where);
-        
+        $where              = array('users.id' => $this->session->userdata('id'));
+        $where1             = array('doctor.doctor_id'=>$this->session->userdata('id'));
+        $data['users']      = $this->model->GetJoinRecord('users','id','doctor','doctor_id','', $where);
+       
+        $data['category']  =  $this->model->getAll('category');
         $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|alpha|min_length[2]');
         $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|alpha|min_length[2]');
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
@@ -338,17 +340,31 @@ class Doctor extends CI_Controller
             $this->controller->load_view($data);
         } else {
             if ($this->controller->checkSession()) {
-                $user_role   = '3';
-                $first_name  = $this->input->post('first_name');
-                $last_name   = $this->input->post('last_name');
-                $email       = $this->input->post('email');
-                $address     = $this->input->post('address');
-                $phone_no    = $this->input->post('phone');
-                $mobile_no   = $this->input->post('mobile');
-                $dob         = $this->input->post('date_of_birth');
-                $gender      = $this->input->post('gender');
-                $blood_group = $this->input->post('blood_group');
+
+                $data=$this->input->post();
                 
+                $user_role              = '3';
+                $first_name             = $this->input->post('first_name');
+                $last_name              = $this->input->post('last_name');
+                $email                  = $this->input->post('email');
+                $address                = $this->input->post('address');
+                $phone_no               = $this->input->post('phone');
+                $mobile_no              = $this->input->post('mobile');
+                $dob                    = $this->input->post('date_of_birth');
+                $gender                 = $this->input->post('gender');
+                $blood_group            = $this->input->post('blood_group');
+                $category               = $this->input->post('category');
+                $specialization         = $this->input->post('specialization');
+                $registration           = $this->input->post('registration');
+                $registration_number    = $this->input->post('registration_number');
+                $registration_council   = $this->input->post('registration_council');
+                $registration_year      = $this->input->post('registration_year');
+                $degree                 = $this->input->post('degree');
+                $college                = $this->input->post('college');
+                $completion_year        = $this->input->post('completion_year');
+                $experience             = $this->input->post('experience');
+
+
                 $data = array(
                     'first_name' => $first_name,
                     'last_name' => $last_name,
@@ -360,6 +376,21 @@ class Doctor extends CI_Controller
                     'gender' => $gender,
                     'blood_group' => $blood_group
                 );
+
+
+                $data1  = array(
+                    'category'              => $category,
+                    'specialization'        => $specialization,
+                    'registration'          => $registration,
+                    'registration_number'   => $registration_number,
+                    'registration_council'  => $registration_council,
+                    'registration_year'     => $registration_year,
+                    'degree'                => $degree,
+                    'college'               => $college,
+                    'completion_year'       => $completion_year,
+                    'experience'            => $experience
+
+                );
                 
                 
                 if (isset($_FILES['image']['name']) && !empty($_FILES['image']['name'])) {
@@ -370,6 +401,7 @@ class Doctor extends CI_Controller
                  }
                 
                 $result = $this->model->updateFields('users', $data, $where);
+                $result1= $this->model->updateFields('doctor',$data1,$where1);
                 redirect('/doctor/profile', 'refresh');
                 
             }
