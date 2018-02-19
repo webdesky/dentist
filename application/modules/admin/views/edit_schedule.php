@@ -59,9 +59,8 @@ die;
                                                
                                                 </div>
                                             <?php  foreach ($schedule as $key => $value) {
-
-                                              
-                                                ?>
+                                                        
+                                                       ?>
                                                 
                                               
                                             <div class="col-lg-12">
