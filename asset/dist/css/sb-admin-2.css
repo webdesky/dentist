@@ -474,14 +474,59 @@ table.dataTable thead .sorting:after {
     border-left-width: 0;
   }
 }
-.red{
+.red {
     color: red;
 }
-.registration_form1 .form-group {
+
+.registration_form1 .form-control {
+    display: block;
+    margin-bottom: 12px;
+  }
+
+.registration_form12 .form-group {
+    margin-bottom: 12px;
+    overflow: hidden;
+    clear: both;
+}
+
+.registration_form12 .nice-select.wide {
+    height: 35px;
+}
+
+.registration_form12 .nice-select.wide {  
+    line-height: 32px;
+    border: 1px solid #ccc;
+}
+
+.registration_form12 .formas {
+    margin-bottom: 12px;
+    /*overflow: hidden;*/
+}
+
+
+
+
+/* .registration_form1 .form-group {
     margin-bottom: 15px;
     overflow: hidden;
 
+} */
+
+
+
+
+.registration_form1 .form-group {
+    margin-bottom: 15px;
+    overflow: visible;
+    clear: both;
 }
+
+.registration_form1 .nice-select.wide {
+    height: 40px;
+    margin-bottom: 10px;
+}
+
+
 table.dataTable thead th {
     position: relative;
     background-image: none !important;
@@ -491,4 +536,20 @@ table.dataTable thead th.sorting:after,
 table.dataTable thead th.sorting_asc:after,
 table.dataTable thead th.sorting_desc:after {
     color: #FFFFFF;
+}
+
+.registration_form {
+         width: 500px;
+}
+ .registration_form label {
+     width: 250px;
+}
+ .registration_form label.error, .registration_form input.submit {
+     color: red;
+}
+ @media (max-width: 767px) {
+     #page-wrapper .panel-default .form-group .form-control {
+         width: 63%;
+         max-width: 100%;
+    }
 }

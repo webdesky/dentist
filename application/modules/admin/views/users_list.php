@@ -37,7 +37,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="table-responsive">
-                            <table class="table table-bordered" id="users">
+                            <table class="table table-bordered display nowrap" cellspacing="0" width="100%" id="users">
                                 <thead>
                                     <tr class="bg-primary">
                                         <th>Sr no.</th>
@@ -54,7 +54,7 @@
                                 </thead>
                                 <tbody>
                                     <?php $i=1; foreach($users as $users_list){?>
-                                    <tr>
+                                    <tr id="tr_<?php echo $i;?>">
                                         <td>
                                             <?php echo $i; ?>
                                         </td>
@@ -85,7 +85,7 @@
                                             
                                             <?php }if($user_role==1 || ($user_role==4 && $right0[2]==1)){?> 
                                                 
-                                                <a href="javascript:void(0)" onclick="delete_user('<?php echo $users_list->id?>')"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <a href="javascript:void(0)" onclick="delete_user('<?php echo $users_list->id?>','<?php echo $i;?>')"><span class="glyphicon glyphicon-trash"></span></a>
 
                                             <?php }?>
                                         </td>
@@ -111,23 +111,36 @@
 </div>
 
 <script type="text/javascript">
-    $('#users').DataTable();
+    $('#users').DataTable({
+        // rowReorder: {
+        //     selector: 'td:nth-child(2)'
+        // },
+        responsive: true
+    });
 
     function delete_user(id) {
-        if (confirm("Are you sure want to delete?")) {
+        swal({
+            title: "Are you sure?",
+            text: "want to delete?",
+            type: "warning",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            confirmButtonText: "Yes, Delete it!",
+            confirmButtonColor: "#ec6c62"
+        }, function() {
             $.ajax({
                 url: "<?php echo base_url('admin/delete')?>",
-                method: "POST",
                 data: {
                     id: id,
-                    table: 'user'
+                    table: 'users'
                 },
-                success: function(response) {
-                    window.location.reload();
-                },
-
+                type: "POST"
+            }).done(function(data) {
+                swal("Deleted!", "Record was successfully deleted!", "success");
+                $('#tr_' + tr_id).remove();
+            }).error(function(data) {
+                swal("Oops", "We couldn't connect to the server!", "error");
             });
-        }
-        return false;
+        });
     }
 </script>

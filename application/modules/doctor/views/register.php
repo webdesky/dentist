@@ -46,8 +46,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group"> <label class="col-md-3">Blood Group</label>
-                                        <div class="col-md-9"> <select class="form-control" name="blood_group">
-                                            <option value="">--SELECT--</option>
+                                        <div class="col-md-9"> <select class="wide" name="blood_group">
+                                            <option value="">SELECT Blood Group</option>
                                             <option value="a+">A+</option>
                                             <option value="a-">A-</option>
                                             <option value="b+">B+</option>

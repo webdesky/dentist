@@ -32,10 +32,10 @@
                                 <?php } ?>
 
                                 <div class="col-md-6">
-                                    <div class="form-group">
+                                    <div class="">
                                         <label class="control-label col-md-3">Doctor Category*</label>
                                         <div class="col-md-9">
-                                        <select class="form-control" name="category" >
+                                        <select class="wide" name="category" >
                                             <option>Select Category</option>
                                             <?php foreach ($category as $key => $value) { ?>
                                             <option value="<?php echo $value['id']; ?>" <?php if($users[0]->category==$value['id']){ echo 'selected';}?>> <?php echo $value['name']; ?></option>
@@ -84,10 +84,10 @@
                                 </div>
 
                                <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="">
                                     <label class="control-label col-md-3" for="Blood Group">Blood Group:</label>
                                     <div class="col-md-9">
-                                        <select class="form-control" name="blood_group">
+                                        <select class="wide" name="blood_group">
                                         <option value="">--SELECT--</option>
                                         <option value="a+"<?php if($users[0]->blood_group=="a+"){echo 'selected';};?>>A+</option>
                                         <option value="a-"<?php if($users[0]->blood_group=="a-"){echo 'selected';};?>>A-</option>
@@ -101,10 +101,7 @@
                                     </div>
                                 </div>
                             </div>
-                               
-                           
-                            
-
+                        
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label col-md-3" for="mobile">  Mobile:</label>
@@ -154,6 +151,15 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label class="control-label col-md-3" for="address">  City:</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="city" placeholder="Enter City" value="<?php echo $users[0]->city;?>">
+                                     </div>
+                            </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
                                     <label class="control-label col-md-3" for="address">  Address:</label>
                                     <div class="col-md-9">
                                         <textarea class="form-control" name="address" placeholder="Enter Address"><?php echo $users[0]->address;?></textarea>
@@ -164,7 +170,6 @@
                             <div class="col-md-12 well well-sm">
                                
                                     <h3>Profesional Information</h3>
-                                
                             </div>
 
                             <div class="col-md-6">

@@ -21,8 +21,8 @@
                             <form role="form" method="post" action="<?php echo base_url('doctor/case_study') ?>" class="registration_form1" enctype="multipart/form-data">
                                 <div class="col-md-12">
                                     <div class="form-group"> <label class="col-md-2">Patient ID * </label>
-                                        <div class="col-md-6"> <select class="form-control" name="patient_id">
-                                        <option value="">--Select Patient--</option>
+                                        <div class="col-md-6"> <select class="wide" name="patient_id">
+                                        <option value="">Select Patient</option>
                                         <?php foreach($patient as $patients){?>
                                         <option value="<?php echo $patients->id;?>"><?php echo ucwords($patients->first_name.' '.$patients->last_name);?></option>
                                         <?php }?>

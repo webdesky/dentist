@@ -17,8 +17,8 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-lg-12">
-                            <table class="table table-bordered" id="users">
+                        <div class="col-lg-12 table-responsive">
+                            <table class="table table-bordered display nowrap" cellspacing="0" width="100%" id="users">
                                 <thead>
                                   <tr class="bg-primary">
                                     <th>Sr no.</th>
@@ -33,7 +33,7 @@
                                 </thead>
                                 <tbody>
                                 <?php $i=1; foreach($users as $users_list){?>
-                                  <tr>
+                                  <tr id="tr_<?php echo $i?>">
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $users_list->first_name;?></td>
                                     <td><?php echo $users_list->last_name;?></td>
@@ -62,23 +62,35 @@
 </div>
 
 <script type="text/javascript">
-    $('#users').DataTable();
+    $('#users').DataTable({
+        responsive: true
+    });
     
     function delete_user(id) {
-    if (confirm("Are you sure want to delete?")) {
-        $.ajax({
-            url: "<?php echo base_url('admin/delete')?>",
-            method: "POST",
-            data: {
-                id: id,
-                table:'user'
-            },
-            success: function(response) {
-                window.location.reload();
-            },
-
+         swal({
+            title: "Are you sure?",
+            text: "want to delete?",
+            type: "warning",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            confirmButtonText: "Yes, Delete it!",
+            confirmButtonColor: "#ec6c62"
+        }, function() {
+            $.ajax({
+                url: "<?php echo base_url('admin/delete')?>",
+                data: {
+                    id: id,
+                    table: 'user'
+                },
+                type: "POST"
+            }).done(function(data) {
+                swal("Deleted!", "Record was successfully deleted!", "success");
+                $('#tr_' + tr_id).remove();
+            }).error(function(data) {
+                swal("Oops", "We couldn't connect to the server!", "error");
+            });
         });
+
     }
-    return false;
-}
+
 </script>

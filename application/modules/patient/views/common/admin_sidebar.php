@@ -85,19 +85,15 @@
                                 <a href="<?php echo base_url('patient/addAppointment') ?>"><i class="fa fa-bar-chart-o fa-fw"></i>Add Appointment<span class="fa arrow"></span></a>
 
                             </li>
+                             <li>
+                                <a href="<?php echo base_url('patient/appointment_list') ?>"><i class="fa fa-bar-chart-o fa-fw"></i> Appointment List<span class="fa arrow"></span></a>
+                            </li>
+                            
                             
                         </ul>
                     </li>
 
-                    <li>
-                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Appointment <span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="<?php echo base_url('patient/appointment_list') ?>"><i class="fa fa-bar-chart-o fa-fw"></i> Appointment List<span class="fa arrow"></span></a>
-                            </li>
-                            
-                        </ul>
-                    </li>
+                 
                     
                 </ul>
             </div>

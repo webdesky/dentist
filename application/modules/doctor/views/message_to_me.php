@@ -19,7 +19,7 @@
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <table width="100%" class="table table-striped table-bordered table-hover" id="notice">
+                    <table class="table table-bordered display nowrap" cellspacing="0" width="100%" id="notice">
                         <thead>
                             <tr class="bg-primary">
                                 <th>Sr.No</th>
@@ -66,6 +66,8 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function(){
-    $('#notice').DataTable();
+    $('#notice').DataTable({
+        responsive:true,
+    });
 });
 </script>

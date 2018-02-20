@@ -27,7 +27,7 @@
                             <form role="form" method="post" action="<?php echo base_url('admin/addAppointment') ?>" class="registration_form1" enctype="multipart/form-data">
                                 <div class="form-group"> <label class="col-md-2">Appointment Type * </label>
                                     <div class="col-lg-6"> 
-                                        <select class="form-control" name="appointment_type" id="appointment_type">
+                                        <select class="wide" name="appointment_type" id="appointment_type">
                                             <option>Select Appointment  Type</option>
                                             <option value="On Call">On Call</option>
                                             <option value="Online">Online</option>
@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="form-group"> <label class="col-md-2">Patient ID * </label>
                                     <div class="col-lg-6"> 
-                                        <select class="form-control" name="patient_id" id="patient_id">
+                                        <select class="wide" name="patient_id" id="patient_id">
                                             <option>Select Patient id</option>
                                              <?php foreach ($patient as $key => $value) { ?>
                                                   <option value="<?php echo $value->id; ?>"><?php echo $value->id;?></option>
@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="form-group"> <label class="col-md-2">Doctor Name * </label>
                                     <div class="col-lg-6"> 
-                                        <select class="form-control" name="doctor_id">
+                                        <select class="wide" name="doctor_id" >
                                             <option>Select Doctor </option>
                                              <?php foreach ($doctor as $key => $value) { ?>
                                             <option value="<?php echo $value->id; ?>"><?php echo $value->first_name;?></option>
@@ -108,5 +108,9 @@ $(document).ready(function() {
         dropdown: true,
         scrollbar: true
     });
+
+   
 });
+
+    
 </script>

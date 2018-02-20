@@ -27,7 +27,7 @@
                             <form role="form" method="post" action="<?php echo base_url('doctor/addAppointment') ?>" class="registration_form1" enctype="multipart/form-data">
                                 <div class="col-md-12">
                                     <div class="form-group"> <label class="col-md-2">Patient ID * </label>
-                                        <div class="col-md-6"> <select class="form-control" name="patient_id" id="patient_id">
+                                        <div class="col-md-6"> <select class="wide" name="patient_id" id="patient_id">
                                                 <option>Select Patient</option>
                                                     <?php foreach ($patient as $key => $value) { ?>
                                                     <option value="<?php echo $value->id; ?>"><?php echo ucwords($value->first_name.' '.$value->last_name);?>

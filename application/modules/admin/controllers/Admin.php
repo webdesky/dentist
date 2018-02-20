@@ -202,7 +202,7 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|alpha|min_length[2]');
         $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|alpha|min_length[2]');
         $this->form_validation->set_rules('dob', 'Date Of Birth', 'trim|required');
-         $this->form_validation->set_rules('category', 'category', 'trim|required');
+        // $this->form_validation->set_rules('category', 'category', 'trim|required');
         if (empty($id)) {
             $this->form_validation->set_rules('user_name', 'User Name', 'trim|required|is_unique[users.username]');
             $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]');
@@ -274,14 +274,17 @@ class Admin extends CI_Controller
                     unset($data['created_at']);
                     unset($data['email']);
                     unset($data['password']);
-                    $result = $this->model->updateFields('users', $data, $where);
+                   
+                   $result = $this->model->updateFields('users', $data, $where);
                 } else {
                     $result = $this->model->insertData('users', $data);
                     if($user_role==2){
                         $data= array(
                             'doctor_id'         =>  $result,
                             'category'          =>  $category,
-                            'specialization'    =>  $specialization
+                            'specialization'    =>  $specialization,
+                            'is_active'         => $status,
+                            'created_at'        => date('Y-m-d H:i:s')
                         );
                         $data=$this->model->insertData('doctor',$data);
                     }
@@ -304,7 +307,7 @@ class Admin extends CI_Controller
         );
 
         $data['role']=$user_role;
-
+        $data['category']  =  $this->model->getAll('category');
 
         $data['users']     = $this->model->getAllwhere('users', $where);
         $data['user_role'] = $this->model->getAllwhere('user_role', $where1);
@@ -651,11 +654,8 @@ class Admin extends CI_Controller
     
     public function profile()
     {
-        $where         = array(
-            'id' => $this->session->userdata('id')
-        );
-        $data['users'] = $this->model->getAllwhere('users', $where);
-        
+        $where                  = array('id' => $this->session->userdata('id'));
+        $data['users']          = $this->model->getAllwhere('users', $where);
         $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|alpha|min_length[2]');
         $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|alpha|min_length[2]');
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');

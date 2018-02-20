@@ -31,11 +31,11 @@
                             <form role="form" method="post" action="<?php echo base_url('admin/case_study') ?>" class="registration_form1" enctype="multipart/form-data">
                             
                             <div class="col-md-6">  
-                                <div class="form-group">
+                                <div class="">
                                     <label class="col-md-3">Doctor ID *</label>
                                     <div class="col-md-9">
-                                        <select class="form-control" name="doctor_id">
-                                            <option value="">--Select Doctor--</option>
+                                        <select class="wide" name="doctor_id">
+                                            <option data-display="Select Doctor">Select Doctor</option>
                                             <?php foreach($doctor as $doctors){?>
                                             <option value="<?php echo $doctors->id;?>"><?php echo ucwords($doctors->first_name.' '.$doctors->last_name);?></option>
                                             <?php }?>
@@ -46,11 +46,11 @@
                             </div>
 
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="">
                                     <label class="col-md-3">Patient ID *</label>
                                     <div class="col-md-9">
-                                        <select class="form-control" name="patient_id">
-                                            <option value="">--Select Patient--</option>
+                                        <select class="wide" name="patient_id">
+                                            <option data-display="Select Patient">Select Patient</option>
                                             <?php foreach($patient as $patients){?>
                                             <option value="<?php echo $patients->id;?>"><?php echo ucwords($patients->first_name.' '.$patients->last_name);?></option>
                                             <?php }?>

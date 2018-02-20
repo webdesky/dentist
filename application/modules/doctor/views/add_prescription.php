@@ -65,7 +65,7 @@
                                                 <th width="33.33%">
                                                     <ul class="list-unstyled">
                                                         <li>
-                                                            <select name="patient_id" class="invoice-input form-control" onchange="get_patient_data(this)">
+                                                            <select name="patient_id" class="invoice-input wide" onchange="get_patient_data(this)">
                                                                 <option value="">--Select Patient--</option>
                                                                 <?php if(!empty($patient)){ foreach($patient as $value){?>
                                                                 <option data-appointment="<?php echo $value->appointment_id;?>" value="<?php echo $value->patient_id;?>"><?php echo $value->patient_id;?></option>

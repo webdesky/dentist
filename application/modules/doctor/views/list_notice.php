@@ -22,7 +22,7 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
-                    <table width="100%" class="table table-striped table-bordered table-hover" id="notice">
+                    <table class="table table-bordered display nowrap" cellspacing="0" width="100%" id="notice">
                         <thead>
                             <tr class="bg-primary">
                                 <th>SL.No</th>
@@ -78,7 +78,9 @@
 
 
 <script type="text/javascript">
-    $('#notice').DataTable();
+    $('#notice').DataTable({
+        responsive:true
+    });
 
     function delete_notices(id) {
         if (confirm("Are you sure want to delete?")) {

@@ -11,6 +11,13 @@
         <!-- /.col-lg-12 -->
     </div>
 
+    <style>
+        
+
+
+
+    </style>
+
     <!-- /.row -->
 
     <div class="row">
@@ -28,15 +35,15 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
 
-                            <form role="form" method="post"  action="<?php echo base_url('admin/register') ?>" class="registration_form1" enctype="multipart/form-data">
+                            <form role="form" method="post"  action="<?php echo base_url('admin/register') ?>" class="registration_form12" enctype="multipart/form-data">
                                 <?php if($user_role==2){ ?>
 
                                 <div class="col-md-6">
-                                    <div class="form-group">
+                                    <div class="">
                                         <label class="col-md-3">Doctor Category*</label>
                                         <div class="col-md-9">
-                                        <select class="form-control" name="category" id="category" >
-                                            <option>Select Category</option>
+                                        <select class="wide" name="category" id="category" style="height: 35px;"> 
+                                            <option data-display="Select Category">Select Category</option>
                                             <?php foreach ($category as $key => $value) { ?>
                                             <option value="<?php echo $value['id']; ?>"><?php echo $value['name']; ?></option>
                                             <?php   } ?>
@@ -47,6 +54,8 @@
                                 </div>
 
                                 <?php } ?>
+
+
 
                               <div class="col-md-6">
                                 <div class="form-group">
@@ -111,25 +120,7 @@
                             </div>
                             <?php } ?>
 
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="col-md-3">Blood Group</label>
-                                    <div class="col-md-9">
-                                        <select class="form-control" name="blood_group">
-                                            <option value="">--SELECT--</option>
-                                            <option value="a+">A+</option>
-                                            <option value="a-">A-</option>
-                                            <option value="b+">B+</option>
-                                            <option value="b-">B-</option>
-                                            <option value="o+">O+</option>
-                                            <option value="o-">O-</option>
-                                            <option value="ab+"> AB+</option>
-                                            <option value="ab-">AB-</option>
-                                        </select>
-                                    </div>
-                                    <span class="red"><?php echo form_error('blood_group'); ?></span>
-                                </div>
-                            </div>
+                           
                             
                              <div class="col-md-6">
                                 <div class="form-group">
@@ -172,7 +163,29 @@
                             </div>
 
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="formas"> 
+                                    <label class="col-md-3">Blood Group</label>
+                                    <div class="col-md-9">
+                                        <select class="wide" name="blood_group">
+                                            <option data-display="Select Blood Group">SELECT Blood Group</option>
+                                            <option value="a+">A+</option>
+                                            <option value="a-">A-</option>
+                                            <option value="b+">B+</option>
+                                            <option value="b-">B-</option>
+                                            <option value="o+">O+</option>
+                                            <option value="o-">O-</option>
+                                            <option value="ab+"> AB+</option>
+                                            <option value="ab-">AB-</option>
+                                        </select>
+                                    </div>
+                                    <span class="red"><?php echo form_error('blood_group'); ?></span>
+                                </div>
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                            <div class="col-md-6">
+                                <div class="form-group"> 
                                     <label class="col-md-3">Gender *</label>
                                     <div class="col-md-9">
                                         <label class="radio-inline">
@@ -199,6 +212,9 @@
                                 </div>
                             </div>
 
+
+                             
+                          
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="col-md-3">Address *</label>
@@ -245,7 +261,11 @@
             });
 
            $("#datepicker").datepicker();
-
+          
         });
+
+
+  
+
 
 </script>

@@ -20,7 +20,7 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
-                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                    <table class="table table-bordered display nowrap" cellspacing="0" width="100%" id="dataTables-example">
                         <thead>
                             <tr class="bg-primary">
                                 <th>SL.No</th>
@@ -37,7 +37,7 @@
                                 $count=1;
                                 if($prescription_list){
                                 foreach ($prescription_list as  $value) { ?>
-                            <tr class="odd gradeX">
+                            <tr class="odd gradeX" id="tr_<?php echo $count?>">
                                 <td>
                                     <?php echo $count; ?>
                                 </td>
@@ -61,7 +61,7 @@
                                     <a href="<?php echo base_url('doctor/view_prescription/'.$value->id);?>"><i class="fa fa-eye"></i></a> | 
                                     <a href="<?php echo base_url('doctor/edit_prescription/'.$value->id); ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> 
                                     | 
-                                    <a href="javascript:void(0)" onclick="delete_prescription('<?php echo $value->id?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a> 
+                                    <a href="javascript:void(0)" onclick="delete_prescription('<?php echo $value->id?>','<?php echo $count?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a> 
 
                                 </td>
 
@@ -88,22 +88,32 @@
 
 <script type="text/javascript">
 
-$('#dataTables-example').DataTable();
+$('#dataTables-example').DataTable({
+    responsive: true
+});
 
-    function delete_prescription(id) {
-        if (confirm("Are you sure want to delete?")) {
+    function delete_prescription(id,tr_id) {
+        swal({
+        title: "Are you sure?",
+        text: "Are you sure that you want to delete?",
+        type: "warning",
+        showCancelButton: true,
+        closeOnConfirm: false,
+        confirmButtonText: "Yes, Delete it!",
+        confirmButtonColor: "#ec6c62"
+        }, function() {
             $.ajax({
                 url: "<?php echo base_url('doctor/delete_prescription')?>",
-                method: "POST",
                 data: {
                     id: id,
                 },
-                success: function(response) {
-                    window.location.reload();
-                },
-
+                type: "POST"
+            }).done(function(data) {
+                swal("Deleted!", "Record was successfully deleted!", "success");
+                $('#tr_' + tr_id).remove();
+            }).error(function(data) {
+                swal("Oops", "We couldn't connect to the server!", "error");
             });
-        }
-        return false;
+        });
     }
 </script>

@@ -363,6 +363,7 @@ class Doctor extends CI_Controller
                 $college                = $this->input->post('college');
                 $completion_year        = $this->input->post('completion_year');
                 $experience             = $this->input->post('experience');
+                $city                   = $this->input->post('city');
 
 
                 $data = array(
@@ -388,7 +389,8 @@ class Doctor extends CI_Controller
                     'degree'                => $degree,
                     'college'               => $college,
                     'completion_year'       => $completion_year,
-                    'experience'            => $experience
+                    'experience'            => $experience,
+                    'city'                  => $city
 
                 );
                 

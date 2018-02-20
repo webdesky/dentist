@@ -25,18 +25,19 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <form role="form" method="post" action="<?php echo base_url('admin/addSchedule') ?>" class="registration_form1" enctype="multipart/form-data">
-                                <div class="form-group"> <label class="col-md-2">Doctor Name * </label>
-                                    <div class="col-lg-6"> <select class="form-control" name="doctor_id">
-                                            <option>Select Doctor</option>
+                                <div> <label class="col-md-2">Doctor Name * </label>
+                                    <div class="col-lg-9"> <select class="wide" name="doctor_id">
+                                            <option data-display="Select Doctor">Select Doctor</option>
                                              <?php foreach ($doctor as $key => $value) { ?>
                                                   <option value="<?php echo $value->id; ?>"><?php echo $value->first_name; ?></option>
                                             <?php } ?>
                                          </select> <span class="red"><?php echo form_error('title'); ?></span> </div>
                                 </div>
-                                <div class="form-group" id="app"> <label class="col-md-2">Available Days * </label>
+                                <div class="clearfix"></div>
+                                <div id="app"> <label class="col-md-2">Available Days * </label>
                                     <div class="col-lg-4"> 
-                                        <select class="form-control" name="schedule[]">
-                                            <option value="">Days</option>
+                                        <select class="wide" name="schedule[]">
+                                            <option data-display="Select Days">Select Days</option>
                                             <option value="sunday">Sunday</option>
                                             <option value="monday">Monday</option>
                                             <option value="tuesday">Tuesday</option>
@@ -50,6 +51,8 @@
                                     <div class="col-lg-2"> <input type="text" id="endtime" name="endtime[]" class="form-control date" autocomplete="off" readonly="readonly" placeholder="EndTime"> </div>
                                     <div class="col-lg-2" style="margin-top: 5px;"> <i class="fa fa-plus-circle" aria-hidden="true" id="add" style="font-size: 25px;"></i> </div>
                                 </div>
+                                <div class="clearfix"></div>
+                                <br>
                                 <div class="col-md-12" align="center"> <button type="submit" value="Save" class="btn btn-success">Save</button><button type="reset" class="btn btn-default">Reset</button> </div>
                             </form>
                         </div>

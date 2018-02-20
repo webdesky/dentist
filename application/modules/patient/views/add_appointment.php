@@ -31,8 +31,8 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <form role="form" method="post" action="<?php echo base_url('patient/addAppointment') ?>" class="registration_form1" enctype="multipart/form-data">
-                                <div class="form-group"> <label class="col-md-2">Doctor Name * </label>
-                                    <div class="col-lg-6"> <select class="form-control" name="doctor_id">
+                                <div class=""> <label class="col-md-2">Doctor Name * </label>
+                                    <div class="col-lg-6"> <select class="wide" name="doctor_id">
                                                 <option>Select Doctor </option>
                                                  <?php foreach ($doctor as $key => $value) { ?>
                                                       <option value="<?php echo $value->id; ?>"><?php echo $value->first_name;?></option>

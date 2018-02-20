@@ -65,7 +65,7 @@
 
                                              <?php  }
                                              ?></td>
-                                            <td class="center"><a href="<?php echo base_url('patient/view_appointment/').$value->ap_id; ?>">View</a>
+                                            <td class="center"><a href="<?php echo base_url('patient/view_appointment/').$value->ap_id; ?>"><i class="fa fa-eye"></i></a>
                                             </td>
 
                                         </tr>
@@ -95,20 +95,35 @@
             <!-- /.row -->
 </div>
 <script type="text/javascript">
-		function updateStatus($id,$status){
-			
-		       	var url='admin/updateStatus';
-		       	var id =$id;
-		       	var status=$status
-		        $.ajax({
-		        	url: url, 
-		        	type: "POST",
-						data: {id : id,status :status},
-		        	success: function(result){
-		            	window.location.reload();
 
-		        }});
-		   
+    $('#dataTables-example').DataTable({
+        responsive: true
+    });
+
+		function updateStatus(id,status){
+            swal({
+                title: "Are you sure?",
+                text: "Are you sure that you want to Update Status?",
+                type: "warning",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                confirmButtonText: "Yes, Update it!",
+                confirmButtonColor: "#ec6c62"
+            }, function() {
+                $.ajax({
+                    url: "<?php echo base_url('admin/updateStatus')?>",
+                    data: {
+                        id : id,
+                        status :status
+                    },
+                    type: "POST"
+                }).done(function(data) {
+                    swal("Deleted!", "Record was successfully deleted!", "success");
+                    $('#tr_' + tr_id).remove();
+                }).error(function(data) {
+                    swal("Oops", "We couldn't connect to the server!", "error");
+                });
+            });		   
 
 	  	}
 	  

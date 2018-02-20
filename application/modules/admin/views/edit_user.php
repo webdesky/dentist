@@ -30,17 +30,27 @@
                             <form role="form" method="post" action="<?php echo base_url('admin/register/'.$users[0]->id) ?>" class="registration_form1" enctype="multipart/form-data">
                              
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="">
                                     <label class="col-md-3">User Role *</label>
                                     <div class="col-md-9">
-                                        <select class="form-control" name="user_role" required="required">
-                                            <option value="">--Select User Role--</option>
+                                        <select class="wide" name="user_role" required="required">
+                                           
                                             <?php foreach($user_role as $role){?>
                                             <option value="<?php echo $role->role_id;?>" <?php if($users[0]->user_role==$role->role_id){ echo 'selected';}?>><?php echo ucfirst($role->role_name);?></option>
                                             <?php }?>
                                         </select>
                                    </div>
                                     <span><?php echo form_error('user_role'); ?></span>
+                                </div>
+                            </div>
+
+                             <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3">User Name *</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" type="text" placeholder="User Name" name="user_name" autocomplete="off" required="required" value="<?php echo $users[0]->username;?>" >
+                                    </div>
+                                    <span class="red"><?php echo form_error('user_name'); ?></span>
                                 </div>
                             </div>
 
@@ -149,11 +159,11 @@
                             </div>
 
                              <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="">
                                     <label class="col-md-3">Blood Group</label>
                                     <div class="col-md-9">
-                                        <select class="form-control" name="blood_group">
-                                            <option value="">--SELECT--</option>
+                                        <select class="wide" name="blood_group">
+                                            
                                             <option value="a+" <?php if($users[0]->blood_group=="a+"){?> selected<?php }?>>A+</option>
                                             <option value="a-" <?php if($users[0]->blood_group=="a-"){?> selected<?php }?>>A-</option>
                                             <option value="b+" <?php if($users[0]->blood_group=="b+"){?> selected<?php }?>>B+</option>
