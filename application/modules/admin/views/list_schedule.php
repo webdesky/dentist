@@ -77,7 +77,9 @@
     <!-- /.row -->
 </div>
 <script type="text/javascript">
-$('#schedule').DataTable();
+    $('#schedule').DataTable({
+        responsive: true
+    });
 
 function delete_schedule(id, tr_id) {
     swal({

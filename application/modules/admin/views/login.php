@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="<?php echo base_url('asset/animate.css');?>">
     <link rel="stylesheet" href="<?php echo base_url('asset/styles.css');?>">
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -16,7 +17,7 @@
             <?php echo validation_errors(); ?>
         </div>
         <?php }if(!empty($msg)){?>
-        <div class="alert alert-success">
+        <div class="alert alert-info">
             <?php echo $msg;?>
         </div>
         <?php }?>
@@ -33,6 +34,4 @@
     </div>
 </body>
 </html>
-<style type="text/css">
-    body{font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333;background-color:#eee;}
-</style>
+
