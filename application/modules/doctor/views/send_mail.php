@@ -30,8 +30,8 @@
                             <form role="form" method="post" action="<?php echo base_url('doctor/send_message') ?>" class="registration_form1">
                                 <div class="col-md-12">
                                     <div class="form-group"> <label class="col-md-2">Send To * </label>
-                                        <div class="col-md-6"> <select class="form-control" name="reciever_id">
-                                        <option value="">--SELECT USER--</option>
+                                        <div class="col-md-6"> <select class="wide" name="reciever_id">
+                                        <option value="">SELECT USER</option>
                                         <?php foreach($users as $user){?>
                                         <option value="<?php echo $user->email;?>"><?php echo ucwords($user->first_name.' '.$user->last_name);?></option>
                                         <?php }?>

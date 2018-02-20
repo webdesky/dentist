@@ -929,5 +929,85 @@ class Doctor extends CI_Controller
         $this->controller->load_view($data);
 
     }
+
+
+    public function schedule()
+    {
+        $data['body']   = 'add_schedule';
+        $where          = array(
+            'user_role' => 2
+        );
+        $data['doctor'] = $this->model->getAllwhere('users', $where);
+        $this->controller->load_view($data);
+    }
+    
+    public function addSchedule($id = null)
+    {
+        $data      = $this->input->post();
+        $doctor_id = $data['doctor_id'];
+        $new       = array();
+        
+        foreach ($data['schedule'] as $daykey => $day) {
+            foreach ($data['starttime'] as $timekey => $time) {
+                foreach ($data['endtime'] as $endkey => $end) {
+                    $new[$daykey]['doctor_id']  = $this->session->userdata('id');
+                    $new[$daykey]['day']        = $day;
+                    $new[$daykey]['starttime']  = $time;
+                    $new[$daykey]['endtime']    = $end;
+                    $new[$daykey]['created_at'] = date('Y-m-d H:i:s');
+                    
+                }
+            }
+        }
+        
+        if (!empty($id)) {
+            $where  = array(
+                'doctor_id' => $doctor_id
+            );
+            $delete = $this->model->delete('schedule', $where);
+            $result = $this->model->insertBatch('schedule', $new);
+            
+        } else {
+            
+            $result = $this->model->insertBatch('schedule', $new);
+        }
+        
+        $this->session->set_flashdata("info_message", "schedule added Successfully..");
+        redirect("doctor/list_schedule");
+    }
+    
+    
+    public function list_schedule()
+    {
+        $data['body']         = 'list_schedule';
+        $doctor_id            = $this->session->userdata('id');
+        $data['scheduleList'] = $this->Common_model->getSchedule('schedule',$doctor_id);
+        
+        $this->controller->load_view($data);
+    }
+    
+    
+    public function edit_schedule($id)
+    {
+        $data['body']     = 'edit_schedule';
+        $where            = array(
+            'schedule.doctor_id' => $id
+        );
+        $where1           = array(
+            'user_role' => 2
+        );
+        $data['doctor']   = $this->model->getAllwhere('users', $where1);
+        $data['schedule'] = $this->model->GetJoinRecord('schedule', 'doctor_id', 'users', 'id', 'schedule.sc_id,schedule.doctor_id,schedule.day,schedule.starttime,schedule.endtime,users.first_name', $where);
+        $this->controller->load_view($data);
+    }
+    
+    public function delete_schedule()
+    {
+        $id    = $this->input->post('id');
+        $where = array(
+            'doctor_id' => $id
+        );
+        $this->model->delete('schedule', $where);
+    }
     
 }
