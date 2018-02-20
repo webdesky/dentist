@@ -169,7 +169,7 @@ class Admin extends CI_Controller
             $this->form_validation->set_message('oldpass_check', "%s does not match.");
             return FALSE;
         } else {
-            $this->session->set_flashdata('success_msg', 'Password successfully updated!!!');
+            $this->session->set_flashdata('success_msg', 'Password Successfully Updated!!!');
             return TRUE;
         }
     }
@@ -182,7 +182,7 @@ class Admin extends CI_Controller
             }
         }
         $this->session->sess_destroy();
-        $msg = "You have been successfully logged out!";
+        $msg = "You have been logged out Successfully...";
         $this->index($msg);
     }
     
