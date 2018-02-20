@@ -28,7 +28,7 @@
                                 <div class="form-group"> <label class="col-md-2">Appointment Type * </label>
                                     <div class="col-lg-6"> 
                                         <select class="wide" name="appointment_type" id="appointment_type">
-                                            <option>Select Appointment  Type</option>
+                                            <option>-- Select Appointment  Type --</option>
                                             <option value="On Call">On Call</option>
                                             <option value="Online">Online</option>
                                         </select> 
@@ -38,7 +38,7 @@
                                 <div class="form-group"> <label class="col-md-2">Patient ID * </label>
                                     <div class="col-lg-6"> 
                                         <select class="wide" name="patient_id" id="patient_id">
-                                            <option>Select Patient id</option>
+                                            <option>-- Select Patient id --</option>
                                              <?php foreach ($patient as $key => $value) { ?>
                                                   <option value="<?php echo $value->id; ?>"><?php echo $value->id;?></option>
                                             <?php } ?>
@@ -49,9 +49,9 @@
                                 <div class="form-group"> <label class="col-md-2">Doctor Name * </label>
                                     <div class="col-lg-6"> 
                                         <select class="wide" name="doctor_id" >
-                                            <option>Select Doctor </option>
+                                            <option>-- Select Doctor -- </option>
                                              <?php foreach ($doctor as $key => $value) { ?>
-                                            <option value="<?php echo $value->id; ?>"><?php echo $value->first_name;?></option>
+                                            <option value="<?php echo $value->id; ?>"><?php echo ucwords($value->first_name.' '.$value->last_name);?></option>
                                             <?php } ?>
                                         </select>
                                         <span><?php echo form_error('doctor_id'); ?></span>
@@ -87,7 +87,8 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
-    $(".registration_form").validate({
+    $('select').niceSelect();
+    $(".registration_form1").validate({
         rules: {
             "fname": "required",
         },

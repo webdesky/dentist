@@ -21,12 +21,12 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="<?php echo base_url('doctor/profile')?>"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    <li style="font-size: 15px"><a href="<?php echo base_url('doctor/profile')?>"><i class="fa fa-user fa-fw"></i> User Profile</a>
                     </li>
-                    <li><a href="<?php echo base_url('doctor/change_password')?>"><i class="fa fa-gear fa-fw"></i> Change Password</a>
+                    <li style="font-size: 15px"><a href="<?php echo base_url('doctor/change_password')?>"><i class="fa fa-gear fa-fw"></i> Change Password</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="<?php echo base_url('doctor/logout')?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li style="font-size: 15px"><a href="<?php echo base_url('doctor/logout')?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->

@@ -11,11 +11,11 @@
         color: red;
     }
 
-    .registration_form1 .form-group {
+  /*  .registration_form1 .form-group {
         margin-bottom: 15px;
         overflow: hidden;
 
-    }
+    }*/
 </style>
 
     <!-- /.row -->
@@ -35,7 +35,7 @@
                                     <label class="col-md-3">Doctor ID *</label>
                                     <div class="col-md-9">
                                         <select class="wide" name="doctor_id">
-                                            <option data-display="Select Doctor">Select Doctor</option>
+                                            <option data-display="-- Select Doctor --">-- Select Doctor --</option>
                                             <?php foreach($doctor as $doctors){?>
                                             <option value="<?php echo $doctors->id;?>"><?php echo ucwords($doctors->first_name.' '.$doctors->last_name);?></option>
                                             <?php }?>
@@ -50,7 +50,7 @@
                                     <label class="col-md-3">Patient ID *</label>
                                     <div class="col-md-9">
                                         <select class="wide" name="patient_id">
-                                            <option data-display="Select Patient">Select Patient</option>
+                                            <option data-display="-- Select Patient --">-- Select Patient --</option>
                                             <?php foreach($patient as $patients){?>
                                             <option value="<?php echo $patients->id;?>"><?php echo ucwords($patients->first_name.' '.$patients->last_name);?></option>
                                             <?php }?>
@@ -74,7 +74,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3">Problem </label>
                                     <div class="col-md-9">
-                                        <input type="text" name="problem" class="form-control" placeholder="problem" autocomplete="off" required="required" value="<?php echo set_value('problem'); ?>">
+                                        <input type="text" name="problem" class="form-control" placeholder="Problem" autocomplete="off" required="required" value="<?php echo set_value('problem'); ?>">
                                     </div>
                                     <span class="red"><?php echo form_error('problem'); ?></span>
                                 </div>
@@ -124,7 +124,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3">Reference</label>
                                     <div class="col-md-9">
-                                        <input type="text" name="reference" id="reference" class="form-control">
+                                        <input type="text" name="reference" id="reference" placeholder="Reference" class="form-control">
                                     </div>
                                     <span class="red"><?php echo form_error('reference'); ?></span>
                                 </div>
@@ -165,8 +165,8 @@
 </div>
 <script type="text/javascript">
      $(document).ready(function(){
-            
-            $(".registration_form").validate({
+        $('select').niceSelect();            
+            $(".registration_form1").validate({
                 rules :{
                     "doctor_id"    :"required",
                     "patient_id"    :"required",
@@ -176,8 +176,6 @@
                 form.submit();
                 }
             });
-
-         
 
         });
 </script>

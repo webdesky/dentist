@@ -41,7 +41,7 @@
                                             <div class="col-lg-6"> <select class="form-control" name="patient_id" id="patient_id" disabled="disabled">
                                                 
                                                  <?php foreach ($patient as $key => $value) { ?>
-                                                      <option value="<?php echo $value->id; ?>" <?php if($appointment[0]->patient_id==$value->id){ echo 'selected';}?>><?php echo $value->first_name." ".$value->first_name;?></option>
+                                                      <option value="<?php echo $value->id; ?>" <?php if($appointment[0]->patient_id==$value->id){ echo 'selected';}?>><?php echo ucwords($value->first_name." ".$value->last_name);?></option>
                                                 <?php } ?>
                                              </select> <span><?php echo form_error('patient_id'); ?></span> </div>
                                         </div>

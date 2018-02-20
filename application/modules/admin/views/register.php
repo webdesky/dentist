@@ -10,14 +10,6 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
-
-    <style>
-        
-
-
-
-    </style>
-
     <!-- /.row -->
 
     <div class="row">
@@ -43,7 +35,7 @@
                                         <label class="col-md-3">Doctor Category*</label>
                                         <div class="col-md-9">
                                         <select class="wide" name="category" id="category" style="height: 35px;"> 
-                                            <option data-display="Select Category">Select Category</option>
+                                            <option data-display="-- Select Category --">-- Select Category --</option>
                                             <?php foreach ($category as $key => $value) { ?>
                                             <option value="<?php echo $value['id']; ?>"><?php echo $value['name']; ?></option>
                                             <?php   } ?>
@@ -113,12 +105,22 @@
                                 <div class="form-group">
                                     <label class="col-md-3">Specialization *</label>
                                  <div class="col-md-9">
-                                    <input type="text" class="form-control" id="specialization" name="specialization" placeholder="specialization" >
+                                    <input type="text" class="form-control" id="specialization" name="specialization" placeholder="Specialization" >
                                     <span class="red"><?php echo form_error('specialization'); ?></span>
                                 </div>
                                 </div>
                             </div>
                             <?php } ?>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3">Date of Birth*</label>
+                                     <div class="col-md-9">
+                                        <input type="text" id="datepicker" name="dob" class="form-control" autocomplete="off" readonly="readonly"  value="<?php echo set_value('dob'); ?>">
+                                        <span class="red"><?php echo form_error('dob'); ?></span>
+                                    </div>
+                                </div>
+                            </div>
 
                            
                             
@@ -126,7 +128,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3">Phone No</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="phone_no" placeholder="phone number" autocomplete="off">
+                                        <input type="text" class="form-control" name="phone_no" placeholder="Phone Number" autocomplete="off">
                                         <span class="red"><?php echo form_error('phone_no'); ?></span>
                                     </div>
                                 </div>
@@ -136,7 +138,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3">Mobile No</label>
                                      <div class="col-md-9">
-                                        <input type="text" class="form-control" name="mobile_no" placeholder="mobile number" autocomplete="off"  value="<?php echo set_value('mobile_no'); ?>"> 
+                                        <input type="text" class="form-control" name="mobile_no" placeholder="Mobile Number" autocomplete="off"  value="<?php echo set_value('mobile_no'); ?>"> 
                                         <span class="red"><?php echo form_error('mobile_no'); ?></span>
                                      </div>
                                 </div>
@@ -152,22 +154,14 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="col-md-3">Date of Birth</label>
-                                     <div class="col-md-9">
-                                        <input type="text" id="datepicker" name="dob" class="form-control" autocomplete="off" readonly="readonly"  value="<?php echo set_value('dob'); ?>">
-                                        <span class="red"><?php echo form_error('dob'); ?></span>
-                                    </div>
-                                </div>
-                            </div>
+                            
 
                             <div class="col-md-6">
                                 <div class="formas"> 
                                     <label class="col-md-3">Blood Group</label>
                                     <div class="col-md-9">
                                         <select class="wide" name="blood_group">
-                                            <option data-display="Select Blood Group">SELECT Blood Group</option>
+                                            <option data-display="-- Select Blood Group --">-- Select Blood Group --</option>
                                             <option value="a+">A+</option>
                                             <option value="a-">A-</option>
                                             <option value="b+">B+</option>
@@ -211,13 +205,9 @@
                                      </div>
                                 </div>
                             </div>
-
-
-                             
-                          
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-md-3">Address *</label>
+                                    <label class="col-md-3">Address</label>
                                     <div class="col-md-9">
                                         <textarea class="form-control" rows="5" name="address" placeholder="Address"><?php echo set_value('address');?></textarea>
                                         <span class="red"><?php echo form_error('address'); ?></span>
@@ -246,26 +236,7 @@
  
 <script type="text/javascript">
         $(document).ready(function(){
-            
-            $(".registration_form1").validate({
-                
-                rules :{
-                    "first_name"    :"required",
-                    "user_name"     :"required",
-                    "password"      :"required",
-                    "category"      :"required",
-                },
-             submitHandler : function(form) {
-                form.submit();
-                }
-            });
-
-           $("#datepicker").datepicker();
-          
+            $('select').niceSelect();
+            $("#datepicker").datepicker();
         });
-
-
-  
-
-
 </script>

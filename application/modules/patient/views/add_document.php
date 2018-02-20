@@ -56,7 +56,7 @@
                            <label class="col-md-2">Doctor * </label>
                            <div class="col-lg-6">
                               <select class="wide" name="doctor_id" id="doctor_id">
-                                 <option >Select Doctor</option>
+                                 <option >-- Select Doctor --</option>
                                  <?php foreach ($doctor as $key => $value) { ?>
                                  <option value="<?php echo $value->id; ?>" <?php if(!empty($edit_document_data[0]->doctor_id)){ if($value->id==$edit_document_data[0]->doctor_id){ echo "selected";}}?>><?php echo ucwords($value->first_name.' '.$value->last_name);?>
                                  </option>

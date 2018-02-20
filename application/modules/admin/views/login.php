@@ -3,9 +3,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Login</title>
-    <link rel="stylesheet" href="<?php echo base_url('asset/animate.css');?>">
+    <link rel="stylesheet" href="<?php //echo base_url('asset/animate.css');?>">
     <link rel="stylesheet" href="<?php echo base_url('asset/styles.css');?>">
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Bellefair" rel="stylesheet">
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
@@ -22,7 +24,7 @@
         </div>
         <?php }?>
 
-        <form action="<?php echo base_url('admin/verifylogin')?>" method="post">
+        <form action="<?php echo base_url('admin/verifylogin')?>" method="post" class="login_form">
             <label for="name">Username:</label>
             <input type="name" id="username" name="username" autocomplete="off" required="required" placeholder="Username">
             <label for="username">Password:</label>

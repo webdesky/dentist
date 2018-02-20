@@ -50,7 +50,7 @@
                                 </div>
 
                                  <div class="form-group"> <label class="col-md-2">Blood Group: </label>
-                                    <div class="col-lg-6"> <select class="form-control" name="blood_group">
+                                    <div class="col-lg-6"> <select class="wide" name="blood_group">
                                         <option value="">--SELECT--</option>
                                         <option value="a+"<?php if($users[0]->blood_group=="a+"){echo 'selected';};?>>A+</option>
                                         <option value="a-"<?php if($users[0]->blood_group=="a-"){echo 'selected';};?>>A-</option>
@@ -84,7 +84,7 @@
                                 <div class="form-group"> <label class="col-md-2">Profile Pic: </label>
                                     <div class="col-lg-6"> <input type="file" name="image" class="form-control"> <span class="red"><?php echo form_error('address'); ?></span> </div>
                                 </div>
-                                <div class="col-md-12" align="center"> <input type="submit" name="submit" value="Save" class="btn btn-primary"><button type="reset" class="btn btn-default">Reset</button> </div>
+                                <div class="col-md-12" align="center"> <input type="submit" name="submit" value="Save" class="btn btn-success"><button type="reset" class="btn btn-default">Reset</button> </div>
 
                                 
                             </form>
@@ -105,5 +105,6 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $("#date_of_birth").datepicker();
+        $('select').niceSelect();
     })
 </script>

@@ -327,6 +327,7 @@ class Doctor extends CI_Controller
         $where              = array('users.id' => $this->session->userdata('id'));
         $where1             = array('doctor.doctor_id'=>$this->session->userdata('id'));
         $data['users']      = $this->model->GetJoinRecord('users','id','doctor','doctor_id','', $where);
+        
        
         $data['category']  =  $this->model->getAll('category');
         $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|alpha|min_length[2]');
