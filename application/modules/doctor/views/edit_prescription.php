@@ -57,7 +57,7 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12 col-sm-12 table-responsive">
-                                <form action="<?php echo base_url('doctor/add_prescription/'.$prescription[0]->id)?>" method="post" accept-charset="utf-8">
+                                <form action="<?php echo base_url('doctor/add_prescription/'.$prescription[0]->id)?>" class="registration_form1" method="post" accept-charset="utf-8">
                                     <!-- Information -->
                                     <table class="table">
                                         <thead>

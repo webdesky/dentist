@@ -19,7 +19,7 @@
                          <div class="col-lg-12 col-md-12">
                             <form role="form" method="post" action="<?php echo base_url('admin/notices') ?>" class="registration_form1" enctype="multipart/form-data">
                                 <div class="form-group"> <label class="col-md-2">Title * </label>
-                                    <div class="col-lg-6"> <input class="form-control" type="text" name="title" placeholder="title" autocomplete="off" required="required" value="<?php echo set_value('title'); ?>"> <span class="red"><?php echo form_error('title'); ?></span> </div>
+                                    <div class="col-lg-6"> <input class="form-control" type="text" name="title" placeholder="Title" autocomplete="off" required="required" value="<?php echo set_value('title'); ?>"> <span class="red"><?php echo form_error('title'); ?></span> </div>
                                 </div>
                                 <div class="form-group"> <label class="col-md-2">Description * </label>
                                     <div class="col-lg-6"> <textarea class="form-control" rows="5" id="Description" name="description" placeholder="description"></textarea> <span class="red"><?php echo form_error('description'); ?></span>
@@ -51,9 +51,11 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
+    $('select').niceSelect();
     $("#start_date").datepicker();
     $("#end_date").datepicker();
-    $(".registration_form").validate({
+    
+    $(".registration_form1").validate({
         rules: {
             "title": "required",
             "description": "required",

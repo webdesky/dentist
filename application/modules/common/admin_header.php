@@ -34,14 +34,7 @@
     <script src="<?php echo base_url('asset/dist/js/dataTables.rowReorder.min.js')?>"></script>
     <script src="<?php echo base_url('asset/dist/js/dataTables.responsive.min.js')?>"></script>
     
-   
-     
+    <link href="https://fonts.googleapis.com/css?family=Bellefair" rel="stylesheet">    
+    
 </head>
-</head>
-<script type="text/javascript">
-     $(document).ready(function() {
-              $('select').niceSelect();
-            });
-</script>
-
 <body>

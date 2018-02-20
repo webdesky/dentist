@@ -64,7 +64,8 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
-    $(".registration_form").validate({
+    $('select').niceSelect();
+    $(".registration_form1").validate({
         rules: {
             "fname": "required",
         },

@@ -1,6 +1,8 @@
 /* Stylesheet */
 /* Imports */
  @import url(animate.css);
+ @import url('https://fonts.googleapis.com/css?family=Bellefair');
+ 
 /* Selections */
  ::selection {
      color: #fff;
@@ -166,9 +168,15 @@
      background: #f4f4f4;
 }
  body{
-     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-     font-size: 14px;
+     font-family: 'Bellefair', serif !important;
+     font-size: 16px;
      line-height: 1.42857143;
      background-color: #31708f !important;
 }
- 
+.alert-info {
+    font-size: 19px !important;
+}
+
+.login_form label, .login_form input, .login_form input::placeholder {
+     font-size: 18px !important;
+}

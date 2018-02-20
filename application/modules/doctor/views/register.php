@@ -47,7 +47,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group"> <label class="col-md-3">Blood Group</label>
                                         <div class="col-md-9"> <select class="wide" name="blood_group">
-                                            <option value="">SELECT Blood Group</option>
+                                            <option value="">Select Blood Group</option>
                                             <option value="a+">A+</option>
                                             <option value="a-">A-</option>
                                             <option value="b+">B+</option>
@@ -60,12 +60,12 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group"> <label class="col-md-3">Phone No</label>
-                                        <div class="col-md-9"> <input type="text" class="form-control" name="phone_no" placeholder="phone number" autocomplete="off"> <span class="red"><?php echo form_error('phone_no'); ?></span> </div>
+                                        <div class="col-md-9"> <input type="text" class="form-control" name="phone_no" placeholder="Phone Number" autocomplete="off"> <span class="red"><?php echo form_error('phone_no'); ?></span> </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group"> <label class="col-md-3">Mobile No</label>
-                                        <div class="col-md-9"> <input type="text" class="form-control" name="mobile_no" placeholder="mobile number" autocomplete="off" value="<?php echo set_value('mobile_no'); ?>"> <span class="red"><?php echo form_error('mobile_no'); ?></span> </div>
+                                        <div class="col-md-9"> <input type="text" class="form-control" name="mobile_no" placeholder="Mobile Number" autocomplete="off" value="<?php echo set_value('mobile_no'); ?>"> <span class="red"><?php echo form_error('mobile_no'); ?></span> </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -75,7 +75,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group"> <label class="col-md-3">Date of Birth</label>
-                                        <div class="col-md-9"> <input type="text" id="datepicker" name="dob" class="form-control" autocomplete="off" readonly="readonly" value="<?php echo set_value('dob'); ?>"> <span class="red"><?php echo form_error('dob'); ?></span> </div>
+                                        <div class="col-md-9"> <input type="text" id="datepicker" name="dob" class="form-control" autocomplete="off" readonly="readonly" value="<?php echo set_value('dob'); ?>" placeholder="Date of Birth"> <span class="red"><?php echo form_error('dob'); ?></span> </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -118,7 +118,8 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
-    $(".registration_form").validate({
+    $('select').niceSelect();
+    $(".registration_form1").validate({
         rules: {
             "first_name": "required",
             "user_name": "required",

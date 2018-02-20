@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group"> <label class="col-md-2">Attach File * </label>
-                                        <div class="col-md-6"> <input type="file" id="file" name="file" class="form-control"> <span class="red"><?php echo form_error('file'); ?> </div> <span class="red"><?php echo form_error('file'); ?></span> </div>
+                                        <div class="col-md-6"> <input type="file" id="file" name="file" class="form-control"> <span class="red"><?php echo form_error('file'); ?> </div> 
                                     </div>
                                     <div class="col-md-12" align="center"> <button type="submit" value="Save" class="btn btn-success">Save</button> <button type="reset" class="btn btn-default">Reset</button> </div>
                             </form>

@@ -5,11 +5,6 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
-    <style type="text/css">
-.red {
-    color: red;
-}
-    </style>
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
@@ -30,7 +25,9 @@
                                 <div class="col-md-12">
                                     <div class="form-group"> <label class="col-md-2">Send To * </label>
                                         <div class="col-md-6"> <select class="wide" name="reciever_id">
-                                        <option value="">SELECT USER</option>
+
+                                        <option value="">--Select User--</option>
+
                                         <?php foreach($users as $user){?>
                                         <option value="<?php echo $user->email;?>"><?php echo ucwords($user->first_name.' '.$user->last_name);?></option>
                                         <?php }?>
@@ -66,6 +63,7 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
+    $('select').niceSelect();
     $(".registration_form").validate({
         rules: {
             "reciever_id": "required",

@@ -33,9 +33,9 @@
                             <form role="form" method="post" action="<?php echo base_url('patient/addAppointment') ?>" class="registration_form1" enctype="multipart/form-data">
                                 <div class=""> <label class="col-md-2">Doctor Name * </label>
                                     <div class="col-lg-6"> <select class="wide" name="doctor_id">
-                                                <option>Select Doctor </option>
+                                                <option>-- Select Doctor --</option>
                                                  <?php foreach ($doctor as $key => $value) { ?>
-                                                      <option value="<?php echo $value->id; ?>"><?php echo $value->first_name;?></option>
+                                                      <option value="<?php echo $value->id; ?>"><?php echo ucwords($value->first_name.' '.$value->last_name);?></option>
                                                 <?php } ?>
                                              </select> <span><?php echo form_error('doctor_id'); ?></span> </div>
                                 </div>
