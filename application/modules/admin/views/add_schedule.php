@@ -53,7 +53,8 @@
                                 </div>
                                 <div class="clearfix"></div>
                                 <br>
-                                <div class="col-md-12" align="center"> <button type="submit" value="Save" class="btn btn-success">Save<input type="reset" class="btn btn-default" value="Reset"> </div>
+                                <div class="col-md-12" align="center"> <button type="submit" value="Save" class="btn btn-success">Save</button>
+                                <input type="reset" class="btn btn-default" value="Reset"> </div>
                             </form>
                         </div>
                     </div>
