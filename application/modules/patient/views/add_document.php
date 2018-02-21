@@ -101,3 +101,7 @@
    <!-- row -->
 </div>
 </div>
+
+<script type="text/javascript">
+    $('select').niceSelect();
+</script>

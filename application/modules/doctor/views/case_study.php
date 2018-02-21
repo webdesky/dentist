@@ -84,7 +84,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $('select').niceSelect();
-    $(".registration_form").validate({
+    $(".registration_form1").validate({
         rules: {
             "patient_id": "required",
         },

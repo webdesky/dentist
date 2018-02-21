@@ -5,11 +5,7 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
-    <style type="text/css">
-.red {
-    color: red;
-}
-    </style>
+
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
@@ -41,7 +37,7 @@
                                 </div>
                                 <div class="form-group"> <label class="col-md-2">Appointment Date * </label>
                                     <div class="col-lg-8">
-                                        <div class="col-lg-4"> <input type="text" id="startdate" name="appointment_date" id="appointment_date" class="form-control" autocomplete="off" readonly="readonly" placeholder="Start Date"> </div>
+                                        <div class="col-lg-4"> <input type="text" id="startdate" name="appointment_date" class="form-control date" autocomplete="off" readonly="readonly" placeholder="Start Date"> </div>
                                         <div class="col-lg-4"> <input type="text" id="timepicker" name="appointment_time" class="form-control" autocomplete="off" readonly="readonly" placeholder="Start Time"> </div>
                                     </div>
                                 </div>
@@ -64,28 +60,30 @@
 </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function() {
-    $(".registration_form").validate({
-        rules: {
-            "fname": "required",
-        },
-        submitHandler: function(form) {
-            form.submit();
-        }
-    });
+    $(document).ready(function() {
+        $(".registration_form1").validate({
+            rules: {
+                "fname": "required",
+            },
+            submitHandler: function(form) {
+                form.submit();
+            }
+        });
 
-    $("#startdate").datepicker();
-    $("#enddate").datepicker();
-    $('#timepicker').timepicker({
-        timeFormat: 'h:mm p',
-        interval: 60,
-        minTime: '10',
-        maxTime: '6:00pm',
-        defaultTime: '11',
-        startTime: '10:00',
-        dynamic: false,
-        dropdown: true,
-        scrollbar: true
+
+        $('select').niceSelect();
+
+
+        $('#timepicker').timepicker({
+            timeFormat: 'h:mm p',
+            interval: 60,
+            minTime: '10',
+            maxTime: '6:00pm',
+            defaultTime: '11',
+            startTime: '10:00',
+            dynamic: false,
+            dropdown: true,
+            scrollbar: true
+        });
     });
-});
 </script>

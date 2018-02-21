@@ -5,13 +5,6 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
-
-    <style type="text/css">
-        .red {
-            color: red;
-        }
-    </style>
-
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
@@ -46,7 +39,7 @@
                                 </div>
 
                                 <div class="form-group"> <label class="col-md-2">Date of Birth : </label>
-                                    <div class="col-lg-6"> <input type="text" class="form-control" name="date_of_birth" id="date_of_birth" value="<?php echo $users[0]->date_of_birth;?>"> <span class="red"><?php echo form_error('email'); ?></span> </div>
+                                    <div class="col-lg-6"> <input type="text" class="form-control date" name="date_of_birth" id="date_of_birth" value="<?php echo $users[0]->date_of_birth;?>"> <span class="red"><?php echo form_error('email'); ?></span> </div>
                                 </div>
 
                                  <div class="form-group"> <label class="col-md-2">Blood Group: </label>
@@ -104,7 +97,6 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-        $("#date_of_birth").datepicker();
         $('select').niceSelect();
     })
 </script>

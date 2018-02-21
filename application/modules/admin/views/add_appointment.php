@@ -58,8 +58,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group"> <label class="col-md-2">Appointment Date * </label>
-                                    <div class="col-lg-6"> 
-                                        <input type="text" id="startdate" name="appointment_date" id="appointment_date" class="form-control" autocomplete="off" readonly="readonly" placeholder="Start Date" style="width: 50%;float: left; "> 
+                                    <div class="col-md-6"> 
+                                        <input type="text" name="appointment_date" id="appointment_date" class="form-control date" autocomplete="off" readonly="readonly" placeholder="Start Date" style="width: 50%;float: left; "> 
                                         <input type="text" id="timepicker" name="appointment_time" class="form-control" autocomplete="off" readonly="readonly" placeholder="Start Time" style="width: 50%;">
                                         <span><?php echo form_error('appointment_date'); ?></span>
                                     </div>
@@ -70,7 +70,7 @@
                                         <span><?php echo form_error('problem'); ?></span>
                                     </div>
                                 </div>
-                                <div class="col-md-12" align="center"> <button type="submit" value="Save" class="btn btn-success">Save</button> <button type="reset" class="btn btn-default">Reset</button> </div>
+                                <div class="col-md-12" align="center"> <button type="submit" value="Save" class="btn btn-success">Save</button> <input type="reset" class="btn btn-default" value="Reset"> </div>
                             </form>
                         </div>
                     </div>
@@ -96,8 +96,8 @@ $(document).ready(function() {
             form.submit();
         }
     });
-    $("#startdate").datepicker();
-    $("#enddate").datepicker();
+     
+
     $('#timepicker').timepicker({
         timeFormat: 'h:mm p',
         interval: 60,

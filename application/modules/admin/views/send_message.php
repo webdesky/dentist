@@ -5,11 +5,6 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
-    <style type="text/css">
-.red {
-    color: red;
-}
-    </style>
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
@@ -46,7 +41,7 @@
                                         </script>
                                     </div>
                                 </div>
-                                <div class="col-md-12" align="center"> <button type="submit" value="Save" class="btn btn-success">Save</button><button type="reset" class="btn btn-default">Reset</button> </div>
+                                <div class="col-md-12" align="center"> <button type="submit" value="Save" class="btn btn-success">Save</button><input type="reset" class="btn btn-default" value="Reset"> </div>
                             </form>
                         </div>
                     </div>

@@ -6,18 +6,6 @@
         <!-- /.col-lg-12 -->
     </div>
 
-<style type="text/css">
-    .red{
-        color: red;
-    }
-
-  /*  .registration_form1 .form-group {
-        margin-bottom: 15px;
-        overflow: hidden;
-
-    }*/
-</style>
-
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
@@ -146,7 +134,7 @@
                             <div class="col-md-12" align="center">
                                 <input type="submit" name="submit" class="btn btn-success" value="Save">
 
-                                <button type="reset" class="btn btn-default">Reset</button>
+                                <input type="reset" class="btn btn-default" value="Reset">
                             </div>
                             </form>
                         </div>

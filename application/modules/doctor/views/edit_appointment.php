@@ -43,7 +43,7 @@
                                         </select> <span><?php echo form_error('doctor_id'); ?></span> </div>
                                 </div>
                                 <div class="form-group"> <label class="col-md-2">Appointment Date * </label>
-                                    <div class="col-lg-6"> <input type="text" id="startdate" name="appointment_date" id="appointment_date" class="form-control" autocomplete="off" readonly="readonly" placeholder="Start Date" style="width: 50%;float: left; "> <input type="text" id="timepicker" name="appointment_time" class="form-control" autocomplete="off" readonly="readonly" placeholder="Start Time" style="width: 50%;"> <span><?php echo form_error('appointment_date'); ?></span> </div>
+                                    <div class="col-lg-6"> <input type="text" name="appointment_date" id="appointment_date" class="form-control date" autocomplete="off" readonly="readonly" placeholder="Start Date" style="width: 50%;float: left; "> <input type="text" id="timepicker" name="appointment_time" class="form-control" autocomplete="off" readonly="readonly" placeholder="Start Time" style="width: 50%;"> <span><?php echo form_error('appointment_date'); ?></span> </div>
                                 </div>
                                 <div class="form-group"> <label class="col-md-2">Problem </label>
                                     <div class="col-lg-6"> <textarea class="form-control" rows="5" id="problem" name="problem" placeholder="Problem"><?php echo $appointment[0]->problem; ?></textarea> </div>
@@ -66,8 +66,7 @@
 <script type="text/javascript ">
 $(document).ready(function() {
     $('select').niceSelect();
-    $("#startdate ").datepicker();
-    $("#enddate ").datepicker();
+
     $('#timepicker').timepicker({
         timeFormat: 'h:mm p',
         interval: 60,

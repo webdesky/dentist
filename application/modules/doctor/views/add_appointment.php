@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group"> <label class="col-md-2">Appointment Date * </label>
-                                        <div class="col-md-6"> <input type="text" id="startdate" name="appointment_date" id="appointment_date" class="form-control" autocomplete="off" readonly="readonly" placeholder="Start Time" style="width: 50%; float: left;"> <input type="text" id="timepicker" name="appointment_time" class="form-control" autocomplete="off" readonly="readonly" placeholder="Start Time" style="width: 50%;"> </div> <span><?php echo form_error('appointment_date'); ?></span> </div>
+                                        <div class="col-md-6"> <input type="text" name="appointment_date" id="appointment_date" class="form-control date" autocomplete="off" readonly="readonly" placeholder="Start Time" style="width: 50%; float: left;"> <input type="text" id="timepicker" name="appointment_time" class="form-control" autocomplete="off" readonly="readonly" placeholder="Start Time" style="width: 50%;"> </div> <span><?php echo form_error('appointment_date'); ?></span> </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group"> <label class="col-md-2">Problem * </label>
@@ -73,8 +73,8 @@ $(document).ready(function() {
             form.submit();
         }
     });
-    $("#startdate").datepicker();
-    $("#enddate").datepicker();
+
+
     $('#timepicker').timepicker({
         timeFormat: 'h:mm p',
         interval: 60,

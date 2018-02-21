@@ -16,7 +16,7 @@
                 <div class="panel-heading"> <button class="btn btn-primary"><i class="fa fa-th-list">&nbsp;Add Notice</i></button> </div>
                 <div class="panel-body">
                     <div class="row">
-                         <div class="col-lg-12 col-md-12">
+                        <div class="col-lg-12 col-md-12">
                             <form role="form" method="post" action="<?php echo base_url('admin/notices') ?>" class="registration_form1" enctype="multipart/form-data">
                                 <div class="form-group"> <label class="col-md-2">Title * </label>
                                     <div class="col-lg-6"> <input class="form-control" type="text" name="title" placeholder="Title" autocomplete="off" required="required" value="<?php echo set_value('title'); ?>"> <span class="red"><?php echo form_error('title'); ?></span> </div>
@@ -29,12 +29,12 @@
                                     </div>
                                 </div>
                                 <div class="form-group"> <label class="col-md-2">Start Date * </label>
-                                    <div class="col-lg-6"> <input type="text" id="start_date" name="start_date" class="form-control" autocomplete="off" readonly="readonly" required="required" value="<?php echo date(" Y-m-d "); ?>"> <span class="red"><?php echo form_error('start_date'); ?></span> </div>
+                                    <div class="col-lg-6"> <input type="text" id="start_date" name="start_date" class="form-control date" autocomplete="off" readonly="readonly" required="required" value=""> <span class="red"><?php echo form_error('start_date'); ?></span> </div>
                                 </div>
                                 <div class="form-group"> <label class="col-md-2">End Date * </label>
-                                    <div class="col-lg-6"> <input type="text" id="end_date" name="end_date" class="form-control" autocomplete="off" readonly="readonly" required="required" value="<?php echo date(" Y-m-d "); ?>"> <span class="red"><?php echo form_error('end_date'); ?></span> </div>
+                                    <div class="col-lg-6"> <input type="text" id="end_date" name="end_date" class="form-control date" autocomplete="off" readonly="readonly" required="required" value=""> <span class="red"><?php echo form_error('end_date'); ?></span> </div>
                                 </div>
-                                <div class="col-md-12" align="center"> <button type="submit" value="Save" class="btn btn-success">Save</button><button type="reset" class="btn btn-default">Reset</button> </div>
+                                <div class="col-md-12" align="center"> <button type="submit" value="Save" class="btn btn-success">Save</button><input type="reset" class="btn btn-default" value="Reset"> </div>
                             </form>
                         </div>
                     </div>
@@ -50,19 +50,16 @@
 </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function() {
-    $('select').niceSelect();
-    $("#start_date").datepicker();
-    $("#end_date").datepicker();
-    
-    $(".registration_form1").validate({
-        rules: {
-            "title": "required",
-            "description": "required",
-        },
-        submitHandler: function(form) {
-            form.submit();
-        }
+    $(document).ready(function() {
+        $('select').niceSelect();
+        $(".registration_form1").validate({
+            rules: {
+                "title": "required",
+                "description": "required",
+            },
+            submitHandler: function(form) {
+                form.submit();
+            }
+        });
     });
-});
 </script>

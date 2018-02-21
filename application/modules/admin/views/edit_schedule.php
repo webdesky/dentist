@@ -1,8 +1,3 @@
-<style type="text/css">
-.red {
-    color: red;
-}
-</style>
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
@@ -65,7 +60,8 @@
                                 
                                 <!-- lg 12 ends -->
                         </div>
-                        <div class="col-md-12" align="center"> <button type="submit" value="Save" class="btn btn-success">Save</button> <button type="reset" class="btn btn-default">Reset</button> </div>
+                        <div class="col-md-12" align="center"> <button type="submit" value="Save" class="btn btn-success">Save</button> 
+                        <input type="reset" class="btn btn-default" value="Reset"> </div>
                         </form>
                     </div>
                 </div>
@@ -82,6 +78,7 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
+    $('select').niceSelect();
     var counter = 2;
     $("#add").click(function() {
         if (counter > 14) {

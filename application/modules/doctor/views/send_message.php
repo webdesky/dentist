@@ -62,7 +62,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $('select').niceSelect();
-    $(".registration_form").validate({
+    $(".registration_form1").validate({
         rules: {
             "reciever_id": "required",
             "subject": "required",

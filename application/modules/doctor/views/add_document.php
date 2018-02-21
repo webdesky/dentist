@@ -5,11 +5,7 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
-    <style type="text/css">
-.red {
-    color: red;
-}
-    </style>
+
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">

@@ -84,9 +84,6 @@
 </div>
 <script type="text/javascript">
 $('#users').DataTable({
-    // rowReorder: {
-    //     selector: 'td:nth-child(2)'
-    // },
     responsive: true
 });
 
