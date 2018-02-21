@@ -18,6 +18,7 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <form role="form" method="post" action="<?php echo base_url('admin/notices') ?>" class="registration_form1" enctype="multipart/form-data">
+                                
                                 <div class="form-group"> <label class="col-md-2">Title * </label>
                                     <div class="col-lg-6"> <input class="form-control" type="text" name="title" placeholder="Title" autocomplete="off" required="required" value="<?php echo set_value('title'); ?>"> <span class="red"><?php echo form_error('title'); ?></span> </div>
                                 </div>

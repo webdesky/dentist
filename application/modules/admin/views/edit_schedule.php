@@ -93,6 +93,9 @@ $(document).ready(function() {
         $('.date').each(function() {
             $(this).timepicker();
         });
+        $('select').each(function() {
+            $(this).niceSelect();
+        });
         counter++;
     });
     $("body").on("click", ".remove", function() {

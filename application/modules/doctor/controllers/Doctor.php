@@ -430,6 +430,12 @@ class Doctor extends CI_Controller
     {
         $wheres          = array('user_role ' => 3);
         $data['patient'] = $this->model->getAllwhere('users', $wheres);
+
+        if(!empty($id)){
+            $where              =   array('id ' => $id);
+            $data['documents']  =   $this->model->getAllwhere('documents', $where);
+        }
+
         $this->form_validation->set_rules('patient_id', 'Patient Name', 'trim|required');
         if (empty($_FILES['file']['name'])) {
             $this->form_validation->set_rules('file', 'Attach File', 'required');
