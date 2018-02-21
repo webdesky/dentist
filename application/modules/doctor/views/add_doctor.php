@@ -154,6 +154,7 @@
 </div>
 <script>tinymce.init({ selector:'textarea#summernote' });</script>
 <script>tinymce.init({ selector:'textarea#education' });</script>
+
 <script type="text/javascript" src="<?php echo base_url(" asset/js/validation.js ");?>"></script>
     <script type="text/javascript">
         $(document).ready(function() {

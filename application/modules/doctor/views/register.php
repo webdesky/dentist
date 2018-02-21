@@ -5,11 +5,6 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
-    <style type="text/css">
-.red {
-    color: red;
-}
-    </style>
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
@@ -75,7 +70,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group"> <label class="col-md-3">Date of Birth</label>
-                                        <div class="col-md-9"> <input type="text" id="datepicker" name="dob" class="form-control" autocomplete="off" readonly="readonly" value="<?php echo set_value('dob'); ?>" placeholder="Date of Birth"> <span class="red"><?php echo form_error('dob'); ?></span> </div>
+                                        <div class="col-md-9"> <input type="text" id="datepicker" name="dob" class="form-control date" autocomplete="off" readonly="readonly" value="<?php echo set_value('dob'); ?>" placeholder="Date of Birth"> <span class="red"><?php echo form_error('dob'); ?></span> </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -129,9 +124,6 @@ $(document).ready(function() {
         submitHandler: function(form) {
             form.submit();
         }
-    });
-    $("#datepicker").datepicker({
-        dateFormat: 'yy-mm-dd'
     });
 });
 </script>

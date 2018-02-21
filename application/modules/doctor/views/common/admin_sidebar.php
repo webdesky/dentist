@@ -8,7 +8,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-            <a class="navbar-brand" href="javascript:void(0)"><?php echo ucwords($this->session->userdata('first_name').' '.$this->session->userdata('last_name')); ?></a>
+            <a class="navbar-brand" href="javascript:void(0)"><?php echo 'Welcome '.ucwords($this->session->userdata('first_name').' '.$this->session->userdata('last_name')); ?></a>
             <!-- <br/>
                 <a href="#"><i class="fa fa-circle text-success"></i>Doctor</a> -->
         </div>
@@ -21,12 +21,12 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li style="font-size: 15px"><a href="<?php echo base_url('doctor/profile')?>"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    <li style="font-size: 16px"><a href="<?php echo base_url('doctor/profile')?>"><i class="fa fa-user fa-fw"></i> Update Profile</a>
                     </li>
-                    <li style="font-size: 15px"><a href="<?php echo base_url('doctor/change_password')?>"><i class="fa fa-gear fa-fw"></i> Change Password</a>
+                    <li style="font-size: 16px"><a href="<?php echo base_url('doctor/change_password')?>"><i class="fa fa-gear fa-fw"></i> Change Password</a>
                     </li>
                     <li class="divider"></li>
-                    <li style="font-size: 15px"><a href="<?php echo base_url('doctor/logout')?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li style="font-size: 16px"><a href="<?php echo base_url('doctor/logout')?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->

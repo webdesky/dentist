@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group"> <label class="col-md-3">Date of Birth </label>
-                                        <div class="col-md-9"> <input type="text" id="datepicker" name="dob" class="form-control" autocomplete="off" readonly="readonly" required="required" value="<?php echo $users[0]->date_of_birth; ?>"> <span class="red"><?php echo form_error('dob'); ?></span> </div>
+                                        <div class="col-md-9"> <input type="text" id="datepicker" name="dob" class="form-control date" autocomplete="off" readonly="readonly" required="required" value="<?php echo $users[0]->date_of_birth; ?>"> <span class="red"><?php echo form_error('dob'); ?></span> </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -123,7 +123,6 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
-    $("#datepicker").datepicker();
     $('select').niceSelect();
 });
 </script>

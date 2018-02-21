@@ -5,17 +5,6 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
-<style type="text/css">
-    .red{
-        color: red;
-    }
-
-    .registration_form1 .form-group {
-        margin-bottom: 15px;
-        overflow: hidden;
-
-    }
-</style>
 
     <!-- /.row -->
     <div class="row">
@@ -123,7 +112,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3">Date of Birth</label>
                                     <div class="col-md-9">
-                                        <input type="text" id="datepicker" name="dob" class="form-control" autocomplete="off" readonly="readonly" required="required" value="<?php echo $users[0]->date_of_birth; ?>">
+                                        <input type="text" id="datepicker" name="dob" class="form-control date" autocomplete="off" readonly="readonly" required="required" value="<?php echo $users[0]->date_of_birth; ?>">
                                     </div>
                                     <span class="red"><?php echo form_error('dob'); ?></span>
                                 </div>
@@ -189,8 +178,8 @@
                             </div>
 
                             <div class="col-md-12" align="center">
-                                <input type="submit" name="submit" class="btn btn-success" value="Submit">
-                                <button type="reset" class="btn btn-default">Reset</button>
+                                <input type="submit" name="submit" class="btn btn-success" value="Save">
+                                <input type="reset" class="btn btn-default" value="Reset">
                             </div>
                             </form>
                         </div>
@@ -207,20 +196,6 @@
 
 </div>
 </div>
-<script>
-    tinymce.init({
-        selector: 'textarea#summernote'
-    });
-</script>
-<script>
-    tinymce.init({
-        selector: 'textarea#education'
-    });
-</script>
-
-
 <script type="text/javascript">
-    $(document).ready(function() {
-        $("#datepicker").datepicker();
-    });
+    $('select').niceSelect();
 </script>

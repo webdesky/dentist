@@ -116,7 +116,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3">Date of Birth*</label>
                                      <div class="col-md-9">
-                                        <input type="text" id="datepicker" name="dob" class="form-control" autocomplete="off" readonly="readonly"  value="<?php echo set_value('dob'); ?>">
+                                        <input type="text" id="datepicker" name="dob" class="form-control date" autocomplete="off"  value="<?php echo set_value('dob'); ?>">
                                         <span class="red"><?php echo form_error('dob'); ?></span>
                                     </div>
                                 </div>
@@ -216,7 +216,7 @@
                             </div>
                             <div class="col-md-12" align="center">
                                 <input type="submit" name="submit" class="btn btn-success" value="Save">
-                                <button type="reset" class="btn btn-default">Reset</button>
+                                <input type="reset" class="btn btn-default" value="Reset">
                             </div>
                             </form>
                         </div>
@@ -235,8 +235,7 @@
 </div>
  
 <script type="text/javascript">
-        $(document).ready(function(){
-            $('select').niceSelect();
-            $("#datepicker").datepicker();
-        });
+    $(document).ready(function(){
+        $('select').niceSelect();
+    });
 </script>

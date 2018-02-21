@@ -66,7 +66,7 @@
                                         </label> <span class="red"><?php echo form_error('status'); ?></span> </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12" align="center"> <input type="submit" name="submit" class="btn btn-success" value="Submit"><button type="reset" class="btn btn-default">Reset</button> </div>
+                                <div class="col-md-12" align="center"> <input type="submit" name="submit" class="btn btn-success" value="Save"><input type="reset" class="btn btn-default" value="Reset"> </div>
                             </form>
                         </div>
                     </div>
@@ -84,7 +84,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $('select').niceSelect();
-    $(".registration_form").validate({
+    $(".registration_form1").validate({
         rules: {
             "patient_id": "required",
         },

@@ -77,7 +77,7 @@
                                                             <span class="red"><?php echo form_error('sex'); ?></span>
                                                         </li>
                                                         <li>
-                                                            <input type="text" placeholder="Date of Birth" class="invoice-input form-control datepicker hasDatepicker" id="date_of_birth" name="date_of_birth" value="<?php echo $prescription[0]->date_of_birth;?>">
+                                                            <input type="text" placeholder="Date of Birth" class="invoice-input form-control date" id="date_of_birth" name="date_of_birth" value="<?php echo $prescription[0]->date_of_birth;?>">
                                                             <span class="red"><?php echo form_error('date_of_birth'); ?></span>
                                                         </li>
                                                     </ul>
@@ -108,7 +108,7 @@
                                                 <th width="33.33%">
                                                     <ul class="list-unstyled">
                                                         <li><input type="text" name="appointment_id" id="appointment_id" value="<?php echo $prescription[0]->appointment_id;?>" class="invoice-input form-control" placeholder="Appointment ID" ></li>
-                                                        <li><input type="text" name="date" required="required" value="<?php echo date('Y-m-d')?>" class="invoice-input form-control" placeholder="Date" id="datepicker"></li>
+                                                        <li><input type="text" name="date" required="required" value="<?php echo date('Y-m-d')?>" class="invoice-input form-control date" placeholder="Date" id="datepicker"></li>
                                                         <li><input type="text" value="Demo Hospital Limited" class="invoice-input form-control" placeholder="Hospital Name"></li>
                                                         <li><input type="text" value="105, Magnet Tower, Indore, 452001" class="invoice-input form-control" placeholder="Address"></li>
                                                     </ul>
@@ -281,7 +281,11 @@
             //#------------------------------------
 
 
-        $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
+        //$("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
+
+        $("#datepicker").datetimepicker({
+            format: 'YYYY/MM/DD'
+        });
 
     });
 

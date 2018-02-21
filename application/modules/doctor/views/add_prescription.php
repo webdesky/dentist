@@ -82,7 +82,7 @@
                                                             <span class="red"><?php echo form_error('sex'); ?></span>
                                                         </li>
                                                         <li>
-                                                            <input type="text" placeholder="Date of Birth" class="invoice-input form-control datepicker hasDatepicker" id="date_of_birth" name="date_of_birth">
+                                                            <input type="text" placeholder="Date of Birth" class="invoice-input form-control date" id="date_of_birth" name="date_of_birth">
                                                             <span class="red"><?php echo form_error('date_of_birth'); ?></span>
                                                         </li>
                                                     </ul>
@@ -234,24 +234,6 @@
         </div>
     </div>
     <!-- Modal -->
-    <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Case Study</h4>
-                    </div>
-                    <div class="modal-body" id="caseStudyOutput">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <a href="http://hospitalnew.bdtask.com/demo6/dashboard_doctor/prescription/case_study/create" class="btn btn-primary">Add Patient Case Study</a>
-                    </div>
-                </div>
-            </div>
-        </div>
- -->
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -299,7 +281,11 @@
             //#------------------------------------
 
 
-        $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
+        //$("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
+
+        $("#datepicker").datetimepicker({
+            format: 'YYYY/MM/DD'
+        });
 
     });
 
