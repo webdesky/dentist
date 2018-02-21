@@ -431,7 +431,7 @@ class Doctor extends CI_Controller
         $wheres          = array('user_role ' => 3);
         $data['patient'] = $this->model->getAllwhere('users', $wheres);
         $this->form_validation->set_rules('patient_id', 'Patient Name', 'trim|required');
-        if (empty($_FILES['file']['name'])) {
+        if (empty($_FILES['file']['name']) && empty($id)) {
             $this->form_validation->set_rules('file', 'Attach File', 'required');
         }
         $this->form_validation->set_rules('description', 'Description', 'trim|required');
@@ -494,6 +494,17 @@ class Doctor extends CI_Controller
 
         $data['body']           = 'document_list';
         $this->controller->load_view($data);
+    }
+
+    public function edit_documents($id){
+            $wheres          = array('user_role ' => 3);
+            $data['patient'] = $this->model->getAllwhere('users', $wheres);
+            $where              = array('documents.id' => $id);
+            $field_val="documents.id as did,users.first_name,documents.description,documents.file,users.id,users.last_name";
+            $data['documents'] = $this->model->GetJoinRecord('documents', 'patient_id', 'users', 'id', $field_val, $where);
+            $data['body']           = 'edit_document';
+             $this->controller->load_view($data);
+
     }
     
     public function case_study($id = null)

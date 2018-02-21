@@ -900,7 +900,7 @@ class Admin extends CI_Controller
                     'mailtype' => 'html',
                     'charset' => 'iso-8859-1'
                 );
-                
+                *0*HRU,9N]@1
                 $this->load->library('email', $config);
                 $this->email->set_newline("\r\n");
                 $this->email->from($this->session->userdata('email'), "Admin Team");

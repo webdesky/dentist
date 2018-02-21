@@ -17,7 +17,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group"> <label class="col-md-2">Patient ID * </label>
                                         <div class="col-md-6"> <select class="wide" name="patient_id">
-                                        <option value="">Select Patient</option>
+                                        <option value="">--Select Patient--</option>
                                         <?php foreach($patient as $patients){?>
                                         <option value="<?php echo $patients->id;?>"><?php echo ucwords($patients->first_name.' '.$patients->last_name);?></option>
                                         <?php }?>
