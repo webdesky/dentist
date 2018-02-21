@@ -92,6 +92,21 @@
                         </ul>
                     </li>
 
+                     <li>
+                        <a href="#"><i class="fa fa-calendar"></i> Schedule<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                        
+                            <li>
+                                <a href="<?php echo base_url('doctor/Schedule/')?>">Add Schedule</a>
+                            </li>
+                      
+                            <li>
+                                <a href="<?php echo base_url('doctor/list_schedule/')?>">View Schedule</a>
+                            </li>
+
+                        </ul>
+                    </li>
+
                     <li>
                         <a href="#"><i class="fa fa-book" aria-hidden="true"></i> Prescription<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level treeview-menu">

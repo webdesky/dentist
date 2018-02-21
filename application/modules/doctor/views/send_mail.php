@@ -26,7 +26,9 @@
                                 <div class="col-md-12">
                                     <div class="form-group"> <label class="col-md-2">Send To * </label>
                                         <div class="col-md-6"> <select class="wide" name="reciever_id">
-                                        <option value="">--SELECT USER--</option>
+
+                                        <option value="">--Select User--</option>
+
                                         <?php foreach($users as $user){?>
                                         <option value="<?php echo $user->email;?>"><?php echo ucwords($user->first_name.' '.$user->last_name);?></option>
                                         <?php }?>
