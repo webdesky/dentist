@@ -30,7 +30,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group"> <label class="col-md-3">Email Address *</label>
+                                    <div class="form-group"> <label class="col-md-3">Email Address</label>
                                         <div class="col-md-9"> <input type="text" name="email" class="form-control" placeholder="Email Address" autocomplete="off" value="<?php echo set_value('email'); ?>"> <span class="red"><?php echo form_error('email'); ?></span> </div>
                                     </div>
                                 </div>
@@ -42,7 +42,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group"> <label class="col-md-3">Blood Group</label>
                                         <div class="col-md-9"> <select class="wide" name="blood_group">
-                                            <option value="">Select Blood Group</option>
+                                            <option value="">--Select Blood Group--</option>
                                             <option value="a+">A+</option>
                                             <option value="a-">A-</option>
                                             <option value="b+">B+</option>
@@ -74,7 +74,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group"> <label class="col-md-3">Gender *</label>
+                                    <div class="form-group"> <label class="col-md-3">Gender</label>
                                         <div class="col-md-9"> <label class="radio-inline">
                                             <input type="radio" name="gender"  value="male" checked>Male
                                         </label> <label class="radio-inline">
@@ -92,7 +92,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group"> <label class="col-md-3">Address *</label>
+                                    <div class="form-group"> <label class="col-md-3">Address</label>
                                         <div class="col-md-9"> <textarea class="form-control" rows="5" name="address" placeholder="Address"><?php echo set_value('address');?></textarea> <span class="red"><?php echo form_error('address'); ?></span> </div>
                                     </div>
                                 </div>

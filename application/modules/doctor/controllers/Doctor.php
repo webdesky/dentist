@@ -365,6 +365,8 @@ class Doctor extends CI_Controller
                 $completion_year        = $this->input->post('completion_year');
                 $experience             = $this->input->post('experience');
                 $city                   = $this->input->post('city');
+                $consultancy_fees       = $this->input->post('consultancy_fees');
+                $consultancy_time       = $this->input->post('consultancy_time');
 
 
                 $data = array(
@@ -391,7 +393,9 @@ class Doctor extends CI_Controller
                     'college'               => $college,
                     'completion_year'       => $completion_year,
                     'experience'            => $experience,
-                    'city'                  => $city
+                    'city'                  => $city,
+                    'consultancy_time'      => $consultancy_time,
+                    'consultancy_fees'      => $consultancy_fees
 
                 );
                 
@@ -437,7 +441,7 @@ class Doctor extends CI_Controller
         }
 
         $this->form_validation->set_rules('patient_id', 'Patient Name', 'trim|required');
-        if (empty($_FILES['file']['name'])) {
+        if (empty($_FILES['file']['name']) && empty($id)) {
             $this->form_validation->set_rules('file', 'Attach File', 'required');
         }
         $this->form_validation->set_rules('description', 'Description', 'trim|required');
@@ -500,6 +504,17 @@ class Doctor extends CI_Controller
 
         $data['body']           = 'document_list';
         $this->controller->load_view($data);
+    }
+
+    public function edit_documents($id){
+            $wheres          = array('user_role ' => 3);
+            $data['patient'] = $this->model->getAllwhere('users', $wheres);
+            $where              = array('documents.id' => $id);
+            $field_val="documents.id as did,users.first_name,documents.description,documents.file,users.id,users.last_name";
+            $data['documents'] = $this->model->GetJoinRecord('documents', 'patient_id', 'users', 'id', $field_val, $where);
+            $data['body']           = 'edit_document';
+             $this->controller->load_view($data);
+
     }
     
     public function case_study($id = null)
@@ -621,10 +636,11 @@ class Doctor extends CI_Controller
     public function add_prescription($id = null)
     {
 
-        $where = array('doctor_id' => $this->session->userdata('id'),'is_active' => 1);
+        /*$where = array('doctor_id' => $this->session->userdata('id'),'is_active' => 1);
         
-        $data['patient'] = $this->model->getAllwhere('appointment', $where, 'ap_id', 'DESC', 'patient_id,appointment_id');
-        
+        $data['patient'] = $this->model->getAllwhere('appointment', $where, 'ap_id', 'DESC', 'patient_id,appointment_id');*/
+        $where           = array('user_role' => 3);
+        $data['patient'] = $this->model->getAllwhere('users', $where);
         $this->form_validation->set_rules('patient_id', 'Patient Name', 'trim|required');
         $this->form_validation->set_rules('blood_pressure', 'High Blood Pressure', 'trim|required');
         $this->form_validation->set_rules('weight', 'Weight', 'trim|required');

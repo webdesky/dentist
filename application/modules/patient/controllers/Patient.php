@@ -239,6 +239,13 @@ class Patient extends CI_Controller
         );
         $field_val                 = 'prescription.*, users.first_name,users.last_name';
         $data['prescription_list'] = $this->model->GetJoinRecord('prescription', 'patient_id', 'users', 'id', $field_val, $where);
+
+        $prescription_id           = $data['prescription_list'][0]->id;
+        $where1                    = array(
+           'prescription_id'       => $prescription_id
+        );
+        $data['review'] = $this->model->getAllwhere('review', $where1);
+        
         $data['body']              = 'prescription_list';
         $this->controller->load_view($data);
     }
@@ -448,9 +455,34 @@ class Patient extends CI_Controller
         }
     }
 
+    public function review_doctor($doctor_id = null,$prescription_id=null){
+        $data['prescription_id']= $prescription_id;
+        $where                  = array(
+                                        'id' => $doctor_id
+                                    );
+        $data['doctor']         = $this->model->getAllwhere('users', $where);
+        $data['body']           = 'review_doctor';
+        
+        $this->controller->load_view($data);
 
-     
-   
-       
+    }
 
+    public function doctor_review(){
+            $data         =$this->input->post();
+            $improvement  =implode(",",$data['improvement']);
+            $data         =  array(
+                                'doctor_id'         => $data['doctor_id'],
+                                'patient_id'        => $this->session->userdata('id'),
+                                'prescription_id'   => $data['prescription_id'],
+                                'recommendation'    => $data['recommendation'],
+                                'problem'           => $data['problem'],
+                                'experience'        => $data['experience'],
+                                'improvement'       => $improvement,
+                                'rating'            => $data['rating'],
+                                'created_at' => date('Y-m-d H:i:s')
+                            );
+                
+            $result = $this->model->insertData('review', $data);
+            redirect('patient/prescription_list');
+    }
 }

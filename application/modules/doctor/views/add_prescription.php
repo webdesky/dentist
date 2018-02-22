@@ -68,7 +68,7 @@
                                                             <select name="patient_id" class="invoice-input wide" onchange="get_patient_data(this)">
                                                                 <option value="">--Select Patient--</option>
                                                                 <?php if(!empty($patient)){ foreach($patient as $value){?>
-                                                                <option data-appointment="<?php echo $value->appointment_id;?>" value="<?php echo $value->patient_id;?>"><?php echo $value->patient_id;?></option>
+                                                                 <option value="<?php echo $value->id;?>"><?php echo ucwords($value->first_name.' '.$value->last_name);?></option>
                                                                 <?php }}?>
                                                             </select>
                                                             <span class="red"><?php echo form_error('patient_id'); ?></span>

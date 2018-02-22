@@ -30,7 +30,11 @@
                                 <div id="app"> <label class="col-md-2">Available Days * </label>
                                     <div class="col-lg-4"> 
                                         <select class="wide" name="schedule[]">
+<<<<<<< HEAD
+                                            <option data-display="Select Days">--Select Days--</option>
+=======
                                             <option data-display="-- Select Days --">Select Days</option>
+>>>>>>> d04e904cd3a90a0d7d018f54e7ba8eeafe157957
                                             <option value="sunday">Sunday</option>
                                             <option value="monday">Monday</option>
                                             <option value="tuesday">Tuesday</option>
@@ -86,6 +90,7 @@ $(document).ready(function() {
     $('.date').each(function() {
         $(this).timepicker();
     });
+    $('select').niceSelect();
 });
 
      

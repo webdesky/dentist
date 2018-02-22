@@ -40,12 +40,14 @@
                                     <td class="center">
                                         <?php echo $value->description; ?> </td>
                                     <td class="center"><img src="<?php echo base_url('asset/uploads/'.$value->file); ?>" width='50px' height='50px'></td>
+<
                                     <td class="center">
                                         <a href="<?php echo base_url('doctor/add_document/'.$value->did); ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                         </a> 
                                         <a href="javascript:void(0)" onclick="delete_document('<?php echo $value->did?>','<?php echo $count?>')"><i class="fa fa-trash-o" aria-hidden="true"></i>
                                         </a>
                                     </td>
+
                                 </tr>
                                 <?php $count++; } }?> </tbody>
                         </table>

@@ -175,6 +175,17 @@
                         </ul>
                     </li>
 
+                    <li>
+                        <a href="#"><i class="fa fa-bell" aria-hidden="true"></i> Reviews<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level treeview-menu">
+                      
+                            <li>
+                                <a href="<?php echo base_url('admin/review_list/')?>">Review List</a>
+                            </li>
+
+                        </ul>
+                    </li>
+
                     <?php if($user_role==1){?>
 
                     <li>

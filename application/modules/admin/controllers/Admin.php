@@ -1198,4 +1198,95 @@ class Admin extends CI_Controller
         echo json_encode($states);
     }
     
+
+    public function get_schedule(){
+         $doctor_id          = $this->input->post('doctor_id');
+         $appointment_time   = $this->input->post('appointment_time');
+         $appointment_date   = $this->input->post('appointment_date');
+         $day                = date('l',strtotime($appointment_date));
+         $where              = array(
+                                'doctor_id' => $doctor_id
+                                );
+         $data = $this->model->getAllwhere('schedule',$where);
+         print_r(json_encode($data));
+        
+    }
+
+    public function get_time(){
+         $doctor_id          = $this->input->post('doctor_id');
+         $appointment_date   = $this->input->post('appointment_date');
+         $day                = date('l',strtotime($appointment_date));
+         $where              = array(
+                                'doctor_id'              => $doctor_id,
+                                'appointment_date'       => $appointment_date
+                           );
+         $field_val          = 'appointment_time';
+         $data               = $this->model->getAllwhere('appointment',$where,'','',$field_val);
+        
+          print_r(json_encode($data));
+    }
+
+    public function review_list(){
+        $data['review']     = $this->model->getAll('review');
+        
+        foreach ($data['review'] as $key => $value) {
+          $doctor_id           = $value['doctor_id'];
+          $patient_id          = $value['patient_id'];
+
+           $where               = array(
+                                'id ' => $doctor_id
+                               );
+           $doctor     = $this->model->getAllwhere('users', $where);
+           $where1             = array(
+                                    'id ' => $patient_id
+                                );
+          $patient   = $this->model->getAllwhere('users', $where1);
+        
+         $data['review'][$key]['doctor_first_name'] =$doctor[0]->first_name;
+         $data['review'][$key]['patient_first_name']=$patient[0]->first_name;
+
+         
+        }
+        
+        $data['body']       = 'review_list';
+
+        $this->controller->load_view($data);
+
+    }
+
+    public function view_review($id){
+        $where               = array(
+                                'id ' => $id
+                               );
+        $data['review']      = $this->model->getAllwhere('review', $where);
+       
+        $doctor_id           = $data['review'][0]->doctor_id;
+        $patient_id          = $data['review'][0]->patient_id;
+        $where1              = array(
+                                'id ' => $doctor_id
+                               );
+        $data['doctor']      = $this->model->getAllwhere('users', $where1);
+        $where2              = array(
+                                    'id ' => $patient_id
+                                );
+        $data['patient']     = $this->model->getAllwhere('users', $where2);
+        $data['body']       = 'view_review';
+
+        $this->controller->load_view($data);
+     }
+
+     public function update_review()
+    {
+        echo $id = $this->input->post('id');
+        echo $active = $this->input->post('active');
+        $data  = array(
+            'is_active' => $active
+            
+        );
+        $where = array(
+            'id' => $id
+        );
+        $this->model->update('review', $data, $where);
+    }
 }
+
