@@ -72,7 +72,7 @@
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-hover table-striped">
                                             <thead>
-                                                <tr>
+                                                <tr class="bg-primary">
                                                     <th>#</th>
                                                     <th>Appoitnment Id</th>
                                                     <th>Patient ID</th>
@@ -124,7 +124,7 @@
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-hover table-striped">
                                             <thead>
-                                                <tr>
+                                                <tr class="bg-primary">
                                                     <th>#</th>
                                                     <th>From</th>
                                                     <th>Subject</th>

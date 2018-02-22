@@ -65,9 +65,23 @@
                     <li>
                         <a href="<?php echo base_url('admin/index')?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
+
+                    <li> <a href="#"><i class="fa fa-hospital-o"></i> Hospitals<span class="fa arrow"></span></a>
+                     <ul class="nav nav-second-level">
+                        <?php //if($user_role==1 || ($user_role==4 && $right0[0]==1)){?>
+                            <li>
+                                <a href="<?php echo base_url('admin/hospitals')?>">Add Hospital</a>
+                            </li>
+                        <?php //}?>
+                            <li>
+                                <a href="<?php echo base_url('admin/hospitals_list')?>">View Hospital</a>
+                            </li>
+
+                        </ul>
+                    </li>
                 
                     <li>
-                        <a href="#"><i class="fa fa-user-md"></i> Doctor<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-user-md"></i> Doctors<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                         <?php if($user_role==1 || ($user_role==4 && $right0[0]==1)){?>
                             <li>
@@ -82,7 +96,7 @@
                     </li>
 
                     <li>
-                        <a href="#"><i class="fa fa-wheelchair"></i> Patient<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-wheelchair"></i> Patients<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                         <?php if($user_role==1 || ($user_role==4 && $right1[0]==1)){?>
                             <li>
@@ -112,7 +126,7 @@
                     </li>
 
                     <li>
-                        <a href="#"><i class="fa fa-pencil"></i> Appointment<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-pencil"></i> Appointments<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                         <?php if($user_role==1 || ($user_role==4 && $right3[0]==1)){?>
                             <li>
@@ -127,7 +141,7 @@
                     </li>
 
                     <li>
-                        <a href="#"><i class="fa fa-book" aria-hidden="true"></i> Prescription<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-book" aria-hidden="true"></i> Prescriptions<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level treeview-menu">
                             <li>
                                 <a href="<?php echo base_url('admin/case_study/')?>">Add Patient Case Study</a>

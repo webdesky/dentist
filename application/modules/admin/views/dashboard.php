@@ -115,7 +115,7 @@
                                                     <td><?php echo $count; ?></td>
                                                     <td><?php echo $value->appointment_id; ?></td>
                                                     <td><?php echo $value->patient_id; ?></td>
-                                                    <td><?php echo $value->first_name; ?></td>
+                                                    <td><?php echo ucfirst($value->first_name); ?></td>
                                                     <td><?php echo $value->appointment_date; ?></td>
                                                     <td><?php echo $value->appointment_time; ?></td>
                                                 </tr>
@@ -165,7 +165,7 @@
                                                     ?>
                                                     <tr>
                                                     <td><?php echo $count; ?></td>
-                                                    <td><?php echo $value->first_name; ?></td>
+                                                    <td><?php echo ucfirst($value->first_name); ?></td>
                                                     <td><?php echo $value->subject; ?></td>
                                                     <td><?php echo $value->message; ?></td>
                                                     <td><?php echo $value->created_at; ?></td>

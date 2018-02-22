@@ -116,7 +116,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3">Date of Birth*</label>
                                      <div class="col-md-9">
-                                        <input type="text" id="datepicker" name="dob" class="form-control date" autocomplete="off"  value="<?php echo set_value('dob'); ?>">
+                                        <input type="text" id="datepicker" name="dob" class="form-control date" autocomplete="off"  value="<?php echo set_value('dob'); ?>" placeholder="Date of Birth">
                                         <span class="red"><?php echo form_error('dob'); ?></span>
                                     </div>
                                 </div>

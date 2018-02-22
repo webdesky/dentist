@@ -114,7 +114,7 @@ class Model
         }
     }
     
-    function getAllwhere($table, $where = '', $order_fld = '', $order_type = '', $select = 'all', $limit = '', $offset = '')
+    function getAllwhere($table, $where = '', $select = 'all',$order_fld = '', $order_type = '',  $limit = '', $offset = '')
     {
         if ($order_fld != '' && $order_type != '') {
             $this->CI->db->order_by($order_fld, $order_type);
@@ -143,7 +143,7 @@ class Model
         }
     }
     
-    function getAll($table, $order_fld = '', $order_type = '', $select = 'all', $limit = '', $offset = '')
+    function getAll($table, $select = '',$order_fld = '', $order_type = '',  $limit = '', $offset = '')
     {
         
         if ($order_fld != '' && $order_type != '') {

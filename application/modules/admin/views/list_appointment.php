@@ -120,7 +120,7 @@ function delete_appointment(id,tr_id) {
     });
 }
 
-function updateStatus(ap_id, active) {
+function updateStatus(id, active) {
     if (active == 0) {
         data = 1;
     } else {

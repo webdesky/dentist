@@ -519,6 +519,7 @@
      height: 40px;
      margin-bottom: 10px;
     font-size: 17px;
+    border: solid 1px #ccc;
 }
  .registration_form12 .nice-select.wide {
     font-size: 17px;
@@ -551,4 +552,11 @@
          max-width: 100%;
     }
 }
- 
+.nice-select .list {
+    border-radius: 0px;
+    max-height: 200px;
+    overflow: auto !important;            
+}
+input {
+    text-transform: capitalize;
+  }

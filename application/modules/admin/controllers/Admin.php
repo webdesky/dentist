@@ -207,12 +207,12 @@ class Admin extends CI_Controller
             $this->form_validation->set_rules('user_name', 'User Name', 'trim|required|is_unique[users.username]');
             $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]');
             $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]|alpha_numeric');
-             $this->form_validation->set_rules('category', 'category', 'trim|required');
-         }
+            $this->form_validation->set_rules('category', 'category', 'trim|required');
+        }
         
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('errors', validation_errors());
-            $data['category']  =  $this->model->getAll('category');
+            $data['category']  = $this->model->getAll('category');
             $data['body']      = 'register';
             $data['user_role'] = "$role";
             $this->controller->load_view($data);
@@ -232,11 +232,11 @@ class Admin extends CI_Controller
                 $gender      = $this->input->post('gender');
                 $blood_group = $this->input->post('blood_group');
                 $status      = $this->input->post('status');
-            if($user_role==2){
-                $category           = $this->input->post('category');
-                $specialization     = $this->input->post('specialization');
-            }
-              
+                if ($user_role == 2) {
+                    $category       = $this->input->post('category');
+                    $specialization = $this->input->post('specialization');
+                }
+                
                 
                 $data = array(
                     'first_name' => $first_name,
@@ -274,19 +274,19 @@ class Admin extends CI_Controller
                     unset($data['created_at']);
                     unset($data['email']);
                     unset($data['password']);
-                   
-                   $result = $this->model->updateFields('users', $data, $where);
+                    
+                    $result = $this->model->updateFields('users', $data, $where);
                 } else {
                     $result = $this->model->insertData('users', $data);
-                    if($user_role==2){
-                        $data= array(
-                            'doctor_id'         =>  $result,
-                            'category'          =>  $category,
-                            'specialization'    =>  $specialization,
-                            'is_active'         => $status,
-                            'created_at'        => date('Y-m-d H:i:s')
+                    if ($user_role == 2) {
+                        $data = array(
+                            'doctor_id' => $result,
+                            'category' => $category,
+                            'specialization' => $specialization,
+                            'is_active' => $status,
+                            'created_at' => date('Y-m-d H:i:s')
                         );
-                        $data=$this->model->insertData('doctor',$data);
+                        $data = $this->model->insertData('doctor', $data);
                     }
                 }
                 $this->users_list($user_role);
@@ -302,13 +302,13 @@ class Admin extends CI_Controller
             'user_role ' => $user_role
         );
         
-        $where1       = array(
+        $where1 = array(
             'role_id ' => $user_role
         );
-
-        $data['role']=$user_role;
-        $data['category']  =  $this->model->getAll('category');
-
+        
+        $data['role']     = $user_role;
+        $data['category'] = $this->model->getAll('category');
+        
         $data['users']     = $this->model->getAllwhere('users', $where);
         $data['user_role'] = $this->model->getAllwhere('user_role', $where1);
         $data['body']      = 'users_list';
@@ -654,8 +654,10 @@ class Admin extends CI_Controller
     
     public function profile()
     {
-        $where                  = array('id' => $this->session->userdata('id'));
-        $data['users']          = $this->model->getAllwhere('users', $where);
+        $where         = array(
+            'id' => $this->session->userdata('id')
+        );
+        $data['users'] = $this->model->getAllwhere('users', $where);
         $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|alpha|min_length[2]');
         $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|alpha|min_length[2]');
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
@@ -1058,5 +1060,142 @@ class Admin extends CI_Controller
         }
     }
     
+    public function hospitals($id = null)
+    {
+        
+        $this->form_validation->set_rules('hospital_name', 'Hospital Name', 'trim|required');
+        $this->form_validation->set_rules('registration_number', 'Registration Number', 'trim|required');
+        $this->form_validation->set_rules('owner_name', 'Owner Name', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('city', 'City', 'trim|required|xss_clean|numeric');
+        $this->form_validation->set_rules('address', 'Address', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('no_of_doc', 'Number of Doctor', 'trim|required|numeric');
+        $this->form_validation->set_rules('speciality', 'Speciality', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('blood_bank', 'Blood Bank', 'trim|required');
+        
+        if (!empty($id)) {
+            $where = array(
+                'id' => $id
+            );
+            
+            $data['hospitals'] = $this->model->getAllwhere('hospitals', $where);
+            
+            $where_city = array(
+                'id' => $data['hospitals'][0]->city
+            );
+                        
+            $state = $this->model->getAllwhere('cities', $where_city);
+                        
+            $where_state = array(
+                'id' => $state[0]->state_id
+            );
+            
+            $country = $this->model->getAllwhere('states', $where_state);
+            
+            $data['hospitals'][0]->state_id   = $state[0]->state_id;
+            $data['hospitals'][0]->state_name = $country[0]->name;
+            $data['hospitals'][0]->country    = $country[0]->country_id;
+            $data['hospitals'][0]->city_name  = $state[0]->name;
+            
+            
+        }
+        
+        $data['countries'] = $this->model->getAll('countries');
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('errors', validation_errors());
+            $data['body'] = 'hospitals';
+            $this->controller->load_view($data);
+        } else {
+            
+            if ($this->controller->checkSession()) {
+                
+                $hospital_name       = $this->input->post('hospital_name');
+                $registration_number = $this->input->post('registration_number');
+                $owner_name          = $this->input->post('owner_name');
+                $city                = $this->input->post('city');
+                $address             = $this->input->post('address');
+                $staff_number        = $this->input->post('staff_number');
+                $no_of_doc           = $this->input->post('no_of_doc');
+                $speciality          = $this->input->post('speciality');
+                $no_of_ambulance     = $this->input->post('no_of_ambulance');
+                $blood_bank          = $this->input->post('blood_bank');
+                $status              = $this->input->post('status');
+                
+                if (!empty($_FILES)) {
+                    $file_name = $this->file_upload($_FILES);
+                } else {
+                    $file_name = '';
+                }
+                
+                $data = array(
+                    'hospital_name' => $hospital_name,
+                    'registration_number' => $registration_number,
+                    'owner_name' => $owner_name,
+                    'city' => $city,
+                    'address' => $address,
+                    'staff_number' => $staff_number,
+                    'no_of_doc' => $no_of_doc,
+                    'speciality' => $speciality,
+                    'no_of_ambulance' => $no_of_ambulance,
+                    'blood_bank' => $blood_bank,
+                    'is_active' => $status,
+                    'logo' => $file_name,
+                    'created_at' => date('Y-m-d H:i:s')
+                );
+                
+                
+                if (!empty($id)) {
+                    $where = array(
+                        'id' => $id
+                    );
+                    unset($data['created_at']);
+                    $result = $this->model->updateFields('hospitals', $data, $where);
+                } else {
+                    $result = $this->model->insertData('hospitals', $data);
+                }
+                $this->hospitals_list();
+            }
+        }
+        
+    }
+    
+    public function hospitals_list()
+    {
+        $data['hospitals_list'] = $this->model->getAll('hospitals');
+        $data['body']           = 'hospitals_list';
+        $this->controller->load_view($data);
+    }
+    
+    
+    function file_upload($file)
+    {
+        if (!empty($file['logo']['name'])) {
+            $f_name      = $file['logo']['name'];
+            $f_tmp       = $file['logo']['tmp_name'];
+            $f_size      = $file['logo']['size'];
+            $f_extension = explode('.', $f_name); //To breaks the string into array
+            $f_extension = strtolower(end($f_extension)); //end() is used to retrun a last element to the array
+            $f_newfile   = "";
+            
+            if ($f_name) {
+                $f_newfile = uniqid() . '.' . $f_extension; // It`s use to stop overriding if the image will be same then uniqid() will generate the unique name of both file.
+                $store     = 'asset/uploads/' . $f_newfile;
+                $image1    = move_uploaded_file($f_tmp, $store);
+                return $f_newfile;
+            }
+        }
+    }
+    
+    function get_record()
+    {
+        $id     = $this->input->get('id');
+        $table  = $this->input->get('table');
+        $field  = $this->input->get('field');
+        $where  = array(
+            "$field" => $id
+        );
+        $select = 'id, name';
+        $states = $this->model->getAllwhere($table, $where, $select);
+        echo json_encode($states);
+    }
     
 }
