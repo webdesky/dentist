@@ -153,6 +153,24 @@
                             </div>
                             </div>
 
+                             <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3" for="Consultancy Time">Consultancy Time</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="consultancy_time" id="consultancy_time" placeholder="Enter Consultancy Time In Minutes"  value="<?php echo $users[0]->consultancy_time;?>">
+                                     </div>
+                            </div>
+                            </div>
+
+                             <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3" for="Consultancy Fess">Consultancy Fees:</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="consultancy_fees" placeholder="Enter Consultancy Fees" value="<?php echo $users[0]->consultancy_fees;?>">
+                                     </div>
+                            </div>
+                            </div>
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label col-md-3" for="address">  Address:</label>
@@ -260,10 +278,14 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-        $("#date_of_birth").datetimepicker({
-                 format: 'YYYY/MM/DD'
+        $("#date_of_birth").datepicker({
+                
         });
 
-        $('select').niceSelect();
+
+       
     })
+     $('select').niceSelect();
+     
+     /*$('#consultancy_time').timepicker();*/
 </script>

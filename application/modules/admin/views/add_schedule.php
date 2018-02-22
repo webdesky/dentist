@@ -47,8 +47,8 @@
                                             <option value="saturday">Saturday</option>
                                         </select> 
                                     </div>
-                                    <div class="col-lg-2"> <input type="text" id="starttime" name="starttime[]" class="form-control date" autocomplete="off" readonly="readonly" placeholder="StartTime"> </div>
-                                    <div class="col-lg-2"> <input type="text" id="endtime" name="endtime[]" class="form-control date" autocomplete="off" readonly="readonly" placeholder="EndTime"> </div>
+                                    <div class="col-lg-2"> <input type="text" id="starttime" name="starttime[]" class="form-control time" autocomplete="off" readonly="readonly" placeholder="StartTime"> </div>
+                                    <div class="col-lg-2"> <input type="text" id="endtime" name="endtime[]" class="form-control time" autocomplete="off" readonly="readonly" placeholder="EndTime"> </div>
                                     <div class="col-lg-2" style="margin-top: 5px;"> <i class="fa fa-plus-circle" aria-hidden="true" id="add" style="font-size: 25px;"></i> </div>
                                 </div>
                                 <div class="clearfix"></div>
@@ -72,15 +72,16 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $('select').niceSelect();
+
     var counter = 2;
     $("#add").click(function() {
         if (counter > 14) {
             alert("Only 14 textboxes allow");
             return false;
         }
-        $("#app").after('<div class="form-group" id="box' + counter + '"><label class="col-md-2"></label><div class="col-lg-4"><select class="wide" name="schedule[]" ><option>-- Select Days -- </option><option value="sunday">Sunday</option><option value="Monday">Monday</option><option value="tuesday">Tuesday</option><option value="wednesday">Wednesday</option><option value="thursday">Thursday</option><option value="friday">Friday</option><option value="saturday">Saturday</option></select></div> <div class="col-lg-2"><input type="text" id="starttime" name="starttime[]" class="form-control date" autocomplete="off" readonly="readonly"  placeholder="StartTime"></div><div class="col-lg-2"><input type="text" id="endtime" name="endtime[]" class="form-control date" autocomplete="off" readonly="readonly"  placeholder="EndTime"></div><i class="fa fa-minus-circle remove" aria-hidden="true" id="removeButton" style="font-size:25px;margin-left: 15px;"></i></div>');
+        $("#app").after('<div class="form-group" id="box' + counter + '"><label class="col-md-2"></label><div class="col-lg-4"><select class="wide" name="schedule[]" ><option>-- Select Days -- </option><option value="sunday">Sunday</option><option value="Monday">Monday</option><option value="tuesday">Tuesday</option><option value="wednesday">Wednesday</option><option value="thursday">Thursday</option><option value="friday">Friday</option><option value="saturday">Saturday</option></select></div> <div class="col-lg-2"><input type="text" id="starttime" name="starttime[]" class="form-control time" autocomplete="off" readonly="readonly"  placeholder="StartTime"></div><div class="col-lg-2"><input type="text" id="endtime" name="endtime[]" class="form-control time" autocomplete="off" readonly="readonly"  placeholder="EndTime"></div><i class="fa fa-minus-circle remove" aria-hidden="true" id="removeButton" style="font-size:25px;margin-left: 15px;"></i></div>');
         
-        $('.date').each(function() {
+        $('.time').each(function() {
             $(this).timepicker();
         });
 
@@ -94,7 +95,7 @@ $(document).ready(function() {
     $("body").on("click", ".remove", function() {
         $(this).closest("div").remove();
     });
-    $('.date').each(function() {
+    $('.time').each(function() {
         $(this).timepicker();
     });
 });

@@ -90,8 +90,6 @@ function delete_inventory(id , tr_id) {
         }).done(function(data) {
             swal("Deleted!", "Record was successfully deleted!", "success");
             $('#tr_' + tr_id).remove();
-        }).error(function(data) {
-            swal("Oops", "We couldn't connect to the server!", "error");
         });
     });
 }
@@ -116,8 +114,6 @@ function update_inventory_status(id) {
         }).done(function(data) {
             swal("Changed!", "Status was changed successfully !", "success");
             //$('#tr_' + tr_id).remove();
-        }).error(function(data) {
-            swal("Oops", "We couldn't connect to the server!", "error");
         });
     });
 }

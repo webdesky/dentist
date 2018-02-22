@@ -49,7 +49,7 @@
                                     <?php echo ucwords($value->first_name.' '. $value->last_name); ?>
                                 </td>
                                 <td>
-                                    <?php echo $value->patient_id; ?>
+                                    <?php echo $value->appointment_id; ?>
                                 </td>
                                 <td class="center">
                                     <?php echo $value->type; ?>
@@ -59,7 +59,10 @@
                                 </td>
                                 <td class="center">
 
-                                    <a href="<?php echo base_url('patient/view_prescription/'.$value->id);?>"><i class="fa fa-eye"></i></a> 
+                                    <a href="<?php echo base_url('patient/view_prescription/'.$value->id);?>"><i class="fa fa-eye"></i></a>
+                                    <?php if($review==''){ ?> 
+                                    <a href="<?php echo base_url('patient/review_doctor/'.$value->doctor_id.'/'.$value->id);?>"><i class="fa fa-comments"></i></a>
+                                    <?php } ?>
                                    <!--  <a href="<?php echo base_url('doctor/edit_prescription/'.$value->id); ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> 
                                     | 
                                     <a href="javascript:void(0)" onclick="delete_prescription('<?php echo $value->id?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>  -->

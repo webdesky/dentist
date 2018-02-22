@@ -120,7 +120,7 @@ function delete_appointment(id,tr_id) {
     });
 }
 
-function updateStatus(ap_id, active) {
+function updateStatus(id, active) {
     if (active == 0) {
         data = 1;
     } else {
@@ -144,8 +144,7 @@ function updateStatus(ap_id, active) {
             type: "POST"
         }).done(function(data) {
             swal("Changed!", "Status was successfully changed!", "success");
-        }).error(function(data) {
-            swal("Oops", "We couldn't connect to the server!", "error");
+             window.location.reload();
         });
     });
 }
