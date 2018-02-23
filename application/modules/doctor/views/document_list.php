@@ -13,7 +13,7 @@
                 <?php echo $info_message; ?> </div>
             <?php endif ?>
             <div class="panel panel-default">
-                <div class="panel-heading"> Documents List </div>
+                <div class="panel-heading"> <div class="panel-heading"> <a class="btn btn-primary" href="<?php echo base_url('doctor/add_document')?>"><i class="fa fa-th-list">&nbsp;Add Document</i></a></div></div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">.
                     <div class="table-responsive">
@@ -40,7 +40,6 @@
                                     <td class="center">
                                         <?php echo $value->description; ?> </td>
                                     <td class="center"><img src="<?php echo base_url('asset/uploads/'.$value->file); ?>" width='50px' height='50px'></td>
-<
                                     <td class="center">
                                         <a href="<?php echo base_url('doctor/add_document/'.$value->did); ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                         </a> 

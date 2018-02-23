@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
-                <div class="panel-heading"> <button class="btn btn-primary"><i class="fa fa-th-list">&nbsp;Users List</i></button> </div>
+                <div class="panel-heading"> <a class="btn btn-primary" href="<?php echo base_url('doctor/register')?>"><i class="fa fa-th-list">&nbsp;Add Patient</i></a> </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">

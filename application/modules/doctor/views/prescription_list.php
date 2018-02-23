@@ -15,7 +15,7 @@
             <?php endif ?>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Prescription List
+                      <a class="btn btn-primary" href="<?php echo base_url('doctor/add_prescription')?>"><i class="fa fa-list"></i>  Add Prescription </a>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">

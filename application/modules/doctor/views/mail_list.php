@@ -1,7 +1,7 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Message List</h1>
+            <h1 class="page-header">Mail List</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -13,7 +13,7 @@
                 <?php echo $info_message; ?> </div>
             <?php endif ?>
             <div class="panel panel-default">
-                <div class="panel-heading"> Message List </div>
+                <div class="panel-heading"><a class="btn btn-primary" href="<?php echo base_url('doctor/send_mail')?>"><i class="fa fa-th-list">&nbsp; Send Mail</i></a></div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
@@ -30,8 +30,8 @@
                             <tbody>
                                 <?php 
                                 $count=1;
-                                if($messages_list){
-                                foreach ($messages_list as  $message) { ?>
+                                if($mail_list){
+                                foreach ($mail_list as  $message) { ?>
                                 <tr class="odd gradeX" id="tr_<?php echo $count;?>">
                                     <td>
                                         <?php echo $count; ?> </td>

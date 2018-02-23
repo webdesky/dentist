@@ -619,7 +619,7 @@ class Doctor extends CI_Controller
         $where                 = array('sender_id' => $this->session->userdata('id'));
         $field_val             = 'message.*,users.first_name,users.last_name';
         $data['messages_list'] = $this->model->GetJoinRecord('message', 'reciever_id', 'users', 'id', $field_val, $where);
-        $data['body']          = 'mail_list';
+        $data['body']          = 'message_list';
         $this->controller->load_view($data);
     }
     
@@ -770,7 +770,7 @@ class Doctor extends CI_Controller
     public function notices_list()
     {
         $where               = array('is_active' => 1);
-        $data['notice_list'] = $this->model->getAllwhere('notices', $where, 'id', 'DESC');
+        $data['notice_list'] = $this->model->getAllwhere('notices', $where, '*', 'DESC');
         $data['body']        = 'list_notice';
         $this->controller->load_view($data);
     }
@@ -838,7 +838,7 @@ class Doctor extends CI_Controller
     {
         $where             = array('sender_id' => $this->session->userdata('id'));
         $data['mail_list'] = $this->model->getAllwhere('mail', $where, 'id', 'DESC');
-        $data['body']      = 'message_list';
+        $data['body']      = 'mail_list';
         $this->controller->load_view($data);
         
     }

@@ -17,7 +17,7 @@
             <?php endif ?>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Notices List
+                  <button class="btn btn-primary"><i class="fa fa-th-list">&nbsp; Notice List</i></button>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">

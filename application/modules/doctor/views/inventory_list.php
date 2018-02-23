@@ -1,7 +1,7 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Mail Board </h1>
+            <h1 class="page-header">Inventory Board </h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -17,7 +17,7 @@
             <?php endif ?>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Mail List
+                   <a class="btn btn-primary" href="<?php echo base_url('doctor/add_inventory')?>"><i class="fa fa-th-list">&nbsp;Add Inventory</i></a>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">

@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
-                <div class="panel-heading"> <a class="btn btn-primary" href="<?php echo base_url('doctor/add_inventory')?>"><i class="fa fa-th-list">&nbsp;Inventory Request</i></a> </div>
+                <div class="panel-heading"> <a class="btn btn-primary" href="<?php echo base_url('doctor/inventory_list')?>"><i class="fa fa-th-list">&nbsp;Inventory Request List</i></a> </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
