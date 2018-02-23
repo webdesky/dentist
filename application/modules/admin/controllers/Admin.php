@@ -344,6 +344,7 @@ class Admin extends CI_Controller
             'user_id' => $id
         );
         $data['user_rights'] = $this->model->getsingle('user_rights', $where1);
+       
         $data['body']        = 'assign_rights';
         $this->controller->load_view($data);
         
@@ -1255,6 +1256,7 @@ class Admin extends CI_Controller
         $select          = 'first_name';
         $data['doctor']  = $this->model->getAllwhere('users', $where1,$select); 
         $data['body']    = 'view_review';
+        
         $this->controller->load_view($data);
      }
 

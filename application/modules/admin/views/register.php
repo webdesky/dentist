@@ -3,8 +3,10 @@
         <div class="col-lg-12">
             <?php if($user_role==2){ ?>
             <h1 class="page-header">Add Doctor</h1>
-            <?php }else{?>
+            <?php }elseif($user_role==3){?>
             <h1 class="page-header">Add Patient</h1>
+            <?php }else{ ?>
+                <h1 class="page-header">Add Sub Admin</h1>
             <?php } ?>
 
         </div>
@@ -18,9 +20,11 @@
                 <div class="panel-heading">
                     <?php if($user_role==2){ ?>
                     <a class="btn btn-primary" href="<?php echo base_url('admin/users_list/2')?>"><i class="fa fa-th-list">&nbsp;Doctor List</i></a>
-                    <?php }else{ ?>
+                    <?php }elseif($user_role==3){ ?>
 
                      <a class="btn btn-primary" href="<?php echo base_url('admin/users_list/3')?>"><i class="fa fa-th-list">&nbsp;  Patient List</i></a>
+                    <?php }else{?>
+                        <a class="btn btn-primary" href="<?php echo base_url('admin/users_list/4')?>"><i class="fa fa-th-list">&nbsp;  Sub Admin List</i></a>
                     <?php } ?>
                 </div>
                 <div class="panel-body">
