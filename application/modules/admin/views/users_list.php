@@ -3,9 +3,12 @@
         <div class="col-lg-12">
             <?php if($role==2){ ?>
             <h1 class="page-header">Doctor List</h1>
-            <?php }else{ ?>
+            <?php }elseif($role==3){ ?>
             <h1 class="page-header">Patient List</h1>
-            <?php   } ?> </div>
+            <?php   }else{ ?>
+             <h1 class="page-header">Sub Admin List</h1>
+            <?php } ?>
+             </div>
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
@@ -22,9 +25,9 @@
                         if($user_role==1 || ($user_role==4 && $right0[0]==1)){
                     ?>
                     <?php if($role==2){ ?> <a class="btn btn-primary" href="<?php echo base_url('admin/register/null/2')?>"><i class="fa fa-th-list">&nbsp;Add Doctor</i></a>
-                    <?php }else{ ?> <a class="btn btn-primary" href="<?php echo base_url('admin/register/null/3')?>"><i class="fa fa-th-list">&nbsp;Add Patient</i></a>
-                    <?php } }else{?> <a class="btn btn-primary" href=""><i class="fa fa-th-list">&nbsp;View Subadmin</i></a>
-                    <?php }?> </div>
+                    <?php }elseif($role==3){ ?> <a class="btn btn-primary" href="<?php echo base_url('admin/register/null/3')?>"><i class="fa fa-th-list">&nbsp;Add Patient</i></a>
+                    <?php } else{?> <a class="btn btn-primary" href="<?php echo base_url('admin/register/null/4')?>"><i class="fa fa-th-list">&nbsp;Add Subadmin</i></a>
+                    <?php }}    ?> </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">

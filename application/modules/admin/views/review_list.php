@@ -15,7 +15,7 @@
             <?php endif ?>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Review List
+                    <button class="btn btn-primary"><i class="fa fa-th-list">&nbsp;Review List</i></button>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">

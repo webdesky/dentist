@@ -12,7 +12,7 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <a class="btn btn-primary" href="<?php echo base_url('admin/add_user')?>"><i class="fa fa-th-list">&nbsp;Add User</i></a>
+                    <a class="btn btn-primary" href="<?php echo base_url('admin/register/null/4')?>"><i class="fa fa-th-list">&nbsp;Add User</i></a>
 
                 </div>
                 <div class="panel-body">

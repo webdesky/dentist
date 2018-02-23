@@ -25,24 +25,29 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <form role="form" method="post" action="<?php echo base_url('admin/addRights') ?>" class="registration_form1" enctype="multipart/form-data"> <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-                                <?php 
-                                    $rights = explode(',',trim($user_rights->rights,'"'));
+                                <?php
+                                    if(isset($user_rights)){
+                                         $rights = explode(',',trim($user_rights->rights,'"'));
+                                    } 
                                     $i=0;
                                     foreach ($rights_menu as $menu) {
-                                        $right = str_split($rights[$i]);
-                                ?>
+                                        if(isset($rights)){
+                                            $right = str_split($rights[$i]);
+                                        }
+                                    ?>
                                 <div class="col-md-2"></div>                 
                                 <div class="form-group"> <label class="col-md-2"><?php echo ucfirst($menu->menu_name);?> </label>
                                     <div class="col-lg-6 col-md-6"> 
                                         <input type="hidden" name="user_role[]" value="<?php echo $menu->menu_name;?>"> 
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" name="<?php echo $menu->menu_name;?>_add" value="1" <?php if($right[0]==1){ echo 'checked';}?> class="form-control"><span class="glyphicon glyphicon-plus"></span>
+                                            <input type="checkbox" name="<?php echo $menu->menu_name;?>_add" value="1" <?php 
+                                            if(isset($right) && $right[0]==1){ echo 'checked';}?> class="form-control"><span class="glyphicon glyphicon-plus"></span>
                                         </label> 
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" name="<?php echo $menu->menu_name;?>_edit" value="1" <?php if($right[1]==1){ echo 'checked';}?> class="form-control"><span class="glyphicon glyphicon-edit"></span>
+                                            <input type="checkbox" name="<?php echo $menu->menu_name;?>_edit" value="1" <?php if(isset($right) &&$right[1]==1){ echo 'checked';}?> class="form-control"><span class="glyphicon glyphicon-edit"></span>
                                         </label> 
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" name="<?php echo $menu->menu_name;?>_delete" value="1" <?php if($right[2]==1){ echo 'checked';}?> class="form-control"><span class="glyphicon glyphicon-trash"></span>
+                                            <input type="checkbox" name="<?php echo $menu->menu_name;?>_delete" value="1" <?php if(isset($right) &&$right[2]==1){ echo 'checked';}?> class="form-control"><span class="glyphicon glyphicon-trash"></span>
                                         </label> 
                                     </div>
                                 </div>

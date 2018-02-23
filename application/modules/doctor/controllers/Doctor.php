@@ -619,7 +619,7 @@ class Doctor extends CI_Controller
         $where                 = array('sender_id' => $this->session->userdata('id'));
         $field_val             = 'message.*,users.first_name,users.last_name';
         $data['messages_list'] = $this->model->GetJoinRecord('message', 'reciever_id', 'users', 'id', $field_val, $where);
-        $data['body']          = 'mail_list';
+        $data['body']          = 'message_list';
         $this->controller->load_view($data);
     }
     
@@ -753,6 +753,15 @@ class Doctor extends CI_Controller
         $where                     = array('doctor_id' => $this->session->userdata('id'));
         $field_val                 = 'prescription.*, users.first_name,users.last_name';
         $data['prescription_list'] = $this->model->GetJoinRecord('prescription', 'patient_id', 'users', 'id', $field_val, $where);
+        foreach ($data['prescription_list'] as $key => $value) {
+            $prescription_id           = $data['prescription_list'][$key]->id;
+            $wherer1                   = array('prescription_id' => $prescription_id,'is_active' =>1);
+            $review                    = $this->model->getAllwhere('review',$wherer1);
+             if(!empty($review[0]->id)){
+                    $data['prescription_list'][$key]->review_id= $review[0]->id; 
+                    }
+                }
+            
         $data['body']              = 'prescription_list';
         $this->controller->load_view($data);
     }
@@ -761,7 +770,7 @@ class Doctor extends CI_Controller
     public function notices_list()
     {
         $where               = array('is_active' => 1);
-        $data['notice_list'] = $this->model->getAllwhere('notices', $where, 'id', 'DESC');
+        $data['notice_list'] = $this->model->getAllwhere('notices', $where, '*', 'DESC');
         $data['body']        = 'list_notice';
         $this->controller->load_view($data);
     }
@@ -829,7 +838,7 @@ class Doctor extends CI_Controller
     {
         $where             = array('sender_id' => $this->session->userdata('id'));
         $data['mail_list'] = $this->model->getAllwhere('mail', $where, 'id', 'DESC');
-        $data['body']      = 'message_list';
+        $data['body']      = 'mail_list';
         $this->controller->load_view($data);
         
     }
@@ -866,6 +875,7 @@ class Doctor extends CI_Controller
         
         $data['diagnosis'] = $this->model->getAllwhere('diagnosis', $where1, 'id', 'DESC');
         
+
         $data['body'] = 'view_prescription';
         
         $this->controller->load_view($data);
@@ -883,7 +893,7 @@ class Doctor extends CI_Controller
         
         $where1 = array('prescription_id' => $id);
         
-        $data['medicine'] = $this->model->getAllwhere('medicine', $where1, 'id', 'DESC');
+        $data['medicine'] = $this->model->getAllwhere('medicine', $where1, '', 'DESC');
         
         $data['diagnosis'] = $this->model->getAllwhere('diagnosis', $where1, 'id', 'DESC');
         
@@ -1031,6 +1041,19 @@ class Doctor extends CI_Controller
             'doctor_id' => $id
         );
         $this->model->delete('schedule', $where);
+    }
+
+    public function view_review($id){
+        $where           = array('prescription_id ' => $id);
+        $data['review']  = $this->model->getAllwhere('review', $where);
+        $doctor_id       = $data['review'][0]->doctor_id;
+        $patient_id      = $data['review'][0]->patient_id;
+        $where1          = array('id ' => $doctor_id);
+        $select          = 'first_name';
+        $data['doctor']  = $this->model->getAllwhere('users', $where1,$select); 
+        $data['body']    = 'view_review';
+        
+        $this->controller->load_view($data);
     }
     
 }

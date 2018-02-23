@@ -13,7 +13,7 @@
                 <?php echo $info_message; ?> </div>
             <?php endif ?>
             <div class="panel panel-default">
-                <div class="panel-heading"> Mail List </div>
+                <div class="panel-heading"> <a class="btn btn-primary" href="<?php echo base_url('admin/send_mail')?>"><i class="fa fa-th-list">&nbsp;Send Mail </i></a></div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">

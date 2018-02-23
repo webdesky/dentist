@@ -15,7 +15,7 @@
             <?php endif ?>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Mail List
+                   <a class="btn btn-primary" href="<?php echo base_url('doctor/send_message')?>"><i class="fa fa-list">&nbsp;</i>Add Message</a>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -31,7 +31,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $count=1; if($mail_list){ foreach ($mail_list as  $value) {?>
+                            <?php $count=1; if($messages_list){ foreach ($messages_list as  $value) {?>
                             <tr class="odd gradeX" id="tr_<?php echo $count?>">
                                 <td>
                                     <?php echo $count; ?>

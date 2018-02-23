@@ -14,7 +14,7 @@
             </div>
             <?php endif ?>
             <div class="panel panel-default">
-                <div class="panel-heading"> Schedule List </div>
+                <div class="panel-heading"><a class="btn btn-primary" href="<?php echo base_url('admin/Schedule')?>"><i class="fa fa-th-list">&nbsp;Add Schedule</i></a></div>
                 <?php 
                         $user_role  =   $this->session->userdata('user_role'); 
                         if($user_role==4){

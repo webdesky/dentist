@@ -14,7 +14,7 @@
             </div>
             <?php endif ?>
             <div class="panel panel-default">
-                <div class="panel-heading"> Schedule List </div>
+                <div class="panel-heading"><a class="btn btn-primary" href="<?php echo base_url('doctor/Schedule')?>"><i class="fa fa-th-list">&nbsp;Add Schedule</i></a></div>
               
                 <!-- /.panel-heading -->
                 <div class="panel-body">

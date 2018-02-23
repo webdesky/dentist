@@ -20,7 +20,7 @@
                     <?php endif ?> 
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Appointment List
+                             <a class="btn btn-primary" href="<?php echo base_url('patient/addAppointment')?>"><i class="fa fa-th-list">&nbsp;Add Appointment</i></a>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">

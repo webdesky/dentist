@@ -15,7 +15,7 @@
             <?php endif ?>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Prescription List
+                      <a class="btn btn-primary" href="<?php echo base_url('doctor/add_prescription')?>"><i class="fa fa-list"></i>  Add Prescription </a>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -62,7 +62,12 @@
                                     <a href="<?php echo base_url('doctor/edit_prescription/'.$value->id); ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> 
                                     | 
                                     <a href="javascript:void(0)" onclick="delete_prescription('<?php echo $value->id?>','<?php echo $count?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a> 
-
+                                    
+                                    <?php if(isset($value->review_id)){ ?>       
+                                    |
+                                     <a href="<?php echo base_url('doctor/view_review/'.$value->id); ?>"><i class="fa fa-comments" aria-hidden="true"></i></a>
+                                     <?php } ?> 
+                                       
                                 </td>
 
                             </tr>

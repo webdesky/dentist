@@ -13,7 +13,7 @@
                     <?php endif ?> 
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Documents List
+                          <a class="btn btn-primary" href="<?php echo base_url('patient/add_document')?>"><i class="fa fa-th-list">&nbsp;Add Document</i></a>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">

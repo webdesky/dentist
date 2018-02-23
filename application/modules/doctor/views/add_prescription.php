@@ -51,7 +51,7 @@
                 <div class="panel panel-default thumbnail">
                     <div class="panel-heading no-print">
                         <div class="btn-group">
-                            <a class="btn btn-primary" href="#"> <i class="fa fa-list"></i>  Prescription List </a>
+                            <a class="btn btn-primary" href="<?php echo base_url('doctor/prescription_list')?>"><i class="fa fa-list"></i>  Prescription List </a>
                         </div>
                     </div>
                     <div class="panel-body">
