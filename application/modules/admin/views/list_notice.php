@@ -30,7 +30,7 @@
                             <table class="table table-bordered display nowrap" cellspacing="0" width="100%" id="notice">
                                 <thead>
                                     <tr class="bg-primary">
-                                        <th>SL.No</th>
+                                        <th>Sr. no</th>
                                         <th>Title</th>
                                         <th>Description</th>
                                         <th>Start Date</th>
