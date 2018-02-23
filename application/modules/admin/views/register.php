@@ -53,7 +53,6 @@
                                 <div class="form-group">
                                     <label class="col-md-3">User Name *</label>
                                     <div class="col-md-9">
-                                        <input type="hidden" name="user_role" value="<?php echo $user_role; ?>">
                                         <input class="form-control" type="text" placeholder="User Name" name="user_name" autocomplete="off" value="<?php echo set_value('user_name');?>" >
                                         <span class="red"><?php echo form_error('user_name'); ?></span>
                                     </div>
@@ -168,7 +167,7 @@
                                             <option value="b-">B-</option>
                                             <option value="o+">O+</option>
                                             <option value="o-">O-</option>
-                                            <option value="ab+"> AB+</option>
+                                            <option value="ab+">AB+</option>
                                             <option value="ab-">AB-</option>
                                         </select>
                                     </div>

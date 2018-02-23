@@ -33,17 +33,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $count=1; if(!empty($review)) {  foreach ($review as $key => $value) {
+                            <?php $count=1; if(!empty($review)) { foreach ($review as $key => $value) {
                             ?>
                             <tr class="odd gradeX" id="tr_<?php echo $count;?>">
                                 <td>
                                     <?php echo $count; ?>
                                 </td>
                                 <td class="center">
-                                    <?php echo ucwords($value['patient_first_name']); ?>
+                                    <?php if(!empty($value['patient_first_name'])){ echo ucwords($value['patient_first_name']);}  ?>
                                 </td>
                                 <td class="center">
-                                    <?php echo ucwords($value['doctor_first_name']); ?>
+                                    <?php if(!empty($value['doctor_first_name'])){ echo ucwords($value['doctor_first_name']);} ?>
                                 </td>
                                 <td class="center">
                                     <div class="star-rating">

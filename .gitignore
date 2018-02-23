@@ -21,7 +21,5 @@ application.zip
 /application/views/*
 /system/*
 /install/*
-/dentist_latest.zip
-/application/modules.zip
 
 

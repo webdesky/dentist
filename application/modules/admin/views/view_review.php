@@ -1,7 +1,7 @@
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Dr.<?php echo $doctor[0]->first_name ?>Review</h1>
+                    <h1 class="page-header">Dr. <?php echo ucfirst($doctor[0]->first_name).'\'s';?> Review</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>

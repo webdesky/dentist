@@ -207,7 +207,10 @@ class Admin extends CI_Controller
             $this->form_validation->set_rules('user_name', 'User Name', 'trim|required|is_unique[users.username]');
             $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]');
             $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]|alpha_numeric');
-            $this->form_validation->set_rules('category', 'category', 'trim|required');
+
+            if($role==2){
+                $this->form_validation->set_rules('category', 'category', 'trim|required');
+            }
         }
         
         if ($this->form_validation->run() == false) {
@@ -1228,50 +1231,30 @@ class Admin extends CI_Controller
 
     public function review_list(){
         $data['review']     = $this->model->getAll('review');
-        
-        foreach ($data['review'] as $key => $value) {
-          $doctor_id           = $value['doctor_id'];
-          $patient_id          = $value['patient_id'];
-
-           $where               = array(
-                                'id ' => $doctor_id
-                               );
-           $doctor     = $this->model->getAllwhere('users', $where);
-           $where1             = array(
-                                    'id ' => $patient_id
-                                );
-          $patient   = $this->model->getAllwhere('users', $where1);
-        
-         $data['review'][$key]['doctor_first_name'] =$doctor[0]->first_name;
-         $data['review'][$key]['patient_first_name']=$patient[0]->first_name;
-
-         
+        foreach ($data['review'] as $key => $value) {          
+            $doctor_id   = $value['doctor_id'];
+            $patient_id  = $value['patient_id'];
+            $patient   = $this->model->self_join_records($patient_id,$doctor_id);
+            if(!empty($patient[0]['doctor_first_name'])){
+                $data['review'][$key]['doctor_first_name'] = $patient[0]['doctor_first_name'];
+            }
+            if(!empty($patient[0]['patient_first_name'])){
+                $data['review'][$key]['patient_first_name'] = $patient[0]['patient_first_name'];
+            }
         }
-        
         $data['body']       = 'review_list';
-
         $this->controller->load_view($data);
-
     }
 
     public function view_review($id){
-        $where               = array(
-                                'id ' => $id
-                               );
-        $data['review']      = $this->model->getAllwhere('review', $where);
-       
-        $doctor_id           = $data['review'][0]->doctor_id;
-        $patient_id          = $data['review'][0]->patient_id;
-        $where1              = array(
-                                'id ' => $doctor_id
-                               );
-        $data['doctor']      = $this->model->getAllwhere('users', $where1);
-        $where2              = array(
-                                    'id ' => $patient_id
-                                );
-        $data['patient']     = $this->model->getAllwhere('users', $where2);
-        $data['body']       = 'view_review';
-
+        $where           = array('id ' => $id);
+        $data['review']  = $this->model->getAllwhere('review', $where);
+        $doctor_id       = $data['review'][0]->doctor_id;
+        $patient_id      = $data['review'][0]->patient_id;
+        $where1          = array('id ' => $doctor_id);
+        $select          = 'first_name';
+        $data['doctor']  = $this->model->getAllwhere('users', $where1,$select); 
+        $data['body']    = 'view_review';
         $this->controller->load_view($data);
      }
 
