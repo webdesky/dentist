@@ -15,7 +15,7 @@
                     <?php endif ?> 
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Notices List
+                            <a class="btn btn-primary" href="<?php echo base_url('admin/notices')?>"><i class="fa fa-th-list">&nbsp;Add Notice</i></a>
                         </div>
                         <?php 
                             $user_role      =   $this->session->userdata('user_role'); 

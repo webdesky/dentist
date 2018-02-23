@@ -14,7 +14,7 @@
             </div>
             <?php endif ?>
             <div class="panel panel-default">
-                <div class="panel-heading"> Case Study List </div>
+                <div class="panel-heading"> <a class="btn btn-primary" href="<?php echo base_url('admin/case_study')?>"><i class="fa fa-th-list">&nbsp;Add Case Study </i></a>  </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
