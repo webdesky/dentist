@@ -1232,15 +1232,17 @@ class Admin extends CI_Controller
 
     public function review_list(){
         $data['review']     = $this->model->getAll('review');
-        foreach ($data['review'] as $key => $value) {          
-            $doctor_id   = $value['doctor_id'];
-            $patient_id  = $value['patient_id'];
-            $patient   = $this->model->self_join_records($patient_id,$doctor_id);
-            if(!empty($patient[0]['doctor_first_name'])){
-                $data['review'][$key]['doctor_first_name'] = $patient[0]['doctor_first_name'];
-            }
-            if(!empty($patient[0]['patient_first_name'])){
-                $data['review'][$key]['patient_first_name'] = $patient[0]['patient_first_name'];
+        if(!empty($data['review'])){
+            foreach ($data['review'] as $key => $value) {          
+                $doctor_id   = $value['doctor_id'];
+                $patient_id  = $value['patient_id'];
+                $patient   = $this->model->self_join_records($patient_id,$doctor_id);
+                if(!empty($patient[0]['doctor_first_name'])){
+                    $data['review'][$key]['doctor_first_name'] = $patient[0]['doctor_first_name'];
+                }
+                if(!empty($patient[0]['patient_first_name'])){
+                    $data['review'][$key]['patient_first_name'] = $patient[0]['patient_first_name'];
+                }
             }
         }
         $data['body']       = 'review_list';

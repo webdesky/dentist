@@ -753,14 +753,17 @@ class Doctor extends CI_Controller
         $where                     = array('doctor_id' => $this->session->userdata('id'));
         $field_val                 = 'prescription.*, users.first_name,users.last_name';
         $data['prescription_list'] = $this->model->GetJoinRecord('prescription', 'patient_id', 'users', 'id', $field_val, $where);
-        foreach ($data['prescription_list'] as $key => $value) {
-            $prescription_id           = $data['prescription_list'][$key]->id;
-            $wherer1                   = array('prescription_id' => $prescription_id,'is_active' =>1);
-            $review                    = $this->model->getAllwhere('review',$wherer1);
-             if(!empty($review[0]->id)){
+        
+        if(!empty($data['prescription_list'])){
+            foreach ($data['prescription_list'] as $key => $value) {
+                $prescription_id           = $data['prescription_list'][$key]->id;
+                $wherer1                   = array('prescription_id' => $prescription_id,'is_active' =>1);
+                $review                    = $this->model->getAllwhere('review',$wherer1);
+                if(!empty($review[0]->id)){
                     $data['prescription_list'][$key]->review_id= $review[0]->id; 
-                    }
                 }
+            }
+        }
             
         $data['body']              = 'prescription_list';
         $this->controller->load_view($data);

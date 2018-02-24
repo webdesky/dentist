@@ -238,15 +238,22 @@ class Patient extends CI_Controller
             'patient_id' => $this->session->userdata('id')
         );
         $field_val                 = 'prescription.*, users.first_name,users.last_name';
+
         $data['prescription_list'] = $this->model->GetJoinRecord('prescription', 'patient_id', 'users', 'id', $field_val, $where);
 
-        $prescription_id           = $data['prescription_list'][0]->id;
-        $where1                    = array(
-           'prescription_id'       => $prescription_id
-        );
-        $data['review'] = $this->model->getAllwhere('review', $where1);
-        
+        if(!empty($data['prescription_list'][0]->id)){
+            $prescription_id           = $data['prescription_list'][0]->id;
+
+            $where1                    = array(
+               'prescription_id'       => $prescription_id
+            );
+
+            $data['review'] = $this->model->getAllwhere('review', $where1);
+
+        }
+
         $data['body']              = 'prescription_list';
+
         $this->controller->load_view($data);
     }
 

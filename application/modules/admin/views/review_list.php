@@ -82,6 +82,9 @@
 </div>
 
 <script type="text/javascript">
+$('#notice').DataTable({
+        responsive: true
+    });
     function updateStatus(id, active) {
     if (active == 0) {
         data = 1;

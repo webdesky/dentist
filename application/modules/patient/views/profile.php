@@ -21,15 +21,16 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-lg-6 col-lg-offset-2">
-                            <form role="form" method="post" action="<?php echo base_url('patient/profile/') ?>" class="registration_form" class="form-horizontal" enctype="multipart/form-data">
+                        <div class="col-lg-12 col-md-12">
+                            <form role="form" method="post" action="<?php echo base_url('patient/profile/'.$users[0]->id) ?>" class="registration_form1" class="form-horizontal" enctype="multipart/form-data">
 
+                            <?php if(!empty($users[0]->profile_pic)){?>
                                 <div class="form-group">
-                                    
                                     <div class="col-sm-10">
-                                       <img src="<?php echo base_url('asset/uploads/').$users[0]->profile_pic ?>" style="max-width: 300px;max-height: 300px;">
+                                       <img src="<?php echo base_url('asset/uploads/'.$users[0]->profile_pic)?>" style="max-width: 300px;max-height: 300px;">
                                     </div>
                                 </div>
+                            <?php }?>
 
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="first name">  First Name:</label>
@@ -67,7 +68,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="Blood Group">Blood Group:</label>
                                     <div class="col-sm-10">
-                                        <select class="form-control" name="blood_group">
+                                        <select class="wide" name="blood_group">
                                         <option value="">--SELECT--</option>
                                         <option value="a+"<?php if($users[0]->blood_group=="a+"){echo 'selected';};?>>A+</option>
                                         <option value="a-"<?php if($users[0]->blood_group=="a-"){echo 'selected';};?>>A-</option>
@@ -120,7 +121,8 @@
                                 <div class="clearfix"></div>
                                 <div class="form-group">
                                     <div class="col-sm-10">
-                                        <input type="submit" name="submit" value="Submit" class="btn btn-primary">
+                                        <input type="submit" name="submit" value="Save" class="btn btn-primary">
+                                        <input type="reset"  name="reset" value="reset" class="btn">
                                     </div>
                                 </div>
                             </form>
@@ -140,6 +142,7 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
+        $('select').niceSelect();
         $("#date_of_birth").datepicker();
     })
 </script>
