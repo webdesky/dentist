@@ -88,7 +88,7 @@ class Admin extends CI_Controller
             );
             
             $field_val                = 'message.*,users.first_name,users.last_name';
-            $data['messages_list']    = $this->model->GetJoinRecord('message', 'reciever_id', 'users', 'id', $field_val, $where4);
+            $data['messages_list']    = $this->model->GetJoinRecord('message','reciever_id','users','id',$field_val,$where4);
             $data['totalAppointment'] = $this->model->getcount('appointment', $where);
             $data['totalPatient']     = $this->model->getcount('users', $where1);
             $data['totalDoctor']      = $this->model->getcount('users', $where2);
@@ -145,16 +145,9 @@ class Admin extends CI_Controller
             $this->controller->load_view($data);
         } else {
             if ($this->controller->checkSession()) {
-                
-                
-                $data  = array(
-                    'password' => md5($this->input->post('new_password', TRUE))
-                );
-                $where = array(
-                    
-                    'id' => $this->session->userdata('id')
-                );
-                
+                                
+                $data   = array('password' => md5($this->input->post('new_password', TRUE)));
+                $where  = array('id' => $this->session->userdata('id'));
                 $table  = 'users';
                 $result = $this->model->updateFields($table, $data, $where);
                 redirect('admin/change_password', 'refresh');
@@ -235,6 +228,7 @@ class Admin extends CI_Controller
                 $gender      = $this->input->post('gender');
                 $blood_group = $this->input->post('blood_group');
                 $status      = $this->input->post('status');
+                
                 if ($user_role == 2) {
                     $category       = $this->input->post('category');
                     $specialization = $this->input->post('specialization');
@@ -271,13 +265,10 @@ class Admin extends CI_Controller
                 }
                 
                 if (!empty($id)) {
-                    $where = array(
-                        'id' => $id
-                    );
+                    $where = array('id' => $id);
                     unset($data['created_at']);
                     unset($data['email']);
                     unset($data['password']);
-                    
                     $result = $this->model->updateFields('users', $data, $where);
                 } else {
                     $result = $this->model->insertData('users', $data);
@@ -301,20 +292,16 @@ class Admin extends CI_Controller
     public function users_list($user_role = null)
     {
         
-        $where = array(
-            'user_role ' => $user_role
-        );
+        $where = array('user_role ' => $user_role);
         
-        $where1 = array(
-            'role_id ' => $user_role
-        );
+        $where1 = array('role_id ' => $user_role);
         
-        $data['role']     = $user_role;
-        $data['category'] = $this->model->getAll('category');
-        
-        $data['users']     = $this->model->getAllwhere('users', $where);
-        $data['user_role'] = $this->model->getAllwhere('user_role', $where1);
-        $data['body']      = 'users_list';
+        $data['role']       = $user_role;
+        $data['category']   = $this->model->getAll('category');
+        $data['users']      = $this->model->getAllwhere('users', $where);
+        $data['user_role']  = $this->model->getAllwhere('user_role', $where1);
+        $data['body']       = 'users_list';
+
         $this->controller->load_view($data);
     }
     
@@ -336,15 +323,10 @@ class Admin extends CI_Controller
     public function assign_rights($id)
     {
         $data['user_id']     = $id;
-        $where               = array(
-            'is_active' => 1
-        );
+        $where               = array('is_active' => 1);
         $data['rights_menu'] = $this->model->getAllwhere('rights_menu', $where);
-        $where1              = array(
-            'user_id' => $id
-        );
+        $where1              = array('user_id' => $id);
         $data['user_rights'] = $this->model->getsingle('user_rights', $where1);
-       
         $data['body']        = 'assign_rights';
         $this->controller->load_view($data);
         
