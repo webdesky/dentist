@@ -510,6 +510,8 @@ class Admin extends CI_Controller
         $wheres          = array(
             'user_role' => 3
         );
+      //  $patient   = $this->model->self_join_records($patient_id,$doctor_id);
+
         $data['doctor']  = $this->model->getAllwhere('users', $where);
         $data['patient'] = $this->model->getAllwhere('users', $wheres);
         $this->controller->load_view($data);
@@ -1202,13 +1204,15 @@ class Admin extends CI_Controller
          $doctor_id          = $this->input->post('doctor_id');
          $appointment_date   = $this->input->post('appointment_date');
          $day                = date('l',strtotime($appointment_date));
+
          $where              = array(
                                 'doctor_id'              => $doctor_id,
                                 'appointment_date'       => $appointment_date
                            );
          $field_val          = 'appointment_time';
          $data               = $this->model->getAllwhere('appointment',$where,'','',$field_val);
-        
+           
+
           print_r(json_encode($data));
     }
 

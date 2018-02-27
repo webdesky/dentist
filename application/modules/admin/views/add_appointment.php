@@ -26,28 +26,28 @@
                         <div class="col-lg-12 col-md-12">
                             <form role="form" method="post" action="<?php echo base_url('admin/addAppointment') ?>" class="registration_form1" enctype="multipart/form-data">
                                 <div class="form-group"> <label class="col-md-2">Appointment Type * </label>
-                                    <div class="col-lg-6"> 
+                                    <div class="col-lg-6">
                                         <select class="wide" name="appointment_type" id="appointment_type">
                                             <option>-- Select Appointment  Type --</option>
                                             <option value="On Call">On Call</option>
                                             <option value="Online">Online</option>
-                                        </select> 
-                                        <span><?php echo form_error('appointment_type'); ?></span> 
+                                        </select>
+                                        <span><?php echo form_error('appointment_type'); ?></span>
                                     </div>
                                 </div>
                                 <div class="form-group"> <label class="col-md-2">Patient ID * </label>
-                                    <div class="col-lg-6"> 
+                                    <div class="col-lg-6">
                                         <select class="wide" name="patient_id" id="patient_id">
                                             <option>-- Select Patient id --</option>
                                              <?php foreach ($patient as $key => $value) { ?>
                                                   <option value="<?php echo $value->id; ?>"><?php echo $value->id;?></option>
                                             <?php } ?>
-                                        </select> 
+                                        </select>
                                         <span><?php echo form_error('patient_id'); ?></span>
                                     </div>
                                 </div>
                                 <div class="form-group"> <label class="col-md-2">Doctor Name * </label>
-                                    <div class="col-lg-6"> 
+                                    <div class="col-lg-6">
                                         <select class="wide" name="doctor_id" id="doctor_id" onchange="getSchedule()">
                                             <option>-- Select Doctor -- </option>
                                              <?php foreach ($doctor as $key => $value) { ?>
@@ -58,22 +58,29 @@
                                     </div>
                                 </div>
                                 <div id="data" style="display: none" class="col-lg-6 col-lg-offset-2">
-                                    <h3 align="center">Doctor Schedule</h3>
-                                    <table id="table" class="table" border="1">
-                                    <tr><th>Day</th>
-                                        <th>Start Time</th>
-                                        <th>End Time</th></tr>
-                                </table></div>
+                                    <div class="panel panel-primary">
+                                      <div class="panel-heading">Doctor Schedule</div>
+                                      <div class="panel-body">
+                                          <table id="table" class="table" border="1">
+                                                    <tr>
+                                                        <th>Day</th>
+                                                        <th>Start Time</th>
+                                                        <th>End Time</th>
+                                                    </tr>
+                                         </table>
+                                      </div>
+                                    </div>
+                                </div>
                                 <div class="form-group"> <label class="col-md-2">Appointment Date * </label>
-                                    <div class="col-md-6"> 
-                                        <input type="text" name="appointment_date" id="appointment_date" class="form-control date" autocomplete="off" readonly="readonly" placeholder="Start Date" style="width: 50%;float: left;" > 
+                                    <div class="col-md-6">
+                                        <input type="text" name="appointment_date" id="appointment_date" class="form-control date" autocomplete="off" readonly="readonly" placeholder="Start Date" style="width: 50%;float: left;">
                                         <input type="text" id="timepicker" name="appointment_time" class="form-control" autocomplete="off" readonly="readonly" placeholder="Start Time" style="width: 50%;">
                                         <span><?php echo form_error('appointment_date'); ?></span>
                                     </div>
                                 </div>
                                 <span id="error" style="color: red"></span>
                                 <div class="form-group"> <label class="col-md-2">Problem * </label>
-                                    <div class="col-lg-6"> 
+                                    <div class="col-lg-6">
                                         <textarea class="form-control" rows="5" id="problem" name="problem" placeholder="Problem"></textarea>
                                         <span><?php echo form_error('problem'); ?></span>
                                     </div>
@@ -94,101 +101,79 @@
 </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function() {
-    $('select').niceSelect();
-    $(".registration_form1").validate({
-        rules: {
-            "fname": "required",
-        },
-        submitHandler: function(form) {
-            form.submit();
-        }
-    });
-     
-   $('#timepicker').timepicker({
-    'disableTimeRanges': [
-        ['12:00 AM', '2:00 PM'],
-    ]
-      
-    });
+    $(document).ready(function() {
+        $('select').niceSelect();
+        $(".registration_form1").validate({
+            rules: {
+                "fname": "required",
+            },
+            submitHandler: function(form) {
+                form.submit();
+            }
+        });
 
-   $('#timepicker').on('blur', function() {
-    
-    var doctor_id          = $('#doctor_id').val();
-    var appointment_date   = $('#appointment_date').val();
-    var appointment_time   = $(this).val();  
+        $('#timepicker').timepicker({
+            change: function(time) {
 
-             $.ajax({
+                doctor_id = $('#doctor_id').val();
+                appointment_date = $('#appointment_date').val();
+
+                var appointment_time = $(this).val();
+
+                $.ajax({
                     type: "POST",
                     url: "<?php echo base_url('admin/get_time')?>",
-                    data: 
-                        {
-                        'doctor_id'         : doctor_id,
-                        'appointment_date'  : appointment_date
+                    data: {
+                        'doctor_id': doctor_id,
+                        'appointment_date': appointment_date
                     },
-                      success: function (data) {
+                    success: function(data) {
                         var obj = JSON.parse(data);
                         //console.log(obj);
 
-                         for (var i = 0; i < obj .length; i++) {
-                                
-                                var check= obj[i].appointment_time;
-                                console.log(check);
-                                console.log(appointment_time);
-                                if(check==appointment_time){
-                                    $('#error').text('Appointment Already Booked Please Select Another time');
-                                    
-                                }
-                                
-                                
-                           }
-                        /*var obj = JSON.parse(data);
-                        console.log(obj[0].day);
-                        for (var i = 0; i < obj .length; i++) {
-                                      //console.log(array[i].area);
-                                $('#table').append('<tr><td>' + obj[i].day +'</td><td>' + obj[i].starttime +'</td><td>' + obj[i].endtime +'</td></tr>');
-                                $('#data').show();
+                        for (var i = 0; i < obj.length; i++) {
 
-                         }*/
-                      
+                            var check = obj[i].appointment_time;
+                            console.log(check);
+                            console.log(appointment_time);
+                            if (check == appointment_time) {
+                                $('#error').text('Appointment Already Booked Please Select Another time');
+                                $('#timepicker').focus();
+
+                            }
+                        }
                     }
-            });
+                });
+            }
         });
+    });
 
-});
+    function getSchedule() {
+        var doctor_id = $('#doctor_id').val();
+        var appointment_date = $('#appointment_date').val();
+        var appointment_time = $('#timepicker').val();
+        $.ajax({
+            type: "POST",
+            url: "<?php echo base_url('admin/get_schedule')?>",
+            data: {
+                'doctor_id': doctor_id,
+                'appointment_date': appointment_date,
+                'appointment_time': appointment_time
 
-   function getSchedule(){
-        var doctor_id          = $('#doctor_id').val();
-        var appointment_date   = $('#appointment_date').val();
-        var appointment_time   = $('#timepicker').val();
-         $.ajax({
-                    type: "POST",
-                    url: "<?php echo base_url('admin/get_schedule')?>",
-                    data: 
-                        {
-                        'doctor_id'         : doctor_id,
-                        'appointment_date'  : appointment_date,
-                        'appointment_time'  : appointment_time
-                        
-                    },
+            },
 
-                   
-                    success: function (data) {
-                        var obj = JSON.parse(data);
-                        /*console.log(obj[0].day);*/
-                        for (var i = 0; i < obj .length; i++) {
-                                      //console.log(array[i].area);
-                                $('#table').append('<tr><td>' + obj[i].day +'</td><td>' + obj[i].starttime +'</td><td>' + obj[i].endtime +'</td></tr>');
-                                $('#data').show();
 
-                         }
-                      
-                    }
-            });
-        }
+            success: function(data) {
+                var obj = JSON.parse(data);
+                /*console.log(obj[0].day);*/
+                for (var i = 0; i < obj.length; i++) {
+                    //console.log(array[i].area);
+                    $('#table').append('<tr><td>' + obj[i].day + '</td><td>' + obj[i].starttime + '</td><td>' + obj[i].endtime + '</td></tr>');
+                    $('#data').show();
 
-    function gettime(data){
-             
-            
-         }
+                }
+
+            }
+        });
+    }
 </script>
