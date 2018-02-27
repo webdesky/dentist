@@ -28,7 +28,7 @@
                         <table class="table table-bordered display nowrap" cellspacing="0" width="100%" id="appointment">
                             <thead>
                                 <tr class="bg-primary">
-                                    <th>SL.No</th>
+                                    <th>Sr. no</th>
                                     <th>Appintment Type</th>
                                     <th>Appointment Id</th>
                                     <th>Patient_id</th>
@@ -59,7 +59,7 @@
                                         <?php echo $value->patient_id; ?>
                                     </td>
                                     <td class="center">
-                                        <?php echo $value->first_name.' '. $value->last_name; ?>
+                                        <?php echo ucwords($value->first_name.' '. $value->last_name); ?>
                                     </td>
                                     <td class="center">
                                         <?php echo $value->appointment_date; ?>

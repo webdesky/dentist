@@ -22,9 +22,9 @@
                         <table class="table table-bordered display nowrap" cellspacing="0" width="100%"  id="notice">
                             <thead>
                                 <tr class="bg-primary">
-                                    <th>Sr.No</th>
+                                    <th>Sr. no</th>
                                     <th>Name</th>
-                                    <th>Registration Number</th>
+                                    <th>Registration</th>
                                     <th>Owner</th>
                                     <!-- <th>City</th> -->
                                     <th>Address</th>
@@ -44,14 +44,14 @@
                                         <?php echo $count; ?> </td>
                                     <td class="center">
                                         <?php echo ucwords($value['hospital_name']); ?> </td>
-                                        <td class="center">
+                                    <td class="center">
                                         <?php echo $value['registration_number']; ?> </td>
                                     <td class="center">
                                         <?php echo ucwords($value['owner_name']); ?> </td>
                                     <!-- <td class="center">
                                         <?php //echo $value['city'];  ?> </td> -->
                                     <td class="center">
-                                        <?php echo $value['address'];  ?> </td>
+                                        <?php echo ucwords($value['address']);  ?> </td>
                                     <td class="center">
                                         <?php echo $value['staff_number'];  ?> </td>
                                     <td class="center">
@@ -60,10 +60,10 @@
                                         <?php echo $value['speciality'];  ?> </td>
                                     <td class="center">
                                         <?php echo $value['no_of_ambulance'];  ?> </td>
-                                     <td class="center">
+                                    <td class="center">
                                         <?php if($value['blood_bank']==1){ echo 'Yes';}else{ echo 'No';}  ?> </td>
                                     <td class="center">
-                                        <?php echo $value['created_at'];  ?> </td>
+                                        <?php echo date('Y-m-d',strtotime($value['created_at']));  ?> </td>
                                     <td class="center">
                                         <a href="<?php echo base_url('admin/hospitals/'.$value['id']) ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                         <a href="javascript:void(0)" onclick="delete_inventory('<?php echo $value['id']?>','<?php echo $count;?>')"><i class="fa fa-trash-o" aria-hidden="true" title="delete"></i></a></td>

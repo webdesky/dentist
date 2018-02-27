@@ -28,7 +28,7 @@
                         <table class="table table-bordered display nowrap" cellspacing="0" width="100%" id="schedule">
                             <thead>
                                 <tr class="bg-primary">
-                                    <th>SL.No</th>
+                                    <th>Sr. no</th>
                                     <th>Doctor Name</th>
                                     <th>Days Available</th>
                                     <?php if($user_role==1 || ($user_role==4 && $right2[1]==1 || $right2[2]==1)){?>

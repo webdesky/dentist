@@ -21,7 +21,7 @@
                         <table class="table table-bordered display nowrap" cellspacing="0" width="100%" id="dataTables-example">
                             <thead>
                                 <tr class="bg-primary">
-                                    <th>Sr.No</th>
+                                    <th>Sr. no</th>
                                     <th>Patient Name</th>
                                     <th>Problem</th>
                                     <th>Allergies</th>
