@@ -171,7 +171,7 @@
                                 </div>
 											       <div class="star-rating">
                               <?php
-                              for ($i=0; $i <=$review[0]->rating ; $i++) { ?>
+                              for ($i=0; $i <=$review[0]->rating-1 ; $i++) { ?>
                               <span class="fa fa-star-o" data-rating="1" style="font-size:25px;"></span>
 											        <?php } ?>
 											        <input type="hidden" name="rating" class="rating-value" value="<?php echo $review[0]->rating ?>">
