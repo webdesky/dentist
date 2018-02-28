@@ -26,6 +26,8 @@
 
 
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.bootstrap.min.css
+">
     <link href="<?php echo base_url('asset/jquery-ui.css')?>" rel="stylesheet">
     <link href="<?php echo base_url('asset/vendor/bootstrap/css/bootstrap.min.css');?>" rel="stylesheet">
     <link href="<?php echo base_url('asset/vendor/metisMenu/metisMenu.min.css');?>" rel="stylesheet">
