@@ -17,18 +17,18 @@ class Model
         
         
     }
-    function insertData($table, $dataInsert)
+    public function insertData($table, $dataInsert)
     {
         $this->CI->db->insert($table, $dataInsert);
         return $this->CI->db->insert_id();
     }
     
-    function updateFields($table, $data, $where)
+    public function updateFields($table, $data, $where)
     {
         return $this->CI->db->update($table, $data, $where);
     }
     
-    function updateAmount($table, $field1, $field2, $amt, $where)
+    public function updateAmount($table, $field1, $field2, $amt, $where)
     {
         $this->CI->db->set($field1, "$field1+$amt", FALSE);
         $this->CI->db->set($field2, "$field2+1", FALSE);
@@ -36,7 +36,7 @@ class Model
         $this->CI->db->update($table);
     }
     
-    function get_matching_record($table, $val)
+    public function get_matching_record($table, $val)
     {
         $this->CI->db->select('*');
         $this->CI->db->from($table);
@@ -51,7 +51,7 @@ class Model
             return $data;
         }
     }
-    function get_matching_record_from_job($table, $val)
+    public function get_matching_record_from_job($table, $val)
     {
         $this->CI->db->select('*');
         $this->CI->db->from($table);
@@ -69,7 +69,7 @@ class Model
         }
     }
     
-    function getsingle($table, $where = '', $fld = NULL, $order_by = '', $order = '')
+    public function getsingle($table, $where = '', $fld = NULL, $order_by = '', $order = '')
     {
         if ($fld != NULL) {
             $this->CI->db->select($fld);
@@ -88,7 +88,7 @@ class Model
         }
     }
     
-    function GetJoinRecord($table, $field_first, $tablejointo, $field_second, $field_val = '', $where = "", $group_by = '')
+    public function GetJoinRecord($table, $field_first, $tablejointo, $field_second, $field_val = '', $where = "", $group_by = '')
     {
         
         if (!empty($field_val)) {
@@ -114,7 +114,7 @@ class Model
         }
     }
     
-    function getAllwhere($table, $where = '', $select = 'all',$order_fld = '', $order_type = '',  $limit = '', $offset = '')
+    public function getAllwhere($table, $where = '', $select = 'all',$order_fld = '', $order_type = '',  $limit = '', $offset = '')
     {
         if ($order_fld != '' && $order_type != '') {
             $this->CI->db->order_by($order_fld, $order_type);
@@ -143,18 +143,16 @@ class Model
         }
     }
 
-    function self_join_records($patient_id,$doctor_id){
+    public function self_join_records($patient_id,$doctor_id){
         $this->CI->db->select('T1.first_name as doctor_first_name,T2.first_name as patient_first_name');
         $this->CI->db->from('users T1,users T2');
         $this->CI->db->where('T1.id = '.$doctor_id.' and T2.id = '.$patient_id);
         $q = $this->CI->db->get();
         return $q->result_array();
-
     }
     
-    function getAll($table, $select = '',$order_fld = '', $order_type = '',  $limit = '', $offset = '')
+    public function getAll($table, $select = '',$order_fld = '', $order_type = '',  $limit = '', $offset = '')
     {
-        
         if ($order_fld != '' && $order_type != '') {
             $this->CI->db->order_by($order_fld, $order_type);
         }
@@ -168,9 +166,11 @@ class Model
         } else if ($limit != '') {
             $this->CI->db->limit($limit);
         }
-        $q        = $this->CI->db->get($table);
+
+        $q          = $this->CI->db->get($table);
         
-        $num_rows = $q->num_rows();
+        $num_rows   = $q->num_rows();
+        
         if ($num_rows > 0) {
             foreach ($q->result_array() as $rows) {
                 $data[] = $rows;
@@ -180,7 +180,7 @@ class Model
         }
     }
     
-    function getAllwherenew($table, $where, $select = 'all')
+    public function getAllwherenew($table, $where, $select = 'all')
     {
         $this->CI->db->cache_on();
         if ($select == 'all') {
@@ -204,14 +204,14 @@ class Model
         }
     }
     
-    function getcount($table, $where)
+    public function getcount($table, $where)
     {
         $this->CI->db->where($where);
         $q = $this->CI->db->count_all_results($table);
         return $q;
     }
     
-    function getTotalsum($table, $where, $data)
+    public function getTotalsum($table, $where, $data)
     {
         $this->CI->db->where($where);
         $this->CI->db->select_sum($data);
@@ -219,7 +219,7 @@ class Model
         return $q->row();
     }
     
-    function GetJoinRecordNew($table, $field_first, $tablejointo, $field_second, $tablejointhree, $field_third,$tablejoinfour, $field_four, $field, $value, $field_val)
+    public function GetJoinRecordNew($table, $field_first, $tablejointo, $field_second, $tablejointhree, $field_third,$tablejoinfour, $field_four, $field, $value, $field_val)
     {
         $this->db->cache_on();
         $this->CI->db->select("$field_val");
@@ -249,7 +249,7 @@ class Model
     }
 
 
-    function GetSalerecords_for_view($table)
+    public function GetSalerecords_for_view($table)
     {
         $this->CI->db->select("*");
         $this->CI->db->from("$table");
@@ -263,13 +263,13 @@ class Model
             return $data;
         }
     }
-    function getRecords($table)
+    public function getRecords($table)
     {
         $query = $this->CI->db->get($table);
         return $query->result_array();
     }
     
-    function getAllRecords($table, $conditions = '')
+    public function getAllRecords($table, $conditions = '')
     {
         $this->CI->db->cache_on();
         if (!empty($conditions)) {
@@ -277,44 +277,42 @@ class Model
         } else {
             $query = $this->CI->db->get($table);
         }
-        
         $this->CI->db->cache_off();
         return $query->result_array();
     }
     
-    function delete($table, $where)
+    public function delete($table, $where)
     {
         $this->CI->db->where($where)->delete($table);
     }
     
-    function update($table, $update, $where)
+    public function update($table, $update, $where)
     {
-        
         $query = $this->CI->db->where($where)->update($table, $update);
     }
     
     // some extra function start //
-    function countRecord($table, $condition)
+    public function countRecord($table, $condition)
     {
         $this->CI->db->where($condition);
         $query = $this->CI->db->get($table);
         return $query->num_rows();
     }
     
-    function fetchMaxRecord($table, $field)
+    public function fetchMaxRecord($table, $field)
     {
         $this->CI->db->select_max($field, 'max');
         $query = $this->CI->db->get($table);
         return $query->row_array();
     }
     
-    function insertPasswordResetString($email_address, $password_reset_key)
+    public function insertPasswordResetString($email_address, $password_reset_key)
     {
         $this->CI->db->where('email', $email_address);
         $this->CI->db->update(USERS, array("password_reset_key" => $password_reset_key));
     }
     
-    function exists($fields)
+    public function exists($fields)
     {
         $query = $this->CI->db->get_where(USERS, $fields, 1, 0);
         if ($query->num_rows() == 1)
@@ -323,7 +321,7 @@ class Model
             return FALSE;
     }
     
-    function updatePassword($password, $password_reset_key)
+    public function updatePassword($password, $password_reset_key)
     {
         $this->CI->db->where('password_reset_key', $password_reset_key);
         $this->CI->db->update(USERS, array(
@@ -332,7 +330,7 @@ class Model
         ));
     }
     
-    function check_oldpassword($oldpass, $user_id)
+    public function check_oldpassword($oldpass, $user_id)
     {
         $this->CI->db->where('id', $user_id);
         $this->CI->db->where('password', md5($oldpass));

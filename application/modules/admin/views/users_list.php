@@ -6,9 +6,9 @@
             <?php }elseif($role==3){ ?>
             <h1 class="page-header">Patient List</h1>
             <?php   }else{ ?>
-             <h1 class="page-header">Sub Admin List</h1>
+            <h1 class="page-header">Sub Admin List</h1>
             <?php } ?>
-             </div>
+        </div>
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
@@ -86,11 +86,10 @@
 </div>
 </div>
 <script type="text/javascript">
-$('#users').DataTable({
-    responsive: true
-});
 
-
+    $('#users').DataTable({
+        responsive: true
+    });
     function delete_user(id) {
         swal({
             title: "Are you sure?",
@@ -115,4 +114,5 @@ $('#users').DataTable({
 
         });
     }
+    
 </script>
