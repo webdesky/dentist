@@ -88,8 +88,10 @@
 <script type="text/javascript">
 
     $('#users').DataTable({
-        responsive: true
+        responsive: true,
+        
     });
+
     function delete_user(id) {
         swal({
             title: "Are you sure?",
@@ -109,10 +111,10 @@
                 type: "POST"
             }).done(function(data) {
                 swal("Deleted!", "Record was successfully deleted!", "success");
-                $('#tr_' + tr_id).remove();
+                $('#tr_'+tr_id).remove();
             });
 
         });
     }
-    
+
 </script>
