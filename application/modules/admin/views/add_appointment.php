@@ -40,7 +40,7 @@
                                         <select class="wide" name="patient_id" id="patient_id">
                                             <option>-- Select Patient id --</option>
                                              <?php foreach ($patient as $key => $value) { ?>
-                                                  <option value="<?php echo $value->id; ?>"><?php echo $value->id;?></option>
+                                                  <option value="<?php echo $value->id; ?>"><?php echo $value->id.' '.$value->first_name;?></option>
                                             <?php } ?>
                                         </select>
                                         <span><?php echo form_error('patient_id'); ?></span>
@@ -85,7 +85,7 @@
                                         <span><?php echo form_error('problem'); ?></span>
                                     </div>
                                 </div>
-                                <div class="col-md-12" align="center"> <button type="submit" value="Save" class="btn btn-success">Save</button> <input type="reset" class="btn btn-default" value="Reset"> </div>
+                                <div class="col-md-12" align="center"> <button type="submit" value="Save" id="submit" class="btn btn-success">Save</button> <input type="reset" class="btn btn-default" value="Reset"> </div>
                             </form>
                         </div>
                     </div>
@@ -138,8 +138,13 @@
                             console.log(appointment_time);
                             if (check == appointment_time) {
                                 $('#error').text('Appointment Already Booked Please Select Another time');
+                                $('#submit').attr('disabled',true);
                                 $('#timepicker').focus();
+                                return false;
 
+                            }else{
+                                 $('#error').text('');
+                                 $("#submit").removeAttr("disabled");
                             }
                         }
                     }
@@ -166,8 +171,10 @@
             success: function(data) {
                 var obj = JSON.parse(data);
                 /*console.log(obj[0].day);*/
+                $('#table tr').html('');
                 for (var i = 0; i < obj.length; i++) {
                     //console.log(array[i].area);
+
                     $('#table').append('<tr><td>' + obj[i].day + '</td><td>' + obj[i].starttime + '</td><td>' + obj[i].endtime + '</td></tr>');
                     $('#data').show();
 

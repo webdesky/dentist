@@ -168,7 +168,7 @@
                                                     <td><?php echo ucfirst($value->first_name); ?></td>
                                                     <td><?php echo $value->subject; ?></td>
                                                     <td><?php echo $value->message; ?></td>
-                                                    <td><?php echo $value->created_at; ?></td>
+                                                    <td><?php echo date('Y-m-d',strtotime($value->created_at)) ?></td>
                                                    
                                                 </tr>
                                                  <?php $count++;  } } ?>
