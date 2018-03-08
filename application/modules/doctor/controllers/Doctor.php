@@ -980,7 +980,8 @@ class Doctor extends CI_Controller
     public function addSchedule($id = null)
     {
         $data      = $this->input->post();
-        $doctor_id = $data['doctor_id'];
+      
+        $doctor_id =  $this->session->userdata('id');
         $new       = array();
         
         foreach ($data['schedule'] as $daykey => $day) {

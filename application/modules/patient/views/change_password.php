@@ -1,17 +1,15 @@
-    <div id="page-wrapper">
+<div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">Change Password</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
-
     <style type="text/css">
-        .red {
-            color: red;
-        }
+    .red {
+        color: red;
+    }
     </style>
-
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
@@ -23,7 +21,6 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <form role="form" method="post" action="<?php echo base_url('patient/change_password') ?>" class="registration_form1" enctype="multipart/form-data">
-
                                 <div class="form-group">
                                     <label>Old Password *</label>
                                     <input class="form-control" type="password" placeholder="Old Password" onblur="check_password(this.value)" name="old_password" autocomplete="off" id="old_password" required="required" value="<?php echo set_value('old_password');?>">
@@ -55,34 +52,30 @@
     <!-- row -->
 </div>
 </div>
-
 <script type="text/javascript">
-       
-         function check_password(data){
-               var url='patient/check_password';
-                $.ajax({
-                            url: url, 
-                            type: "POST",
-                            data: {data : data},
-                            success: function(result){
-                                if(result==1){
-                                    $('#old').text('old password not match');
-                                    $('#old_password').focus();
-                                }
-                              //  window.location.reload();
-
-                        }});
+function check_password(data) {
+    var url = 'patient/check_password';
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: { data: data },
+        success: function(result) {
+            if (result == 1) {
+                $('#old').text('old password not match');
+                $('#old_password').focus();
             }
+            //  window.location.reload();
 
-            function password(confirm_password){
+        }
+    });
+}
 
-                var new_password=$('#new_password').val();
-                 if (new_password!=confirm_password) {
-                    $('#new').text("New password and confirm password not match");
-                    $('#confirm_password').val('');
-                 }
-            }
+function password(confirm_password) {
 
-
-
+    var new_password = $('#new_password').val();
+    if (new_password != confirm_password) {
+        $('#new').text("New password and confirm password not match");
+        $('#confirm_password').val('');
+    }
+}
 </script>

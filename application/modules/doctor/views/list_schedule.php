@@ -15,7 +15,6 @@
             <?php endif ?>
             <div class="panel panel-default">
                 <div class="panel-heading"><a class="btn btn-primary" href="<?php echo base_url('doctor/Schedule')?>"><i class="fa fa-th-list">&nbsp;Add Schedule</i></a></div>
-              
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
@@ -25,9 +24,7 @@
                                     <th>SL.No</th>
                                     <th>Doctor Name</th>
                                     <th>Days Available</th>
-                                    
                                     <th>Action</th>
-                                  
                             </thead>
                             <tbody>
                                 <?php 
@@ -52,10 +49,9 @@
                                         <?php echo $day ?>
                                     </td>
                                     <td class="center">
-                                       <a href="<?php echo base_url('doctor/edit_schedule/').$value->doctor_id; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                       | <a href="javascript:void(0)" onclick="delete_schedule('<?php echo $value->doctor_id?>','<?php echo $count;?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                                         </td>
-                                  </tr>
+                                        <a href="<?php echo base_url('doctor/edit_schedule/').$value->doctor_id; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> | <a href="javascript:void(0)" onclick="delete_schedule('<?php echo $value->doctor_id?>','<?php echo $count;?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                    </td>
+                                </tr>
                                 <?php $count++; } }?> </tbody>
                         </table>
                     </div>
@@ -70,9 +66,9 @@
     <!-- /.row -->
 </div>
 <script type="text/javascript">
-    $('#schedule').DataTable({
-        responsive: true
-    });
+$('#schedule').DataTable({
+    responsive: true
+});
 
 function delete_schedule(id, tr_id) {
     swal({

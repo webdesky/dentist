@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group"> <label class="col-md-2">Doctor Name * </label>
-                                        <div class="col-md-6"> <input class="form-control"  name="doctor_id" value="<?php echo ucwords($this->session->userdata('first_name').' '.$this->session->userdata('last_name')); ?>"> </div> <span><?php echo form_error('doctor_id'); ?></span> </div>.
+                                        <div class="col-md-6"> <input class="form-control" readonly  name="doctor_id" value="<?php echo ucwords($this->session->userdata('first_name').' '.$this->session->userdata('last_name')); ?>"> </div> <span><?php echo form_error('doctor_id'); ?></span> </div>
                                         <input type="hidden" id="doctor_id" value="<?php echo $this->session->userdata('id') ?>">
                                 </div>
 

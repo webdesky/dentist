@@ -51,11 +51,9 @@
                                     <td>
                                         <?php echo $count; ?>
                                     </td>
-
                                     <td>
                                         <?php echo $value->appointment_id; ?>
                                     </td>
-
                                     <td class="center">
                                         <?php echo ucwords($value->first_name." ".$value->last_name); ?>
                                     </td>
@@ -68,26 +66,20 @@
                                     <td>
                                         <?php
                                                 if($value->is_active==0){  ?>
-
                                             <button class="btn btn-danger">Pending</button>
-
                                             <?php  }else{ ?>
                                             <button class="btn btn-success">Approved</button>
-
-
                                             <?php  }
                                              ?>
                                     </td>
                                     <td class="center"><a href="<?php echo base_url('patient/view_appointment/').$value->ap_id; ?>"><i class="fa fa-eye"></i></a>
                                     </td>
-
                                 </tr>
                                 <?php $count++; }}?>
                             </tbody>
                         </table>
                     </div>
                     <!-- /.table-responsive -->
-
                 </div>
                 <!-- /.panel-body -->
             </div>
@@ -98,32 +90,32 @@
     <!-- /.row -->
 </div>
 <script type="text/javascript">
-    $('#notice').DataTable({
-        responsive: true
-    });
+$('#notice').DataTable({
+    responsive: true
+});
 
-    // function updateStatus(id, status) {
-    //     swal({
-    //         title: "Are you sure?",
-    //         text: "Are you sure that you want to Update Status?",
-    //         type: "warning",
-    //         showCancelButton: true,
-    //         closeOnConfirm: false,
-    //         confirmButtonText: "Yes, Update it!",
-    //         confirmButtonColor: "#ec6c62"
-    //     }, function() {
-    //         $.ajax({
-    //             url: "<?php //echo base_url('admin/updateStatus')?>",
-    //             data: {
-    //                 id: id,
-    //                 status: status
-    //             },
-    //             type: "POST"
-    //         }).done(function(data) {
-    //             swal("Deleted!", "Record was successfully updated!", "success");
-    //             //$('#tr_' + tr_id).remove();
-    //         });
-    //     });
+// function updateStatus(id, status) {
+//     swal({
+//         title: "Are you sure?",
+//         text: "Are you sure that you want to Update Status?",
+//         type: "warning",
+//         showCancelButton: true,
+//         closeOnConfirm: false,
+//         confirmButtonText: "Yes, Update it!",
+//         confirmButtonColor: "#ec6c62"
+//     }, function() {
+//         $.ajax({
+//             url: "<?php //echo base_url('admin/updateStatus')?>",
+//             data: {
+//                 id: id,
+//                 status: status
+//             },
+//             type: "POST"
+//         }).done(function(data) {
+//             swal("Deleted!", "Record was successfully updated!", "success");
+//             //$('#tr_' + tr_id).remove();
+//         });
+//     });
 
-    // }
+// }
 </script>

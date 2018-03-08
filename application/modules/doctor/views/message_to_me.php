@@ -49,12 +49,9 @@
                                 </td>
                             </tr>
                             <?php $count++; } }?>
-
-
                         </tbody>
                     </table>
                     <!-- /.table-responsive -->
-
                 </div>
                 <!-- /.panel-body -->
             </div>
@@ -65,9 +62,9 @@
     <!-- /.row -->
 </div>
 <script type="text/javascript">
-    $(document).ready(function(){
+$(document).ready(function() {
     $('#notice').DataTable({
-        responsive:true,
+        responsive: true,
     });
 });
 </script>
