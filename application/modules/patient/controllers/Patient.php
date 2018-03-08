@@ -74,9 +74,11 @@ class Patient extends CI_Controller
     }
     public function document_list()
     {
-        $where=array('patient_id' => $this->session->userdata('id'));
+        $where= array('patient_id' => $this->session->userdata('id'));
+
         $field_val="documents.id as did,users.first_name,documents.description,documents.file,users.id,users.last_name";
-        $data['documents_list'] = $this->model->GetJoinRecord('documents', 'doctor_id', 'users', 'id', $field_val, $where);
+        $data['documents_list'] = $this->model->GetJoinRecord('documents', 'patient_id', 'users', 'id', $field_val, $where);
+       
         $data['body']           = 'document_list';
         
         $this->controller->load_view($data);

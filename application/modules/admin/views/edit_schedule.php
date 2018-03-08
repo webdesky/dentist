@@ -48,8 +48,10 @@
                                             <option value="friday" <?php if($schedule[$key]->day=='friday'){ echo 'selected';}?>>Friday</option>
                                             <option value="saturday" <?php if($schedule[$key]->day=='saturday'){ echo 'selected';}?>>Saturday</option>
                                         </select> </div>
-                                    <div class="col-lg-2"> <input type="text" id="starttime" name="starttime[]" value="<?php echo $schedule[$key]->starttime; ?>" class="form-control date" autocomplete="off" readonly="readonly" placeholder="Start Time"> </div>
-                                    <div class="col-lg-2"> <input type="text" id="endtime" name="endtime[]" value="<?php echo $schedule[$key]->endtime; ?>" class="form-control date" autocomplete="off" readonly="readonly" placeholder="Start Time"> </div>
+                                    <div class="col-lg-2"> <input type="text" id="starttime" name="starttime[]" value="<?php echo $schedule[$key]->starttime; ?>" class="form-control time" autocomplete="off" readonly="readonly" placeholder="Start Time"> </div>
+
+                                    <div class="col-lg-2"> <input type="text" id="endtime" name="endtime[]" value="<?php echo $schedule[$key]->endtime; ?>" class="form-control time" autocomplete="off" readonly="readonly" placeholder="Start Time"> </div>
+
                                     <?php if($i>1){?>
                                     <div class="col-lg-2" style="margin-top: 5px;"><i class="fa fa-minus-circle remove" aria-hidden="true" id="removeButton" style="font-size:25px;"></i></div>
                                     <?php }else{?>
@@ -85,12 +87,12 @@ $(document).ready(function() {
             alert("Only 14 textboxes allow");
             return false;
         }
-        $("#app").after('<div class="form-group" id="box' + counter + '"><label class="col-md-2"></label><div class="col-lg-4"><select class="form-control" name="schedule[]" ><option value="" selected="selected">--SELECT DAY--</option><option value="sunday">Sunday</option><option value="monday">Monday</option><option value="tuesday">Tuesday</option><option value="wednesday">Wednesday</option><option value="thursday">Thursday</option><option value="friday">Friday</option><option value="saturday">Saturday</option></select></div> <div class="col-lg-2"><input type="text" id="starttime" name="starttime[]" class="form-control date" autocomplete="off" readonly="readonly"  placeholder="StartTime"></div><div class="col-lg-2"><input type="text" id="endtime" name="endtime[]" class="form-control date" autocomplete="off" readonly="readonly"  placeholder="EndTime"></div><i class="fa fa-minus-circle remove" aria-hidden="true" id="removeButton" style="font-size:25px;margin-left: 15px;"></i></div>');
+        $("#app").after('<div class="form-group" id="box' + counter + '"><label class="col-md-2"></label><div class="col-lg-4"><select class="wide" name="schedule[]" ><option value="" selected="selected">--SELECT DAY--</option><option value="sunday">Sunday</option><option value="monday">Monday</option><option value="tuesday">Tuesday</option><option value="wednesday">Wednesday</option><option value="thursday">Thursday</option><option value="friday">Friday</option><option value="saturday">Saturday</option></select></div> <div class="col-lg-2"><input type="text" id="starttime" name="starttime[]" class="form-control time" autocomplete="off" readonly="readonly"  placeholder="StartTime"></div><div class="col-lg-2"><input type="text" id="endtime" name="endtime[]" class="form-control time" autocomplete="off" readonly="readonly"  placeholder="EndTime"></div><i class="fa fa-minus-circle remove" aria-hidden="true" id="removeButton" style="font-size:25px;margin-left: 15px;"></i></div>');
         // $('select').select2({
         //     // dropdownAutoWidth : true,
         //     width: '50%'
         // });
-        $('.date').each(function() {
+        $('.time').each(function() {
             $(this).timepicker();
         });
         $('select').each(function() {
@@ -110,7 +112,7 @@ $(document).ready(function() {
         counter--;
         $("#box" + counter).remove();
     });
-    $('.date').each(function() {
+    $('.time').each(function() {
         $(this).timepicker();
     });
 });

@@ -115,6 +115,6 @@ $(document).ready(function() {
             }
         }
     } );
-} );
+});
 
 </script>

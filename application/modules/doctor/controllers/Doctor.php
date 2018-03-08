@@ -186,7 +186,7 @@ class Doctor extends CI_Controller
     
     public function appointment_list()
     {
-        $where                   = array('user_role' => 2);
+        $where                   = array( 'doctor_id' =>$this->session->userdata('id'));
 
         $data['appointmentList'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', '', $where);
         
