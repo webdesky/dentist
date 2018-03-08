@@ -22,12 +22,11 @@
     <script src="<?php echo base_url('asset/dist/js/dataTables.responsive.min.js')?>"></script>
     <script src="<?php echo base_url('asset/vendor/metisMenu/metisMenu.min.js');?>"></script>
     <script src="<?php echo base_url('asset/dist/js/sb-admin-2.js');?>"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+    <script src="<?php echo base_url('asset/dist/js/bootstrap-datepicker.js')?>"></script>
 
 
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.bootstrap.min.css
-">
+    <link href="<?php echo base_url('asset/dist/css/responsive.bootstrap.min.css')?>">
     <link href="<?php echo base_url('asset/jquery-ui.css')?>" rel="stylesheet">
     <link href="<?php echo base_url('asset/vendor/bootstrap/css/bootstrap.min.css');?>" rel="stylesheet">
     <link href="<?php echo base_url('asset/vendor/metisMenu/metisMenu.min.css');?>" rel="stylesheet">
@@ -40,13 +39,7 @@
     <link href="<?php echo base_url('asset/dist/css/rowReorder.dataTables.min.css')?>">
     <link href="<?php echo base_url('asset/dist/css/responsive.dataTables.min.css')?>">
     <link href="https://fonts.googleapis.com/css?family=Bellefair" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css">
-
-    <link href="<?php //echo base_url('asset/dist/css/bootstrap-datetimepicker.min.css')?>">
-
-    <!-- <link href="<?php //echo base_url('asset/ckeditor/styles.css'); ?>" rel="stylesheet"> -->
-   <link href="<?php echo base_url('asset/dist/css/dataTables.bootstrap.css');?>" rel="stylesheet"> 
-
-          
+    <link href="<?php echo base_url('asset/dist/css/datepicker.css')?>" rel="stylesheet">
+    <link href="<?php echo base_url('asset/dist/css/dataTables.bootstrap.css');?>" rel="stylesheet"> 
 </head>
 <body>

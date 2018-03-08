@@ -878,12 +878,12 @@ class Admin extends CI_Controller
                 $sender_id   = $this->session->userdata('id');
                 
                 $data = array(
-                    'reciever_id' => $reciever_id,
-                    'sender_id' => $sender_id,
-                    'subject' => $subject,
-                    'message' => trim($message),
-                    'is_active' => 1,
-                    'created_at' => date('Y-m-d H:i:s')
+                    'reciever_id'   => $reciever_id,
+                    'sender_id'     => $sender_id,
+                    'subject'       => $subject,
+                    'message'       => trim($message),
+                    'is_active'     => 1,
+                    'created_at'    => date('Y-m-d H:i:s')
                 );
 
                 $config_mail = Array(
@@ -904,6 +904,7 @@ class Admin extends CI_Controller
                 $this->email->to($reciever_id);
                 $this->email->subject($subject);
                 $this->email->message($message);
+
                 if ( ! $this->email->send()) {
                     show_error($this->email->print_debugger());
                 } 
@@ -947,14 +948,12 @@ class Admin extends CI_Controller
                 $sender_id   = $this->session->userdata('id');
                 
                 $data = array(
-                    
                     'reciever_id' => $reciever_id,
                     'sender_id' => $sender_id,
                     'subject' => $subject,
                     'message' => trim($message),
                     'is_active' => 1,
                     'created_at' => date('Y-m-d H:i:s')
-                    
                 );
                 
                 $result = $this->model->insertData('message', $data);
@@ -966,14 +965,12 @@ class Admin extends CI_Controller
     public function message_list()
     {
         $where = array(
-            
             'sender_id ' => $this->session->userdata('id')
         );
         
         $field_val             = 'message.*,users.first_name,users.last_name';
         $data['messages_list'] = $this->model->GetJoinRecord('message', 'reciever_id', 'users', 'id', $field_val, $where);
         $data['body']          = 'message_list';
-        
         $this->controller->load_view($data);
     }
     
@@ -1052,7 +1049,6 @@ class Admin extends CI_Controller
     
     public function hospitals($id = null)
     {
-        
         $this->form_validation->set_rules('hospital_name', 'Hospital Name', 'trim|required');
         $this->form_validation->set_rules('registration_number', 'Registration Number', 'trim|required');
         $this->form_validation->set_rules('owner_name', 'Owner Name', 'trim|required|xss_clean');
@@ -1226,6 +1222,7 @@ class Admin extends CI_Controller
                 $doctor_id  = $value['doctor_id'];
                 $patient_id = $value['patient_id'];
                 $patient    = $this->model->self_join_records($patient_id, $doctor_id);
+
                 if (!empty($patient[0]['doctor_first_name'])) {
                     $data['review'][$key]['doctor_first_name'] = $patient[0]['doctor_first_name'];
                 }
@@ -1247,7 +1244,7 @@ class Admin extends CI_Controller
         $doctor_id      = $data['review'][0]->doctor_id;
         $patient_id     = $data['review'][0]->patient_id;
         $where1         = array(
-            'id ' => $doctor_id
+            'id' => $doctor_id
         );
         $select         = 'first_name';
         $data['doctor'] = $this->model->getAllwhere('users', $where1, $select);
