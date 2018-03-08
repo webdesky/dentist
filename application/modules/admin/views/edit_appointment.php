@@ -28,7 +28,7 @@
             <?php endif ?>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <button class="btn btn-primary"><i class="fa fa-th-list">&nbsp;Edit Appointment</i></button>
+                    <a class="btn btn-primary" href="<?php echo base_url('admin/appointment_list/'); ?>"><i class="fa fa-th-list">&nbsp; Appointment List</i></a>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -65,7 +65,7 @@
                                             <select class="form-control" name="patient_id" id="patient_id">
                                                     
                                                      <?php foreach ($patient as $key => $value) { ?>
-                                                          <option value="<?php echo $value->id; ?>" <?php if($appointment[0]->patient_id==$value->id){ echo 'selected';}?>><?php echo $value->id;?></option>
+                                                          <option value="<?php echo $value->id; ?>" <?php if($appointment[0]->patient_id==$value->id){ echo 'selected';}?>><?php echo $value->id.' '.$value->first_name;?></option>
                                                     <?php } ?>
                                                  </select>
                                         </div>
@@ -77,7 +77,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Doctor Name * </label>
                                         <div class="col-md-9">
-                                            <select class="form-control" name="doctor_id">
+                                            <select class="form-control" name="doctor_id" id="doctor_id" onchange="getSchedule()" >
                                                     
                                                        <?php foreach ($doctor as $key => $value) { ?>
                                                             <option value="<?php echo $value->id; ?>" <?php if($appointment[0]->doctor_id==$value->id){ echo 'selected';}?>><?php echo $value->first_name;?></option>
@@ -87,7 +87,20 @@
                                         <span><?php echo form_error('doctor_id'); ?></span>
                                     </div>
                                 </div>
-
+                                <div id="data" style="display: none" class="col-lg-12">
+                                    <div class="panel panel-primary">
+                                      <div class="panel-heading">Doctor Schedule</div>
+                                      <div class="panel-body">
+                                          <table id="table" class="table" border="1">
+                                                    <tr>
+                                                        <th>Day</th>
+                                                        <th>Start Time</th>
+                                                        <th>End Time</th>
+                                                    </tr>
+                                         </table>
+                                      </div>
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-md-3">Appointment Date *</label>
@@ -98,6 +111,7 @@
                                             <input type="text" id="timepicker" name="appointment_time" class="form-control" value="<?php echo $appointment[0]->appointment_time; ?>" autocomplete="off" readonly="readonly" placeholder="Start Time" style="width: 50%;">
                                         </div>
                                     </div>
+                                    <span id="error" style="color: red"></span>
                                 </div>
 
                                 <div class="col-md-6">
@@ -110,7 +124,7 @@
                                       </div>
                                             
                                         
-                                        <button type="submit" value="Save"  class="btn btn-success">Save</button>
+                                        <button type="submit" value="Save" id="submit"  class="btn btn-success">Save</button>
                                         <input type="reset" class="btn btn-default" value="Reset">
                                     </form>
                                 </div>
@@ -129,20 +143,80 @@
  </div>
 </div>
      
-        
+
 
 <script type="text/javascript ">
     $(document).ready(function() {      
         $('#timepicker').timepicker({
-            timeFormat: 'h:mm p',
-            interval: 60,
-            minTime: '10',
-            maxTime: '6:00pm',
-            defaultTime: '11',
-            startTime: '10:00',
-            dynamic: false,
-            dropdown: true,
-            scrollbar: true
+            change: function(time) {
+
+                doctor_id = $('#doctor_id').val();
+                appointment_date = $('#appointment_date').val();
+
+                var appointment_time = $(this).val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url('patient/get_time')?>",
+                    data: {
+                        'doctor_id': doctor_id,
+                        'appointment_date': appointment_date
+                    },
+                    success: function(data) {
+                        var obj = JSON.parse(data);
+                        //console.log(obj);
+
+                        for (var i = 0; i < obj.length; i++) {
+
+                            var check = obj[i].appointment_time;
+                            console.log(check);
+                            console.log(appointment_time);
+                            if (check == appointment_time) {
+                                $('#error').text('Appointment Already Booked Please Select Another time');
+                                $('#submit').attr('disabled',true);
+                                $('#timepicker').focus();
+                                return false;
+
+                            }else{
+                                 $('#error').text('');
+                                 $("#submit").removeAttr("disabled");
+                            }
+                        }
+                    }
+                });
+            }
         });
+
     });
+  window.onload = getSchedule();
+  function getSchedule() {
+        var doctor_id = $('#doctor_id').val();
+        var appointment_date = $('#appointment_date').val();
+        var appointment_time = $('#timepicker').val();
+        $.ajax({
+            type: "POST",
+            url: "<?php echo base_url('admin/get_schedule')?>",
+            data: {
+                'doctor_id': doctor_id,
+                'appointment_date': appointment_date,
+                'appointment_time': appointment_time
+
+            },
+
+
+            success: function(data) {
+                var obj = JSON.parse(data);
+                /*console.log(obj[0].day);*/
+                 $('#table tr').html('');
+                for (var i = 0; i < obj.length; i++) {
+                    //console.log(array[i].area);
+                    $('#table').append('<tr><td>' + obj[i].day + '</td><td>' + obj[i].starttime + '</td><td>' + obj[i].endtime + '</td></tr>');
+                    $('#data').show();
+
+                }
+
+            }
+        });
+    }
+    
  </script>

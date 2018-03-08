@@ -514,16 +514,18 @@ class Admin extends CI_Controller
     public function Appointment()
     {
         $data['body'] = 'add_appointment';
+        $patient_id='2';
+        $doctor_id='3';
         $where        = array(
             'user_role' => 2
         );
         $wheres       = array(
             'user_role' => 3
         );
-        //  $patient   = $this->model->self_join_records($patient_id,$doctor_id);
-        
+       
         $data['doctor']  = $this->model->getAllwhere('users', $where);
         $data['patient'] = $this->model->getAllwhere('users', $wheres);
+
         $this->controller->load_view($data);
     }
     

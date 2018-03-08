@@ -74,9 +74,11 @@ class Patient extends CI_Controller
     }
     public function document_list()
     {
-        $where=array('patient_id' => $this->session->userdata('id'));
+        $where= array('patient_id' => $this->session->userdata('id'));
+
         $field_val="documents.id as did,users.first_name,documents.description,documents.file,users.id,users.last_name";
-        $data['documents_list'] = $this->model->GetJoinRecord('documents', 'doctor_id', 'users', 'id', $field_val, $where);
+        $data['documents_list'] = $this->model->GetJoinRecord('documents', 'patient_id', 'users', 'id', $field_val, $where);
+       
         $data['body']           = 'document_list';
         
         $this->controller->load_view($data);
@@ -491,5 +493,36 @@ class Patient extends CI_Controller
                 
             $result = $this->model->insertData('review', $data);
             redirect('patient/prescription_list');
+    }
+
+    public function get_schedule()
+    {
+        $doctor_id        = $this->input->post('doctor_id');
+        $appointment_time = $this->input->post('appointment_time');
+        $appointment_date = $this->input->post('appointment_date');
+        $day              = date('l', strtotime($appointment_date));
+        $where            = array(
+            'doctor_id' => $doctor_id
+        );
+        $data             = $this->model->getAllwhere('schedule', $where);
+        
+        print_r(json_encode($data));
+        
+    }
+    
+    public function get_time()
+    {
+        $doctor_id        = $this->input->post('doctor_id');
+        $appointment_date = $this->input->post('appointment_date');
+        $day              = date('l', strtotime($appointment_date));
+        
+        $where     = array(
+            'doctor_id' => $doctor_id,
+            'appointment_date' => $appointment_date
+        );
+        $field_val = 'appointment_time';
+        $data      = $this->model->getAllwhere('appointment', $where, '', '', $field_val);
+        
+        print_r(json_encode($data));
     }
 }

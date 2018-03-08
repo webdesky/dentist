@@ -19,7 +19,7 @@
                             <?php //echo '<pre>'; print_r($users[0]);?>
 
                             <?php if(!empty($users[0]->profile_pic)){?>
-                                <div class="col-md-12" align="center">
+                                <div class="col-md-6" align="center">
                                     <div class="form-group">
                                     <img src="<?php echo base_url('asset/uploads/').$users[0]->profile_pic ?>" style="max-width: 300px;max-height: 300px;">
                                     </div>

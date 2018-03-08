@@ -15,44 +15,44 @@
             <?php endif ?>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                   <a class="btn btn-primary" href="<?php echo base_url('doctor/send_message')?>"><i class="fa fa-list">&nbsp;</i>Add Message</a>
+                    <a class="btn btn-primary" href="<?php echo base_url('doctor/send_message')?>"><i class="fa fa-list">&nbsp;</i>Add Message</a>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
-                    <table class="table table-bordered display nowrap" cellspacing="0" width="100%" id="notice">
-                        <thead>
-                            <tr class="bg-primary">
-                                <th>Sr.No</th>
-                                <th>To</th>
-                                <th>Subject</th>
-                                <th>Description</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $count=1; if($messages_list){ foreach ($messages_list as  $value) {?>
-                            <tr class="odd gradeX" id="tr_<?php echo $count?>">
-                                <td>
-                                    <?php echo $count; ?>
-                                </td>
-                                <td class="center">
-                                    <?php echo $value->reciever_id; ?>
-                                </td>
-                                <td class="center">
-                                    <?php echo $value->subject;  ?>
-                                </td>
-                                <td class="center">
-                                    <?php echo $value->message;  ?>
-                                </td>
-                                <td class="center">
-                                    <?php echo $value->created_at;  ?>
-                                </td>
-                            </tr>
-                            <?php $count++; }}?>
-                        </tbody>
-                    </table>
-                </div>
+                        <table class="table table-bordered display nowrap" cellspacing="0" width="100%" id="notice">
+                            <thead>
+                                <tr class="bg-primary">
+                                    <th>Sr.No</th>
+                                    <th>To</th>
+                                    <th>Subject</th>
+                                    <th>Description</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $count=1; if($messages_list){ foreach ($messages_list as  $value) {?>
+                                <tr class="odd gradeX" id="tr_<?php echo $count?>">
+                                    <td>
+                                        <?php echo $count; ?>
+                                    </td>
+                                    <td class="center">
+                                        <?php echo $value->reciever_id; ?>
+                                    </td>
+                                    <td class="center">
+                                        <?php echo $value->subject;  ?>
+                                    </td>
+                                    <td class="center">
+                                        <?php echo $value->message;  ?>
+                                    </td>
+                                    <td class="center">
+                                        <?php echo $value->created_at;  ?>
+                                    </td>
+                                </tr>
+                                <?php $count++; }}?>
+                            </tbody>
+                        </table>
+                    </div>
                     <!-- /.table-responsive -->
                 </div>
                 <!-- /.panel-body -->
@@ -63,11 +63,10 @@
     </div>
     <!-- /.row -->
 </div>
-
 <script type="text/javascript">
-    $(document).ready(function(){
-        $('#notice').DataTable({
-            responsive: true
-        });
+$(document).ready(function() {
+    $('#notice').DataTable({
+        responsive: true
     });
+});
 </script>

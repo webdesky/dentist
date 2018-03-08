@@ -1,4 +1,4 @@
- <!--   <div class="form-group">
+<!--   <div class="form-group">
                                             <label>Checkboxes</label>
                                             <div class="checkbox">
                                                 <label>
@@ -16,7 +16,7 @@
                                                 </label>
                                             </div>
                                         </div> -->
-                                       <!--  <div class="form-group">
+<!--  <div class="form-group">
                                             <label>Inline Checkboxes</label>
                                             <label class="checkbox-inline">
                                                 <input type="checkbox">1
@@ -28,7 +28,7 @@
                                                 <input type="checkbox">3
                                             </label>
                                         </div> -->
-                                        <!-- <div class="form-group">
+<!-- <div class="form-group">
                                             <label>Radio Buttons</label>
                                             <div class="radio">
                                                 <label>
@@ -46,9 +46,7 @@
                                                 </label>
                                             </div>
                                         </div> -->
-
-
-                                        <!-- <div class="form-group">
+<!-- <div class="form-group">
                                             <label>Multiple Selects</label>
                                             <select multiple class="form-control">
                                                 <option>1</option>

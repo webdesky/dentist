@@ -143,7 +143,7 @@ class Model
         }
     }
 
-    public function self_join_records($patient_id,$doctor_id){
+   public function self_join_records($patient_id,$doctor_id){
         $this->CI->db->select('T1.first_name as doctor_first_name,T2.first_name as patient_first_name');
         $this->CI->db->from('users T1,users T2');
         $this->CI->db->where('T1.id = '.$doctor_id.' and T2.id = '.$patient_id);

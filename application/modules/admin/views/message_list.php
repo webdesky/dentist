@@ -20,7 +20,7 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
-                    <table class="table table-bordered display nowrap" cellspacing="0" width="100%" id="notice">
+                    <table class="table table-striped table-bordered display nowrap" cellspacing="0" width="100%" id="notice">
                         <thead>
                             <tr class="bg-primary">
                                 <th>Sr.No</th>
@@ -70,7 +70,7 @@
 </div>
 
 <script type="text/javascript">
-    function delete_message(id, tr_id) {
+    function delete_message(id,tr_id) {
         swal({
             title: "Are you sure?",
             text: "want to delete?",
@@ -95,7 +95,26 @@
             });
         });
     }
-    $('#notice').DataTable({
+   /* $('#notice').DataTable({
         responsive: true
-    });
+    });*/
+
+$(document).ready(function() {
+    $('#notice').DataTable( {
+        responsive: {
+            details: {
+                display: $.fn.dataTable.Responsive.display.modal( {
+                    header: function ( row ) {
+                        var data = row.data();
+                        return 'Details for '+data[1];
+                    }
+                } ),
+                renderer: $.fn.dataTable.Responsive.renderer.tableAll( {
+                    tableClass: 'table'
+                } )
+            }
+        }
+    } );
+});
+
 </script>

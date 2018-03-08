@@ -1,4 +1,4 @@
-<!doctype html>
+s<!doctype html>
 
 <head>
     <meta charset="utf-8">
@@ -26,15 +26,17 @@
             <label for="name">User Type:</label>
             <select name="user_role" id="soflow" required="required">
                 <option value="">--SELECT--</option>
-            <?php foreach($user_role as $role):?>
-                <option value="<?php echo $role->role_id?>"><?php echo $role->role_name?></option>
-            <?php endforeach;?>
+                <?php foreach($user_role as $role):?>
+                <option value="<?php echo $role->role_id?>">
+                    <?php echo $role->role_name?>
+                </option>
+                <?php endforeach;?>
             </select>
             <br/>
             <label for="name">Username:</label>
             <input type="name" id="username" name="username" autocomplete="off" required="required" placeholder="Username" required="required">
             <label for="username">Password:</label>
-            <input type="password" id="passowrd" name="password" autocomplete="off" required="required" placeholder="Password" required="required"/>
+            <input type="password" id="passowrd" name="password" autocomplete="off" required="required" placeholder="Password" required="required" />
             <div id="lower">
                 <input type="submit" value="Login" name="submit">
             </div>
@@ -43,9 +45,12 @@
 </body>
 
 </html>
-
 <style type="text/css">
-    body {
-            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;color: #333;background-color:#eee;
-          }
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #eee;
+}
 </style>

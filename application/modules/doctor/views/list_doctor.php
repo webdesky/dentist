@@ -74,8 +74,10 @@
                                         <?php echo $value->doctor_dob; ?>
                                     </td>
                                     <td class="center" id="status">
-                                        <?php if($value->doctor_status=='1'){ ?> <button class="btn btn-primary">Active</button>
-                                        <?php } else{ ?> <button class="btn btn-danger">Inactive</button>
+                                        <?php if($value->doctor_status=='1'){ ?>
+                                        <button class="btn btn-primary">Active</button>
+                                        <?php } else{ ?>
+                                        <button class="btn btn-danger">Inactive</button>
                                         <?php } ?> </td>
                                     <td class="center">
                                         <?php echo $value->role_name; ?>
