@@ -19,13 +19,13 @@
                             <form role="form" method="post" action="#" class="registration_form">
                                 <div class="form-group">
                                     <label>Equipment Name *</label>
-                                    <input class="form-control" type="text" name="equipment_name" placeholder="Equipment Name" autocomplete="off" required="required" value="<?php echo set_value('equipment_name'); ?>">
-                                    <span class="red"><?php echo form_error('equipment_name'); ?></span>
+                                    <input class="form-control" type="text" name="equipment_name" placeholder="Equipment Name" autocomplete="off" required="required" value="<?php echo set_value('equipment_name');?>">
+                                    <span class="red"><?php echo form_error('equipment_name');?></span>
                                 </div>
                                 <div class="form-group">
                                     <label>No of Equipment *</label>
-                                    <input type="text" name="no_of_equipment" class="form-control" placeholder="No of Equipment" autocomplete="off" required="required" value="<?php echo set_value('no_of_equipment'); ?>">
-                                    <span class="red"><?php echo form_error('no_of_equipment'); ?></span>
+                                    <input type="text" name="no_of_equipment" class="form-control" placeholder="No of Equipment" autocomplete="off" required="required" value="<?php echo set_value('no_of_equipment');?>">
+                                    <span class="red"><?php echo form_error('no_of_equipment');?></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Others</label>

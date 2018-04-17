@@ -5,10 +5,8 @@ class Admin extends CI_Controller
 {
     function __construct()
     {
-        parent::__construct();
-        
+        parent::__construct(); 
     }
-    
     public function index($msg = NULL)
     {
         if (!empty($this->session->userdata['user_role'])) {
@@ -31,7 +29,6 @@ class Admin extends CI_Controller
             $this->load->view('admin/login', $data);
         }
     }
-    
     public function add_doctor()
     {
         if ($this->controller->checkSession()) {
@@ -41,29 +38,22 @@ class Admin extends CI_Controller
             $this->index();
         }
     }
-    
-    
     public function last_executed_query()
     {
         echo $this->db->last_query();
         die;
     }
-    
     public function print_array($data = NULL)
     {
         echo '<pre>';
         print_r($data);
         echo '</pre>';
     }
-    
-    
     public function verifylogin()
     {
         $data = $this->input->post();
         $this->controller->verifylogin($data);
     }
-    
-    
     public function dashboard()
     {
         if ($this->controller->checkSession()) {
@@ -95,10 +85,9 @@ class Admin extends CI_Controller
             $data['appointmentList']  = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', '', $where3);
             $this->controller->load_view($data);
         } else {
-            $this->index(); 
+            $this->index();
         }
     }
-    
     public function check_database($password)
     {
         $username = $this->input->post('username', TRUE);
@@ -182,16 +171,13 @@ class Admin extends CI_Controller
         $msg = "You have been logged out Successfully...";
         $this->index($msg);
     }
-    
     public function get_port_data()
     {
         $val       = $this->input->get('val');
         $table     = $this->input->get('table');
         $port_data = $this->model->get_matching_record($table, $val);
         echo json_encode($port_data);
-    }
-    
-    
+    }    
     public function register($id = null, $user_role = null)
     {
         $role = $user_role;
@@ -293,11 +279,8 @@ class Admin extends CI_Controller
             }
         }
     }
-    
-    
     public function users_list($user_role = null)
     {
-        
         $where = array(
             'user_role ' => $user_role
         );
@@ -314,8 +297,6 @@ class Admin extends CI_Controller
         
         $this->controller->load_view($data);
     }
-    
-    
     public function subadmin_users_list($user_role)
     {
         $where             = array(
@@ -329,7 +310,6 @@ class Admin extends CI_Controller
         $data['body']      = 'subadmin_users_list';
         $this->controller->load_view($data);
     }
-    
     public function assign_rights($id)
     {
         $data['user_id']     = $id;
@@ -342,10 +322,8 @@ class Admin extends CI_Controller
         );
         $data['user_rights'] = $this->model->getsingle('user_rights', $where1);
         $data['body']        = 'assign_rights';
-        $this->controller->load_view($data);
-        
+        $this->controller->load_view($data);  
     }
-    
     public function addRights($id = null)
     {
         $actions = array(
@@ -394,8 +372,6 @@ class Admin extends CI_Controller
         
         $this->subadmin_users_list('4');
     }
-    
-    
     public function edit_user($id)
     {
         $where             = array(
@@ -409,8 +385,6 @@ class Admin extends CI_Controller
         $data['body']      = 'edit_user';
         $this->controller->load_view($data);
     }
-    
-    
     public function delete()
     {
         $id    = $this->input->post('id');
@@ -420,7 +394,6 @@ class Admin extends CI_Controller
         );
         $this->model->delete($table, $where);
     }
-    
     public function change_status()
     {
         $id     = $this->input->post('id');
@@ -433,7 +406,6 @@ class Admin extends CI_Controller
         );
         $result = $this->model->updateFields($table, $data, $where);
     }
-    
     public function schedule()
     {
         $data['body']   = 'add_schedule';
@@ -443,7 +415,6 @@ class Admin extends CI_Controller
         $data['doctor'] = $this->model->getAllwhere('users', $where);
         $this->controller->load_view($data);
     }
-    
     public function addSchedule($id = null)
     {
         $data      = $this->input->post();
@@ -478,16 +449,12 @@ class Admin extends CI_Controller
         $this->session->set_flashdata("info_message", "Schedule added successfully..");
         redirect("admin/schedule");
     }
-    
-    
     public function list_schedule()
     {
         $data['body']         = 'list_schedule';
         $data['scheduleList'] = $this->Common_model->getSchedule('schedule');
         $this->controller->load_view($data);
     }
-    
-    
     public function edit_schedule($id)
     {
         $data['body']     = 'edit_schedule';
@@ -501,7 +468,6 @@ class Admin extends CI_Controller
         $data['schedule'] = $this->model->GetJoinRecord('schedule', 'doctor_id', 'users', 'id', 'schedule.sc_id,schedule.doctor_id,schedule.day,schedule.starttime,schedule.endtime,users.first_name', $where);
         $this->controller->load_view($data);
     }
-    
     public function delete_schedule()
     {
         $id    = $this->input->post('id');
@@ -510,25 +476,23 @@ class Admin extends CI_Controller
         );
         $this->model->delete('schedule', $where);
     }
-    
     public function Appointment()
     {
         $data['body'] = 'add_appointment';
-        $patient_id='2';
-        $doctor_id='3';
+        $patient_id   = '2';
+        $doctor_id    = '3';
         $where        = array(
             'user_role' => 2
         );
         $wheres       = array(
             'user_role' => 3
         );
-       
+        
         $data['doctor']  = $this->model->getAllwhere('users', $where);
         $data['patient'] = $this->model->getAllwhere('users', $wheres);
-
+        
         $this->controller->load_view($data);
     }
-    
     public function addAppointment($id = null)
     {
         
@@ -566,14 +530,14 @@ class Admin extends CI_Controller
                 $data = $this->input->post();
                 
                 $data = array(
-                    'appointment_type'  => $data['appointment_type'],
-                    'appointment_id'    => 'AP'.mt_rand(100000, 999999),
-                    'patient_id'        => $data['patient_id'],
-                    'doctor_id'         => $data['doctor_id'],
-                    'appointment_date'  => $data['appointment_date'],
-                    'appointment_time'  => $data['appointment_time'],
-                    'problem'           => $data['problem'],
-                    'created_at'        => date('Y-m-d H:i:s')
+                    'appointment_type' => $data['appointment_type'],
+                    'appointment_id' => 'AP' . mt_rand(100000, 999999),
+                    'patient_id' => $data['patient_id'],
+                    'doctor_id' => $data['doctor_id'],
+                    'appointment_date' => $data['appointment_date'],
+                    'appointment_time' => $data['appointment_time'],
+                    'problem' => $data['problem'],
+                    'created_at' => date('Y-m-d H:i:s')
                 );
                 
                 if (!empty($id)) {
@@ -592,8 +556,6 @@ class Admin extends CI_Controller
             }
         }
     }
-    
-    
     public function appointment_list()
     {
         $where                   = array(
@@ -604,20 +566,18 @@ class Admin extends CI_Controller
         $data['body'] = 'list_appointment';
         $this->controller->load_view($data);
     }
-    
     public function update_status()
     {
-        $id = $this->input->post('id');
+        $id     = $this->input->post('id');
         $active = $this->input->post('active');
-        $data  = array(
+        $data   = array(
             'is_active' => $active
         );
-        $where = array(
+        $where  = array(
             'ap_id' => $id
         );
         $this->model->update('appointment', $data, $where);
     }
-    
     public function edit_appointment($id)
     {
         
@@ -639,8 +599,6 @@ class Admin extends CI_Controller
         $data['body']        = 'edit_appointment';
         $this->controller->load_view($data);
     }
-    
-    
     public function delete_appointment()
     {
         $id    = $this->input->post('id');
@@ -649,7 +607,6 @@ class Admin extends CI_Controller
         );
         $this->model->delete('appointment', $where);
     }
-    
     public function profile()
     {
         $where         = array(
@@ -716,8 +673,7 @@ class Admin extends CI_Controller
                 
             }
         }
-    }
-    
+    }    
     public function case_study($id = null)
     {
         $where  = array(
@@ -780,9 +736,8 @@ class Admin extends CI_Controller
                 }
                 $this->case_study_list();
             }
-        } 
-    }
-    
+        }
+    }    
     public function case_study_list()
     {
         $where     = array(
@@ -794,9 +749,7 @@ class Admin extends CI_Controller
         
         $data['body'] = 'case_study_list';
         $this->controller->load_view($data);
-    }
-    
-    
+    }   
     public function notices($id = null)
     {
         $this->form_validation->set_rules('title', 'title', 'trim|required');
@@ -849,14 +802,12 @@ class Admin extends CI_Controller
             }
         }
     }
-    
     public function notices_list()
     {
         $data['notice_list'] = $this->model->getAll('notices');
         $data['body']        = 'list_notice';
         $this->controller->load_view($data);
     }
-    
     public function send_mail()
     {
         $where         = array(
@@ -880,24 +831,24 @@ class Admin extends CI_Controller
                 $sender_id   = $this->session->userdata('id');
                 
                 $data = array(
-                    'reciever_id'   => $reciever_id,
-                    'sender_id'     => $sender_id,
-                    'subject'       => $subject,
-                    'message'       => trim($message),
-                    'is_active'     => 1,
-                    'created_at'    => date('Y-m-d H:i:s')
+                    'reciever_id' => $reciever_id,
+                    'sender_id' => $sender_id,
+                    'subject' => $subject,
+                    'message' => trim($message),
+                    'is_active' => 1,
+                    'created_at' => date('Y-m-d H:i:s')
                 );
-
+                
                 $config_mail = Array(
-                    'protocol'  => 'smtp',
+                    'protocol' => 'smtp',
                     'smtp_host' => 'ssl://smtp.googlemail.com',
                     'smtp_port' => '465',
                     'smtp_user' => 'webdeskytechnical@gmail.com',
                     'smtp_pass' => 'webdesky@2017',
-                    'mailtype'  => 'html',
-                    'charset'   => 'iso-8859-1',
-                    'newline'   => "\r\n"
-                    );
+                    'mailtype' => 'html',
+                    'charset' => 'iso-8859-1',
+                    'newline' => "\r\n"
+                );
                 
                 $this->load->library('email', $config_mail);
                 $this->email->set_mailtype("html");
@@ -906,17 +857,16 @@ class Admin extends CI_Controller
                 $this->email->to($reciever_id);
                 $this->email->subject($subject);
                 $this->email->message($message);
-
-                if ( ! $this->email->send()) {
+                
+                if (!$this->email->send()) {
                     show_error($this->email->print_debugger());
-                } 
-                            
+                }
+                
                 $result = $this->model->insertData('mail', $data);
                 $this->mail_list();
             }
         }
     }
-    
     public function mail_list()
     {
         $where             = array(
@@ -927,7 +877,6 @@ class Admin extends CI_Controller
         $data['body']      = 'mail_list';
         $this->controller->load_view($data);
     }
-    
     public function send_message()
     {
         $where         = array(
@@ -962,8 +911,7 @@ class Admin extends CI_Controller
                 $this->message_list();
             }
         }
-    }
-    
+    }    
     public function message_list()
     {
         $where = array(
@@ -974,8 +922,7 @@ class Admin extends CI_Controller
         $data['messages_list'] = $this->model->GetJoinRecord('message', 'reciever_id', 'users', 'id', $field_val, $where);
         $data['body']          = 'message_list';
         $this->controller->load_view($data);
-    }
-    
+    }    
     public function add_inventory($id = null)
     {
         $this->form_validation->set_rules('equipment_name', 'Equipment Name', 'trim|required');
@@ -1011,8 +958,7 @@ class Admin extends CI_Controller
                 $this->inventory_list();
             }
         }
-    }
-    
+    }    
     public function inventory_list()
     {
         $field_val              = 'inventory.*,users.first_name,users.last_name';
@@ -1022,8 +968,7 @@ class Admin extends CI_Controller
         $data['inventory_list'] = $this->model->GetJoinRecord('inventory', 'doctor_id', 'users', 'id', $field_val, $where);
         $data['body']           = 'inventory_list';
         $this->controller->load_view($data);
-    }
-    
+    }    
     public function edit_inventory($id)
     {
         $where             = array(
@@ -1033,7 +978,6 @@ class Admin extends CI_Controller
         $data['body']      = 'edit_inventory';
         $this->controller->load_view($data);
     }
-    
     public function check_password()
     {
         $old_password = $this->input->post('data');
@@ -1048,7 +992,6 @@ class Admin extends CI_Controller
             echo '1';
         }
     }
-    
     public function hospitals($id = null)
     {
         $this->form_validation->set_rules('hospital_name', 'Hospital Name', 'trim|required');
@@ -1142,19 +1085,15 @@ class Admin extends CI_Controller
                 }
                 $this->hospitals_list();
             }
-        }
-        
+        }   
     }
-    
     public function hospitals_list()
     {
         $data['hospitals_list'] = $this->model->getAll('hospitals');
         $data['body']           = 'hospitals_list';
         $this->controller->load_view($data);
     }
-    
-    
-    function file_upload($file)
+    public function file_upload($file)
     {
         if (!empty($file['logo']['name'])) {
             $f_name      = $file['logo']['name'];
@@ -1172,8 +1111,7 @@ class Admin extends CI_Controller
             }
         }
     }
-    
-    function get_record()
+    public function get_record()
     {
         $id     = $this->input->get('id');
         $table  = $this->input->get('table');
@@ -1185,8 +1123,6 @@ class Admin extends CI_Controller
         $states = $this->model->getAllwhere($table, $where, $select);
         echo json_encode($states);
     }
-    
-    
     public function get_schedule()
     {
         $doctor_id        = $this->input->post('doctor_id');
@@ -1197,10 +1133,8 @@ class Admin extends CI_Controller
             'doctor_id' => $doctor_id
         );
         $data             = $this->model->getAllwhere('schedule', $where);
-        print_r(json_encode($data));
-        
+        print_r(json_encode($data));   
     }
-    
     public function get_time()
     {
         $doctor_id        = $this->input->post('doctor_id');
@@ -1215,7 +1149,6 @@ class Admin extends CI_Controller
         $data      = $this->model->getAllwhere('appointment', $where, '', '', $field_val);
         print_r(json_encode($data));
     }
-    
     public function review_list()
     {
         $data['review'] = $this->model->getAll('review');
@@ -1224,7 +1157,7 @@ class Admin extends CI_Controller
                 $doctor_id  = $value['doctor_id'];
                 $patient_id = $value['patient_id'];
                 $patient    = $this->model->self_join_records($patient_id, $doctor_id);
-
+                
                 if (!empty($patient[0]['doctor_first_name'])) {
                     $data['review'][$key]['doctor_first_name'] = $patient[0]['doctor_first_name'];
                 }
@@ -1236,7 +1169,6 @@ class Admin extends CI_Controller
         $data['body'] = 'review_list';
         $this->controller->load_view($data);
     }
-    
     public function view_review($id)
     {
         $where          = array(
@@ -1253,15 +1185,14 @@ class Admin extends CI_Controller
         $data['body']   = 'view_review';
         $this->controller->load_view($data);
     }
-    
     public function update_review()
     {
-        $id = $this->input->post('id');
+        $id     = $this->input->post('id');
         $active = $this->input->post('active');
-        $data  = array(
+        $data   = array(
             'is_active' => $active
         );
-        $where = array(
+        $where  = array(
             'id' => $id
         );
         $this->model->update('review', $data, $where);

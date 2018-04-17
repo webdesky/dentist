@@ -140,19 +140,13 @@ $(document).ready(function() {
                 },
                 success: function(data) {
                     var obj = JSON.parse(data);
-                    //console.log(obj);
-
                     for (var i = 0; i < obj.length; i++) {
-
                         var check = obj[i].appointment_time;
-                        console.log(check);
-                        console.log(appointment_time);
                         if (check == appointment_time) {
-                            $('#error').text('Appointment Already Booked Please Select Another time');
+                            $('#error').html('Time already booked please try another..');
                             $('#submit').attr('disabled', true);
                             $('#timepicker').focus();
                             return false;
-
                         } else {
                             $('#error').text('');
                             $("#submit").removeAttr("disabled");

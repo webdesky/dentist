@@ -21,23 +21,16 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <form role="form" method="post" action="<?php echo base_url('patient/change_password') ?>" class="registration_form1" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <label>Old Password *</label>
-                                    <input class="form-control" type="password" placeholder="Old Password" onblur="check_password(this.value)" name="old_password" autocomplete="off" id="old_password" required="required" value="<?php echo set_value('old_password');?>">
-                                    <span class="red" id="old"><?php echo form_error('old_password'); ?></span>
+                                <div class="form-group"> <label class="col-md-2">Old Password * </label>
+                                    <div class="col-lg-6"> <input class="form-control" type="password" placeholder="Old Password" onblur="check_password(this.value)" name="old_password" autocomplete="off" id="old_password" required="required" value="<?php echo set_value('old_password');?>"> <span class="red" id="old"><?php echo form_error('old_password'); ?></span> </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>New Password *</label>
-                                    <input class="form-control" type="password" name="new_password" id="new_password" placeholder="New Password" autocomplete="off" required="required" value="<?php echo set_value('new_password'); ?>">
-                                    <span class="red"><?php echo form_error('new_password'); ?></span>
+                                <div class="form-group"> <label class="col-md-2">New Password * </label>
+                                    <div class="col-lg-6"> <input class="form-control" type="password" name="new_password" id="new_password" placeholder="New Password" autocomplete="off" required="required" value="<?php echo set_value('new_password'); ?>"> <span class="red"><?php echo form_error('new_password'); ?></span> </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>Confirm Password *</label>
-                                    <input type="password" name="confirm_password" id="confirm_password" onblur="password(this.value)" class="form-control" placeholder="Confirm Password" autocomplete="off" required="required" value="<?php echo set_value('confirm_password'); ?>">
-                                    <span class="red" id="new"><?php echo form_error('confirm_password'); ?></span>
+                                <div class="form-group"> <label class="col-md-2">Confirm Password * </label>
+                                    <div class="col-lg-6"> <input type="password" name="confirm_password" id="confirm_password" onblur="password(this.value)" class="form-control" placeholder="Confirm Password" autocomplete="off" required="required" value="<?php echo set_value('confirm_password'); ?>"> <span class="red" id="new"><?php echo form_error('confirm_password'); ?></span> </div>
                                 </div>
-                                <input type="submit" name="submit" class="btn btn-success" value="Submit">
-                                <button type="reset" class="btn btn-default">Reset</button>
+                                <div class="col-md-12" align="center"> <input type="submit" id="submit" disabled name="submit" class="btn btn-success" value="Save">&nbsp;<button type="reset" class="btn btn-default">Reset</button> </div>
                             </form>
                         </div>
                     </div>
@@ -63,9 +56,11 @@ function check_password(data) {
             if (result == 1) {
                 $('#old').text('old password not match');
                 $('#old_password').focus();
+            }else if (result==2) {
+                $('#old').html('Please Enter Old Password first');
+            } else {
+                $('#old').html('');
             }
-            //  window.location.reload();
-
         }
     });
 }

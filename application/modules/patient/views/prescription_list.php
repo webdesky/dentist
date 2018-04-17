@@ -15,7 +15,7 @@
             <?php endif ?>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <a class="btn btn-primary"><i class="fa fa-th-list">&nbsp;Prescription List</i></a>
+                    <i class="fa fa-th-list">&nbsp;Prescription List</i>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">

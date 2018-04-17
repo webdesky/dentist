@@ -1,5 +1,4 @@
 <div id="wrapper">
-
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
@@ -20,12 +19,15 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li style="font-size: 16px"><a href="<?php echo base_url('patient/profile')?>"><i class="fa fa-user fa-fw"></i> Update Profile</a>
+                    <li style="font-size: 16px">
+                        <a href="<?php echo base_url('patient/profile')?>"><i class="fa fa-user fa-fw"></i> Update Profile</a>
                     </li>
-                    <li style="font-size: 16px"><a href="<?php echo base_url('patient/change_password')?>"><i class="fa fa-gear fa-fw"></i> Change Password</a>
+                    <li style="font-size: 16px">
+                        <a href="<?php echo base_url('patient/change_password')?>"><i class="fa fa-gear fa-fw"></i> Change Password</a>
                     </li>
                     <li class="divider"></li>
-                    <li style="font-size: 16px"><a href="<?php echo base_url('admin/logout')?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li style="font-size: 16px">
+                        <a href="<?php echo base_url('admin/logout')?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->
@@ -50,51 +52,38 @@
                     </li>
                     <li>
                         <a href="<?php echo base_url('patient/appointment_list') ?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-
                     </li>
                     <li>
-                       <!--  <a href="<?php echo base_url('/patient/patient_status')?>"><i class="fa fa-dashboard fa-fw"></i> Status</a> -->
-
+                        <!--  <a href="<?php echo base_url('/patient/patient_status')?>"><i class="fa fa-dashboard fa-fw"></i> Status</a> -->
                         <a href="#"><i class="fa fa-file-text"></i> Documents<span class="fa arrow"></span></a>
-
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="<?php echo base_url('patient/add_document')?>">Add Documents</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo base_url('patient/document_list')?>">Documents List</a>
-                                </li>
-                            </ul>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="<?php echo base_url('patient/add_document')?>">Add Documents</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url('patient/document_list')?>">Documents List</a>
+                            </li>
+                        </ul>
                     </li>
-
-                     <li>
-
+                    <li>
                         <a href="#"><i class="fa fa-book"></i> Prescription<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="<?php echo base_url('patient/prescription_list')?>"><i class="fa fa-dashboard fa-fw"></i> Prescription List</a>
+                                <a href="<?php echo base_url('patient/prescription_list')?>">Prescription List</a>
                             </li>
-                            
                         </ul>
                     </li>
-
                     <li>
-                        <a href="#"><i class="fa fa-pencil-square"></i> Appointment <span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-calendar" aria-hidden="true"></i> Appointment <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                             <li>
-                                <a href="<?php echo base_url('patient/addAppointment') ?>"><i class="fa fa-bar-chart-o fa-fw"></i>Add Appointment<span class="fa arrow"></span></a>
-
+                            <li>
+                                <a href="<?php echo base_url('patient/addAppointment') ?>">Add Appointment<span class="fa arrow"></span></a>
                             </li>
-                             <li>
-                                <a href="<?php echo base_url('patient/appointment_list') ?>"><i class="fa fa-bar-chart-o fa-fw"></i> Appointment List<span class="fa arrow"></span></a>
+                            <li>
+                                <a href="<?php echo base_url('patient/appointment_list') ?>">Appointment List<span class="fa arrow"></span></a>
                             </li>
-                            
-                            
                         </ul>
                     </li>
-
-                 
-                    
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->

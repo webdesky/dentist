@@ -66,7 +66,8 @@
                                         <?php echo date('Y-m-d',strtotime($value['created_at']));  ?> </td>
                                     <td class="center">
                                         <a href="<?php echo base_url('admin/hospitals/'.$value['id']) ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a href="javascript:void(0)" onclick="delete_inventory('<?php echo $value['id']?>','<?php echo $count;?>')"><i class="fa fa-trash-o" aria-hidden="true" title="delete"></i></a></td>
+                                        <a href="javascript:void(0)" onclick="delete_inventory('<?php echo $value['id']?>','<?php echo $count;?>')"><i class="fa fa-trash-o" aria-hidden="true" title="delete"></i></a>
+                                    </td>
                                 </tr>
                                 <?php $count++; }}?> </tbody>
                         </table>

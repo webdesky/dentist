@@ -55,7 +55,6 @@
                                     <label>Password *</label>
                                     <input type="Password" class="form-control" id="doctor_password" name="doctor_password">
                                 </div>
-
                                 <div class="form-group">
                                     <label>Designation</label>
                                     <input type="text" class="form-control" id="doctor_designation" name="doctor_designation">
@@ -64,69 +63,56 @@
                                     <label>Address *</label>
                                     <textarea class="form-control" rows="5" id="doctor_address" name="doctor_address" placeholder="Address"></textarea>
                                 </div>
-
                                 <div class="form-group">
                                     <label>Phone No</label>
                                     <input type="text" class="form-control" id="doctor_phone_no" name="doctor_phone_no" placeholder="phone number">
                                 </div>
-
                                 <div class="form-group">
                                     <label>Mobile No</label>
                                     <input type="text" class="form-control" id="doctor_mobile_no" name="doctor_mobile_no" placeholder="mobile number">
                                 </div>
-
                                 <div class="form-group">
                                     <label>Picture</label>
                                     <input type="file" name="doctor_image" id="doctor_image" class="form-control">
                                 </div>
-
                                 <div class="form-group">
                                     <label>Short Biography</label>
                                     <textarea id="summernote" class="form-control" id="doctor_biography" name="doctor_biography"></textarea>
                                 </div>
-
-
                                 <div class="form-group">
                                     <label>Specialist</label>
                                     <input type="text" class="form-control" id="doctor_specialist" name="doctor_specialist" placeholder="Specialist">
                                 </div>
-
                                 <div class="form-group">
                                     <label>Date of Birth</label>
                                     <input type="text" id="datepicker" name="doctor_dob" class="form-control date" autocomplete="off" readonly="readonly" required="required">
-
                                 </div>
-
-
                                 <div class="form-group">
                                     <label>Sex *</label>
                                     <label class="radio-inline">
-                                                <input type="radio" name="doctor_gender"  value="male" checked>Male
-                                            </label>
+                                        <input type="radio" name="doctor_gender"  value="male" checked>Male
+                                    </label>
                                     <label class="radio-inline">
-                                                <input type="radio" name="doctor_gender"  value="female">Female
-                                            </label>
-
+                                        <input type="radio" name="doctor_gender"  value="female">Female
+                                    </label>
                                 </div>
                                 <div class="form-group">
                                     <label>Blooad Group</label>
                                     <select class="form-control" id="doctor_bg name=" doctor_bg ">
-                                                <option value="A+ ">A+</option>
-                                                <option value="A- ">A-</option>
-                                                <option value="B+ ">B+</option>
-                                                <option value="B- ">B-</option>
-                                                <option value="O+ ">O+</option>
-                                                <option value="O- ">O-</option>
-                                                 <option value="AB+ ">AB+</option>
-                                                 <option value="AB- ">AB-</option>
-                                            </select>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                    </select>
                                         </div>
-
                                         <div class="form-group ">
                                             <label>Education/Degree</label>
                                             <textarea id="education " class="form-control " id="doctor_qualification " name="doctor_qualification "></textarea>
                                         </div>
-
                                         <div class="form-group ">
                                             <label>Status</label>
                                             <label class="radio-inline ">
@@ -135,9 +121,7 @@
                                             <label class="radio-inline ">
                                                 <input type="radio " name="doctor_status "  value="0 ">Inactive
                                             </label>
-                                            
                                         </div>
-                                        
                                         <button type="submit " name="submit " class="btn btn-success ">Submit Button</button>
                                         <button type="reset " class="btn btn-default ">Reset Button</button>
                                     </form>

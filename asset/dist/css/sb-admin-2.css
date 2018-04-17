@@ -3,7 +3,7 @@
  body {
      background-color: #f8f8f8;
      font-family: 'Bellefair', serif;
-     font-size: 16px;
+     font-size: 18px;
 }
  #wrapper {
      width: 100%;
@@ -560,3 +560,8 @@
 input {
     text-transform: capitalize;
   }
+
+
+.nav>li>a {
+    font-size: 18px !important;
+}

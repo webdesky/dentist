@@ -59,9 +59,10 @@
                                             <input type="text" id="appointment_date" name="appointment_date" class="form-control date" autocomplete="off" readonly="readonly" placeholder="Start Date"> </div>
                                         <div class="col-lg-4">
                                             <input type="text" id="timepicker" name="appointment_time" class="form-control" autocomplete="off" readonly="readonly" placeholder="Start Time"> </div>
+                                             <span id="error" style="color: red"></span>
                                     </div>
                                 </div>
-                                <span id="error" style="color: red"></span>
+                            
                                 <div class="form-group">
                                     <label class="col-md-2">Problem * </label>
                                     <div class="col-lg-6">
@@ -125,7 +126,7 @@ $(document).ready(function() {
                         console.log(check);
                         console.log(appointment_time);
                         if (check == appointment_time) {
-                            $('#error').text('Appointment Already Booked Please Select Another time');
+                            $('#error').html('Time already booked please try another..');
                             $('#submit').attr('disabled', true);
                             $('#timepicker').focus();
                             return false;

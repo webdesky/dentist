@@ -17,7 +17,8 @@
                 <div class="panel-heading"> <a class="btn btn-primary" href="<?php echo base_url('admin/Appointment')?>"><i class="fa fa-th-list">&nbsp;Add Appointment </i></a> </div>
                 <?php 
                             $user_role  =   $this->session->userdata('user_role'); 
-                            if($user_role==4){
+                            if($user_role==4)
+                            {
                                 $rights     =   explode(',',trim($this->session->userdata('rights')->rights,'"'));   
                                 $right3     =   str_split($rights[3]);
                             }
@@ -31,12 +32,12 @@
                                     <th>Sr. no</th>
                                     <th>Appintment Type</th>
                                     <th>Appointment Id</th>
-                                    <th>Patient_id</th>
+                                    <th>Patient id</th>
                                     <th>Doctor Name</th>
                                     <th>Appointment Date</th>
                                     <th>Appointment Time</th>
                                     <th>Status</th>
-                                    <?php if($user_role==1 || ($user_role==4 && $right3[1]==1 || $right3[2]==1)){?>
+                                    <?php if($user_role==1||($user_role==4 && $right3[1]==1||$right3[2]==1)){?>
                                     <th>Action</th>
                                     <?php }?> </tr>
                             </thead>

@@ -1,5 +1,4 @@
 <div id="wrapper">
-
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
@@ -66,19 +65,18 @@
                         <a href="<?php echo base_url('admin/index')?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
 
-                    <li> <a href="#"><i class="fa fa-hospital-o" aria-hidden="true"></i> Hospitals<span class="fa arrow"></span></a>
+                    <!-- <li> <a href="#"><i class="fa fa-hospital-o" aria-hidden="true"></i> Hospitals<span class="fa arrow"></span></a>
                      <ul class="nav nav-second-level">
                         <?php //if($user_role==1 || ($user_role==4 && $right0[0]==1)){?>
                             <li>
-                                <a href="<?php echo base_url('admin/hospitals')?>">Add Hospital</a>
+                                <a href="<?php //echo base_url('admin/hospitals')?>">Add Hospital</a>
                             </li>
                         <?php //}?>
                             <li>
-                                <a href="<?php echo base_url('admin/hospitals_list')?>">View Hospital</a>
+                                <a href="<?php //echo base_url('admin/hospitals_list')?>">View Hospital</a>
                             </li>
-
                         </ul>
-                    </li>
+                    </li> -->
                 
                     <li>
                         <a href="#"><i class="fa fa-user-md" aria-hidden="true"></i> Doctors<span class="fa arrow"></span></a>
@@ -91,10 +89,8 @@
                             <li>
                                 <a href="<?php echo base_url('admin/users_list/2')?>">View Doctor</a>
                             </li>
-
                         </ul>
                     </li>
-
                     <li>
                         <a href="#"><i class="fa fa-wheelchair" aria-hidden="true"></i> Patients<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -109,7 +105,6 @@
 
                         </ul>
                     </li>
-
                     <li>
                         <a href="#"><i class="fa fa-calendar" aria-hidden="true"></i> Schedule<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -124,7 +119,6 @@
 
                         </ul>
                     </li>
-
                     <li>
                         <a href="#"><i class="fa fa-pencil" aria-hidden="true"></i> Appointments<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -136,10 +130,8 @@
                             <li>
                                 <a href="<?php echo base_url('admin/appointment_list/')?>">View Appointment</a>
                             </li>
-
                         </ul>
                     </li>
-
                     <li>
                         <a href="#"><i class="fa fa-book" aria-hidden="true"></i> Prescriptions<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level treeview-menu">
@@ -159,35 +151,28 @@
                             </li> -->
                         </ul>
                     </li>
-
                     <li>
                         <a href="#"><i class="fa fa-bell" aria-hidden="true"></i> NoticeBoard<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level treeview-menu">
-                        <?php if($user_role==1 || ($user_role==4 && $right5[0]==1)){?>
+                            <?php if($user_role==1 || ($user_role==4 && $right5[0]==1)){?>
                             <li>
                                 <a href="<?php echo base_url('admin/notices/')?>">Add Notice</a>
                             </li>
-                        <?php }?>
+                            <?php }?>
                             <li>
                                 <a href="<?php echo base_url('admin/notices_list/')?>">Notice List</a>
                             </li>
-
                         </ul>
                     </li>
-
                     <li>
                         <a href="#"><i class="fa fa-comments" aria-hidden="true"></i> Reviews<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level treeview-menu">
-                      
                             <li>
                                 <a href="<?php echo base_url('admin/review_list/')?>">Review List</a>
                             </li>
-
                         </ul>
                     </li>
-
                     <?php if($user_role==1){?>
-
                     <li>
                         <a href="#"><i class="fa fa-users"></i> Sub Admin<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -197,14 +182,12 @@
                             <li>
                                 <a href="<?php echo base_url('admin/users_list/4')?>">View Sub Admin</a>
                             </li>
-
                             <li>
                                 <a href="#"><i class="fa fa-users"></i> Rights <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li>
                                         <a href="<?php echo base_url('admin/subadmin_users_list/4')?>">Assign Rights</a>
                                     </li>
-
                                 </ul>
                             </li>
                         </ul>
@@ -220,7 +203,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <li>
                         <a href="#"><i class="fa fa-envelope" aria-hidden="true"></i> Mail<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level treeview-menu">
@@ -235,17 +217,14 @@
                             </li> -->
                         </ul>
                     </li>
-
                     <li>
                         <a href="#"><i class="fa fa-wrench" aria-hidden="true"></i> Inventory<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level treeview-menu">
                             <li>
                                 <a href="<?php echo base_url('admin/inventory_list/')?>">Inventory Requests</a>
                             </li>
-                            
                         </ul>
                     </li>
-
                     <?php }?>
                 </ul>
             </div>

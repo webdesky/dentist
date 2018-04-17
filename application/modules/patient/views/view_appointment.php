@@ -25,7 +25,7 @@
             <?php endif ?>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <button class="btn btn-primary"><i class="fa fa-th-list">&nbsp;View Appointment</i></button>
+                    <i class="fa fa-th-list">&nbsp;View Appointment</i>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -72,7 +72,7 @@
                                     <div class="col-lg-6">
                                         <textarea class="form-control" rows="5" id="problem" " name="problem " placeholder="Problem " disabled="disabled "><?php echo $appointment[0]->problem; ?></textarea></div>
                                         </div>
-                                        <button type="button " class="btn btn-default " onclick="go_back(); ">Back</button>
+                                        <!-- <button type="button " class="btn btn-default " onclick="go_back(); ">Back</button> -->
                                     </form>
                                 </div>
                                 
