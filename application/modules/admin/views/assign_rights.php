@@ -73,7 +73,7 @@
 </div>
 
 <style type="text/css">
-    .glyphicon {
+.glyphicon {
     top: 4px;
     left: 12px;
 }
