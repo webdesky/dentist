@@ -47,7 +47,7 @@
                                             <?php }?> </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $i=1; foreach($users as $users_list){?>
+                                        <?php $i=1; if(!empty($users)){ foreach($users as $users_list){?>
                                         <tr id="tr_<?php echo $i;?>">
                                             <td>
                                                 <?php echo $i; ?> </td>
@@ -69,7 +69,7 @@
                                                 <?php }if($user_role==1 || ($user_role==4 && $right0[2]==1)){?> <a href="javascript:void(0)" onclick="delete_user('<?php echo $users_list->id?>','<?php echo $i;?>')"><span class="glyphicon glyphicon-trash"></span></a>
                                                 <?php }?> </td>
                                             <?php }?> </tr>
-                                        <?php $i++;}?> </tbody>
+                                        <?php $i++;}}?> </tbody>
                                 </table>
                             </div>
                         </div>

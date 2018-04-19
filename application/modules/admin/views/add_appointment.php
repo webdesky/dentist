@@ -125,12 +125,9 @@ $(document).ready(function() {
 
     $('#timepicker').timepicker({
         change: function(time) {
-
             doctor_id = $('#doctor_id').val();
             appointment_date = $('#appointment_date').val();
-
             var appointment_time = $(this).val();
-
             $.ajax({
                 type: "POST",
                 url: "<?php echo base_url('admin/get_time')?>",
@@ -169,22 +166,14 @@ function getSchedule() {
             'doctor_id': doctor_id,
             'appointment_date': appointment_date,
             'appointment_time': appointment_time
-
         },
-
-
         success: function(data) {
             var obj = JSON.parse(data);
-            /*console.log(obj[0].day);*/
             $('#table tr').html('');
             for (var i = 0; i < obj.length; i++) {
-                //console.log(array[i].area);
-
                 $('#table').append('<tr><td>' + obj[i].day + '</td><td>' + obj[i].starttime + '</td><td>' + obj[i].endtime + '</td></tr>');
                 $('#data').show();
-
             }
-
         }
     });
 }

@@ -48,8 +48,6 @@
                                         <?php echo $value['registration_number']; ?> </td>
                                     <td class="center">
                                         <?php echo ucwords($value['owner_name']); ?> </td>
-                                    <!-- <td class="center">
-                                        <?php //echo $value['city'];  ?> </td> -->
                                     <td class="center">
                                         <?php echo ucwords($value['address']);  ?> </td>
                                     <td class="center">
@@ -66,7 +64,7 @@
                                         <?php echo date('Y-m-d',strtotime($value['created_at']));  ?> </td>
                                     <td class="center">
                                         <a href="<?php echo base_url('admin/hospitals/'.$value['id']) ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a href="javascript:void(0)" onclick="delete_inventory('<?php echo $value['id']?>','<?php echo $count;?>')"><i class="fa fa-trash-o" aria-hidden="true" title="delete"></i></a>
+                                        <a href="javascript:void(0)" onclick="delete_hospital('<?php echo $value['id']?>','<?php echo $count;?>')"><i class="fa fa-trash-o" aria-hidden="true" title="delete"></i></a>
                                     </td>
                                 </tr>
                                 <?php $count++; }}?> </tbody>
@@ -93,29 +91,48 @@
     });
 
 
-function delete_inventory(id , tr_id) {
-    swal({
-        title: "Are you sure?",
-        text: "you want to delete?",
-        type: "warning",
-        showCancelButton: true,
-        closeOnConfirm: false,
-        confirmButtonText: "Yes, Delete it!",
-        confirmButtonColor: "#ec6c62"
-    }, function() {
+    function delete_hospital(id, tr_id) {
+        swal({
+            title: "Are you sure?",
+            text: "you want to delete?",
+            type: "warning",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            confirmButtonText: "Yes, Delete it!",
+            confirmButtonColor: "#ec6c62"
+        }, function() {
+            $.ajax({
+                url: "<?php echo base_url('admin/delete')?>",
+                data: {
+                    id: id,
+                    table: 'hospitals'
+                },
+                type: "POST",
+                success: function () {
+                    swal("Done!", "It was succesfully deleted!", "success");
+                    $('#tr_' + tr_id).remove();
+                    delete_hospital_from_users(id);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    swal("Error deleting!", "Please try again", "error");
+                }
+            });
+        });
+    }
+
+    function delete_hospital_from_users(id) {
         $.ajax({
-            url: "<?php echo base_url('admin/delete')?>",
+            url: "<?php echo base_url('admin/delete_hospital_from_user')?>",
             data: {
                 id: id,
-                table: 'hospitals'
+                table: 'users'
             },
-            type: "POST"
-        }).done(function(data) {
-            swal("Deleted!", "Record was successfully deleted!", "success");
-            $('#tr_' + tr_id).remove();
-        }).error(function(data) {
-            swal("Oops", "We couldn't connect to the server!", "error");
+            type: "POST",
+            success: function(response) {
+            },
+            error: function() {
+                alert("error");
+            }
         });
-    });
-}
+    }
 </script>

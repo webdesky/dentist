@@ -32,27 +32,38 @@
                         <div class="col-lg-12 col-md-12">
 
                             <form role="form" method="post"  action="<?php echo base_url('admin/register') ?>" class="registration_form12" enctype="multipart/form-data">
-                                <?php if($user_role==2){ ?>
-
+                                <?php if($user_role==2){?>
                                 <div class="col-md-6">
                                     <div class="">
-                                        <label class="col-md-3">Doctor Category*</label>
+                                        <label class="col-md-3">Hospital *</label>
                                         <div class="col-md-9">
-                                        <select class="wide" name="category" id="category" style="height: 35px;"> 
-                                            <option data-display="-- Select Category --">-- Select Category --</option>
-                                            <?php foreach ($category as $key => $value) { ?>
-                                            <option value="<?php echo $value['id']; ?>"><?php echo $value['name']; ?></option>
+                                        <select class="form-control" name="hospitals_id" id="hospitals_id" onchange="get_specialty($(this).find(':selected').data('speciality'))"> 
+                                            <option value="">-- Select Hospital --</option>
+                                            <?php foreach ($hospitals as $value) { ?>
+                                            <option data-speciality="<?php echo $value->other_speciality;?>" value="<?php echo $value->id; ?>"><?php echo ucfirst($value->hospital_name); ?></option>
                                             <?php   } ?>
+                                        </select>    
+                                        <span class="red"><?php echo form_error('hospitals_id'); ?></span>
+                                         </div>      
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="">
+                                        <label class="col-md-3">Doctor Speciality *</label>
+                                        <div class="col-md-9">
+                                        <select class="form-control" name="category" id="category"> 
+                                            <!-- <option value="">-- Select Speciality --</option>
+                                            <?php foreach ($category as $value) { ?>
+                                            <option value="<?php echo $value->id; ?>"><?php echo $value->name; ?></option>
+                                            <?php   } ?> -->
                                         </select>    
                                         <span class="red"><?php echo form_error('category'); ?></span>
                                          </div>      
                                     </div>
                                 </div>
-
+                                <div class="clearfix"></div>
+                                <br/>
                                 <?php } ?>
-
-
-
                               <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="col-md-3">User Name *</label>
@@ -163,7 +174,7 @@
                                 <div class="formas"> 
                                     <label class="col-md-3">Blood Group</label>
                                     <div class="col-md-9">
-                                        <select class="wide" name="blood_group">
+                                        <select class="form-control" name="blood_group">
                                             <option data-display="-- Select Blood Group --">-- Select Blood Group --</option>
                                             <option value="a+">A+</option>
                                             <option value="a-">A-</option>
@@ -239,8 +250,6 @@
  
 <script type="text/javascript">
     $(document).ready(function(){
-        $('select').niceSelect();
-
         $("#datepicker").datepicker(
             {
                 format: 'yyyy-mm-dd',
@@ -248,4 +257,25 @@
             }
         );
     });
+
+    function get_specialty(id){
+        $.ajax({
+            url: "<?php echo base_url('admin/get_speciality_by_hospital')?>",
+            method: "GET",
+            dataType: "json",
+            data: {
+                id: id,
+            },
+            success: function(response) {
+                var option = '<option value="">-- Select Speciality --</option>';
+                for (var i = 0; i < response.length; i++) {
+                    option += '<option value="' + response[i].id + '">' + response[i].name + '</option>';
+                }
+                $('#category').html(option);
+            },
+            error: function() {
+                alert('Something went wrong please try again later');
+            }
+        });
+    }
 </script>

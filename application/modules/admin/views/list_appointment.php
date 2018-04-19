@@ -16,13 +16,13 @@
             <div class="panel panel-default">
                 <div class="panel-heading"> <a class="btn btn-primary" href="<?php echo base_url('admin/Appointment')?>"><i class="fa fa-th-list">&nbsp;Add Appointment </i></a> </div>
                 <?php 
-                            $user_role  =   $this->session->userdata('user_role'); 
-                            if($user_role==4)
-                            {
-                                $rights     =   explode(',',trim($this->session->userdata('rights')->rights,'"'));   
-                                $right3     =   str_split($rights[3]);
-                            }
-                        ?>
+                    $user_role  =   $this->session->userdata('user_role'); 
+                    if($user_role==4)
+                    {
+                        $rights     =   explode(',',trim($this->session->userdata('rights')->rights,'"'));   
+                        $right3     =   str_split($rights[3]);
+                    }
+                ?>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">

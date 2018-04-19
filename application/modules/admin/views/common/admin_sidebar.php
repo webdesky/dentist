@@ -8,7 +8,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-            <a class="navbar-brand" href="<?php echo base_url()?>">Dentist</a>
+            <a class="navbar-brand" href="<?php echo base_url()?>">Hello, <?php echo ucfirst($this->session->userdata('first_name'));?></a>
         </div>
         <!-- /.navbar-header -->
 
@@ -33,18 +33,23 @@
         </ul>
         <!-- /.navbar-top-links -->
 
-        <?php 
-            $user_role  =   $this->session->userdata('user_role'); 
-            if($user_role==4){
-                $rights     =   explode(',',trim($this->session->userdata('rights')->rights,'"'));   
-                $right0     =   str_split($rights[0]);
-                $right1     =   str_split($rights[1]);
-                $right2     =   str_split($rights[2]);
-                $right3     =   str_split($rights[3]);
-                $right4     =   str_split($rights[4]);
-                $right5     =   str_split($rights[5]);
-            }
-        ?>
+<?php
+$user_role = $this->session->userdata('user_role');
+
+if ($user_role == 4) {
+    $rights = explode(',', trim($this->session->userdata('rights')->rights, '"'));
+    $right0 = str_split($rights[0]);
+    $right1 = str_split($rights[1]);
+    $right2 = str_split($rights[2]);
+    $right3 = str_split($rights[3]);
+    $right4 = str_split($rights[4]);
+    $right5 = str_split($rights[5]);
+    $right6 = str_split($rights[6]);
+    $right7 = str_split($rights[7]);
+    $right8 = str_split($rights[8]);
+    $right9 = str_split($rights[9]);
+}
+?>
 
 
         <div class="navbar-default sidebar" role="navigation">
@@ -64,20 +69,32 @@
                     <li>
                         <a href="<?php echo base_url('admin/index')?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
-
-                    <!-- <li> <a href="#"><i class="fa fa-hospital-o" aria-hidden="true"></i> Hospitals<span class="fa arrow"></span></a>
+                    <?php if($user_role==1){?>
+                    <li> <a href="#"><i class="fa fa-hospital-o" aria-hidden="true"></i> Hospitals<span class="fa arrow"></span></a>
                      <ul class="nav nav-second-level">
+                            <li>
+                                <a href="<?php echo base_url('admin/hospitals')?>">Add Hospital</a>
+                            </li>
+                       
+                            <li>
+                                <a href="<?php echo base_url('admin/hospitals_list')?>">View Hospital</a>
+                            </li>
+                        </ul>
+                    </li>
+                     <?php }?>
+                    <li>
+                        <a href="#"><i class="fa fa-user-md" aria-hidden="true"></i> Speciality<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
                         <?php //if($user_role==1 || ($user_role==4 && $right0[0]==1)){?>
                             <li>
-                                <a href="<?php //echo base_url('admin/hospitals')?>">Add Hospital</a>
+                                <a href="<?php echo base_url('admin/speciality')?>">Add Speciality</a>
                             </li>
                         <?php //}?>
                             <li>
-                                <a href="<?php //echo base_url('admin/hospitals_list')?>">View Hospital</a>
+                                <a href="<?php echo base_url('admin/speciality_list/')?>">View Speciality</a>
                             </li>
                         </ul>
-                    </li> -->
-                
+                    </li>
                     <li>
                         <a href="#"><i class="fa fa-user-md" aria-hidden="true"></i> Doctors<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -135,17 +152,18 @@
                     <li>
                         <a href="#"><i class="fa fa-book" aria-hidden="true"></i> Prescriptions<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level treeview-menu">
+                        <?php if($user_role==1 || ($user_role==4 && $right4[0]==1)){?>
                             <li>
                                 <a href="<?php echo base_url('admin/case_study/')?>">Add Patient Case Study</a>
                             </li>
+                         <?php }?>
                             <li>
                                 <a href="<?php echo base_url('admin/case_study_list/')?>">Patient Case Study List</a>
                             </li>
-                        <?php if($user_role==1 || ($user_role==4 && $right4[0]==1)){?>
                             <!-- <li>
                                 <a href="javascript:void(0)">Add Prescription</a>
                             </li> -->
-                        <?php }?>
+                       
                            <!--  <li>
                                 <a href="javascript:void(0)">Prescription List</a>
                             </li> -->
@@ -164,6 +182,8 @@
                             </li>
                         </ul>
                     </li>
+
+                    <?php if($user_role==1 || ($user_role==4 && $right6[0]==1)){?>
                     <li>
                         <a href="#"><i class="fa fa-comments" aria-hidden="true"></i> Reviews<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level treeview-menu">
@@ -172,7 +192,7 @@
                             </li>
                         </ul>
                     </li>
-                    <?php if($user_role==1){?>
+                    <?php } if($user_role==1){?>
                     <li>
                         <a href="#"><i class="fa fa-users"></i> Sub Admin<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -192,23 +212,29 @@
                             </li>
                         </ul>
                     </li>
+                    <?php }?>
                     <li>
                         <a href="#"><i class="fa fa-commenting" aria-hidden="true"></i> Message<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level treeview-menu">
+                        <?php if($user_role==1 || ($user_role==4 && $right7[0]==1)){?>
                             <li>
                                 <a href="<?php echo base_url('admin/send_message/')?>">Send Message</a>
                             </li>
+                        <?php }?>
                             <li>
                                 <a href="<?php echo base_url('admin/message_list/')?>">Message List</a>
                             </li>
                         </ul>
                     </li>
+                   
                     <li>
                         <a href="#"><i class="fa fa-envelope" aria-hidden="true"></i> Mail<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level treeview-menu">
+                         <?php if($user_role==1 || ($user_role==4 && $right8[0]==1)){?>
                             <li>
                                 <a href="<?php echo base_url('admin/send_mail/')?>">Send Mail</a>
                             </li>
+                        <?php }?>
                             <li>
                                 <a href="<?php echo base_url('admin/mail_list/')?>">Mail to Me</a>
                             </li>
@@ -217,6 +243,7 @@
                             </li> -->
                         </ul>
                     </li>
+                    <?php if($user_role==1 || ($user_role==4 && $right9[0]==1)){?>
                     <li>
                         <a href="#"><i class="fa fa-wrench" aria-hidden="true"></i> Inventory<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level treeview-menu">
@@ -225,7 +252,7 @@
                             </li>
                         </ul>
                     </li>
-                    <?php }?>
+                    <?php } ?>
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->
