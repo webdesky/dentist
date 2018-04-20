@@ -15,25 +15,45 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12 col-md-o12">
-                            <form role="form" method="post" action="<?php echo base_url('admin/register/'.$users[0]->id) ?>" class="registration_form1" enctype="multipart/form-data">
+                            <form role="form" method="post" action="<?php echo base_url('admin/register/'.$users[0]->id.'/'.$users[0]->user_role) ?>" class="registration_form1" enctype="multipart/form-data">
+
+                                <?php if($users[0]->user_role==2){?>
                                 <div class="col-md-6">
                                     <div class="">
-                                        <label class="col-md-3">User Role *</label>
+                                        <label class="col-md-3">Hospital *</label>
                                         <div class="col-md-9">
-                                            <select class="wide" name="user_role" required="required">
-                                                <?php foreach($user_role as $role){?>
-                                                <option value="<?php echo $role->role_id;?>" <?php if($users[0]->user_role==$role->role_id){ echo 'selected';}?>><?php echo ucfirst($role->role_name);?></option>
-                                                <?php }?>
-                                            </select>
-                                        </div>
-                                        <span><?php echo form_error('user_role'); ?></span>
+                                        <select class="form-control" name="hospitals_id" id="hospitals_id" onchange="get_specialty($(this).find(':selected').data('speciality'))"> 
+                                            <option value="">-- Select Hospital --</option>
+                                            <?php foreach ($hospitals as $value) {  ?>
+                                            <option value="<?php echo $value->id; ?>" <?php if($users[0]->hospital_id==$value->id){ echo 'selected';}?>><?php echo ucfirst($value->hospital_name); ?></option>
+                                            <?php   } ?>
+                                        </select>    
+                                        <span class="red"><?php echo form_error('hospitals_id'); ?></span>
+                                         </div>      
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="">
+                                        <label class="col-md-3">Doctor Speciality *</label>
+                                        <div class="col-md-9">
+                                        <select class="form-control" name="specialization" id="category"> 
+                                            <!-- <option value="">-- Select Speciality --</option>
+                                            <?php foreach ($category as $value) { ?>
+                                            <option value="<?php echo $value->id; ?>"><?php echo $value->name; ?></option>
+                                            <?php   } ?> -->
+                                        </select>    
+                                        <span class="red"><?php echo form_error('category'); ?></span>
+                                         </div>      
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <br/>
+                                <?php } ?>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-md-3">User Name *</label>
                                         <div class="col-md-9">
-                                            <input class="form-control" type="text" placeholder="User Name" name="user_name" autocomplete="off" required="required" value="<?php echo $users[0]->username;?>" >
+                                            <input class="form-control" type="text" placeholder="User Name" name="user_name" autocomplete="off" required="required" value="<?php echo $users[0]->username;?>" readonly="readonly">
                                         </div>
                                         <span class="red"><?php echo form_error('user_name'); ?></span>
                                     </div>
@@ -131,7 +151,7 @@
                                     <div class="">
                                         <label class="col-md-3">Blood Group</label>
                                         <div class="col-md-9">
-                                            <select class="wide" name="blood_group">
+                                            <select class="form-control" name="blood_group">
                                                 <option value="a+" <?php if($users[0]->blood_group=="a+"){?> selected<?php }?>>A+</option>
                                                 <option value="a-" <?php if($users[0]->blood_group=="a-"){?> selected<?php }?>>A-</option>
                                                 <option value="b+" <?php if($users[0]->blood_group=="b+"){?> selected<?php }?>>B+</option>
@@ -172,12 +192,38 @@
     <!-- row -->
 </div>
 </div>
+
 <script type="text/javascript">
-    $('select').niceSelect();
-    $("#datepicker").datepicker(
-            {
-                format: 'yyyy-mm-dd',
-                autoclose: true
+
+$(document).ready(function() {
+    <?php if($users[0]->user_role==2){?>
+    get_specialty('<?php echo $doctor[0]->specialization;?>');
+    <?php }?>
+});
+
+$("#datepicker").datepicker({
+    format: 'yyyy-mm-dd',
+    autoclose: true
+});
+
+function get_specialty(id) {
+    $.ajax({
+        url: "<?php echo base_url('admin/get_speciality_by_hospital')?>",
+        method: "GET",
+        dataType: "json",
+        data: {
+            id: id,
+        },
+        success: function(response) {
+            var option = '<option value="">-- Select Speciality --</option>';
+            for (var i = 0; i < response.length; i++) {
+                option += '<option value="' + response[i].id + '">' + response[i].name + '</option>';
             }
-        );
+            $('#category').html(option);
+        },
+        error: function() {
+            alert('Something went wrong please try again later');
+        }
+    });
+}
 </script>

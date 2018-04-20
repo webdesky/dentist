@@ -269,6 +269,24 @@
     border-color: #0a46a8 !important;
 }
 
+.panel-first {
+     border-color: #664343;
+}
+ .panel-first > .panel-heading {
+     border-color: #664343;
+     color: white;
+     background-color: #664343;
+}
+ .panel-first > a {
+     color: #664343;
+}
+ .panel-first > a:hover {
+     color: #3d8b3d;
+}
+
+
+
+
  .panel-green {
      border-color: green;
 }
@@ -298,18 +316,18 @@
      color: #b52b27;
 }
  .panel-yellow {
-     border-color:red;
+     border-color:#a80808;
 }
  .panel-yellow > .panel-heading {
-     border-color: red;
+     border-color: #a80808;
      color: white;
-     background-color: red;
+     background-color: #a80808;
 }
  .panel-yellow > a {
-     color: red;
+     color: #a80808;
 }
  .panel-yellow > a:hover {
-     color: red;
+     color: #a80808;
 }
  .timeline {
      position: relative;

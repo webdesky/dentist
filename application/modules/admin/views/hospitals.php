@@ -31,7 +31,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-md-3">Registration No. *</label>
@@ -46,12 +45,11 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Registration Date. *</label>
                                         <div class="col-md-9">
-                                            <input class="form-control" type="text" placeholder="Registration Date" name="registration_date" id="registration_date" autocomplete="off" value="<?php if(!empty($hospitals_details[0]->date_of_birth)){ echo $hospitals_details[0]->date_of_birth;}else{ echo set_value('registration_date');}?>">
+                                            <input class="form-control" type="text" placeholder="Registration Date" name="registration_date" id="registration_date" autocomplete="off" value="<?php if(!empty($hospitals_details[0]->date_of_birth)){ echo date("Y-m-d", strtotime($hospitals_details[0]->date_of_birth));}else{ echo set_value('registration_date');}?>">
                                             <span class="red"><?php echo form_error('registration_date'); ?></span>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-md-3">Owner Name *</label>
@@ -71,7 +69,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-md-3">Username *</label>
@@ -91,9 +88,6 @@
                                     </div>
                                 </div>
                                  <?php }?>
-
-                               
-
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-md-3">Mobile No *</label>
@@ -103,7 +97,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-md-3">Phone No *</label>
@@ -113,9 +106,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                
-
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-md-3">Country *</label>
@@ -210,9 +200,12 @@
                                         <div class="col-md-9">
                                         <select class="form-control" name="other_speciality[]" id="other_speciality" multiple="multiple"> 
                                             <option value="">-- Select Speciality --</option>
-                                            <?php foreach ($speciality as $value) { ?>
-                                            <option value="<?php echo $value->id; ?>"><?php echo $value->name; ?></option>
-                                            <?php   } ?>
+                                            <?php 
+                                            	foreach ($speciality as $value) { 
+                                            	$HiddenProducts = explode(',',$hospitals[0]->other_speciality);
+											?>
+                                            <option value="<?php echo $value->id; ?>" <?php if (in_array($value->id, $HiddenProducts)) { echo "selected";}?>><?php echo $value->name; ?></option>
+                                            <?php } ?>
                                         </select>    
                                             <span class="red"><?php echo form_error('other_speciality'); ?></span>
                                         </div>

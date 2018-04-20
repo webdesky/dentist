@@ -51,7 +51,7 @@
                                     <div class="">
                                         <label class="col-md-3">Doctor Speciality *</label>
                                         <div class="col-md-9">
-                                        <select class="form-control" name="category" id="category"> 
+                                        <select class="form-control" name="specialization" id="category"> 
                                             <!-- <option value="">-- Select Speciality --</option>
                                             <?php foreach ($category as $value) { ?>
                                             <option value="<?php echo $value->id; ?>"><?php echo $value->name; ?></option>
@@ -114,18 +114,6 @@
                                     </div>
                                 </div>
                             </div>
-                             <?php if($user_role==2){ ?>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="col-md-3">Specialization *</label>
-                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" id="specialization" name="specialization" placeholder="Specialization" >
-                                    <span class="red"><?php echo form_error('specialization'); ?></span>
-                                </div>
-                                </div>
-                            </div>
-                            <?php } ?>
-
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="col-md-3">Date of Birth*</label>
@@ -135,10 +123,49 @@
                                     </div>
                                 </div>
                             </div>
-
-                           
-                            
                              <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-md-3">Country *</label>
+                                        <div class="col-md-9">
+                                            <select class="form-control" name="country" id="country" onchange="get_state(this.value)">
+                                            <option data-display="-- Select Country --">-- Select Country --</option>
+                                            <?php foreach($countries as $country){?>
+                                            <option value="<?php echo $country['id']?>" <?php if(!empty($hospitals[0]->country) && $hospitals[0]->country==$country['id']){ echo 'selected';}?>><?php echo $country['name']?></option>
+                                            <?php }?>
+                                        </select>
+                                            <span class="red"><?php echo form_error('country'); ?></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-md-3">State *</label>
+                                        <div class="col-md-9">
+                                            <select class="form-control" name="state" id="state" onchange="get_city(this.value)">
+                                                <option value="">-- Select State --</option>
+                                                <?php if(!empty($hospitals[0]->state_id)){?>
+                                                    <option value="<?php echo $hospitals[0]->state_id;?>" selected><?php echo $hospitals[0]->state_name;?></option>
+                                                <?php }?>
+                                            </select>
+                                            <span class="red"><?php echo form_error('state'); ?></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-md-3">City *</label>
+                                        <div class="col-md-9">
+                                            <select class="form-control" name="city" id="city">
+                                                <option value="">-- Select City --</option>
+                                                <?php if(!empty($hospitals[0]->city)){?>
+                                                    <option value="<?php echo $hospitals[0]->city;?>" selected><?php echo $hospitals[0]->city_name;?></option>
+                                                <?php }?>
+                                            </select>
+                                            <span class="red"><?php echo form_error('city'); ?></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="col-md-3">Phone No</label>
                                     <div class="col-md-9">
@@ -277,5 +304,56 @@
                 alert('Something went wrong please try again later');
             }
         });
+    }
+    function get_state(country_id) {
+        $.ajax({
+            url: "<?php echo base_url('admin/get_record')?>",
+            method: "GET",
+            dataType: "json",
+            data: {
+                id: country_id,
+                table: 'states',
+                field: 'country_id'
+            },
+            success: function(response) {
+                var option = '<option value="">-- Select State --</option>';
+                for (var i = 0; i < response.length; i++) {
+                    option += '<option value="' + response[i].id + '">' + response[i].name + '</option>';
+                }
+                $("#state").html('');
+                $("#state").html(option);
+                $("#state").niceSelect('update');
+            },
+            error: function() {
+                alert("error");
+            }
+        });
+
+    }
+
+    function get_city(state_id) {
+        $.ajax({
+            url: "<?php echo base_url('admin/get_record')?>",
+            method: "GET",
+            dataType: "json",
+            data: {
+                id: state_id,
+                table: 'cities',
+                field: 'state_id'
+            },
+            success: function(response) {
+                var option = '<option value="">-- Select City --</option>';
+                for (var i = 0; i < response.length; i++) {
+                    option += '<option value="' + response[i].id + '">' + response[i].name + '</option>';
+                }
+                $("#city").html('');
+                $("#city").html(option);
+                $("#city").niceSelect('update');
+            },
+            error: function() {
+                alert("error");
+            }
+        });
+
     }
 </script>

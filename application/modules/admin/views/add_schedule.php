@@ -8,10 +8,7 @@
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
-            <?php if(validation_errors()){?>
-            <div class="alert alert-danger"> <strong>Danger!</strong>
-                <?php echo validation_errors(); ?> </div>
-            <?php }if(!empty($msg)){?>
+            <?php if(!empty($msg)){?>
             <div class="alert alert-success">
                 <?php echo $msg;?> </div>
             <?php }?>
@@ -25,19 +22,23 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <form role="form" method="post" action="<?php echo base_url('admin/addSchedule') ?>" class="registration_form1" enctype="multipart/form-data">
-                                <div> <label class="col-md-2">Doctor Name * </label>
-                                    <div class="col-lg-9"> <select class="wide" name="doctor_id">
-                                            <option data-display="--Select Doctor--">--Select Doctor--</option>
-                                            <?php foreach ($doctor as $key => $value) { ?>
-                                            <option value="<?php echo $value->id; ?>"><?php echo ucwords($value->first_name.' '.$value->last_name); ?></option>
+                                <div> <label class="col-md-2">Hospital * </label>
+                                    <div class="col-lg-9"> <select class="wide" name="hospital_id" onchange="get_doctor(this.value)">
+                                            <option value="">--Select Hospital--</option>
+                                            <?php foreach ($hospitals as $value) { ?>
+                                            <option value="<?php echo $value->id; ?>" <?php echo set_select('hospital_id', $value->id); ?>><?php echo ucwords($value->hospital_name); ?></option>
                                             <?php } ?>
-                                         </select> <span class="red"><?php echo form_error('title'); ?></span> </div>
+                                         </select> <span class="red"><?php echo form_error('hospital_id'); ?></span> </div>
+                                </div>
+                                <div> <label class="col-md-2">Doctor Name * </label>
+                                    <div class="col-lg-9"> <select class="wide" name="doctor_id" id="doctor_id">
+                                         </select> <span class="red"><?php echo form_error('doctor_id'); ?></span> </div>
                                 </div>
                                 <div class="clearfix"></div>
                                 <div id="app"> <label class="col-md-2">Available Days * </label>
                                     <div class="col-lg-4"> 
-                                        <select class="wide" name="schedule[]">
-                                            <option data-display="--Select Days--">--Select Days--</option>
+                                        <select class="wide" name="schedule[]" required="required">
+                                            <option value="">--Select Days--</option>
                                             <option value="sunday">Sunday</option>
                                             <option value="monday">Monday</option>
                                             <option value="tuesday">Tuesday</option>
@@ -46,9 +47,10 @@
                                             <option value="friday">Friday</option>
                                             <option value="saturday">Saturday</option>
                                         </select> 
+                                        <span class="red"><?php echo form_error('schedule[]'); ?></span>
                                     </div>
-                                    <div class="col-lg-2"> <input type="text" id="starttime" name="starttime[]" class="form-control time" autocomplete="off" readonly="readonly" placeholder="StartTime"> </div>
-                                    <div class="col-lg-2"> <input type="text" id="endtime" name="endtime[]" class="form-control time" autocomplete="off" readonly="readonly" placeholder="EndTime"> </div>
+                                    <div class="col-lg-2"> <input type="text" id="starttime" name="starttime[]" class="form-control time" autocomplete="off" readonly="readonly" placeholder="StartTime" required="required"> <!-- <span class="red"><?php //echo form_error('starttime[]'); ?></span> --></div>
+                                    <div class="col-lg-2"> <input type="text" id="endtime" name="endtime[]" class="form-control time" autocomplete="off" readonly="readonly" placeholder="EndTime" required="required"> <!-- <span class="red"><?php //echo form_error('endtime[]'); ?></span> --></div>
                                     <div class="col-lg-2" style="margin-top: 5px;"> <i class="fa fa-plus-circle" aria-hidden="true" id="add" style="font-size: 25px;"></i> </div>
                                 </div>
                                 <div class="clearfix"></div>
@@ -72,25 +74,24 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $('select').niceSelect();
-
     var counter = 2;
     $("#add").click(function() {
         if (counter > 14) {
             alert("Only 14 textboxes allow");
             return false;
         }
-        $("#app").after('<div class="form-group" id="box'+counter+'"><label class="col-md-2"></label><div class="col-lg-4"><select class="wide" name="schedule[]"><option>--Select Days--</option><option value="sunday">Sunday</option><option value="Monday">Monday</option><option value="tuesday">Tuesday</option><option value="wednesday">Wednesday</option><option value="thursday">Thursday</option><option value="friday">Friday</option><option value="saturday">Saturday</option></select></div> <div class="col-lg-2"><input type="text" id="starttime" name="starttime[]" class="form-control time" autocomplete="off" readonly="readonly"  placeholder="StartTime"></div><div class="col-lg-2"><input type="text" id="endtime" name="endtime[]" class="form-control time" autocomplete="off" readonly="readonly"  placeholder="EndTime"></div><i class="fa fa-minus-circle remove" aria-hidden="true" id="removeButton" style="font-size:25px;margin-left: 15px;"></i></div>');
-        
-        $('.time').each(function(){
+        $("#app").append('<div class="form-group" id="box' + counter + '"><label class="col-md-2"></label><div class="col-lg-4"><select class="wide" name="schedule[]" required="required"><option>--Select Days--</option><option value="sunday">Sunday</option><option value="Monday">Monday</option><option value="tuesday">Tuesday</option><option value="wednesday">Wednesday</option><option value="thursday">Thursday</option><option value="friday">Friday</option><option value="saturday">Saturday</option></select></div> <div class="col-lg-2"><input type="text" id="starttime" name="starttime[]" class="form-control time" autocomplete="off" readonly="readonly"  placeholder="StartTime" required="required"></div><div class="col-lg-2"><input type="text" id="endtime" name="endtime[]" class="form-control time" autocomplete="off" readonly="readonly"  placeholder="EndTime" required="required"></div><i class="fa fa-minus-circle remove" aria-hidden="true" id="removeButton" style="font-size:25px;margin-left: 15px;"></i></div>');
+
+        $('.time').each(function() {
             $(this).timepicker();
         });
-        $('select').each(function(){
+        $('select').each(function() {
             $(this).niceSelect();
         });
         counter++;
     });
 
-    $("body").on("click", ".remove", function(){
+    $("body").on("click", ".remove", function() {
         $(this).closest("div").remove();
     });
 
@@ -98,4 +99,5 @@ $(document).ready(function() {
         $(this).timepicker();
     });
 });
+
 </script>
