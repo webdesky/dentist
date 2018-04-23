@@ -761,7 +761,7 @@ class Admin extends CI_Controller
         );
         $field_val = 'case_study.*,users.first_name,users.last_name';
         
-        $data['documents_list'] = $this->model->GetJoinRecord('case_study', 'patient_id', 'users', 'id', $field_val);
+        $data['documents_list'] = $this->model->GetJoinRecord('case_study', 'patient_id', 'users', 'id', $field_val,'');
         
         $data['body'] = 'case_study_list';
         $this->controller->load_view($data);

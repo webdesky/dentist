@@ -88,7 +88,7 @@ class Model
         }
     }
     
-    public function GetJoinRecord($table, $field_first, $tablejointo, $field_second, $field_val, $where , $group_by)
+    public function GetJoinRecord($table, $field_first, $tablejointo, $field_second, $field_val, $where , $group_by=null)
     {
         
         if (!empty($field_val)) {
