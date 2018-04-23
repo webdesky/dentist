@@ -53,25 +53,25 @@
                         <a href="<?php echo base_url('doctor/dashboard')?>"><i class="fa fa-home" aria-hidden="true"></i> Dashboard</a>
                     </li>
 
-                    <li>
+                    <!-- <li>
                         <a href="#"><i class="fa fa-wheelchair-alt" aria-hidden="true"></i> Patients<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level treeview-menu">
                             <li>
-                                <a href="<?php echo base_url('doctor/register/')?>">Add Patients</a>
+                                <a href="<?php //echo base_url('doctor/register/')?>">Add Patients</a>
                             </li>
                             <li>
-                                <a href="<?php echo base_url('doctor/users_list/')?>">View Patients</a>
+                                <a href="<?php //echo base_url('doctor/users_list/')?>">View Patients</a>
                             </li>
                         </ul>
-                        <!-- /.nav-second-level -->
-                    </li>
+                         //nav-second-level 
+                    </li> -->
 
                     <li>
                         <a href="#"><i class="fa fa-file-text" aria-hidden="true"></i> Document<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level treeview-menu">
-                            <li>
+                            <!-- <li>
                                 <a href="<?php echo base_url('doctor/add_document/')?>">Add Document</a>
-                            </li>
+                            </li> -->
                             <li>
                                 <a href="<?php echo base_url('doctor/document_list/')?>">Document List</a>
                             </li>
@@ -82,9 +82,9 @@
                     <li>
                         <a href="#"><i class="fa fa-pencil-square" aria-hidden="true"></i> Appointment<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level treeview-menu">
-                            <li>
+                            <!-- <li>
                                 <a href="<?php echo base_url('doctor/Appointment/')?>">Add Appointment</a>
-                            </li>
+                            </li> -->
                             <li>
                                 <a href="<?php echo base_url('doctor/appointment_list/')?>">View Appointment</a>
                             </li>

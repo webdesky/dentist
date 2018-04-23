@@ -15,7 +15,7 @@
             <?php endif ?>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <a class="btn btn-primary" href="<?php echo base_url('doctor/Appointment')?>"><i class="fa fa-th-list">&nbsp;Add Appointment</i></a>
+                    <a class="btn btn-primary"><i class="fa fa-th-list">&nbsp;View Appointment</i></a>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -25,15 +25,14 @@
                                 <tr class="bg-primary">
                                     <th>SL.No</th>
                                     <th>Appointment Id</th>
-                                    <th>Patient_id</th>
-                                    <th>Doctor Name</th>
+                                    <th>Patient Name</th>
                                     <th>Appointment Date</th>
                                     <th>Appointment Time</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php 
+                            <?php 
                                 $count=1;
                                 if($appointmentList){
                                 foreach ($appointmentList as  $value) { ?>
@@ -45,19 +44,19 @@
                                         <?php echo $value->appointment_id; ?>
                                     </td>
                                     <td class="center">
-                                        <?php echo $value->patient_id; ?>
-                                    </td>
-                                    <td class="center">
                                         <?php echo ucwords($value->first_name.' '. $value->last_name); ?>
                                     </td>
+                                    <!-- <td class="center">
+                                        <?php echo ucwords($value->first_name.' '. $value->last_name); ?>
+                                    </td> -->
                                     <td class="center">
                                         <?php echo $value->appointment_date; ?>
                                     </td>
                                     <td class="center">
                                         <?php echo $value->appointment_time; ?>
                                     </td>
-                                    <td class="center"><a href="<?php echo base_url('doctor/edit_appointment/').$value->ap_id; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a href="javascript:void(0)" onclick="delete_appointment('<?php echo $value->ap_id?>','<?php echo $count;?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                    <td class="center"><a href="<?php echo base_url('doctor/edit_appointment/').$value->id; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <a href="javascript:void(0)" onclick="delete_appointment('<?php echo $value->id?>','<?php echo $count;?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                         <!-- <i class="fa fa fa-plus" aria-hidden="true" onclick="updateStatus(<?php echo $value->doctor_id; ?>,<?php echo $value->doctor_status; ?>)"></i> -->
                                     </td>
                                 </tr>

@@ -18,7 +18,7 @@
 
                             <form role="form" method="post" action="<?php echo base_url('admin/case_study/'.$case_study[0]->id) ?>" class="registration_form1" enctype="multipart/form-data">
 
-                                <div class="form-group"> <label class="col-md-2">Patient ID * </label>
+                                <div class="form-group"> <label class="col-md-2">Patient * </label>
                                     <div class="col-lg-6"> <select class="form-control" name="patient_id">
                                         <option value="">--Select Patient--</option>
                                         <?php foreach($patient as $patients){?>

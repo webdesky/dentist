@@ -57,33 +57,20 @@ class Admin extends CI_Controller
     public function dashboard()
     {
         if ($this->controller->checkSession()) {
-            $data['body'] = 'dashboard';
-            
-            $where  = array(
+            $data['body']              = 'dashboard';
+            $where                     = array(
                 'is_active' => 1
             );
-            $where1 = array(
-                'user_role' => 3,
-                'is_active' => 1
+            $where4                    = array(
+                'sender_id' => $this->session->userdata('id')
             );
-            $where2 = array(
-                'user_role' => 2,
-                'is_active' => 1
-            );
-            $where3 = array(
-                'user_role' => 2
-            );
-            $where4 = array(
-                'sender_id ' => $this->session->userdata('id')
-            );
-            
-            $field_val                = 'message.*,users.first_name,users.last_name';
-            $data['messages_list']    = $this->model->GetJoinRecord('message', 'reciever_id', 'users', 'id', $field_val, $where4);
-            $data['totalAppointment'] = $this->model->getcount('appointment', $where);
-            $data['totalPatient']     = $this->model->getcount('users', $where1);
-            $data['totalDoctor']      = $this->model->getcount('users', $where2);
-            $data['totalHospital']      = $this->model->getcount('hospitals', $where);
-            $data['appointmentList']  = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', '', $where3);
+            $field_val                 = 'message.*,users.first_name,users.last_name';
+            $data['messages_list']     = $this->model->GetJoinRecord('message', 'reciever_id', 'users', 'id', $field_val, $where4);
+            $data['totalAppointment']  = $this->model->getcount('appointment', $where);
+            $data['total_users_count'] = $this->Common_model->get_user_count();
+            $data['totalHospital']     = $this->model->getcount('hospitals', $where);
+            $field_val1                = 'cs.appointment_id,cs.appointment_type,cs.appointment_date,cs.appointment_time,us.first_name as doctor_name, u.first_name as patient_name';
+            $data['appointmentList']   = $this->Common_model->get_Patient_Doctor_Record('appointment', $field_val1);
             $this->controller->load_view($data);
         } else {
             $this->index();
@@ -135,7 +122,6 @@ class Admin extends CI_Controller
             $this->controller->load_view($data);
         } else {
             if ($this->controller->checkSession()) {
-                
                 $data   = array(
                     'password' => md5($this->input->post('new_password', TRUE))
                 );
@@ -181,7 +167,6 @@ class Admin extends CI_Controller
     }
     public function register($id = null, $user_role = null)
     {
-       // echo $id; die;
         $role = $user_role;
         $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|alpha|min_length[2]');
         $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|alpha|min_length[2]');
@@ -197,7 +182,7 @@ class Admin extends CI_Controller
         
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('errors', validation_errors());
-            if ($id!=='null') {
+            if ($id !== 'null') {
                 $this->edit_user($id);
             } else {
                 $where             = array(
@@ -322,7 +307,6 @@ class Admin extends CI_Controller
             'is_active' => 1
         );
         $data['rights_menu'] = $this->model->getAllwhere('rights_menu', $where);
-        //echo $this->db->last_query();die;
         $where1              = array(
             'user_id' => $id
         );
@@ -440,29 +424,42 @@ class Admin extends CI_Controller
         
         if ($this->form_validation->run() == false) {
             $this->schedule();
-        } else {            
-            $doctor_id = $this->input->post('doctor_id');
-            $schedule  = $this->input->post('schedule');
-            $starttime = $this->input->post('starttime');
-            $endtime   = $this->input->post('endtime');
-            for ($i = 0; $i < count($schedule); $i++) {
-                $data[$i]['day']       = $schedule[$i];
-                $data[$i]['starttime'] = $starttime[$i];
-                $data[$i]['endtime']   = $endtime[$i];
-                ;
-                $data[$i]['created_at'] = date('Y-m-d H:i:s');
-                ;
-                $data[$i]['doctor_id'] = $doctor_id;
+        } else {
+            
+            $doctor_id   = $this->input->post('doctor_id');
+            $hospital_id = $this->input->post('hospital_id');
+            $schedule    = $this->input->post('schedule');
+            $starttime   = $this->input->post('starttime');
+            $endtime     = $this->input->post('endtime');
+            $where       =  array('doctor_id' =>$doctor_id,'hospital_id!=' => $hospital_id);
+            $schedule_record   = $this->model->getAllwhere('schedule', $where);
+
+            if(empty($schedule_record)){
+                for ($i = 0; $i < count($schedule); $i++) {
+                    $data[$i]['day']         = $schedule[$i];
+                    $data[$i]['starttime']   = $starttime[$i];
+                    $data[$i]['endtime']     = $endtime[$i];
+                    $data[$i]['created_at']  = date('Y-m-d H:i:s');
+                    $data[$i]['doctor_id']   = $doctor_id;
+                    $data[$i]['hospital_id'] = $hospital_id;
+                }
+                if (!empty($id)) {
+                    $where  = array(
+                        'doctor_id' => $doctor_id
+                    );
+                    $delete = $this->model->delete('schedule', $where);
+                }
+                $result = $this->model->insertBatch('schedule', $data);
+                $this->session->set_flashdata("info_message", "Schedule Added Successfully..");
+                redirect("admin/schedule");
+            }else{
+
+                echo '<pre>'; 
+                print_r($schedule_record);
+                die;
+                // $this->session->set_flashdata("info_message", "This Schedule Already Added.. Please choose another time");
+                // redirect("admin/schedule");
             }
-            if (!empty($id)) {
-                $where  = array(
-                    'doctor_id' => $doctor_id
-                );
-                $delete = $this->model->delete('schedule', $where);
-            }
-            $result = $this->model->insertBatch('schedule', $data);
-            $this->session->set_flashdata("info_message", "Schedule added successfully..");
-            redirect("admin/schedule");
         }
     }
     public function list_schedule()
@@ -471,17 +468,19 @@ class Admin extends CI_Controller
         $data['scheduleList'] = $this->Common_model->getSchedule('schedule');
         $this->controller->load_view($data);
     }
-    public function edit_schedule($id)
+    public function edit_schedule($id, $hospital_id)
     {
-        $data['body']     = 'edit_schedule';
-        $where            = array(
-            'schedule.doctor_id' => $id
+        $data['body']                    = 'edit_schedule';
+        $where                           = array(
+            'schedule.doctor_id' => $id,
+            'schedule.hospital_id' => $hospital_id
         );
-        $where1           = array(
+        $where1                          = array(
             'user_role' => 2
         );
-        $data['doctor']   = $this->model->getAllwhere('users', $where1);
-        $data['schedule'] = $this->model->GetJoinRecord('schedule', 'doctor_id', 'users', 'id', 'schedule.id,schedule.doctor_id,schedule.day,schedule.starttime,schedule.endtime,users.first_name', $where);
+        $data['doctor']                  = $this->model->getAllwhere('users', $where1);
+        $data['schedule']                = $this->model->GetJoinRecord('schedule', 'doctor_id', 'users', 'id', 'schedule.id,schedule.doctor_id,schedule.day,schedule.starttime,schedule.endtime,users.first_name', $where);
+        $data['schedule']['hospital_id'] = $hospital_id;
         $this->controller->load_view($data);
     }
     public function delete_schedule()
@@ -494,16 +493,16 @@ class Admin extends CI_Controller
     }
     public function Appointment()
     {
-        $data['body'] = 'add_appointment';
-        $wheres       = array(
+        $data['body']      = 'add_appointment';
+        $wheres            = array(
             'user_role' => 3
         );
-        $data['patient'] = $this->model->getAllwhere('users', $wheres);
+        $data['patient']   = $this->model->getAllwhere('users', $wheres);
         $field_val         = 'id,hospital_name';
         $data['hospitals'] = $this->model->getAllwhere('hospitals', '', $field_val);
         $this->controller->load_view($data);
-
-
+        
+        
         // $data['result'] = $this->Common_model->get_Patient_Doctor_Record('appointment');
         // $data['body'] = 'add_appointment';
         // $field_val         = 'id,hospital_name';
@@ -693,15 +692,12 @@ class Admin extends CI_Controller
     }
     public function case_study($id = null)
     {
-        $where  = array(
+        $where             = array(
             'user_role' => 3
-        );
-        $where1 = array(
-            'user_role' => 2
         );
         $field_val         = 'id,hospital_name';
         $data['hospitals'] = $this->model->getAllwhere('hospitals', '', $field_val);
-        $data['patient'] = $this->model->getAllwhere('users', $where);
+        $data['patient']   = $this->model->getAllwhere('users', $where);
         
         $this->form_validation->set_rules('patient_id', 'Patient Name', 'trim|required');
         $this->form_validation->set_rules('diabetic', 'Diabetic', 'trim|required');
@@ -720,6 +716,7 @@ class Admin extends CI_Controller
         } else {
             if ($this->controller->checkSession()) {
                 $doctor_id       = $this->input->post('doctor_id');
+                $hospital_id     = $this->input->post('hospital_id');
                 $patient_id      = $this->input->post('patient_id');
                 $diabetic        = $this->input->post('diabetic');
                 $blood_pressure  = $this->input->post('blood_pressure');
@@ -732,6 +729,7 @@ class Admin extends CI_Controller
                 
                 $data = array(
                     'doctor_id' => $doctor_id,
+                    'hospital_id' => $hospital_id,
                     'patient_id' => $patient_id,
                     'diabetic' => $diabetic,
                     'blood_pressure' => $blood_pressure,
@@ -1190,8 +1188,22 @@ class Admin extends CI_Controller
             );
             $select = 'id, name';
         }
-        
         $states = $this->model->getAllwhere($table, $where, $select);
+        echo json_encode($states);
+    }
+
+    public function find_record()
+    {
+        $id     = $this->input->get('id');
+        $table  = $this->input->get('table');
+        $field  = $this->input->get('field');
+        $select = 'id,first_name,last_name';
+        $where  = array(
+            $field      => $id,
+            'user_role' => 2,
+            'is_active' => 1
+        );
+        $states = $this->model->find_record($table, $where, $select);
         echo json_encode($states);
     }
     public function get_schedule()
@@ -1200,9 +1212,7 @@ class Admin extends CI_Controller
         $appointment_time = $this->input->post('appointment_time');
         $appointment_date = $this->input->post('appointment_date');
         $day              = date('l', strtotime($appointment_date));
-        $where            = array(
-            'doctor_id' => $doctor_id
-        );
+        $where            = array('doctor_id' => $doctor_id);
         $data             = $this->model->getAllwhere('schedule', $where);
         print_r(json_encode($data));
     }
@@ -1322,6 +1332,50 @@ class Admin extends CI_Controller
             $id   = explode(",", str_replace(" ", "", trim($this->input->get('id'))));
             $data = $this->Common_model->find_records('speciality', $id);
             print_r(json_encode($data));
+        }
+    }
+    public function assign_doctor()
+    {
+        $where             = array('user_role' => 2,'is_active' => 1);
+        $where1            = array('is_active' => 1);
+        $field_val1        = 'id,hospital_name';
+        $field_val         = 'id,first_name,last_name';
+        $data['doctors']   = $this->model->getAllwhere('users', $where, $field_val);
+        $data['hospitals'] = $this->model->getAllwhere('hospitals', $where1, $field_val1);
+        $data['body']      = 'assign_doctor';
+        $this->controller->load_view($data);
+    }
+    public function get_hospitals()
+    {
+        $doctor_id = $this->input->get('doctor_id');
+        if (!empty($doctor_id)) {
+            $where     = array(
+                'is_active' => 1,
+                'id' => $doctor_id
+            );
+            $field_val = 'hospital_id';
+            $hospitals = $this->model->getAllwhere('users', $where, $field_val);
+            print_r(json_encode($hospitals));
+        }
+    }
+    public function assign_hospital()
+    {
+        $this->form_validation->set_rules('hospital_ids[]', 'Hospitals', 'trim|required');
+        $this->form_validation->set_rules('doctor_id', 'Doctor', 'trim|required');
+        if($this->form_validation->run() == false) {
+            $this->session->set_flashdata('errors', validation_errors());
+            $this->assign_doctor();
+        } else {
+            $hospital_ids = $this->input->post('hospital_ids');
+            $doctor_id    = $this->input->post('doctor_id');
+            $data         = array(
+                'hospital_id' => implode(',', $hospital_ids)
+            );
+            $where        = array(
+                'id' => $doctor_id
+            );
+            $result       = $this->model->updateFields('users', $data, $where);
+            $this->schedule();
         }
     }
 }

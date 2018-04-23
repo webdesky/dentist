@@ -26,39 +26,35 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
-                            <form role="form" method="post" action="<?php echo base_url('doctor/addAppointment/'.$appointment[0]->ap_id) ?>" class="registration_form1" enctype="multipart/form-data">
+                            <form role="form" method="post" action="<?php echo base_url('doctor/addAppointment/'.$appointment[0]->id) ?>" class="registration_form1" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label class="col-md-2">Appointment Id * </label>
                                     <div class="col-lg-6">
                                         <input type="text" readonly="readonly" value="<?php echo $appointment[0]->appointment_id ?>" class="form-control"> </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-2">Patient ID * </label>
+                                    <label class="col-md-2">Patient * </label>
                                     <div class="col-lg-6">
                                         <select class="wide" name="patient_id" id="patient_id">
                                             <?php foreach ($patient as $key => $value) { ?>
                                             <option value="<?php echo $value->id; ?>" <?php if($appointment[0]->patient_id==$value->id){ echo 'selected';}?>>
-                                                <?php echo $value->id.' '.$value->first_name;?>
+                                                <?php echo $value->id.'-'.ucfirst($value->first_name);?>
                                             </option>
                                             <?php } ?>
                                         </select> <span><?php echo form_error('patient_id'); ?></span> </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-2">Doctor Name * </label>
+                                    <label class="col-md-2">Doctor * </label>
                                     <div class="col-lg-6">
-                                        <!-- <select  class="wide" name="doctor_id" id="doctor_id" onchange="getSchedule()">
-                                            <?php foreach ($doctor as $key => $value) { ?>
-                                                <option value="<?php echo $value->id; ?>" <?php if($appointment[0]->doctor_id==$value->id){ echo 'selected';}?>><?php echo $value->first_name.' '.$value->last_name;?></option>
-                                            <?php } ?> -->
                                         <input class="form-control" readonly name="doctor_id" value="<?php echo ucwords($this->session->userdata('first_name').' '.$this->session->userdata('last_name')); ?>">
                                         <input type="hidden" id="doctor_id" value="<?php echo $this->session->userdata('id') ?>">
                                         <span><?php echo form_error('doctor_id'); ?></span> </div>
                                 </div>
                                 <div id="data" style="display: none" class="col-lg-12">
-                                    <div class="panel panel-primary">
-                                        <div class="panel-heading">Doctor Schedule</div>
+                                    <div class="panel panel-info">
+                                        <div class="panel-heading"><b>Schedule</b></div>
                                         <div class="panel-body">
-                                            <table id="table" class="table" border="1">
+                                            <table id="table" class="table table-striped table-hover">
                                                 <tr>
                                                     <th>Day</th>
                                                     <th>Start Time</th>
@@ -78,9 +74,7 @@
                                 <div class="form-group">
                                     <label class="col-md-2">Problem </label>
                                     <div class="col-lg-6">
-                                        <textarea class="form-control" rows="5" id="problem" name="problem" placeholder="Problem">
-                                            <?php echo $appointment[0]->problem; ?>
-                                        </textarea>
+                                        <textarea class="form-control" rows="5" id="problem" name="problem" placeholder="Problem"><?php echo $appointment[0]->problem; ?></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12" align="center">
@@ -121,13 +115,8 @@ $(document).ready(function() {
                 },
                 success: function(data) {
                     var obj = JSON.parse(data);
-                    //console.log(obj);
-
                     for (var i = 0; i < obj.length; i++) {
-
                         var check = obj[i].appointment_time;
-                        console.log(check);
-                        console.log(appointment_time);
                         if (check == appointment_time) {
                             $('#error').text('Appointment Already Booked Please Select Another time');
                             $('#submit').attr('disabled', true);
@@ -158,17 +147,12 @@ function getSchedule() {
             'doctor_id': doctor_id,
             'appointment_date': appointment_date,
             'appointment_time': appointment_time
-
         },
-
-
         success: function(data) {
             var obj = JSON.parse(data);
-            /*console.log(obj[0].day);*/
             $('#table tr').html('');
             for (var i = 0; i < obj.length; i++) {
-                //console.log(array[i].area);
-                $('#table').append('<tr><td>' + obj[i].day + '</td><td>' + obj[i].starttime + '</td><td>' + obj[i].endtime + '</td></tr>');
+                $('#table').append('<tr><td>' + obj[i].day.toUpperCase() + '</td><td>' + obj[i].starttime + '</td><td>' + obj[i].endtime + '</td></tr>');
                 $('#data').show();
 
             }

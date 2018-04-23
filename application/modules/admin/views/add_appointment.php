@@ -66,7 +66,7 @@
                                 <div class="form-group">
                                     <label class="col-md-2">Doctor Name * </label>
                                     <div class="col-lg-6">
-                                        <select class="wide" name="doctor_id" id="doctor_id" onchange="getSchedule()">
+                                        <select class="wide" name="doctor_id" id="doctor_id" onchange="getSchedule(this.value)">
                                         </select>
                                         <span><?php echo form_error('doctor_id'); ?></span>
                                     </div>
@@ -162,8 +162,8 @@
         });
     });
 
-    function getSchedule() {
-        var doctor_id = $('#doctor_id').val();
+    function getSchedule(id) {
+        var doctor_id = id;
         var appointment_date = $('#appointment_date').val();
         var appointment_time = $('#timepicker').val();
         $.ajax({

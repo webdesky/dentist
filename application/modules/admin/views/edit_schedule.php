@@ -27,6 +27,7 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <form role="form" method="post" action="<?php echo base_url('admin/addSchedule/'.$schedule[0]->doctor_id) ?>" class="registration_form1" enctype="multipart/form-data">
+                            <input type="hidden" name="hospital_id" value="<?php echo $schedule['hospital_id'];?>">
                                 <div class="form-group">
                                     <label class="col-md-2">Doctor Name * </label>
                                     <div class="col-lg-6">
@@ -39,7 +40,7 @@
                                             <?php } ?>
                                         </select> <span class="red"><?php echo form_error('doctor_id'); ?></span> </div>
                                 </div>
-                                <?php $i=1;  foreach ($schedule as $key => $value) {?>
+                                <?php $i=1; unset($schedule['hospital_id']); foreach ($schedule as $key => $value) {?>
                                 <div class="form-group " <?php if($i==count($schedule)){?> id="app"
                                     <?php }?>>
                                     <label class="col-md-2">
@@ -64,7 +65,7 @@
                                         <div class="col-lg-2">
                                             <input type="text" id="starttime" name="starttime[]" value="<?php echo $schedule[$key]->starttime; ?>" class="form-control time" autocomplete="off" readonly="readonly" placeholder="Start Time"> </div>
                                         <div class="col-lg-2">
-                                            <input type="text" id="endtime" name="endtime[]" value="<?php echo $schedule[$key]->endtime; ?>" class="form-control time" autocomplete="off" readonly="readonly" placeholder="Start Time"> </div>
+                                            <input type="text" id="endtime" name="endtime[]" value="<?php echo $schedule[$key]->endtime; ?>" class="form-control time" autocomplete="off" readonly="readonly" placeholder="End Time"> </div>
                                         <?php if($i>1){?>
                                         <div class="col-lg-2" style="margin-top: 5px;"><i class="fa fa-minus-circle remove" aria-hidden="true" id="removeButton" style="font-size:25px;"></i></div>
                                         <?php }else{?>

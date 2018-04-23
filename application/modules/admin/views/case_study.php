@@ -35,7 +35,7 @@
 
                                 <div class="col-md-6">
                                     <div class="">
-                                        <label class="col-md-3">Doctor ID *</label>
+                                        <label class="col-md-3">Doctor *</label>
                                         <div class="col-md-9">
                                             <select class="wide" name="doctor_id" id="doctor_id">
                                             
@@ -47,7 +47,7 @@
 
                                 <div class="col-md-6">
                                     <div class="">
-                                        <label class="col-md-3">Patient ID *</label>
+                                        <label class="col-md-3">Patient *</label>
                                         <div class="col-md-9">
                                             <select class="wide" name="patient_id">
                                             <option data-display="-- Select Patient --">-- Select Patient --</option>

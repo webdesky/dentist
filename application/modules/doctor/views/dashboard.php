@@ -66,6 +66,7 @@
                         <i class="fa fa-tasks "></i> Current Appointments
                     </div>
                     <!-- /.panel-heading -->
+                    <?php $count=1;if(!empty($appointmentList)){?>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-12">
@@ -82,10 +83,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php $count=1;
-                                                if(!empty($appointmentList)){
-                                                foreach ($appointmentList as $key => $value) {
-                                                    ?>
+                                            <?php foreach ($appointmentList as $key => $value) {?>
                                             <tr>
                                                 <td>
                                                     <?php echo $count; ?>
@@ -106,7 +104,7 @@
                                                     <?php echo $value->appointment_time; ?>
                                                 </td>
                                             </tr>
-                                            <?php $count++;  } }?>
+                                            <?php $count++;  }?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -117,15 +115,18 @@
                         </div>
                         <!-- /.row -->
                     </div>
+                    <?php }?>
                     <!-- /.panel-body -->
                 </div>
             </div>
+             <?php $count=1;if(!empty($messages_list)){?>
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <i class="fa fa-commenting "></i> Messages
                     </div>
                     <!-- /.panel-heading -->
+                   
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-12">
@@ -141,10 +142,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php $count=1;
-                                                 if(!empty($messages_list)){
-                                                foreach ($messages_list as $key => $value) {
-                                                    ?>
+                                            <?php foreach ($messages_list as $key => $value) {?>
                                             <tr>
                                                 <td>
                                                     <?php echo $count; ?>
@@ -162,7 +160,7 @@
                                                     <?php echo $value->created_at; ?>
                                                 </td>
                                             </tr>
-                                            <?php $count++;  } } ?>
+                                            <?php $count++;  }?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -173,9 +171,11 @@
                         </div>
                         <!-- /.row -->
                     </div>
+                    
                     <!-- /.panel-body -->
                 </div>
             </div>
+            <?php }?>
         </div>
     </div>
 </div>

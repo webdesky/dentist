@@ -40,7 +40,6 @@
                                     $count=1;
                                     if(!empty($scheduleList)){
                                     foreach ($scheduleList as  $value) {
-
                                         $days       =   $value->Days;
                                         $data       =   explode(",",$days);
                                         $sortedDays =   array_unique($data);
@@ -59,7 +58,7 @@
                                     </td>
                                     <?php if($user_role==1 || ($user_role==4 && $right2[1]==1 || $right2[2]==1)){?>
                                     <td class="center">
-                                        <?php if($user_role==1 || ($user_role==4 && $right2[1]==1)){?> <a href="<?php echo base_url('admin/edit_schedule/').$value->doctor_id; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <?php if($user_role==1 || ($user_role==4 && $right2[1]==1)){?> <a href="<?php echo base_url('admin/edit_schedule/'.$value->doctor_id.'/'.$value->hospital_id); ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                         <?php }  if($user_role==1 || ($user_role==4 && $right2[2]==1)){?> | <a href="javascript:void(0)" onclick="delete_schedule('<?php echo $value->doctor_id?>','<?php echo $count;?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                         <?php }?> </td>
                                     <?php }?> </tr>

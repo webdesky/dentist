@@ -106,6 +106,9 @@ if ($user_role == 4) {
                             <li>
                                 <a href="<?php echo base_url('admin/users_list/2')?>">View Doctor</a>
                             </li>
+                            <li>
+                                <a href="<?php echo base_url('admin/assign_doctor')?>">Assign Doctor to more hospital</a>
+                            </li>
                         </ul>
                     </li>
                     <li>

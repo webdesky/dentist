@@ -13,7 +13,7 @@
                 <?php echo $msg;?> </div>
             <?php }?>
             <?php if ($info_message = $this->session->flashdata('info_message')): ?>
-            <div id="form-messages" class="alert alert-success" role="alert">
+            <div id="form-messages" class="alert alert-info" role="alert">
                 <?php echo $info_message; ?> </div>
             <?php endif ?>
             <div class="panel panel-default">
@@ -31,10 +31,24 @@
                                          </select> <span class="red"><?php echo form_error('hospital_id'); ?></span> </div>
                                 </div>
                                 <div> <label class="col-md-2">Doctor Name * </label>
-                                    <div class="col-lg-9"> <select class="wide" name="doctor_id" id="doctor_id">
-                                         </select> <span class="red"><?php echo form_error('doctor_id'); ?></span> </div>
+                                    <div class="col-lg-9"> <select class="wide" name="doctor_id" id="doctor_id" onchange="getSchedule(this.value)"></select> <span class="red"><?php echo form_error('doctor_id'); ?></span> </div>
+                                </div>
+                                <div id="data" style="display: none" class="col-lg-6 col-lg-offset-2">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">Doctor Schedule</div>
+                                        <div class="panel-body">
+                                            <table id="table" class="table" border="1">
+                                                <tr>
+                                                    <th>Day</th>
+                                                    <th>Start Time</th>
+                                                    <th>End Time</th>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="clearfix"></div>
+
                                 <div id="app"> <label class="col-md-2">Available Days * </label>
                                     <div class="col-lg-4"> 
                                         <select class="wide" name="schedule[]" required="required">
@@ -99,5 +113,28 @@ $(document).ready(function() {
         $(this).timepicker();
     });
 });
+
+function getSchedule() {
+        var doctor_id        = $('#doctor_id').val();
+        var appointment_date = $('#appointment_date').val();
+        var appointment_time = $('#timepicker').val();
+        $.ajax({
+            type: "POST",
+            url: "<?php echo base_url('admin/get_schedule')?>",
+            data: {
+                'doctor_id': doctor_id,
+                'appointment_date': appointment_date,
+                'appointment_time': appointment_time
+            },
+            success: function(data) {
+                var obj = JSON.parse(data);
+                $('#table tr').html('');
+                for (var i = 0; i < obj.length; i++) {
+                    $('#table').append('<tr><td>'+obj[i].day+'</td><td>'+obj[i].starttime+'</td><td>'+obj[i].endtime+'</td></tr>');
+                    $('#data').show();
+                }
+            }
+        });
+    }
 
 </script>

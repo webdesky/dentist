@@ -40,7 +40,7 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge">
-                                <?php echo $totalDoctor ?>
+                                <?php echo $total_users_count[0]->doctor; ?>
                             </div>
                             <div>Total Doctor!</div>
                         </div>
@@ -65,7 +65,7 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge">
-                                <?php echo $totalPatient ?>
+                                <?php echo $total_users_count[0]->patient; ?>
                             </div>
                             <div>Total Patient!</div>
                         </div>
@@ -130,7 +130,7 @@
                                             <tr class="bg-primary">
                                                 <th>#</th>
                                                 <th>Appoitnment Id</th>
-                                                <th>Patient ID</th>
+                                                <th>Patient Name</th>
                                                 <th>Doctor Name</th>
                                                 <th>Date</th>
                                                 <th>Time</th>
@@ -146,10 +146,10 @@
                                                     <?php echo $value->appointment_id; ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $value->patient_id; ?>
+                                                    <?php echo ucfirst($value->patient_name); ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo ucfirst($value->first_name); ?>
+                                                    <?php echo ucfirst($value->doctor_name); ?>
                                                 </td>
                                                 <td>
                                                     <?php echo $value->appointment_date; ?>

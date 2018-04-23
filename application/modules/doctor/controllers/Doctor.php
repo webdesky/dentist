@@ -176,24 +176,16 @@ class Doctor extends CI_Controller
                 
                 $this->session->set_flashdata("info_message", "Appointment updated Successfully..");
                 redirect("doctor/appointment_list");
-                
             }
         }
-        
     }
-    
-    
-    
+
     public function appointment_list()
     {
-        $where = array(
-            'doctor_id' => $this->session->userdata('id')
-        );
-        
-        $data['appointmentList'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', '', $where);
-        
+        $where = array('doctor_id' => $this->session->userdata('id'));
+        $field_val = 'appointment.appointment_id,appointment.id,appointment.appointment_date,appointment.appointment_time,users.first_name,users.last_name';
+        $data['appointmentList'] = $this->model->GetJoinRecord('appointment', 'patient_id', 'users', 'id', $field_val, $where);      
         $data['body'] = 'list_appointment';
-        
         $this->controller->load_view($data);
     }
     
@@ -211,7 +203,7 @@ class Doctor extends CI_Controller
         $data['patient'] = $this->model->getAllwhere('users', $wheres);
         
         $where1 = array(
-            'ap_id ' => $id
+            'appointment.id ' => $id
         );
         
         $data['appointment'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', '', $where1);

@@ -1,7 +1,8 @@
     function get_doctor(id) {
-        if (id != null) {
+        if (id.length !="") {
             $.ajax({
-                url: url+'admin/get_record',
+                //url: url+'admin/get_record',
+                url: url+'admin/find_record',
                 method: "GET",
                 dataType: "json",
                 data: {
@@ -18,8 +19,7 @@
                     $("#doctor_id").html(option);
                     $("#doctor_id").niceSelect('update');
                 },
-                error: function() {
-                    //alert("error");
+                error: function() { 
                 }
             });
         }
