@@ -1218,10 +1218,9 @@ class Admin extends CI_Controller
         $doctor_id        = $this->input->post('doctor_id');
         $appointment_time = $this->input->post('appointment_time');
         $appointment_date = $this->input->post('appointment_date');
-<<<<<<< HEAD
+
         $hospital_id      = $this->input->post('hospital_id');
-=======
->>>>>>> 7147e0b2d0f1ebb838fc947e07576441d380e4f6
+
         $day              = date('l', strtotime($appointment_date));
         if(!empty($hospital_id)){
         $where            = array('doctor_id' => $doctor_id,'hospital_id'=>$hospital_id);
