@@ -16,7 +16,7 @@
                 <?php echo $msg;?> </div>
             <?php }?>
             <?php if ($info_message = $this->session->flashdata('info_message')): ?>
-            <div id="form-messages" class="alert alert-success" role="alert">
+            <div id="form-messages" class="alert alert-info" role="alert">
                 <?php echo $info_message; ?> </div>
             <?php endif ?>
             <div class="panel panel-default">

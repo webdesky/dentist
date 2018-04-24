@@ -112,9 +112,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Problem *</label>
                                         <div class="col-md-9">
-                                            <textarea class="form-control" rows="5" id="problem"  name="problem" placeholder="Problem">
-                                                <?php echo $appointment[0]->problem; ?>
-                                            </textarea>
+                                            <textarea class="form-control" rows="5" id="problem"  name="problem" placeholder="Problem"><?php echo $appointment[0]->problem; ?></textarea>
                                         </div>
                                     </div>
                                 </div>        

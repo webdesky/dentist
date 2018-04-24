@@ -580,8 +580,7 @@ class Admin extends CI_Controller
         $where                   = array(
             'user_role' => 2
         );
-        $data['appointmentList'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', 'appointment.id  as ap_id,appointment.appointment_id,appointment.appointment_time,appointment.appointment_date,users.first_name,users.last_name,appointment.is_active,appointment.appointment_type,appointment.patient_id', $where);
-        
+        $data['appointmentList'] = $this->Common_model->GetJoinedRecord();         
         $data['body'] = 'list_appointment';
 
         $this->controller->load_view($data);
@@ -616,7 +615,7 @@ class Admin extends CI_Controller
             'appointment.id ' => $id
         );
         
-        $data['appointment'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', 'appointment.id as ap_id,appointment.appointment_id,appointment.appointment_date,appointment.appointment_time,appointment.problem,appointment.appointment_type,appointment.patient_id,appointment.doctor_id', $where1);
+        $data['appointment'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', 'appointment.id as id,appointment.appointment_id,appointment.appointment_date,appointment.appointment_time,appointment.problem,appointment.appointment_type,appointment.patient_id,appointment.doctor_id', $where1);
         $data['body']        = 'edit_appointment';
 
       
