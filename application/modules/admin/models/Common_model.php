@@ -24,12 +24,15 @@ class Common_model extends CI_Model
         }
     }
     
-    public function get_Patient_Doctor_Record($table,$field_val)
+    public function get_Patient_Doctor_Record($table,$field_val,$where=null)
     {
         $this->db->select("$field_val");
         $this->db->from("$table as cs");
         $this->db->join('users as u',"u.id=cs.patient_id");
         $this->db->join('users as us',"us.id=cs.doctor_id");
+        if($where!=''){
+            $this->db->where($where);
+        }
         $q = $this->db->get();
         $num_rows = $q->num_rows();
         if ($num_rows > 0) {
@@ -56,5 +59,10 @@ class Common_model extends CI_Model
         $this->db->from('users');
         $query = $this->db->get();
         return $query->result();
+    }
+
+    function GetJoinedRecord(){
+        $query = $this->db->query('SELECT `appointment`.`id`, `appointment`.`appointment_id`, `appointment`.`appointment_time`, `appointment`.`appointment_date`, CONCAT(u1.first_name," ", u1.last_name) as doctor_name,CONCAT(u2.first_name," ", u2.last_name) as patient_name, `appointment`.`is_active`, `appointment`.`appointment_type`, `appointment`.`patient_id` FROM `appointment`,`users` u1,`users` u2 where `u1`.`id` = `appointment`.`doctor_id` AND `u2`.`id` = `appointment`.`patient_id`');
+        return $query->result_array();
     }
 }

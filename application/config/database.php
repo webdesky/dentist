@@ -41,7 +41,7 @@ $db['default']['password'] = "Webdesky@2017";
 $db['default']['database'] = "dentist";
 
 // The following values can probably stay the same.
-$db['default']['hostname'] = "localhost";
+$db['default']['hostname'] = "127.0.0.1";
 $db['default']['dbdriver'] = "mysqli"; //Updated to latest driver.
 $db['default']['dbprefix'] = "";
 $db['default']['pconnect'] = TRUE;

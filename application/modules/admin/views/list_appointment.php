@@ -32,8 +32,8 @@
                                     <th>Sr. no</th>
                                     <th>Appintment Type</th>
                                     <th>Appointment Id</th>
-                                    <th>Patient id</th>
-                                    <th>Doctor Name</th>
+                                    <th>Patient</th>
+                                    <th>Doctor</th>
                                     <th>Appointment Date</th>
                                     <th>Appointment Time</th>
                                     <th>Status</th>
@@ -42,40 +42,37 @@
                                     <?php }?> </tr>
                             </thead>
                             <tbody>
-                                <?php 
-                                $count=1;
-                                if($appointmentList){
-                                foreach ($appointmentList as  $value) { ?>
+                                <?php $count=1; if($appointmentList){ foreach ($appointmentList as  $value) {?>
                                 <tr class="odd gradeX" id="tr_<?php echo $count;?>">
                                     <td>
                                         <?php echo $count; ?>
                                     </td>
                                     <td>
-                                        <?php  echo $value->appointment_type;?>
+                                        <?php  echo $value['appointment_type'];?>
                                     </td>
                                     <td>
-                                        <?php echo $value->appointment_id; ?>
+                                        <?php echo $value['appointment_id']; ?>
                                     </td>
                                     <td class="center">
-                                        <?php echo $value->patient_id; ?>
+                                        <?php echo ucwords($value['patient_name']); ?>
                                     </td>
                                     <td class="center">
-                                        <?php echo ucwords($value->first_name.' '. $value->last_name); ?>
+                                        <?php echo ucwords($value['doctor_name']); ?>
                                     </td>
                                     <td class="center">
-                                        <?php echo $value->appointment_date; ?>
+                                        <?php echo $value['appointment_date']; ?>
                                     </td>
                                     <td class="center">
-                                        <?php echo $value->appointment_time; ?>
+                                        <?php echo $value['appointment_time']; ?>
                                     </td>
                                     <td class="center">
-                                        <?php  if($value->is_active==0){ ?> <button class="btn btn-danger" onclick="updateStatus('<?php echo $value->ap_id ?>','<?php echo $value->is_active ?>')">Pending</button>
-                                        <?php }else{?> <button class="btn btn-success" onclick="updateStatus('<?php echo $value->ap_id ?>','<?php echo $value->is_active ?>')">Approved</button>
+                                        <?php  if($value['is_active']==0){ ?> <button class="btn btn-danger" onclick="updateStatus('<?php echo $value['id'] ?>','<?php echo $value['is_active'] ?>')">Pending</button>
+                                        <?php }else{?> <button class="btn btn-success" onclick="updateStatus('<?php echo $value['id'] ?>','<?php echo $value['is_active'] ?>')">Approved</button>
                                         <?php } ?> </td>
                                     <?php if($user_role==1 || ($user_role==4 && $right3[1]==1 || $right3[2]==1)){?>
                                     <td class="center">
-                                        <?php if($user_role==1 || ($user_role==4 && $right3[1]==1)){?> <a href="<?php echo base_url('admin/edit_appointment/').$value->ap_id; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <?php }if($user_role==1 || ($user_role==4 && $right3[2]==1)){?> <a href="javascript:void(0)" onclick="delete_appointment('<?php echo $value->ap_id?>','<?php echo $count;?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                        <?php if($user_role==1 || ($user_role==4 && $right3[1]==1)){?> <a href="<?php echo base_url('admin/edit_appointment/').$value['id']; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <?php }if($user_role==1 || ($user_role==4 && $right3[2]==1)){?> <a href="javascript:void(0)" onclick="delete_appointment('<?php echo $value['id']?>','<?php echo $count;?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                         <?php }?> </td>
                                     <?php }?> </tr>
                                 <?php $count++; } }?> </tbody>

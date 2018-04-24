@@ -1,41 +1,6 @@
 <style>
-    .manage-forms {
-        margin-top: 0;
-    }
-
-    .manage-forms ul.list-unstyled {}
-
-    .manage-forms ul.list-unstyled li {
-        margin-bottom: 10px;
-    }
-
-    .manage-forms ul.list-unstyled li .form-control {
-        border-radius: 2px;
-        height: 38px;
-        border: solid 1px #eee;
-        box-shadow: 0px 0px 0px 1px #ccc;
-    }
-
-    .manage-forms #medicine tr td .form-control {
-        border-radius: 2px;
-        border: solid 1px #eee;
-        box-shadow: 0px 0px 0px 1px #ccc;
-    }
-
-    .manage-forms #diagnosis tr td .form-control {
-        border-radius: 2px;
-        border: solid 1px #eee;
-        box-shadow: 0px 0px 0px 1px #ccc;
-    }
-    .psform .col-md-2.col-sm-2 {           
-        width: 13.666667%;
-    }
-
-    .psform .manage-forms {
-        width: 85.333333%;
-    }
+.manage-forms{margin-top:0}.manage-forms ul.list-unstyled li{margin-bottom:10px}.manage-forms ul.list-unstyled li .form-control{border-radius:2px;height:38px;border:1px solid #eee;box-shadow:0 0 0 1px #ccc}.manage-forms #diagnosis tr td .form-control,.manage-forms #medicine tr td .form-control{border-radius:2px;border:1px solid #eee;box-shadow:0 0 0 1px #ccc}.psform .col-md-2.col-sm-2{width:13.666667%}.psform .manage-forms{width:85.333333%}
 </style>
-
 <div class="content">
     <div class="container-fluid psform">
         <div class="row">
@@ -123,23 +88,9 @@
                                                 <th colspan="2">
                                                     <textarea type="text" required="" placeholder="Chief Complain" name="chief_complain" class="invoice-input form-control"></textarea>
                                                 </th>
-                                                <!-- <th>
-                                                    <div class="btn-group">
-                                                        <button type="button" class="btn btn-info btn-sm caseStudyBtn" data-toggle="modal" data-target="#myModal">Case Study</button>
-                                                        <select name="insurance_id" class="btn btn-sm select2">
-                                                                <option value="" selected="selected">Select Insurance</option>
-                                                                <option value="7">Student</option>
-                                                                <option value="8">IFIC insurance</option>
-                                                                <option value="9">Agrani Insurance</option>
-                                                            </select>
-                                                    </div>
-                                                </th> -->
                                             </tr>
                                         </thead>
                                     </table>
-
-
-
                                     <!-- Medicine -->
                                     <table class="table table-striped">
                                         <thead>
@@ -167,8 +118,6 @@
                                             </tr>
                                         </tbody>
                                     </table>
-
-
                                     <!-- diagnosis -->
                                     <table class="table table-striped">
                                         <thead>
@@ -191,12 +140,9 @@
                                             </tr>
                                         </tbody>
                                     </table>
-
-
                                     <!-- Fees & Comments -->
                                     <div class="row">
                                         <div class="col-sm-12">
-
                                             <div class="form-group row">
                                                 <label for="visiting_fees" class="col-xs-3 col-form-label">Visiting Fees</label>
                                                 <div class="col-xs-9">
@@ -204,7 +150,6 @@
                                                     <span class="red"><?php echo form_error('visiting_fees'); ?></span>
                                                 </div>
                                             </div>
-
                                             <div class="form-group row">
                                                 <label for="patient_notes" class="col-xs-3 col-form-label">Patient Notes</label>
                                                 <div class="col-xs-9">
@@ -212,7 +157,6 @@
                                                     <span class="red"><?php echo form_error('patient_notes'); ?></span>
                                                 </div>
                                             </div>
-
                                             <div class="form-group row">
                                                 <div class="col-sm-offset-3 col-md-6">
                                                     <div class="ui buttons">
@@ -221,10 +165,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
-
                                 </form>
                             </div>
                         </div>
@@ -233,84 +175,69 @@
             </div>
         </div>
     </div>
-    <!-- Modal -->
+</div>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('select').niceSelect();
-            // medicine list
-            $('body').on('keyup change click', '.medicine', function() {
-                $(this).autocomplete({
-                    source: [
-                        "Napa", "Poleka", "homena",
-                    ]
-                });
-            });
-
-            //#------------------------------------
-            //   STARTS OF MEDICINE 
-            //#------------------------------------    
-            //add row
-            $('body').on('click', '.MedAddBtn', function() {
-                var itemData = $(this).parent().parent().parent();
-                $('#medicine').append("<tr>" + itemData.html() + "</tr>");
-                $('#medicine tr:last-child').find(':input').val('');
-            });
-            //remove row
-            $('body').on('click', '.MedRemoveBtn', function() {
-                $(this).parent().parent().parent().remove();
-            });
-
-            //#------------------------------------
-            //   STARTS OF DIAGNOSIS 
-            //#------------------------------------    
-            //add row
-            $('body').on('click', '.DiaAddBtn', function() {
-                var itemData = $(this).parent().parent().parent();
-                $('#diagnosis').append("<tr>" + itemData.html() + "</tr>");
-                $('#diagnosis tr:last-child').find(':input').val('');
-            });
-            //remove row
-            $('body').on('click', '.DiaRemoveBtn', function() {
-                $(this).parent().parent().parent().remove();
-            });
-
-
-            //#------------------------------------
-            //   ENDS OF PATIENT INFORMATION
-            //#------------------------------------
-
-
-        //$("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
-
-        // $("#datepicker").datetimepicker({
-        //     format: 'YYYY/MM/DD'
-        // });
-
+<script type="text/javascript">
+$(document).ready(function() {
+    $('select').niceSelect();
+    // medicine list
+    $('body').on('keyup change click', '.medicine', function() {
+        $(this).autocomplete({
+            source: [
+                "Napa", "Poleka", "homena",
+            ]
+        });
     });
 
+    //#------------------------------------
+    //   STARTS OF MEDICINE 
+    //#------------------------------------    
+    //add row
+    $('body').on('click', '.MedAddBtn', function() {
+        var itemData = $(this).parent().parent().parent();
+        $('#medicine').append("<tr>" + itemData.html() + "</tr>");
+        $('#medicine tr:last-child').find(':input').val('');
+    });
+    //remove row
+    $('body').on('click', '.MedRemoveBtn', function() {
+        $(this).parent().parent().parent().remove();
+    });
 
-        function get_patient_data(str){
-            var appointment_id = $(str).find(':selected').data("appointment");
-            $('#appointment_id').val(appointment_id);
-            $.ajax({
-                type: 'POST',
-                url: "<?php echo base_url('doctor/get_user')?>",
-                dataType: 'json',
-                data: {
-                    id:str.value
-                },
-                success: function(data) {
-                    if(data[0]!=""){
-                        var first_name =  data[0].first_name.toUpperCase();
-                        var last_name  =  data[0].last_name.toUpperCase();
-                        $('#patient_name').val(first_name+' '+last_name);    
-                        $('#sex').val(data[0].gender);  
-                        $('#date_of_birth').val(data[0].date_of_birth);
-                    }       
-                }
-            });
+    //#------------------------------------
+    //   STARTS OF DIAGNOSIS 
+    //#------------------------------------    
+    //add row
+    $('body').on('click', '.DiaAddBtn', function() {
+        var itemData = $(this).parent().parent().parent();
+        $('#diagnosis').append("<tr>" + itemData.html() + "</tr>");
+        $('#diagnosis tr:last-child').find(':input').val('');
+    });
+    //remove row
+    $('body').on('click', '.DiaRemoveBtn', function() {
+        $(this).parent().parent().parent().remove();
+    });
+});
+
+
+function get_patient_data(str) {
+    var appointment_id = $(str).find(':selected').data("appointment");
+    $('#appointment_id').val(appointment_id);
+    $.ajax({
+        type: 'POST',
+        url: "<?php echo base_url('doctor/get_user')?>",
+        dataType: 'json',
+        data: {
+            id: str.value
+        },
+        success: function(data) {
+            if (data[0] != "") {
+                var first_name = data[0].first_name.toUpperCase();
+                var last_name = data[0].last_name.toUpperCase();
+                $('#patient_name').val(first_name + ' ' + last_name);
+                $('#sex').val(data[0].gender);
+                $('#date_of_birth').val(data[0].date_of_birth);
+            }
         }
-    </script>
-
-</div>
+    });
+}
+</script>

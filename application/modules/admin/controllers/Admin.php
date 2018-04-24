@@ -542,22 +542,19 @@ class Admin extends CI_Controller
         } else {
             
             if ($this->controller->checkSession()) {
-                
                 $data = $this->input->post();
-                
                 $data = array(
-                    'appointment_type' => $data['appointment_type'],
-                    'appointment_id' => 'AP' . mt_rand(100000, 999999),
-                    'patient_id' => $data['patient_id'],
-                    'doctor_id' => $data['doctor_id'],
-                    'appointment_date' => $data['appointment_date'],
-                    'appointment_time' => $data['appointment_time'],
-                    'problem' => $data['problem'],
-                    'created_at' => date('Y-m-d H:i:s')
-                );
+                                'appointment_type'  =>  $data['appointment_type'],
+                                'appointment_id'    =>  'AP' . mt_rand(100000, 999999),
+                                'patient_id'        =>  $data['patient_id'],
+                                'doctor_id'         =>  $data['doctor_id'],
+                                'appointment_date'  =>  $data['appointment_date'],
+                                'appointment_time'  =>  $data['appointment_time'],
+                                'problem'           =>  $data['problem'],
+                                'created_at'        =>  date('Y-m-d H:i:s')
+                            );
                 
                 if (!empty($id)) {
-                    
                     $where = array(
                         'ap_id' => $id
                     );
@@ -573,13 +570,9 @@ class Admin extends CI_Controller
         }
     }
     public function appointment_list()
-    {
-        $where                   = array(
-            'user_role' => 2
-        );
-        $data['appointmentList'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', 'appointment.ap_id,appointment.appointment_id,appointment.appointment_time,appointment.appointment_date,users.first_name,users.last_name,appointment.is_active,appointment.appointment_type,appointment.patient_id', $where);
-        
-        $data['body'] = 'list_appointment';
+    {        
+        $data['appointmentList']    =   $this->Common_model->GetJoinedRecord();
+        $data['body']               =   'list_appointment';
         $this->controller->load_view($data);
     }
     public function update_status()
@@ -596,23 +589,14 @@ class Admin extends CI_Controller
     }
     public function edit_appointment($id)
     {
-        
-        $where  = array(
-            'user_role' => 2
-        );
-        $wheres = array(
-            'user_role' => 3
-        );
-        
-        $data['doctor']  = $this->model->getAllwhere('users', $where);
-        $data['patient'] = $this->model->getAllwhere('users', $wheres);
-        
-        $where1 = array(
-            'ap_id ' => $id
-        );
-        
-        $data['appointment'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', '', $where1);
-        $data['body']        = 'edit_appointment';
+        $doctor_where   = array('user_role' => 2);
+        $patient_wheres = array('user_role' => 3);
+        $data['doctor']  = $this->model->getAllwhere('users', $doctor_where);
+        $data['patient'] = $this->model->getAllwhere('users', $patient_wheres);
+        $where = array('cs.id' => $id);
+        $field_val            = 'cs.*,us.first_name as doctor_name, u.first_name as patient_name';
+        $data['appointment']  = $this->Common_model->get_Patient_Doctor_Record('appointment', $field_val, $where);
+        $data['body']         = 'edit_appointment';
         $this->controller->load_view($data);
     }
     public function delete_appointment()
