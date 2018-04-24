@@ -15,7 +15,7 @@ class Common_model extends CI_Model
 
 	public function getSchedule($table,$doctor_id)
     {
-        $this->db->select("s.sc_id, s.doctor_id,u.first_name, GROUP_CONCAT(s.day SEPARATOR ',') as Days");
+        $this->db->select("s.id as sc_id, s.doctor_id,u.first_name, GROUP_CONCAT(s.day SEPARATOR ',') as Days");
         $this->db->from("schedule as s");
         $this->db->join("users as u", "u.id = s.doctor_id");
         $this->db->group_by("s.doctor_id");

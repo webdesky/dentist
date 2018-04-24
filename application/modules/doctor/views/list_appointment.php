@@ -24,6 +24,7 @@
                             <thead>
                                 <tr class="bg-primary">
                                     <th>SL.No</th>
+                                    <th>Hospital Name</th>
                                     <th>Appointment Id</th>
                                     <th>Patient Name</th>
                                     <th>Appointment Date</th>
@@ -39,6 +40,9 @@
                                 <tr class="odd gradeX" id="tr_<?php echo $count;?>">
                                     <td>
                                         <?php echo $count; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $value->hospital_name; ?>
                                     </td>
                                     <td>
                                         <?php echo $value->appointment_id; ?>

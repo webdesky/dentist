@@ -54,7 +54,7 @@
                                 <div class="form-group">
                                     <label class="col-md-2">Hospital * </label>
                                     <div class="col-lg-6">
-                                        <select class="wide" name="hospital_id" onchange="get_doctor(this.value)">
+                                        <select class="wide" name="hospital_id" id="hospital_id" onchange="get_doctor(this.value)">
                                             <option value="">--Select Hospital--</option>
                                             <?php foreach ($hospitals as $value) { ?>
                                             <option value="<?php echo $value->id; ?>" <?php echo set_select('hospital_id', $value->id); ?>><?php echo ucwords($value->hospital_name); ?></option>
@@ -132,15 +132,17 @@
 
         $('#timepicker').timepicker({
             change: function(time) {
-                doctor_id = $('#doctor_id').val();
-                appointment_date = $('#appointment_date').val();
-                var appointment_time = $(this).val();
+                doctor_id               = $('#doctor_id').val();
+                appointment_date        = $('#appointment_date').val();
+                hospital_id             = $('#hospital_id').val();     
+                var appointment_time    = $(this).val();
                 $.ajax({
                     type: "POST",
                     url: "<?php echo base_url('admin/get_time')?>",
                     data: {
                         'doctor_id': doctor_id,
-                        'appointment_date': appointment_date
+                        'appointment_date': appointment_date,
+                        'hospital_id'     : hospital_id
                     },
                     success: function(data) {
                         var obj = JSON.parse(data);
@@ -166,19 +168,23 @@
         var doctor_id = id;
         var appointment_date = $('#appointment_date').val();
         var appointment_time = $('#timepicker').val();
+        var hospital_id      = $('#hospital_id').val();
         $.ajax({
             type: "POST",
             url: "<?php echo base_url('admin/get_schedule')?>",
             data: {
                 'doctor_id': doctor_id,
                 'appointment_date': appointment_date,
-                'appointment_time': appointment_time
+                'appointment_time': appointment_time,
+                 'hospital_id'     : hospital_id
             },
             success: function(data) {
                 var obj = JSON.parse(data);
+
                 $('#table tr').html('');
+                $('#table').append('<tr><th>Hospital</th><th>Day</th><th>StartTime</th><th>EndTime</th></tr>');
                 for (var i = 0; i < obj.length; i++) {
-                    $('#table').append('<tr><td>'+obj[i].day+'</td><td>'+obj[i].starttime+'</td><td>'+obj[i].endtime+'</td></tr>');
+                    $('#table').append('<tr><td>'+obj[i].hospital_name+'</td><td>'+obj[i].day+'</td><td>'+obj[i].starttime+'</td><td>'+obj[i].endtime+'</td></tr>');
                     $('#data').show();
                 }
             }

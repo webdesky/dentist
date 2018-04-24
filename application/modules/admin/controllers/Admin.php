@@ -560,7 +560,7 @@ class Admin extends CI_Controller
                 if (!empty($id)) {
                     
                     $where = array(
-                        'ap_id' => $id
+                        'id' => $id
                     );
                     unset($data['created_at']);
                     unset($data['appointment_id']);
@@ -578,7 +578,7 @@ class Admin extends CI_Controller
         $where                   = array(
             'user_role' => 2
         );
-        $data['appointmentList'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', 'appointment.ap_id,appointment.appointment_id,appointment.appointment_time,appointment.appointment_date,users.first_name,users.last_name,appointment.is_active,appointment.appointment_type,appointment.patient_id', $where);
+        $data['appointmentList'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', 'appointment.id  as ap_id,appointment.appointment_id,appointment.appointment_time,appointment.appointment_date,users.first_name,users.last_name,appointment.is_active,appointment.appointment_type,appointment.patient_id', $where);
         
         $data['body'] = 'list_appointment';
         $this->controller->load_view($data);
@@ -609,10 +609,10 @@ class Admin extends CI_Controller
         $data['patient'] = $this->model->getAllwhere('users', $wheres);
         
         $where1 = array(
-            'ap_id ' => $id
+            'appointment.id ' => $id
         );
         
-        $data['appointment'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', '', $where1);
+        $data['appointment'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', 'appointment.id as ap_id,appointment.appointment_id,appointment.appointment_date,appointment.appointment_time,appointment.problem,appointment.appointment_type,appointment.patient_id,appointment.doctor_id', $where1);
         $data['body']        = 'edit_appointment';
         $this->controller->load_view($data);
     }
@@ -1214,10 +1214,15 @@ class Admin extends CI_Controller
         $doctor_id        = $this->input->post('doctor_id');
         $appointment_time = $this->input->post('appointment_time');
         $appointment_date = $this->input->post('appointment_date');
-        //$hospital_id      = $this->input->post('hospital_id');
+        $hospital_id      = $this->input->post('hospital_id');
         $day              = date('l', strtotime($appointment_date));
+        if(!empty($hospital_id)){
+        $where            = array('doctor_id' => $doctor_id,'hospital_id'=>$hospital_id);
+        }else{
         $where            = array('doctor_id' => $doctor_id);
+        }
         $data             = $this->model->GetJoinRecord('schedule','hospital_id','hospitals','id','', $where);
+       
         print_r(json_encode($data));
     }
 
@@ -1236,10 +1241,11 @@ class Admin extends CI_Controller
         $doctor_id        = $this->input->post('doctor_id');
         $appointment_date = $this->input->post('appointment_date');
         $day              = date('l', strtotime($appointment_date));
-        
+        $hospital_id      = $this->input->post('hospital_id');
         $where     = array(
-            'doctor_id' => $doctor_id,
-            'appointment_date' => $appointment_date
+            'doctor_id'        => $doctor_id,
+            'appointment_date' => $appointment_date,
+            'hospital_id'      => $hospital_id
         );
         $field_val = 'appointment_time';
         $data      = $this->model->getAllwhere('appointment', $where, '', '', $field_val);

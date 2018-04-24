@@ -28,6 +28,11 @@
                         <div class="col-lg-12 col-md-12">
                             <form role="form" method="post" action="<?php echo base_url('doctor/addAppointment/'.$appointment[0]->id) ?>" class="registration_form1" enctype="multipart/form-data">
                                 <div class="form-group">
+                                    <label class="col-md-2">Hospital Name * </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" readonly="readonly" value="<?php echo $appointment[0]->hospital_name ?>" class="form-control"> </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-md-2">Appointment Id * </label>
                                     <div class="col-lg-6">
                                         <input type="text" readonly="readonly" value="<?php echo $appointment[0]->appointment_id ?>" class="form-control"> </div>
@@ -67,7 +72,7 @@
                                 <div class="form-group">
                                     <label class="col-md-2">Appointment Date * </label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="appointment_date" id="appointment_date" class="form-control date" autocomplete="off" value="<?php echo $appointment[0]->appointment_date ?>" readonly="readonly" placeholder="Start Date" style="width: 50%;float: left; ">
+                                        <input type="text" name="appointment_date" id="appointment_date" class="form-control date" autocomplete="off" value="<?php echo $appointment[0]->appointment_date ?>" readonly="readonly"  style="width: 50%;float: left; ">
                                         <input type="text" id="timepicker" name="appointment_time" class="form-control" autocomplete="off" value="<?php echo $appointment[0]->appointment_time ?>" readonly="readonly" placeholder="Start Time" style="width: 50%;"> <span><?php echo form_error('appointment_date'); ?></span> </div>
                                 </div>
                                 <span id="error" style="color: red"></span>

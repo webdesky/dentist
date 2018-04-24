@@ -165,7 +165,7 @@ class Doctor extends CI_Controller
                 if (!empty($id)) {
                     
                     $where = array(
-                        'ap_id' => $id
+                        'id' => $id
                     );
                     unset($data['created_at']);
                     unset($data['appointment_id']);
@@ -183,8 +183,16 @@ class Doctor extends CI_Controller
     public function appointment_list()
     {
         $where = array('doctor_id' => $this->session->userdata('id'));
-        $field_val = 'appointment.appointment_id,appointment.id,appointment.appointment_date,appointment.appointment_time,users.first_name,users.last_name';
-        $data['appointmentList'] = $this->model->GetJoinRecord('appointment', 'patient_id', 'users', 'id', $field_val, $where);      
+        $field_val = 'appointment.appointment_id,appointment.id,appointment.appointment_date,appointment.appointment_time,users.first_name,users.last_name,appointment.hospital_id';
+        $appointment= $this->model->GetJoinRecord('appointment', 'patient_id', 'users', 'id', $field_val, $where); 
+
+        if(!empty($appointment)){
+            foreach ($appointment as $key => $value) {
+                 $hospital_name = $this->model->getAllwhere('hospitals',array('id' =>$value->hospital_id),'hospital_name');
+                 $appointment[$key]->hospital_name = $hospital_name[0]->hospital_name;
+            }  
+        }
+        $data['appointmentList'] = $appointment;
         $data['body'] = 'list_appointment';
         $this->controller->load_view($data);
     }
@@ -206,8 +214,12 @@ class Doctor extends CI_Controller
             'appointment.id ' => $id
         );
         
-        $data['appointment'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', '', $where1);
-        
+       $appointment= $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', 'appointment.id,appointment.appointment_id,appointment.hospital_id,appointment.appointment_date,appointment.appointment_time,appointment.appointment_type,users.first_name,users.last_name,appointment.patient_id,appointment.doctor_id,appointment.problem', $where1);
+            if(!empty($appointment)){
+                $hospital_name = $this->model->getAllwhere('hospitals',array('id' =>$appointment[0]->hospital_id),'hospital_name');
+                $appointment[0]->hospital_name = $hospital_name[0]->hospital_name;
+            }
+        $data['appointment'] = $appointment;
         $data['body'] = 'edit_appointment';
         
         $this->controller->load_view($data);

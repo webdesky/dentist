@@ -159,7 +159,7 @@ function getSchedule() {
         var doctor_id        = $('#doctor_id').val();
         var appointment_date = $('#appointment_date').val();
         var appointment_time = $('#timepicker').val();
-        var hospital_id      = $('#hospital_id').val();
+      //  var hospital_id      = $('#hospital_id').val();
         $.ajax({
             type: "POST",
             url: "<?php echo base_url('admin/get_schedule')?>",
@@ -167,7 +167,7 @@ function getSchedule() {
                 'doctor_id'       : doctor_id,
                 'appointment_date': appointment_date,
                 'appointment_time': appointment_time,
-                'hospital_id'     : hospital_id
+              //  'hospital_id'     : hospital_id
             },
             success: function(data) {
                 var obj = JSON.parse(data);
@@ -176,7 +176,7 @@ function getSchedule() {
                 //  $('#table').append('<tr><th colspan=3 style="text-align:center">'+obj[0].hospital_name+'</th></tr>');
                   $('#table').append('<tr><th>Hospital</th><th>Day</th><th>StartTime</th><th>EndTime</th></tr>');
                 for (var i = 0; i < obj.length; i++) {
-                    $('#table').append('<tr><td>'+obj[i].day+'</td><td>'+obj[i].starttime+'</td><td>'+obj[i].endtime+'</td></tr>');
+                    $('#table').append('<tr><td>'+obj[i].hospital_name+'</td><td>'+obj[i].day+'</td><td>'+obj[i].starttime+'</td><td>'+obj[i].endtime+'</td></tr>');
                     $('#data').show();
                 }
             }
