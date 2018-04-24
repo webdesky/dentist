@@ -37,7 +37,7 @@
                                     <div class="panel panel-primary">
                                         <div class="panel-heading">Doctor Schedule</div>
                                         <div class="panel-body">
-                                            <table id="table" class="table" border="1">
+                                            <table id="table" class="table table-condensed table-bordered table-striped">
                                                 <tr>
                                                     <th>Day</th>
                                                     <th>Start Time</th>
@@ -67,8 +67,8 @@
                                         </select> 
                                         <span class="red"><?php echo form_error('schedule[]'); ?></span>
                                     </div>
-                                    <div class="col-lg-2"> <input type="text" id="starttime" name="starttime[]" class="form-control times" autocomplete="off" readonly="readonly" placeholder="StartTime" required="required"> <!-- <span class="red"><?php //echo form_error('starttime[]'); ?></span> --></div>
-                                    <div class="col-lg-2"> <input type="text" id="endtime" name="endtime[]" class="form-control time" autocomplete="off" readonly="readonly" placeholder="EndTime" required="required"> <!-- <span class="red"><?php //echo form_error('endtime[]'); ?></span> --></div>
+                                    <div class="col-lg-2"> <input type="text" id="starttime" name="starttime[]" class="form-control times" autocomplete="off" readonly="readonly" placeholder="StartTime in 24 hour format" required="required"> <!-- <span class="red"><?php //echo form_error('starttime[]'); ?></span> --></div>
+                                    <div class="col-lg-2"> <input type="text" id="endtime" name="endtime[]" class="form-control time" autocomplete="off" readonly="readonly" placeholder="EndTime in 24 hour format" required="required"> <!-- <span class="red"><?php //echo form_error('endtime[]'); ?></span> --></div>
                                     <div class="col-lg-2" style="margin-top: 5px;"> <i class="fa fa-plus-circle" aria-hidden="true" id="add" style="font-size: 25px;"></i> </div>
                                 </div>
                                 <div class="clearfix"></div>
@@ -98,10 +98,10 @@ $(document).ready(function() {
             alert("Only 14 textboxes allow");
             return false;
         }
-        $("#app").append('<div class="form-group" id="box' + counter + '"><label class="col-md-2"></label><div class="col-lg-4"><select class="wide" name="schedule[]" required="required"><option>--Select Days--</option><option value="sunday">Sunday</option><option value="Monday">Monday</option><option value="tuesday">Tuesday</option><option value="wednesday">Wednesday</option><option value="thursday">Thursday</option><option value="friday">Friday</option><option value="saturday">Saturday</option></select></div> <div class="col-lg-2"><input type="text" id="starttime" name="starttime[]" class="form-control times" autocomplete="off" readonly="readonly"  placeholder="StartTime" required="required"></div><div class="col-lg-2"><input type="text" id="endtime" name="endtime[]" class="form-control time" autocomplete="off" readonly="readonly"  placeholder="EndTime" required="required"></div><i class="fa fa-minus-circle remove" aria-hidden="true" id="removeButton" style="font-size:25px;margin-left: 15px;"></i></div>');
+        $("#app").append('<div class="form-group" id="box' + counter + '"><label class="col-md-2"></label><div class="col-lg-4"><select class="wide" name="schedule[]" required="required"><option>--Select Days--</option><option value="sunday">Sunday</option><option value="monday">Monday</option><option value="tuesday">Tuesday</option><option value="wednesday">Wednesday</option><option value="thursday">Thursday</option><option value="friday">Friday</option><option value="saturday">Saturday</option></select></div> <div class="col-lg-2"><input type="text" id="starttime" name="starttime[]" class="form-control time" autocomplete="off" readonly="readonly"  placeholder="StartTime in 24 hour format" required="required"></div><div class="col-lg-2"><input type="text" id="endtime" name="endtime[]" class="form-control time" autocomplete="off" readonly="readonly"  placeholder="EndTime in 24 hour format" required="required"></div><i class="fa fa-minus-circle remove" aria-hidden="true" id="removeButton" style="font-size:25px;margin-left: 15px;"></i></div>');
 
         $('.time').each(function() {
-            $(this).timepicker();
+            $(this).timepicker({timeFormat: 'H:mm'});
         });
         $('select').each(function() {
             $(this).niceSelect();
@@ -114,28 +114,25 @@ $(document).ready(function() {
     });
 
     
-    $('#starttime').timepicker();
-    $('#endtime').timepicker({
-            change: function(time) {
-                alert('hello');
-                doctor_id               = $('#doctor_id').val();
-                date                    = $('#schedule').val();
-                starttime               = $('#starttime').val();
-                endtime                 = $(this).val();
-                /*console.log(doctor_id);
-                console.log(appointment_date);
-                console.log(appointment_time);
-                console.log(starttime);*/
-               $.ajax({
-                    type: "POST",
-                    url: "<?php echo base_url('admin/check_schedule')?>",
-                    data: {
-                        'doctor_id': doctor_id,
-                        'date'     : date,
-                        'starttime': starttime,
-                        'endtime'  : endtime
-                    },
-                    success: function(data) {
+    $('#starttime').timepicker({timeFormat: 'H:mm'});
+    
+    $('#endtime').timepicker({timeFormat: 'H:mm'});
+            // change: function(time) {
+            //     alert('hello');
+            //     doctor_id               = $('#doctor_id').val();
+            //     date                    = $('#schedule').val();
+            //     starttime               = $('#starttime').val();
+            //     endtime                 = $(this).val();
+            //    $.ajax({
+            //         type: "POST",
+            //         url: "<?php //echo base_url('admin/check_schedule')?>",
+            //         data: {
+            //             'doctor_id': doctor_id,
+            //             'date'     : date,
+            //             'starttime': starttime,
+            //             'endtime'  : endtime
+            //         },
+            //         success: function(data) {
                         /*var obj = JSON.parse(data);
                         for (var i = 0; i < obj.length; i++) {
                             var check = obj[i].appointment_time;
@@ -149,14 +146,13 @@ $(document).ready(function() {
                                 $("#submit").removeAttr("disabled");
                             }
                         }*/
-                    }
-                });
-            }
-        });
+        //             }
+        //         });
+        //     }
+        // });
 });
 
-function getSchedule() {
-        var doctor_id        = $('#doctor_id').val();
+function getSchedule(doctor_id) {
         var appointment_date = $('#appointment_date').val();
         var appointment_time = $('#timepicker').val();
       //  var hospital_id      = $('#hospital_id').val();
@@ -164,20 +160,21 @@ function getSchedule() {
             type: "POST",
             url: "<?php echo base_url('admin/get_schedule')?>",
             data: {
-                'doctor_id'       : doctor_id,
-                'appointment_date': appointment_date,
-                'appointment_time': appointment_time,
-              //  'hospital_id'     : hospital_id
+
+                'doctor_id'		   : doctor_id,
+                'appointment_date' : appointment_date,
+                'appointment_time' : appointment_time
+
             },
             success: function(data) {
                 var obj = JSON.parse(data);
                 $('#table tr').html('');
-                
-                //  $('#table').append('<tr><th colspan=3 style="text-align:center">'+obj[0].hospital_name+'</th></tr>');
-                  $('#table').append('<tr><th>Hospital</th><th>Day</th><th>StartTime</th><th>EndTime</th></tr>');
+                $('#table').append('<tr><th>Hospital</th><th>Day</th><th>StartTime</th><th>EndTime</th></tr>');
                 for (var i = 0; i < obj.length; i++) {
                     $('#table').append('<tr><td>'+obj[i].hospital_name+'</td><td>'+obj[i].day+'</td><td>'+obj[i].starttime+'</td><td>'+obj[i].endtime+'</td></tr>');
-                    $('#data').show();
+
+                   	$('#data').show();
+
                 }
             }
         });

@@ -1,12 +1,9 @@
 <?php
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
-
 class Model
 {
-    
     var $CI;
-    
     public function __construct($params = array())
     {
         $this->CI =& get_instance();
@@ -14,8 +11,6 @@ class Model
         $this->CI->config->item('base_url');
         $this->CI->load->library('session', 'form_validation');
         $this->CI->load->database();
-        
-        
     }
     public function insertData($table, $dataInsert)
     {
@@ -88,7 +83,7 @@ class Model
         }
     }
     
-    public function GetJoinRecord($table, $field_first, $tablejointo, $field_second, $field_val, $where , $group_by=null)
+    public function GetJoinRecord($table, $field_first, $tablejointo, $field_second, $field_val, $where, $group_by = null)
     {
         
         if (!empty($field_val)) {
@@ -104,7 +99,7 @@ class Model
         if (!empty($group_by)) {
             $this->CI->db->group_by("$table.$field_first");
         }
-        $q = $this->CI->db->get();        
+        $q = $this->CI->db->get();
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $rows) {
                 $data[] = $rows;
@@ -114,7 +109,7 @@ class Model
         }
     }
     
-    public function getAllwhere($table, $where = '', $select = 'all',$order_fld = '', $order_type = '',  $limit = '', $offset = '')
+    public function getAllwhere($table, $where = '', $select = 'all', $order_fld = '', $order_type = '', $limit = '', $offset = '', $or_where = null)
     {
         if ($order_fld != '' && $order_type != '') {
             $this->CI->db->order_by($order_fld, $order_type);
@@ -126,6 +121,9 @@ class Model
         }
         if ($where != '') {
             $this->CI->db->where($where);
+        }
+        if ($or_where != '') {
+            $this->CI->db->or_where($or_where);
         }
         if ($limit != '' && $offset != '') {
             $this->CI->db->limit($limit, $offset);
@@ -142,16 +140,17 @@ class Model
             return $data;
         }
     }
-
-   public function self_join_records($patient_id,$doctor_id){
+    
+    public function self_join_records($patient_id, $doctor_id)
+    {
         $this->CI->db->select('T1.first_name as doctor_first_name,T2.first_name as patient_first_name');
         $this->CI->db->from('users T1,users T2');
-        $this->CI->db->where('T1.id = '.$doctor_id.' and T2.id = '.$patient_id);
+        $this->CI->db->where('T1.id = ' . $doctor_id . ' and T2.id = ' . $patient_id);
         $q = $this->CI->db->get();
         return $q->result_array();
     }
     
-    public function getAll($table, $select = '',$order_fld = '', $order_type = '',  $limit = '', $offset = '')
+    public function getAll($table, $select = '', $order_fld = '', $order_type = '', $limit = '', $offset = '')
     {
         if ($order_fld != '' && $order_type != '') {
             $this->CI->db->order_by($order_fld, $order_type);
@@ -166,10 +165,10 @@ class Model
         } else if ($limit != '') {
             $this->CI->db->limit($limit);
         }
-
-        $q          = $this->CI->db->get($table);
         
-        $num_rows   = $q->num_rows();
+        $q = $this->CI->db->get($table);
+        
+        $num_rows = $q->num_rows();
         
         if ($num_rows > 0) {
             foreach ($q->result_array() as $rows) {
@@ -219,21 +218,21 @@ class Model
         return $q->row();
     }
     
-    public function GetJoinRecordNew($table, $field_first, $tablejointo, $field_second, $tablejointhree, $field_third,$tablejoinfour, $field_four, $field, $value, $field_val)
+    public function GetJoinRecordNew($table, $field_first, $tablejointo, $field_second, $tablejointhree, $field_third, $tablejoinfour, $field_four, $field, $value, $field_val)
     {
         $this->db->cache_on();
         $this->CI->db->select("$field_val");
         $this->CI->db->from("$table");
         $this->CI->db->join("$tablejointo", "$tablejointo.$field_second = $table.$field_first");
-
-        if($tablejointhree && $field_third){
+        
+        if ($tablejointhree && $field_third) {
             $this->CI->db->join("$tablejointhree", "$tablejointhree.$field_third = $table.$field_first");
-
-            if($tablejoinfour && $field_four){
-                $this->CI->db->join("$tablejoinfour", "$tablejoinfour.$field_four = $table.$field_first");    
+            
+            if ($tablejoinfour && $field_four) {
+                $this->CI->db->join("$tablejoinfour", "$tablejoinfour.$field_four = $table.$field_first");
             }
         }
-
+        
         $this->CI->db->where("$table.$field", "$value");
         //$this->db->group_by("$table.$field_first");
         $this->CI->db->limit(1);
@@ -247,8 +246,8 @@ class Model
             return $data;
         }
     }
-
-
+    
+    
     public function GetSalerecords_for_view($table)
     {
         $this->CI->db->select("*");
@@ -309,7 +308,9 @@ class Model
     public function insertPasswordResetString($email_address, $password_reset_key)
     {
         $this->CI->db->where('email', $email_address);
-        $this->CI->db->update(USERS, array("password_reset_key" => $password_reset_key));
+        $this->CI->db->update(USERS, array(
+            "password_reset_key" => $password_reset_key
+        ));
     }
     
     public function exists($fields)
@@ -349,11 +350,11 @@ class Model
         $this->CI->db->update_batch($table, $data, $condition);
         return $this->CI->db->insert_id();
     }
-
-    public function find_record($table, $where, $select){
-        $query = $this->CI->db->query('select '.$select.' from users where FIND_IN_SET('.$where['hospital_id'].',hospital_id) and user_role = 2 and is_active = 1' );
+    
+    public function find_record($table, $where, $select)
+    {
+        $query = $this->CI->db->query('select ' . $select . ' from users where FIND_IN_SET(' . $where['hospital_id'] . ',hospital_id) and user_role = 2 and is_active = 1');
         
         return $query->result_array();
-    }
-    
+    }   
 }
