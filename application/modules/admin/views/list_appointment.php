@@ -32,8 +32,8 @@
                                     <th>Sr. no</th>
                                     <th>Appintment Type</th>
                                     <th>Appointment Id</th>
-                                    <th>Patient</th>
                                     <th>Doctor</th>
+                                    <th>Patient</th>
                                     <th>Appointment Date</th>
                                     <th>Appointment Time</th>
                                     <th>Status</th>
@@ -44,20 +44,20 @@
                             <tbody>
                                 <?php $count=1; if($appointmentList){ foreach ($appointmentList as  $value) {?>
                                 <tr class="odd gradeX" id="tr_<?php echo $count;?>">
-                                    <td>
+                                    <td class="center">
                                         <?php echo $count; ?>
                                     </td>
-                                    <td>
+                                    <td class="center">
                                         <?php  echo $value['appointment_type'];?>
                                     </td>
-                                    <td>
+                                    <td class="center">
                                         <?php echo $value['appointment_id']; ?>
                                     </td>
                                     <td class="center">
-                                        <?php echo ucwords($value['patient_name']); ?>
+                                        <?php echo ucwords($value['doctor_name']); ?>
                                     </td>
                                     <td class="center">
-                                        <?php echo ucwords($value['doctor_name']); ?>
+                                        <?php echo ucwords($value['patient_name']); ?>
                                     </td>
                                     <td class="center">
                                         <?php echo $value['appointment_date']; ?>
@@ -89,61 +89,61 @@
     <!-- /.row -->
 </div>
 <script type="text/javascript">
-$('#appointment').DataTable({
+    $('#appointment').DataTable({
         responsive: true
     });
 
-function delete_appointment(id,tr_id) {
-    swal({
-        title: "Are you sure?",
-        text: "you want to delete?",
-        type: "warning",
-        showCancelButton: true,
-        closeOnConfirm: false,
-        confirmButtonText: "Yes, Delete it!",
-        confirmButtonColor: "#ec6c62"
-    }, function() {
-        $.ajax({
-            url: "<?php echo base_url('admin/delete_appointment')?>",
-            data: {
-                id: id,
-            },
-            type: "POST"
-        }).done(function(data) {
-            swal("Deleted!", "Record was successfully deleted!", "success");
-            $('#tr_' + tr_id).remove();
-        }).error(function(data) {
-            swal("Oops", "We couldn't connect to the server!", "error");
+    function delete_appointment(id, tr_id) {
+        swal({
+            title: "Are you sure?",
+            text: "you want to delete?",
+            type: "warning",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            confirmButtonText: "Yes, Delete it!",
+            confirmButtonColor: "#ec6c62"
+        }, function() {
+            $.ajax({
+                url: "<?php echo base_url('admin/delete_appointment')?>",
+                data: {
+                    id: id,
+                },
+                type: "POST"
+            }).done(function(data) {
+                swal("Deleted!", "Record was successfully deleted!", "success");
+                $('#tr_' + tr_id).remove();
+            }).error(function(data) {
+                swal("Oops", "We couldn't connect to the server!", "error");
+            });
         });
-    });
-}
-
-function updateStatus(id, active) {
-    if (active == 0) {
-        data = 1;
-    } else {
-        data = 0;
     }
-    swal({
-        title: "Are you sure?",
-        text: "You want to Change Status?",
-        type: "warning",
-        showCancelButton: true,
-        closeOnConfirm: false,
-        confirmButtonText: "Yes, Change it!",
-        confirmButtonColor: "#ec6c62"
-    }, function() {
-        $.ajax({
-            url: "<?php echo base_url('admin/update_status')?>",
-            data: {
-                id: id,
-                active: data,
-            },
-            type: "POST"
-        }).done(function(data) {
-            swal("Changed!", "Status was successfully changed!", "success");
-             window.location.reload();
+
+    function updateStatus(id, active) {
+        if (active == 0) {
+            data = 1;
+        } else {
+            data = 0;
+        }
+        swal({
+            title: "Are you sure?",
+            text: "You want to Change Status?",
+            type: "warning",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            confirmButtonText: "Yes, Change it!",
+            confirmButtonColor: "#ec6c62"
+        }, function() {
+            $.ajax({
+                url: "<?php echo base_url('admin/update_status')?>",
+                data: {
+                    id: id,
+                    active: data,
+                },
+                type: "POST"
+            }).done(function(data) {
+                swal("Changed!", "Status was successfully changed!", "success");
+                window.location.reload();
+            });
         });
-    });
-}
+    }
 </script>

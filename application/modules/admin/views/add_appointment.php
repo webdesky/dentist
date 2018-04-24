@@ -118,9 +118,13 @@
     <!-- row -->
 </div>
 </div>
+
+
 <script type="text/javascript">
     $(document).ready(function() {
+        
         $('select').niceSelect();
+
         $(".registration_form1").validate({
             rules: {
                 "fname": "required",
@@ -161,6 +165,7 @@
             }
         });
     });
+
 
     function getSchedule(id) {
         var doctor_id = id;
