@@ -25,12 +25,41 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <form role="form" method="post" action="<?php echo base_url('doctor/addSchedule') ?>" class="registration_form1" enctype="multipart/form-data">
-                                
+                                <div class="col-md-12">
+                                    <div class="form-group"> <label class="col-md-2">Hospital * </label>
+                                        <div class="col-md-6"> 
+                                            <select class="wide" name="hospital_id" id="hospital_id" onchange="getSchedule(this.value)">
+                                                <option>--Select Hospital--</option>
+                                                <?php foreach ($hospital_data as $value) { ?>
+                                                <option value="<?php echo $value['id']; ?>"><?php echo ucwords($value['hospital_name']);?>
+                                                </option>
+                                                <?php } ?>
+                                            </select>
+                                            <span class="red"><?php echo form_error('hospital_id'); ?></span>  
+                                        </div> 
+                                    </div>
+                                </div>
+
+                                <div id="data" style="display: none" class="col-lg-6 col-lg-offset-2">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">Doctor Schedule</div>
+                                        <div class="panel-body">
+                                            <table id="table" class="table" border="1">
+                                                <tr>
+                                                    <th>Day</th>
+                                                    <th>Start Time</th>
+                                                    <th>End Time</th>
+                                                </tr>
+                                        </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix"></div>
                                 
                                 <div id="app"> <label class="col-md-2">Available Days * </label>
                                     <div class="col-lg-4"> 
                                         <select class="wide" name="schedule[]">
-
                                             <option data-display="Select Days">--Select Days--</option>
                                             <option value="sunday">Sunday</option>
                                             <option value="monday">Monday</option>
@@ -80,7 +109,7 @@ $(document).ready(function() {
         });
         counter++;
     });
-    
+
     $("body").on("click", ".remove", function() {
         $(this).closest("div").remove();
     });
@@ -90,5 +119,28 @@ $(document).ready(function() {
     $('select').niceSelect();
 });
 
+function getSchedule(id) {
+    var doctor_id        = "<?php echo $this->session->userdata('id');?>";
+    var appointment_date = $('#appointment_date').val();
+    var appointment_time = $('#timepicker').val();
+    var hospital_id      = id;
+    $.ajax({
+        type: "POST",
+        url: "<?php echo base_url('doctor/get_schedule')?>",
+        data: {
+            'doctor_id': doctor_id,
+            'appointment_date': appointment_date,
+            'appointment_time': appointment_time
+        },
+        success: function(data) {
+            var obj = JSON.parse(data);
+            $('#table tr').html('');
+            for (var i = 0; i < obj.length; i++) {
+                $('#table').append('<tr><td>' + obj[i].day + '</td><td>' + obj[i].starttime + '</td><td>' + obj[i].endtime + '</td></tr>');
+                $('#data').show();
+            }
+        }
+    });
+}
      
 </script>

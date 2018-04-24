@@ -163,14 +163,10 @@ function getSchedule() {
                 'appointment_time': appointment_time
 
             },
-
-
             success: function(data) {
                 var obj = JSON.parse(data);
-                /*console.log(obj[0].day);*/
                  $('#table tr').html('');
                 for (var i = 0; i < obj.length; i++) {
-                    //console.log(array[i].area);
                     $('#table').append('<tr><td>' + obj[i].day + '</td><td>' + obj[i].starttime + '</td><td>' + obj[i].endtime + '</td></tr>');
                     $('#data').show();
 

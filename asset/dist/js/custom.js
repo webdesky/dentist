@@ -1,7 +1,8 @@
     function get_doctor(id) {
+      
         if (id.length !="") {
             $.ajax({
-                //url: url+'admin/get_record',
+                
                 url: url+'admin/find_record',
                 method: "GET",
                 dataType: "json",

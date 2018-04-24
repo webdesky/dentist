@@ -88,7 +88,7 @@ class Model
         }
     }
     
-    public function GetJoinRecord($table, $field_first, $tablejointo, $field_second, $field_val, $where , $group_by)
+    public function GetJoinRecord($table, $field_first, $tablejointo, $field_second, $field_val, $where , $group_by=null)
     {
         
         if (!empty($field_val)) {
@@ -352,6 +352,7 @@ class Model
 
     public function find_record($table, $where, $select){
         $query = $this->CI->db->query('select '.$select.' from users where FIND_IN_SET('.$where['hospital_id'].',hospital_id) and user_role = 2 and is_active = 1' );
+        
         return $query->result_array();
     }
     

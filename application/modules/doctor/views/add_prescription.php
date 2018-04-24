@@ -283,9 +283,9 @@
 
         //$("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
 
-        $("#datepicker").datetimepicker({
-            format: 'YYYY/MM/DD'
-        });
+        // $("#datepicker").datetimepicker({
+        //     format: 'YYYY/MM/DD'
+        // });
 
     });
 

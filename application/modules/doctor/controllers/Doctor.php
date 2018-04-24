@@ -1052,21 +1052,21 @@ class Doctor extends CI_Controller
     
     public function schedule()
     {
-        $data['body']   = 'add_schedule';
-        $where          = array(
-            'user_role' => 2
-        );
-        $data['doctor'] = $this->model->getAllwhere('users', $where);
+        $doctor_id  =   $this->session->userdata('id');
+        $where      =   array('id' => $doctor_id);
+        $field_val  =   'hospital_id';
+        $hospitals  =   $this->model->getAllwhere('users', $where, $field_val);
+        $id         =   $hospitals[0]->hospital_id; 
+        $data['hospital_data']  =   $this->Common_model->get_hospitals_by_id($id);
+        $data['body']           =   'add_schedule';
         $this->controller->load_view($data);
     }
     
     public function addSchedule($id = null)
     {
-        $data = $this->input->post();
-        
-        $doctor_id = $this->session->userdata('id');
-        $new       = array();
-        
+        $data       = $this->input->post();
+        $doctor_id  = $this->session->userdata('id');
+        $new        = array();
         foreach ($data['schedule'] as $daykey => $day) {
             foreach ($data['starttime'] as $timekey => $time) {
                 foreach ($data['endtime'] as $endkey => $end) {
@@ -1125,12 +1125,11 @@ class Doctor extends CI_Controller
         $doctor_id        = $this->input->post('doctor_id');
         $appointment_time = $this->input->post('appointment_time');
         $appointment_date = $this->input->post('appointment_date');
+        $hospital_id      = $this->input->post('hospital_id');
         $day              = date('l', strtotime($appointment_date));
-        $where            = array(
-            'doctor_id' => $doctor_id
-        );
+        $where            = array('doctor_id' => $doctor_id);
         $data             = $this->model->getAllwhere('schedule', $where);
-        
+        //echo $this->db->last_query();die;
         print_r(json_encode($data));
         
     }
