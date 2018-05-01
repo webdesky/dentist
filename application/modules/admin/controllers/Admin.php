@@ -245,9 +245,9 @@ class Admin extends CI_Controller
                     'created_at' => date('Y-m-d H:i:s'),
                     'profile_pic' => $file_name
                 );
-                 if ($this->session->userdata('user_role') == 4) {
+                if ($this->session->userdata('user_role') == 4) {
                      $data['hospital_id'] = $this->session->userdata('hospital_id');
-                 }
+                }
                 if (!empty($id)) {
                     $where = array(
                         'id' => $id
@@ -278,14 +278,14 @@ class Admin extends CI_Controller
     }
     public function users_list($user_role = null)
     {
-        $session_user_role  = $this->session->userdata('user_role');
-        $hospital_id        = $this->session->userdata('hospital_id');        
+               
         $where              = array('user_role' => $user_role);
         $where1             = array('role_id' => $user_role);
         $data['role']       = $user_role;
         $data['category']   = $this->model->getAll('category');
-        //$data['users']      = $this->model->getAllwhere('users', $where);
         $data['user_role']  = $this->model->getAllwhere('user_role', $where1);
+        $session_user_role  = $this->session->userdata('user_role');
+        $hospital_id        = $this->session->userdata('hospital_id'); 
 
         if($session_user_role==4){
             $where = array('hospital_id' =>$hospital_id,'user_role'=>$user_role);
@@ -293,9 +293,6 @@ class Admin extends CI_Controller
         }else{
              $data['users']     = $this->model->getAllwhere('users', $where);
         }
-        // echo '<pre>'; 
-        // print_r($data['users']); 
-        // die;
         $data['body']      = 'users_list';
         $this->controller->load_view($data);
     }
@@ -379,8 +376,6 @@ class Admin extends CI_Controller
             'id ' => $id
         );
         $data['users'] = $this->model->getAllwhere('users', $where);
-        echo $this->db->last_query(); 
-        die;
         if ($data['users'][0]->user_role == 2) {
             $field_val         = 'id,hospital_name';
             $data['hospitals'] = $this->model->getAllwhere('hospitals', '', $field_val);
@@ -513,20 +508,20 @@ class Admin extends CI_Controller
     public function Appointment()
     {
         $data['body']      = 'add_appointment';
-        $wheres            = array(
-            'user_role' => 3
-        );
-        $data['patient']   = $this->model->getAllwhere('users', $wheres);
-        $field_val         = 'id,hospital_name';
-        $data['hospitals'] = $this->model->getAllwhere('hospitals', '', $field_val);
+
+        if ($this->session->userdata('user_role') == 4) {
+            $hospital_id = $this->session->userdata('hospital_id');
+            $where = array('hospital_id' =>$hospital_id,'user_role'=>3);
+            $select  = 'id,first_name,last_name';
+            $data['patient']   =  $this->model->find_record('users', $where, $select);
+            $data['hospitals'] =  $hospital_id; 
+        }else{
+            $wheres            = array('user_role' => 3);
+            $data['patient']   = $this->model->getAllwhere('users', $wheres);
+            $field_val         = 'id,hospital_name';
+            $data['hospitals'] = $this->model->getAllwhere('hospitals', '', $field_val);
+        }
         $this->controller->load_view($data);
-        
-        
-        // $data['result'] = $this->Common_model->get_Patient_Doctor_Record('appointment');
-        // $data['body'] = 'add_appointment';
-        // $field_val         = 'id,hospital_name';
-        // $data['hospitals'] = $this->model->getAllwhere('hospitals', '', $field_val);
-        // $this->controller->load_view($data);
     }
     public function addAppointment($id = null)
     {
@@ -616,8 +611,6 @@ class Admin extends CI_Controller
     }
     public function edit_appointment($id)
     {
-
-        
         $where  = array(
             'user_role' => 2
         );
@@ -715,13 +708,20 @@ class Admin extends CI_Controller
     }
     public function case_study($id = null)
     {
-        $where             = array(
-            'user_role' => 3
-        );
-        $field_val         = 'id,hospital_name';
-        $data['hospitals'] = $this->model->getAllwhere('hospitals', '', $field_val);
-        $data['patient']   = $this->model->getAllwhere('users', $where);
-        
+        if ($this->session->userdata('user_role') == 4) {
+            $hospital_id = $this->session->userdata('hospital_id');
+            $where = array('hospital_id' =>$hospital_id,'user_role'=>3);
+            $select  = 'id,first_name,last_name';
+            $data['patient']   =  $this->model->find_record('users', $where, $select);
+            $data['hospitals'] =  $hospital_id; 
+        }else{
+            $where             = array('user_role' => 3);
+            $field_val         = 'id,hospital_name';
+            $data['hospitals'] = $this->model->getAllwhere('hospitals', '', $field_val);
+            $select            = 'id,first_name,last_name';
+            $data['patient']   = $this->model->getAllwhere('users', $where, $select);
+        }
+
         $this->form_validation->set_rules('patient_id', 'Patient Name', 'trim|required');
         $this->form_validation->set_rules('diabetic', 'Diabetic', 'trim|required');
         $this->form_validation->set_rules('blood_pressure', 'High Blood Pressure', 'trim|required');
@@ -918,9 +918,8 @@ class Admin extends CI_Controller
     }
     public function send_message()
     {
-        $where         = array(
-            'user_role != ' => $this->session->userdata('user_role')
-        );
+        $where         = array('user_role != ' => $this->session->userdata('user_role'));
+        
         $data['users'] = $this->model->getAllwhere('users', $where);
         $this->form_validation->set_rules('reciever_id', 'Mail to', 'trim|required');
         $this->form_validation->set_rules('subject', 'Subject', 'trim|required');

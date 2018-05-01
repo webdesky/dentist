@@ -8,7 +8,13 @@
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
-            <?php if(!empty($msg)){?>
+            <?php 
+                    $session_user_role  = $this->session->userdata('user_role');
+                    if($session_user_role==4){
+                        $hospital_id    = $this->session->userdata('hospital_id');
+                    }
+                    
+            if(!empty($msg)){?>
             <div class="alert alert-success">
                 <?php echo $msg;?> </div>
             <?php }?>
@@ -22,6 +28,8 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <form role="form" method="post" action="<?php echo base_url('admin/addSchedule') ?>" class="registration_form1" enctype="multipart/form-data">
+
+                            <?php if($session_user_role!=4){?>
                                 <div> <label class="col-md-2">Hospital * </label>
                                     <div class="col-lg-9"> <select class="wide" name="hospital_id"  id="hospital_id" onchange="get_doctor(this.value)">
                                             <option value="">--Select Hospital--</option>
@@ -30,6 +38,15 @@
                                             <?php } ?>
                                          </select> <span class="red"><?php echo form_error('hospital_id'); ?></span> </div>
                                 </div>
+                            <?php }elseif($session_user_role==4){?>
+                                <input type="hidden" name="hospital_id" value="<?php echo $hospital_id; ?>">
+                                <script type="text/javascript">
+                                    $(document).ready(function(){
+                                        get_doctor('<?php echo $hospital_id; ?>');
+                                    });
+                                </script>
+                            <?php }?>
+
                                 <div> <label class="col-md-2">Doctor Name * </label>
                                     <div class="col-lg-9"> <select class="wide" name="doctor_id" id="doctor_id" onchange="getSchedule(this.value)"></select> <span class="red"><?php echo form_error('doctor_id'); ?></span> </div>
                                 </div>

@@ -17,6 +17,8 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <form role="form" method="post" action="<?php echo base_url('admin/case_study') ?>" class="registration_form1" enctype="multipart/form-data">
+
+                            <?php if ($this->session->userdata('user_role') != 4) {?>
                                 <div class="col-md-6">
                                     <div class="">
                                         <label class="col-md-3">Hospital *</label>
@@ -31,7 +33,14 @@
                                         <span class="red"><?php echo form_error('hospital_id'); ?></span>
                                     </div>
                                 </div>
-
+                            <?php }elseif ($this->session->userdata('user_role') == 4) {?>
+                                <input type="hidden" name="hospital_id" value="<?php echo $hospitals;?>">
+                                <script type="text/javascript">
+                                    $(document).ready(function(){
+                                        get_doctor('<?php echo $hospitals; ?>');
+                                    });
+                                </script>
+                            <?php }?>
 
                                 <div class="col-md-6">
                                     <div class="">
