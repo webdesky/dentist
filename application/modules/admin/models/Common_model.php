@@ -54,15 +54,23 @@ class Common_model extends CI_Model
         return $query->result();
     }
 
-    function get_user_count(){
+    function get_user_count($where=null){
         $this->db->select("COUNT(CASE WHEN user_role = '2' THEN id END) AS doctor,COUNT(CASE WHEN user_role = '3' THEN id END) AS patient");
         $this->db->from('users');
+        if(!empty($where)){
+            $this->db->where('FIND_IN_SET(' . $where['cs.hospital_id'] . ',hospital_id)<> 0');
+        }
         $query = $this->db->get();
         return $query->result();
     }
 
-    function GetJoinedRecord(){
-        $query = $this->db->query('SELECT `appointment`.`id`, `appointment`.`appointment_id`, `appointment`.`appointment_time`, `appointment`.`appointment_date`, CONCAT(u1.first_name," ", u1.last_name) as doctor_name,CONCAT(u2.first_name," ", u2.last_name) as patient_name, `appointment`.`is_active`, `appointment`.`appointment_type`, `appointment`.`patient_id` FROM `appointment`,`users` u1,`users` u2 where `u1`.`id` = `appointment`.`doctor_id` AND `u2`.`id` = `appointment`.`patient_id`');
+    function GetJoinedRecord($where=null){
+        if(!empty($where)){
+            $where =  'AND appointment.hospital_id = '.$where['hospital_id'];
+        }else{
+            $where = ''; 
+        }
+        $query = $this->db->query('SELECT `appointment`.`id`, `appointment`.`appointment_id`, `appointment`.`appointment_time`, `appointment`.`appointment_date`, CONCAT(u1.first_name," ", u1.last_name) as doctor_name,CONCAT(u2.first_name," ", u2.last_name) as patient_name, `appointment`.`is_active`, `appointment`.`appointment_type`, `appointment`.`patient_id` FROM `appointment`,`users` u1,`users` u2 where `u1`.`id` = `appointment`.`doctor_id` AND `u2`.`id` = `appointment`.`patient_id` '.$where);
         return $query->result_array();
     }
 }

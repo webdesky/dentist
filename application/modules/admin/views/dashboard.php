@@ -5,8 +5,12 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
+    <?php 
+        $user_role = $this->session->userdata('user_role');
+    ?>
     <!-- /.row -->
     <div class="row">
+    <?php if($user_role==1){?>
         <div class="col-lg-3 col-md-6">
             <div class="panel panel-first">
                 <div class="panel-heading">
@@ -16,7 +20,7 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge">
-                                <?php echo $totalHospital ?>
+                                <?php echo $totalHospital;?>
                             </div>
                             <div>Total Hospital!</div>
                         </div>
@@ -31,6 +35,7 @@
                 </a>
             </div>
         </div>
+        <?php }?>
         <div class="col-lg-3 col-md-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">

@@ -353,8 +353,18 @@ class Model
     
     public function find_record($table, $where, $select)
     {
-        $query = $this->CI->db->query('select ' . $select . ' from users where FIND_IN_SET(' . $where['hospital_id'] . ',hospital_id) and user_role = 2 and is_active = 1');
-        
-        return $query->result_array();
+        if(empty($select)){
+            $select = '*';
+        }
+        $query = $this->CI->db->query('select ' . $select . ' from users where FIND_IN_SET(' . $where['hospital_id'] . ',hospital_id) and user_role = '.$where['user_role'].' and is_active = 1');
+
+        $num_rows = $query->num_rows();
+        if ($num_rows > 0) {
+            foreach ($query->result() as $rows) {
+                $data[] = $rows;
+            }
+            $query->free_result();
+            return $data;
+        }
     }   
 }

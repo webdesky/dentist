@@ -47,7 +47,7 @@
                                             <?php }?> </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $i=1; if(!empty($users)){ foreach($users as $users_list){?>
+                                        <?php  $i=1; if(!empty($users)){ foreach($users as $users_list){?>
                                         <tr id="tr_<?php echo $i;?>">
                                             <td>
                                                 <?php echo $i; ?> </td>

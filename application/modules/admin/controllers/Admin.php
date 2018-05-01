@@ -57,20 +57,26 @@ class Admin extends CI_Controller
     public function dashboard()
     {
         if ($this->controller->checkSession()) {
+            $user_role                 = $this->session->userdata('user_role');
             $data['body']              = 'dashboard';
-            $where                     = array(
-                'is_active' => 1
-            );
-            $where4                    = array(
-                'sender_id' => $this->session->userdata('id')
-            );
+            $where                     = array('is_active' => 1);
+            $where4                    = array('sender_id' => $this->session->userdata('id'));
             $field_val                 = 'message.*,users.first_name,users.last_name';
             $data['messages_list']     = $this->model->GetJoinRecord('message', 'reciever_id', 'users', 'id', $field_val, $where4);
-            $data['totalAppointment']  = $this->model->getcount('appointment', $where);
-            $data['total_users_count'] = $this->Common_model->get_user_count();
-            $data['totalHospital']     = $this->model->getcount('hospitals', $where);
             $field_val1                = 'cs.appointment_id,cs.appointment_type,cs.appointment_date,cs.appointment_time,us.first_name as doctor_name, u.first_name as patient_name';
-            $data['appointmentList']   = $this->Common_model->get_Patient_Doctor_Record('appointment', $field_val1);
+            
+            if($user_role==4){
+                $where = array('cs.hospital_id'=>$this->session->userdata('hospital_id'));
+                $data['appointmentList']   = $this->Common_model->get_Patient_Doctor_Record('appointment', $field_val1,$where);
+                $data['total_users_count'] = $this->Common_model->get_user_count($where);
+                $data['totalAppointment']  = $this->model->getcount('appointment', array('hospital_id'=>$this->session->userdata('hospital_id')));
+                //echo $this->db->last_query();die;
+            }else{
+                $data['appointmentList']   = $this->Common_model->get_Patient_Doctor_Record('appointment', $field_val1);
+                $data['totalHospital']     = $this->model->getcount('hospitals', $where);
+                $data['total_users_count'] = $this->Common_model->get_user_count();
+                $data['totalAppointment']  = $this->model->getcount('appointment', $where);
+            }
             $this->controller->load_view($data);
         } else {
             $this->index();
@@ -84,19 +90,17 @@ class Admin extends CI_Controller
             'password' => md5($password),
             'is_active' => 1
         );
-        $result   = $this->model->getsingle('users', $where);
-        
+        $result   = $this->model->getsingle('users', $where);        
         if (!empty($result)) {
-            
             $sess_array = array(
                 'id' => $result->id,
                 'username' => $result->username,
                 'email' => $result->email,
                 'user_role' => $result->user_role,
                 'first_name' => $result->first_name,
-                'last_name' => $result->last_name
+                'last_name' => $result->last_name,
+                'hospital_id' => $result->hospital_id
             );
-            
             if ($result->user_role == 4) {
                 $where                = array(
                     'user_id' => $result->id
@@ -241,6 +245,9 @@ class Admin extends CI_Controller
                     'created_at' => date('Y-m-d H:i:s'),
                     'profile_pic' => $file_name
                 );
+                 if ($this->session->userdata('user_role') == 4) {
+                     $data['hospital_id'] = $this->session->userdata('hospital_id');
+                 }
                 if (!empty($id)) {
                     $where = array(
                         'id' => $id
@@ -271,20 +278,25 @@ class Admin extends CI_Controller
     }
     public function users_list($user_role = null)
     {
-        $where = array(
-            'user_role ' => $user_role
-        );
-        
-        $where1 = array(
-            'role_id ' => $user_role
-        );
-        
-        $data['role']      = $user_role;
-        $data['category']  = $this->model->getAll('category');
-        $data['users']     = $this->model->getAllwhere('users', $where);
-        $data['user_role'] = $this->model->getAllwhere('user_role', $where1);
+        $session_user_role  = $this->session->userdata('user_role');
+        $hospital_id        = $this->session->userdata('hospital_id');        
+        $where              = array('user_role' => $user_role);
+        $where1             = array('role_id' => $user_role);
+        $data['role']       = $user_role;
+        $data['category']   = $this->model->getAll('category');
+        //$data['users']      = $this->model->getAllwhere('users', $where);
+        $data['user_role']  = $this->model->getAllwhere('user_role', $where1);
+
+        if($session_user_role==4){
+            $where = array('hospital_id' =>$hospital_id,'user_role'=>$user_role);
+            $data['users']     = $this->model->find_record('users', $where, '*');
+        }else{
+             $data['users']     = $this->model->getAllwhere('users', $where);
+        }
+        // echo '<pre>'; 
+        // print_r($data['users']); 
+        // die;
         $data['body']      = 'users_list';
-        
         $this->controller->load_view($data);
     }
     public function subadmin_users_list($user_role)
@@ -367,6 +379,8 @@ class Admin extends CI_Controller
             'id ' => $id
         );
         $data['users'] = $this->model->getAllwhere('users', $where);
+        echo $this->db->last_query(); 
+        die;
         if ($data['users'][0]->user_role == 2) {
             $field_val         = 'id,hospital_name';
             $data['hospitals'] = $this->model->getAllwhere('hospitals', '', $field_val);
@@ -575,14 +589,17 @@ class Admin extends CI_Controller
         }
     }
     public function appointment_list()
-
     {
-        $where                   = array(
-            'user_role' => 2
-        );
-        $data['appointmentList'] = $this->Common_model->GetJoinedRecord();         
-        $data['body'] = 'list_appointment';
+        $session_user_role              =   $this->session->userdata('user_role');
+        if($session_user_role==4){
+            $hospital_id                =   $this->session->userdata('hospital_id');
+            $where                      =   array('hospital_id' => $hospital_id);
+            $data['appointmentList']    =   $this->Common_model->GetJoinedRecord($where);
+        }else{
+            $data['appointmentList']    =   $this->Common_model->GetJoinedRecord();
+        }
 
+        $data['body']                   =   'list_appointment';
         $this->controller->load_view($data);
     }
     public function update_status()
