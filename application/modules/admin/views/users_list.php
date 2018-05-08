@@ -36,11 +36,17 @@
                                     <thead>
                                         <tr class="bg-primary">
                                             <th>Sr no.</th>
+                                            <?php if($role==4){?>
+                                            <th>Name</th>
+                                            <?php }else{?>
                                             <th>Firstname</th>
                                             <th>Lastname</th>
+                                            <?php }?>
                                             <th>Email</th>
                                             <th>Mobile</th>
+                                            <?php if($role!=4){?>
                                             <th>Gender</th>
+                                            <?php }?>
                                             <th>User Role</th>
                                             <?php if($user_role==1 || ($user_role==4 && $right0[1]==1 || $right0[2]==1)){?>
                                             <th>Action</th>
@@ -53,21 +59,29 @@
                                                 <?php echo $i; ?> </td>
                                             <td>
                                                 <?php echo ucfirst($users_list->first_name);?> </td>
+                                                 <?php if($role!=4){?>
                                             <td>
                                                 <?php echo ucfirst($users_list->last_name);?> </td>
+                                                <?php }?>
                                             <td>
                                                 <?php echo $users_list->email;?> </td>
                                             <td>
                                                 <?php echo $users_list->mobile;?> </td>
+                                                <?php if($role!=4){?>
                                             <td>
                                                 <?php echo $users_list->gender;?> </td>
+                                                <?php }?>
                                             <td>
                                                 <?php if($users_list->user_role==2){ echo 'Doctor';}elseif($users_list->user_role==3){ echo 'Patient';}elseif($users_list->user_role==4){ echo 'Sub-Admin';}else{echo 'Admin';}?> </td>
                                             <?php if($user_role==1 || ($user_role==4 && $right0[1]==1 || $right0[2]==1)){?>
                                             <td>
-                                                <?php if($user_role==1 || ($user_role==4 && $right0[1]==1)){?> <a href="<?php echo base_url('admin/edit_user/'.$users_list->id)?>"><span class="glyphicon glyphicon-edit"></span></a> |
-                                                <?php }if($user_role==1 || ($user_role==4 && $right0[2]==1)){?> <a href="javascript:void(0)" onclick="delete_user('<?php echo $users_list->id?>','<?php echo $i;?>')"><span class="glyphicon glyphicon-trash"></span></a>
-                                                <?php }?> </td>
+                                                <?php if($user_role==1 || ($user_role==4 && $right0[1]==1)){?> <a href="<?php echo base_url('admin/edit_user/'.$users_list->id)?>" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> |
+                                                <?php }if($user_role==1 || ($user_role==4 && $right0[2]==1)){?> <a href="javascript:void(0)" onclick="delete_user('<?php echo $users_list->id?>','<?php echo $i;?>')" title="Delete"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <?php }if($user_role==1 && $role==4){?> 
+                                                | <a href="<?php echo base_url('admin/assign_rights/'.$users_list->id)?>" title="Assign Rights"><span class="glyphicon glyphicon-cog" ></span></a>
+                                                <?php }?>
+
+                                                </td>
                                             <?php }?> </tr>
                                         <?php $i++;}}?> </tbody>
                                 </table>

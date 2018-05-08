@@ -3,12 +3,12 @@
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            <a class="navbar-brand" href="<?php echo base_url()?>">Hello, <?php echo ucfirst($this->session->userdata('first_name'));?></a>
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="<?php echo base_url()?>" style="color: maroon;">Welcome, <?php echo ucwords($this->session->userdata('first_name'));?>!</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -31,10 +31,8 @@
             <!-- /.dropdown -->
         </ul>
         <!-- /.navbar-top-links -->
-
-    <?php
+        <?php
         $user_role = $this->session->userdata('user_role');
-
         if ($user_role == 4) {
             $rights = explode(',', trim($this->session->userdata('rights')->rights, '"'));
             $right0 = str_split($rights[0]);
@@ -49,8 +47,6 @@
             $right9 = str_split($rights[9]);
         }
     ?>
-
-
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav sidebar-menu" id="side-menu">
@@ -58,10 +54,10 @@
                             <div class="input-group custom-search-form">
                                 <input type="text" class="form-control" placeholder="Search...">
                                 <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
                             </div>
                             <!-- /input-group -->
                         </li>
@@ -79,15 +75,26 @@
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            <a href="#"><i class="fa fa-users"></i> Sub Admin<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo base_url('admin/users_list/4')?>">Manage Sub Admin</a>
+                                </li>
+                                <!-- <li>
+                                    <a href="<?php //echo base_url('admin/subadmin_users_list/4')?>">Assign Rights</a>
+                                </li> -->
+                            </ul>
+                        </li>
                         <?php } if($user_role==1 || ($right4[0]!=0 && $right4[1]!=0 && $right4[2]!=0)){?>
                         <li>
                             <a href="#"><i class="fa fa-user-md" aria-hidden="true"></i> Speciality<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <?php //if($user_role==1 || ($user_role==4 && $right0[0]==1)){?>
+                                <?php if($user_role==1 || $right4[0]!=0){?>
                                 <li>
                                     <a href="<?php echo base_url('admin/speciality')?>">Add Speciality</a>
                                 </li>
-                                <?php //}?>
+                                <?php }?>
                                 <li>
                                     <a href="<?php echo base_url('admin/speciality_list/')?>">View Speciality</a>
                                 </li>
@@ -124,7 +131,6 @@
                                 <li>
                                     <a href="<?php echo base_url('admin/users_list/3')?>">View Patient</a>
                                 </li>
-
                             </ul>
                         </li>
                         <?php }if($user_role==1 || ($right2[0]!=0 && $right2[1]!=0 && $right2[2]!=0)){?>
@@ -184,7 +190,6 @@
                                 </li>
                             </ul>
                         </li>
-
                         <?php }if($user_role==1 || ($user_role==4 && $right6[0]==1)){?>
                         <li>
                             <a href="#"><i class="fa fa-comments" aria-hidden="true"></i> Reviews<span class="fa arrow"></span></a>
@@ -194,27 +199,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <?php } if($user_role==1){?>
-                        <li>
-                            <a href="#"><i class="fa fa-users"></i> Sub Admin<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="<?php echo base_url('admin/register/null/4')?>">Add Sub Admin</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo base_url('admin/users_list/4')?>">View Sub Admin</a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-users"></i> Rights <span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level">
-                                        <li>
-                                            <a href="<?php echo base_url('admin/subadmin_users_list/4')?>">Assign Rights</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <?php }if($user_role==1 || ($right7[0]!=0 && $right7[1]!=0 && $right7[2]!=0)){?>
+                        <?php } if($user_role==1 || ($right7[0]!=0 && $right7[1]!=0 && $right7[2]!=0)){?>
                         <li>
                             <a href="#"><i class="fa fa-commenting" aria-hidden="true"></i> Message<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level treeview-menu">

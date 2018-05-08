@@ -165,11 +165,8 @@ class Model
         } else if ($limit != '') {
             $this->CI->db->limit($limit);
         }
-        
-        $q = $this->CI->db->get($table);
-        
-        $num_rows = $q->num_rows();
-        
+        $q          = $this->CI->db->get($table);
+        $num_rows   = $q->num_rows();
         if ($num_rows > 0) {
             foreach ($q->result_array() as $rows) {
                 $data[] = $rows;

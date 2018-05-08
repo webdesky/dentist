@@ -41,7 +41,10 @@
                                         </script>
                                     </div>
                                 </div>
-                                <div class="col-md-12" align="center"> <button type="submit" value="Save" class="btn btn-success">Save</button><input type="reset" class="btn btn-default" value="Reset"> </div>
+                                <div class="clearfix"></div>
+                                <br/><br/>
+                                <div class="col-md-12" align="center"> <button type="submit" value="Save" class="btn btn-success">Save</button>
+                                <input type="reset" class="btn btn-default" value="Reset"> </div>
                             </form>
                         </div>
                     </div>
@@ -57,17 +60,16 @@
 </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function() {
-    $('select').niceSelect();
-    $(".registration_form1").validate({
-        rules: {
-            "reciever_id": "required",
-            "subject": "required",
-        },
-        submitHandler: function(form) {
-            form.submit();
-        }
+    $(document).ready(function() {
+        $('select').niceSelect();
+        $(".registration_form1").validate({
+            rules: {
+                "reciever_id": "required",
+                "subject": "required",
+            },
+            submitHandler: function(form) {
+                form.submit();
+            }
+        });
     });
-});
 </script>
-

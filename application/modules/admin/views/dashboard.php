@@ -26,7 +26,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="<?php echo base_url('admin/hospitals_list') ?>">
+                <a href="<?php echo base_url('admin/hospitals_list');?>">
                     <div class="panel-footer">
                         <span class="pull-left">Hospitals</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -51,7 +51,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="<?php echo base_url('admin/users_list/2') ?>">
+                <a href="<?php echo base_url('admin/users_list/2');?>">
                     <div class="panel-footer">
                         <span class="pull-left">Doctors</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -60,7 +60,6 @@
                 </a>
             </div>
         </div>
-
         <div class="col-lg-3 col-md-6">
             <div class="panel panel-yellow">
                 <div class="panel-heading">
@@ -85,7 +84,6 @@
                 </a>
             </div>
         </div>
-
         <div class="col-lg-3 col-md-6">
             <div class="panel panel-green">
                 <div class="panel-heading">
@@ -110,14 +108,11 @@
                 </a>
             </div>
         </div>
-
     </div>
     <!-- /.row -->
 
     <div class="row" style="margin-top: 25px;">
-
         <div class="col-lg-12">
-
             <!-- /.panel -->
             <?php if(!empty($appointmentList)){?>
             <div class="col-lg-6">
@@ -164,14 +159,12 @@
                                                 </td>
                                             </tr>
                                             <?php $count++;  } ?>
-
                                         </tbody>
                                     </table>
                                 </div>
                                 <!-- /.table-responsive -->
                             </div>
                             <!-- /.col-lg-4 (nested) -->
-
                             <!-- /.col-lg-8 (nested) -->
                         </div>
                         <!-- /.row -->
@@ -221,14 +214,12 @@
 
                                             </tr>
                                             <?php $count++;  }  ?>
-
                                         </tbody>
                                     </table>
                                 </div>
                                 <!-- /.table-responsive -->
                             </div>
                             <!-- /.col-lg-4 (nested) -->
-
                             <!-- /.col-lg-8 (nested) -->
                         </div>
                         <!-- /.row -->
@@ -239,6 +230,5 @@
             <?php }?>
         </div>
     </div>
-
 </div>
 <!-- /#page-wrapper -->

@@ -45,8 +45,8 @@ class Patient extends CI_Controller
             'user_role' => 2,
             'patient_id' => $this->session->userdata('id')
         );
-        
-        $data['appointmentList'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', 'appointment.ap_id,users.first_name,appointment.problem,appointment.is_active,appointment.appointment_date,appointment.appointment_time,appointment.appointment_id,users.last_name', $where);
+        $field_val = 'appointment.id,users.first_name,appointment.problem,appointment.is_active,appointment.appointment_date,appointment.appointment_time,appointment.appointment_id,users.last_name';
+        $data['appointmentList'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', $field_val, $where);
         
         $data['body'] = 'appointment_list';
         $this->controller->load_view($data);
@@ -64,7 +64,7 @@ class Patient extends CI_Controller
             $data['doctor']      = $this->model->getAllwhere('users', $where);
             $data['patient']     = $this->model->getAllwhere('users', $wheres);
             $where1              = array(
-                'ap_id ' => $id
+                'appointment.id ' => $id
             );
             $data['appointment'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', '', $where1);
             $data['body']        = 'view_appointment';
@@ -349,13 +349,13 @@ class Patient extends CI_Controller
             $this->controller->load_view($data);
         } else {
             if ($this->controller->checkSession()) {
-                $data  = array(
+                $data   = array(
                     'password' => md5($this->input->post('new_password', TRUE))
                 );
-                $where = array(
+                $where  = array(
                     'id' => $this->session->userdata('id')
                 );
-                $table = 'users';
+                $table  = 'users';
                 $result = $this->model->updateFields($table, $data, $where);
                 redirect('patient/change_password', 'refresh');
             }
@@ -391,18 +391,29 @@ class Patient extends CI_Controller
             $this->form_validation->set_rules('appointment_time', 'appointment_time', 'trim|required');
             $this->form_validation->set_rules('problem', 'problem', 'trim|required');
         }
-
-        if ($this->form_validation->run() == false) {            
+        
+        if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('errors', validation_errors());
-            $data['body'] = 'add_appointment';
-            $where  = array(
+            $data['body']    = 'add_appointment';
+            $where           = array(
                 'user_role' => 2
             );
-            $wheres = array(
+            $wheres          = array(
                 'user_role ' => 3
             );
-            $data['doctor']  = $this->model->getAllwhere('users', $where);
+            
             $data['patient'] = $this->model->getAllwhere('users', $wheres);
+            if(!empty($this->session->userdata('hospital_id'))){
+                $hospital_id = $this->session->userdata('hospital_id'); 
+                $where             = array(
+                    'hospital_id' => $hospital_id,
+                    'user_role' => 2
+                );
+                $select            = 'id,first_name,last_name';
+                $data['doctor']   = $this->model->find_record('users', $where, $select);
+            }else{
+                $data['doctor']  = $this->model->getAllwhere('users', $where);
+            }
             $this->controller->load_view($data);
         } else {
             
@@ -425,7 +436,7 @@ class Patient extends CI_Controller
                 if (!empty($id)) {
                     
                     $where = array(
-                        'ap_id' => $id
+                        'id' => $id
                     );
                     unset($data['created_at']);
                     unset($data['appointment_id']);

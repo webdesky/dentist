@@ -25,7 +25,7 @@
                                 <div class="form-group"> <label class="col-md-2">Confirm Password * </label>
                                     <div class="col-lg-6"> <input type="password" name="confirm_password" id="confirm_password" onblur="password(this.value)" class="form-control" placeholder="Confirm Password" autocomplete="off" required="required" value="<?php echo set_value('confirm_password'); ?>"> <span class="red" id="new"><?php echo form_error('confirm_password'); ?></span> </div>
                                 </div>
-                                <div class="col-md-12" align="center"> <input type="submit" id="submit"  disabled name="submit" class="btn btn-success" value="Save"><button type="reset" class="btn btn-default">Reset</button> </div>
+                                <div class="col-md-12" align="center"> <input type="submit" id="submit" disabled name="submit" class="btn btn-success" value="Save"><button type="reset" class="btn btn-default">Reset</button> </div>
                             </form>
                         </div>
                     </div>
@@ -41,37 +41,34 @@
 </div>
 </div>
 <script type="text/javascript">
-function check_password(data) {
-    var url = 'admin/check_password';
-    $.ajax({
-        url: url,
-        type: "POST",
-        data: {
-            data: data
-        },
-        success: function(result) {
-            if (result == 1) {
-                $('#old').text('old password not match');
-                $('#old_password').focus();
-            }else{
-              $('#old').text('');  
+    function check_password(data) {
+        var url = 'admin/check_password';
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: {
+                data: data
+            },
+            success: function(result) {
+                if (result == 1) {
+                    $('#old').text('old password not match');
+                    $('#old_password').focus();
+                } else {
+                    $('#old').text('');
+                }
             }
-            //  window.location.reload();
-        }
-    });
-}
-
-function password(confirm_password) {
-    var new_password = $('#new_password').val();
-    if (new_password != confirm_password) {
-        $('#new').text("New password and confirm password not match");
-        $('#confirm_password').val('').focus();
-
-
-    }else{
-         $("#submit").removeAttr("disabled");
-         $('#new').text('');  
-
+        });
     }
-}
+
+    function password(confirm_password) {
+        var new_password = $('#new_password').val();
+        if (new_password != confirm_password) {
+            $('#new').text("New password and confirm password not match");
+            $('#confirm_password').val('').focus();
+        } else {
+            $("#submit").removeAttr("disabled");
+            $('#new').text('');
+
+        }
+    }
 </script>

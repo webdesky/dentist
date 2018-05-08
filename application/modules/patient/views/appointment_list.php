@@ -30,8 +30,8 @@
                             <thead>
                                 <tr class="bg-primary">
                                     <th>Sr.No</th>
-                                    <th>Appointment Id</th>
-                                    <th>Doctor Name</th>
+                                    <th>Id</th>
+                                    <th>Doctor</th>
                                     <th>Problem</th>
                                     <th>Date</th>
                                     <th>Status</th>
@@ -65,14 +65,13 @@
                                     </td>
                                     <td>
                                         <?php
-                                                if($value->is_active==0){  ?>
+                                            if($value->is_active==0){  ?>
                                             <button class="btn btn-danger">Pending</button>
                                             <?php  }else{ ?>
                                             <button class="btn btn-success">Approved</button>
-                                            <?php  }
-                                             ?>
+                                        <?php  }?>
                                     </td>
-                                    <td class="center"><a href="<?php echo base_url('patient/view_appointment/').$value->ap_id; ?>"><i class="fa fa-eye"></i></a>
+                                    <td class="center"><a href="<?php echo base_url('patient/view_appointment/'.$value->id); ?>"><i class="fa fa-eye"></i></a>
                                     </td>
                                 </tr>
                                 <?php $count++; }}?>

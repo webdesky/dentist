@@ -14,7 +14,7 @@
             </div>
             <?php endif ?>
             <div class="panel panel-default">
-                <div class="panel-heading"> <a class="btn btn-primary" href="<?php echo base_url('admin/case_study')?>"><i class="fa fa-th-list">&nbsp;Add Case Study </i></a>  </div>
+                <div class="panel-heading"> <a class="btn btn-primary" href="<?php echo base_url('admin/case_study')?>"><i class="fa fa-th-list">&nbsp;Add Case Study </i></a> </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
@@ -78,30 +78,30 @@
     <!-- /.row -->
 </div>
 <script type="text/javascript">
-$('#dataTables-example').DataTable({responsive: true});
-
-
-function delete_case_study(id , tr_id) {
-    swal({
-        title: "Are you sure?",
-        text: "you want to delete?",
-        type: "warning",
-        showCancelButton: true,
-        closeOnConfirm: false,
-        confirmButtonText: "Yes, Delete it!",
-        confirmButtonColor: "#ec6c62"
-    }, function() {
-        $.ajax({
-            url: "<?php echo base_url('admin/delete_appointment')?>",
-            data: {
-                id: id,
-                table: 'case_study'
-            },
-            type: "POST"
-        }).done(function(data) {
-            swal("Deleted!", "Record was successfully deleted!", "success");
-            $('#tr_' + tr_id).remove();
-        });
+    $('#dataTables-example').DataTable({
+        responsive: true
     });
-}
+    function delete_case_study(id, tr_id) {
+        swal({
+            title: "Are you sure?",
+            text: "you want to delete?",
+            type: "warning",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            confirmButtonText: "Yes, Delete it!",
+            confirmButtonColor: "#ec6c62"
+        }, function() {
+            $.ajax({
+                url: "<?php echo base_url('admin/delete_appointment')?>",
+                data: {
+                    id: id,
+                    table: 'case_study'
+                },
+                type: "POST"
+            }).done(function(data) {
+                swal("Deleted!", "Record was successfully deleted!", "success");
+                $('#tr_' + tr_id).remove();
+            });
+        });
+    }
 </script>

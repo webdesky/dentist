@@ -10,41 +10,35 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <a class="btn btn-primary" href="<?php echo base_url('admin/users_list')?>"><i class="fa fa-th-list">&nbsp;Users List</i></a>
+                    <i class="fa fa-th-list">&nbsp;Users Information</i>
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12 col-md-o12">
-                        <?php echo '<pre>'; print_r($users); die;?>
                             <form role="form" method="post" action="<?php echo base_url('admin/register/'.$users[0]->id.'/'.$users[0]->user_role) ?>" class="registration_form1" enctype="multipart/form-data">
-
                                 <?php if($users[0]->user_role==2){?>
                                 <div class="col-md-6">
                                     <div class="">
                                         <label class="col-md-3">Hospital *</label>
                                         <div class="col-md-9">
-                                        <select class="form-control" name="hospitals_id" id="hospitals_id" onchange="get_specialty($(this).find(':selected').data('speciality'))"> 
+                                            <select class="form-control" name="hospitals_id" id="hospitals_id" onchange="get_specialty($(this).find(':selected').data('speciality'))"> 
                                             <option value="">-- Select Hospital --</option>
-                                            <?php foreach ($hospitals as $value) {  ?>
+                                            <?php foreach ($hospitals as $value){?>
                                             <option value="<?php echo $value->id; ?>" <?php if($users[0]->hospital_id==$value->id){ echo 'selected';}?>><?php echo ucfirst($value->hospital_name); ?></option>
                                             <?php   } ?>
-                                        </select>    
-                                        <span class="red"><?php echo form_error('hospitals_id'); ?></span>
-                                         </div>      
+                                        </select>
+                                            <span class="red"><?php echo form_error('hospitals_id'); ?></span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="">
                                         <label class="col-md-3">Doctor Speciality *</label>
                                         <div class="col-md-9">
-                                        <select class="form-control" name="specialization" id="category"> 
-                                            <!-- <option value="">-- Select Speciality --</option>
-                                            <?php foreach ($category as $value) { ?>
-                                            <option value="<?php echo $value->id; ?>"><?php echo $value->name; ?></option>
-                                            <?php   } ?> -->
-                                        </select>    
-                                        <span class="red"><?php echo form_error('category'); ?></span>
-                                         </div>      
+                                            <select class="form-control" name="specialization" id="category"> 
+                                        </select>
+                                            <span class="red"><?php echo form_error('category'); ?></span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
@@ -63,7 +57,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">First Name *</label>
                                         <div class="col-md-9">
-                                            <input class="form-control" type="text" placeholder="First Name" name="first_name" autocomplete="off" required="required" value="<?php echo $users[0]->first_name;?>" >
+                                            <input class="form-control" type="text" placeholder="First Name" name="first_name" autocomplete="off" required="required" value="<?php echo $users[0]->first_name;?>">
                                         </div>
                                         <span class="red"><?php echo form_error('first_name'); ?></span>
                                     </div>
@@ -72,7 +66,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Last Name *</label>
                                         <div class="col-md-9">
-                                           <input class="form-control" type="text" name="last_name" placeholder="Last Name" autocomplete="off" required="required" value="<?php echo $users[0]->last_name; ?>">
+                                            <input class="form-control" type="text" name="last_name" placeholder="Last Name" autocomplete="off" required="required" value="<?php echo $users[0]->last_name; ?>">
                                         </div>
                                         <span class="red"><?php echo form_error('last_name'); ?></span>
                                     </div>
@@ -90,7 +84,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Phone No</label>
                                         <div class="col-md-9">
-                                          <input type="text" class="form-control" name="phone_no" placeholder="phone number" autocomplete="off" value="<?php echo $users[0]->phone_no;?>">
+                                            <input type="text" class="form-control" name="phone_no" placeholder="phone number" autocomplete="off" value="<?php echo $users[0]->phone_no;?>">
                                         </div>
                                         <span class="red"><?php echo form_error('phone_no'); ?></span>
                                     </div>
@@ -99,7 +93,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Mobile No</label>
                                         <div class="col-md-9">
-                                          <input type="text" class="form-control" name="mobile_no" placeholder="mobile number" autocomplete="off" required="  required" value="<?php echo $users[0]->mobile; ?>"> 
+                                            <input type="text" class="form-control" name="mobile_no" placeholder="mobile number" autocomplete="off" required="  required" value="<?php echo $users[0]->mobile; ?>">
                                         </div>
                                         <span class="red"><?php echo form_error('mobile_no'); ?></span>
                                     </div>
@@ -108,7 +102,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Picture</label>
                                         <div class="col-md-9">
-                                             <input type="file" name="image" id="image" class="form-control">
+                                            <input type="file" name="image" id="image" class="form-control">
                                         </div>
                                         <span class="red"><?php echo form_error('image'); ?></span>
                                     </div>
@@ -148,19 +142,19 @@
                                         </div>
                                     </div>
                                 </div>
-                                 <div class="col-md-6">
+                                <div class="col-md-6">
                                     <div class="">
                                         <label class="col-md-3">Blood Group</label>
                                         <div class="col-md-9">
                                             <select class="form-control" name="blood_group">
-                                                <option value="a+" <?php if($users[0]->blood_group=="a+"){?> selected<?php }?>>A+</option>
-                                                <option value="a-" <?php if($users[0]->blood_group=="a-"){?> selected<?php }?>>A-</option>
-                                                <option value="b+" <?php if($users[0]->blood_group=="b+"){?> selected<?php }?>>B+</option>
-                                                <option value="b-" <?php if($users[0]->blood_group=="b-"){?> selected<?php }?>>B-</option>
-                                                <option value="o+" <?php if($users[0]->blood_group=="o+"){?> selected<?php }?>>O+</option>
-                                                <option value="o-" <?php if($users[0]->blood_group=="oO-"){?> selected<?php }?>>O-</option>
-                                                <option value="ab+"<?php if($users[0]->blood_group=="ab+"){?> selected<?php }?>> AB+</option>
-                                                <option value="ab-"<?php if($users[0]->blood_group=="ab-"){?> selected<?php }?>>AB-</option>
+                                                <option value="a+"  <?php if($users[0]->blood_group == "a+"){?> selected<?php }?>>A+</option>
+                                                <option value="a-"  <?php if($users[0]->blood_group == "a-"){?> selected<?php }?>>A-</option>
+                                                <option value="b+"  <?php if($users[0]->blood_group == "b+"){?> selected<?php }?>>B+</option>
+                                                <option value="b-"  <?php if($users[0]->blood_group == "b-"){?> selected<?php }?>>B-</option>
+                                                <option value="o+"  <?php if($users[0]->blood_group == "o+"){?> selected<?php }?>>O+</option>
+                                                <option value="o-"  <?php if($users[0]->blood_group == "o-"){?> selected<?php }?>>O-</option>
+                                                <option value="ab+" <?php if($users[0]->blood_group== "ab+"){?> selected<?php }?>>AB+</option>
+                                                <option value="ab-" <?php if($users[0]->blood_group== "ab-"){?> selected<?php }?>>AB-</option>
                                             </select>
                                         </div>
                                         <span class="red"><?php echo form_error('blood_group'); ?></span>
@@ -195,36 +189,35 @@
 </div>
 
 <script type="text/javascript">
-
-$(document).ready(function() {
-    <?php if($users[0]->user_role==2){?>
-    get_specialty('<?php echo $doctor[0]->specialization;?>');
-    <?php }?>
-});
-
-$("#datepicker").datepicker({
-    format: 'yyyy-mm-dd',
-    autoclose: true
-});
-
-function get_specialty(id) {
-    $.ajax({
-        url: "<?php echo base_url('admin/get_speciality_by_hospital')?>",
-        method: "GET",
-        dataType: "json",
-        data: {
-            id: id,
-        },
-        success: function(response) {
-            var option = '<option value="">-- Select Speciality --</option>';
-            for (var i = 0; i < response.length; i++) {
-                option += '<option value="' + response[i].id + '">' + response[i].name + '</option>';
-            }
-            $('#category').html(option);
-        },
-        error: function() {
-            alert('Something went wrong please try again later');
-        }
+    $(document).ready(function() {
+        <?php if($users[0]->user_role==2){?>
+        get_specialty('<?php echo $doctor[0]->specialization;?>');
+        <?php }?>
     });
-}
+
+    $("#datepicker").datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true
+    });
+
+    function get_specialty(id) {
+        $.ajax({
+            url: "<?php echo base_url('admin/get_speciality_by_hospital')?>",
+            method: "GET",
+            dataType: "json",
+            data: {
+                id: id,
+            },
+            success: function(response) {
+                var option = '<option value="">-- Select Speciality --</option>';
+                for (var i = 0; i < response.length; i++) {
+                    option += '<option value="' + response[i].id + '">' + response[i].name + '</option>';
+                }
+                $('#category').html(option);
+            },
+            error: function() {
+                alert('Something went wrong please try again later');
+            }
+        });
+    }
 </script>
