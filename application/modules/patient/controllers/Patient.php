@@ -479,7 +479,6 @@ class Patient extends CI_Controller
             'rating' => $data['rating'],
             'created_at' => date('Y-m-d H:i:s')
         );
-        
         $result = $this->model->insertData('review', $data);
         redirect('patient/prescription_list');
     }
@@ -490,13 +489,9 @@ class Patient extends CI_Controller
         $appointment_time = $this->input->post('appointment_time');
         $appointment_date = $this->input->post('appointment_date');
         $day              = date('l', strtotime($appointment_date));
-        $where            = array(
-            'doctor_id' => $doctor_id
-        );
+        $where            = array('doctor_id' => $doctor_id);
         $data             = $this->model->getAllwhere('schedule', $where);
-        
-        print_r(json_encode($data));
-        
+        echo json_encode($data);
     }
     
     public function get_time()
@@ -504,14 +499,9 @@ class Patient extends CI_Controller
         $doctor_id        = $this->input->post('doctor_id');
         $appointment_date = $this->input->post('appointment_date');
         $day              = date('l', strtotime($appointment_date));
-        
-        $where     = array(
-            'doctor_id' => $doctor_id,
-            'appointment_date' => $appointment_date
-        );
-        $field_val = 'appointment_time';
-        $data      = $this->model->getAllwhere('appointment', $where, '', '', $field_val);
-        
+        $where            = array('doctor_id' => $doctor_id,'appointment_date' => $appointment_date);
+        $field_val        = 'appointment_time';
+        $data             = $this->model->getAllwhere('appointment', $where, '', '', $field_val);
         print_r(json_encode($data));
     }
 }

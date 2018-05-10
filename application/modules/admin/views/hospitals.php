@@ -182,7 +182,16 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Main Speciality*</label>
                                         <div class="col-md-9">
-                                            <input type="text" id="speciality" name="speciality" class="form-control" autocomplete="off" value="<?php if(!empty($hospitals[0]->speciality)){ echo $hospitals[0]->speciality ;}else{set_value('speciality'); }?>" placeholder="Speciality">
+                                            <select class="form-control" name="speciality" id="speciality"> 
+                                                <option value="">-- Select Speciality --</option>
+                                                <?php 
+                                                    foreach ($speciality as $value) { 
+                                                    //$HiddenProducts = explode(',',$hospitals[0]->speciality);
+                                                ?>
+                                                <option value="<?php echo $value->id; ?>" <?php if($value->id==$hospitals[0]->speciality){ 
+                                                    echo "selected";}?>><?php echo $value->name; ?></option>
+                                                <?php } ?>
+                                            </select>
                                             <span class="red"><?php echo form_error('speciality'); ?></span>
                                         </div>
                                     </div>

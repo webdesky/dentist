@@ -1084,6 +1084,7 @@ class Doctor extends CI_Controller
                 foreach ($data['endtime'] as $endkey => $end) {
                     $new[$daykey]['doctor_id']  = $this->session->userdata('id');
                     $new[$daykey]['day']        = $day;
+                    $new[$daykey]['hospital_id']= $this->input->post('hospital_id');
                     $new[$daykey]['starttime']  = $time;
                     $new[$daykey]['endtime']    = $end;
                     $new[$daykey]['created_at'] = date('Y-m-d H:i:s');

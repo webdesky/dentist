@@ -14,7 +14,7 @@
     <!-- /.row -->
 
     <?php   
-        $session_role = $this->session->userdata('user_role');
+        echo $session_role    = $this->session->userdata('user_role');
         if($session_role==4){
             $hospital_id = $this->session->userdata('hospital_id');
         }
@@ -51,23 +51,27 @@
                                         </div>
                                     </div>
                                 </div>
+                                <?php }if($user_role==2){?>
                                 <div class="col-md-6">
                                     <div class="">
                                         <label class="col-md-3">Doctor Speciality *</label>
                                         <div class="col-md-9">
-                                            <select class="form-control" name="specialization" id="category"> 
-                                            <!-- <option value="">-- Select Speciality --</option>
-                                            <?php foreach ($category as $value) { ?>
-                                            <option value="<?php echo $value->id; ?>"><?php echo $value->name; ?></option>
-                                            <?php   } ?> -->
-                                        </select>
+                                            <select class="form-control" name="specialization" id="category">
+                                            <?php if($user_role==2 && $session_role==4){?>
+                                            <option>---Select Speciality-</option>
+                                            <?php foreach($category as $categories){?>
+                                            <option value="<?php echo $categories->id;?>"><?php echo $categories->name;?></option>
+                                            <?php }?>
+                                            
+                                            <?php }?>
+                                            </select>
                                             <span class="red"><?php echo form_error('category'); ?></span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
                                 <br/>
-                                <?php }elseif($session_role==4){?>
+                                <?php }if($session_role==4){?>
                                 <input type="hidden" name="hospitals_id" value="<?php echo $hospital_id; ?>">
                                 <?php } ?>
                                 <div class="col-md-6">
@@ -130,7 +134,7 @@
                                         <label class="col-md-3">Country *</label>
                                         <div class="col-md-9">
                                             <select class="form-control" name="country" id="country" onchange="get_state(this.value)">
-                                            <option data-display="-- Select Country --">-- Select Country --</option>
+                                            <option value="">-- Select Country --</option>
                                             <?php foreach($countries as $country){?>
                                             <option value="<?php echo $country['id']?>" <?php if(!empty($hospitals[0]->country) && $hospitals[0]->country==$country['id']){ echo 'selected';}?>><?php echo $country['name']?></option>
                                             <?php }?>
@@ -199,7 +203,7 @@
                                         <label class="col-md-3">Blood Group</label>
                                         <div class="col-md-9">
                                             <select class="form-control" name="blood_group">
-                                                <option data-display="-- Select Blood Group --">-- Select Blood Group --</option>
+                                                <option value="">-- Select Blood Group --</option>
                                                 <option value="a+">A+</option>
                                                 <option value="a-">A-</option>
                                                 <option value="b+">B+</option>

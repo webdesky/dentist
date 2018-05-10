@@ -40,9 +40,9 @@
                                 </div>
                                 <div id="data" style="display: none" class="col-lg-6 col-lg-offset-2">
                                     <div class="panel panel-primary">
-                                        <div class="panel-heading">Doctor Schedule</div>
+                                        <div class="panel-heading center">Doctor Schedule</div>
                                         <div class="panel-body">
-                                            <table id="table" class="table" border="1">
+                                            <table id="table" class="table table-bordered">
                                                 <tr>
                                                     <th>Day</th>
                                                     <th>Start Time</th>
@@ -100,15 +100,11 @@ $(document).ready(function() {
 
     $('select').niceSelect();
 
-
     $('#timepicker').timepicker({
         change: function(time) {
-
             doctor_id = $('#doctor_id').val();
             appointment_date = $('#appointment_date').val();
-
             var appointment_time = $(this).val();
-
             $.ajax({
                 type: "POST",
                 url: "<?php echo base_url('patient/get_time')?>",
@@ -118,19 +114,13 @@ $(document).ready(function() {
                 },
                 success: function(data) {
                     var obj = JSON.parse(data);
-                    //console.log(obj);
-
                     for (var i = 0; i < obj.length; i++) {
-
                         var check = obj[i].appointment_time;
-                        console.log(check);
-                        console.log(appointment_time);
                         if (check == appointment_time) {
                             $('#error').html('Time already booked please try another..');
                             $('#submit').attr('disabled', true);
                             $('#timepicker').focus();
                             return false;
-
                         } else {
                             $('#error').text('');
                             $("#submit").removeAttr("disabled");
@@ -153,17 +143,12 @@ function getSchedule() {
             'doctor_id': doctor_id,
             'appointment_date': appointment_date,
             'appointment_time': appointment_time
-
         },
-
-
         success: function(data) {
             var obj = JSON.parse(data);
-            /*console.log(obj[0].day);*/
-            $('#table tr').html('');
+            $('#table').find("tr:gt(0)").remove();
             for (var i = 0; i < obj.length; i++) {
-                //console.log(array[i].area);
-                $('#table').append('<tr><td>' + obj[i].day + '</td><td>' + obj[i].starttime + '</td><td>' + obj[i].endtime + '</td></tr>');
+                $('#table tr:first').after('<tr><td>' + obj[i].day + '</td><td>' + obj[i].starttime + '</td><td>' + obj[i].endtime + '</td></tr>');
                 $('#data').show();
 
             }

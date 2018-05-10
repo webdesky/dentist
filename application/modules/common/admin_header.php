@@ -25,7 +25,7 @@
     <script src="<?php echo base_url('asset/dist/js/custom.js')?>"></script>
 
 
-    <link href="https://fonts.googleapis.com/css?family=Bellefair" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bellefair&amp;subset=hebrew,latin-ext" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.bootstrap.min.css">
     <link href="<?php echo base_url('asset/jquery-ui.css')?>" rel="stylesheet">

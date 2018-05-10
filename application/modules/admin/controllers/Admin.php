@@ -78,7 +78,6 @@ class Admin extends CI_Controller
                 $data['totalAppointment']  = $this->model->getcount('appointment', array(
                     'hospital_id' => $this->session->userdata('hospital_id')
                 ));
-                //echo $this->db->last_query();die;
             } else {
                 $data['appointmentList']   = $this->Common_model->get_Patient_Doctor_Record('appointment', $field_val1);
                 $data['totalHospital']     = $this->model->getcount('hospitals', $where);
@@ -100,28 +99,24 @@ class Admin extends CI_Controller
         );
         $result   = $this->model->getsingle('users', $where);
         if (!empty($result)) {
-
             $sess_array = array(
-                'id' => $result->id,
-                'username' => $result->username,
-                'email' => $result->email,
-                'user_role' => $result->user_role,
-                'first_name' => $result->first_name,
-                'last_name' => $result->last_name,
-                'hospital_id' => $result->hospital_id
+                'id'            => $result->id,
+                'username'      => $result->username,
+                'email'         => $result->email,
+                'user_role'     => $result->user_role,
+                'first_name'    => $result->first_name,
+                'last_name'     => $result->last_name,
+                'hospital_id'   => $result->hospital_id
             );
-
             if($result->user_role!=4){
                 unset($sess_array['hospital_id']);
             }
-
             if ($result->user_role == 4) {
                 $where                = array(
                     'user_id' => $result->id
                 );
                 $sess_array['rights'] = $this->model->getsingle('user_rights', $where);
             }
-            
             $this->session->set_userdata($sess_array);
             return true;
         } else {
@@ -168,7 +163,7 @@ class Admin extends CI_Controller
     {
         $user_data = $this->session->all_userdata();
         foreach ($user_data as $key => $value) {
-            if ($key != 'session_id' && $key != 'ip_address' && $key != 'user_agent' && $key != 'last_activity') {
+            if ($key != 'session_id' && $key != 'ip_address' && $key != 'user_agent' && $key != 'last_activity'){
                 $this->session->unset_userdata($key);
             }
         }
@@ -401,7 +396,8 @@ class Admin extends CI_Controller
             'id ' => $id
         );
         $data['users'] = $this->model->getAllwhere('users', $where);
-        if ($data['users'][0]->user_role == 2) {
+
+        if (!empty($data['users'][0]) && $data['users'][0]->user_role == 2) {
             $field_val         = 'id,hospital_name';
             $data['hospitals'] = $this->model->getAllwhere('hospitals', '', $field_val);
             $where             = array(
@@ -636,7 +632,7 @@ class Admin extends CI_Controller
         } else {
             $data['appointmentList'] = $this->Common_model->GetJoinedRecord();
         }
-        
+        // echo $this->db->last_query(); die;
         $data['body'] = 'list_appointment';
         $this->controller->load_view($data);
     }
@@ -899,7 +895,12 @@ class Admin extends CI_Controller
     }
     public function notices_list()
     {
-        $data['notice_list'] = $this->model->getAll('notices');
+        if($this->session->userdata('user_role')==4){
+            $where = '(hospital_id='.$this->session->userdata('hospital_id').' or hospital_id is NULL)';
+            $data['notice_list'] = $this->model->getAllwhere('notices',$where);
+        }else{
+            $data['notice_list'] = $this->model->getAll('notices');
+        }        
         $data['body']        = 'list_notice';
         $this->controller->load_view($data);
     }
@@ -1118,8 +1119,12 @@ class Admin extends CI_Controller
                 $where1                    = array(
                     'hospital_id' => $id
                 );
+                 $where2                   = array(
+                    'is_active' => 1
+                );
                 $data['hospitals']         = $this->model->getAllwhere('hospitals', $where);
                 $data['hospitals_details'] = $this->model->getAllwhere('users', $where);
+                
                 
                 $where_city = array(
                     'id' => $data['hospitals'][0]->city
