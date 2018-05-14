@@ -521,7 +521,7 @@
 }
  .registration_form12 label {
      font-size: 18px;
-     color: #666;
+     color: black;
 }
 
  .registration_form12 input::placeholder, .registration_form12 textarea::placeholder, .registration_form12 select::placeholder {
