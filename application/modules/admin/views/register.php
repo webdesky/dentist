@@ -14,7 +14,7 @@
     <!-- /.row -->
 
     <?php   
-        echo $session_role    = $this->session->userdata('user_role');
+        $session_role    = $this->session->userdata('user_role');
         if($session_role==4){
             $hospital_id = $this->session->userdata('hospital_id');
         }
@@ -35,13 +35,14 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
-                            <form role="form" method="post" action="<?php echo base_url('admin/register') ?>" class="registration_form12" enctype="multipart/form-data">
+                            <form role="form" method="post" action="<?php echo base_url('admin/register') ?>" class="registration_form12" enctype="multipart/form-data" id="registration_form">
                                 <?php if($user_role==2 && $session_role!=4){?>
                                 <div class="col-md-6">
                                     <div class="">
                                         <label class="col-md-3">Hospital *</label>
                                         <div class="col-md-9">
-                                            <select class="form-control" name="hospitals_id" id="hospitals_id" onchange="get_specialty($(this).find(':selected').data('speciality'))"> 
+                                            <!-- <select class="form-control" name="hospitals_id" id="hospitals_id" onchange="get_specialty($(this).find(':selected').data('speciality'))">  -->
+                                        <select class="form-control" name="hospitals_id[]" id="hospitals_id" multiple="multiple">
                                             <option value="">-- Select Hospital --</option>
                                             <?php foreach ($hospitals as $value) { ?>
                                             <option data-speciality="<?php echo $value->other_speciality;?>" value="<?php echo $value->id; ?>"><?php echo ucfirst($value->hospital_name); ?></option>
@@ -57,7 +58,7 @@
                                         <label class="col-md-3">Doctor Speciality *</label>
                                         <div class="col-md-9">
                                             <select class="form-control" name="specialization" id="category">
-                                            <?php if($user_role==2 && $session_role==4){?>
+                                            <?php if($user_role==2){?>
                                             <option>---Select Speciality-</option>
                                             <?php foreach($category as $categories){?>
                                             <option value="<?php echo $categories->id;?>"><?php echo $categories->name;?></option>
@@ -104,7 +105,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="col-md-3">Email Address *</label>
+                                        <label class="col-md-3">E-mail *</label>
                                         <div class="col-md-9">
                                             <input type="text" name="email" class="form-control" placeholder="Email Address" autocomplete="off" value="<?php echo set_value('email'); ?>">
                                             <span class="red"><?php echo form_error('email'); ?></span>
@@ -184,7 +185,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Mobile No</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="mobile_no" placeholder="Mobile Number" autocomplete="off" value="<?php echo set_value('mobile_no'); ?>">
+                                            <input type="text" class="form-control" name="mobile_no" placeholder="Mobile Number" autocomplete="off" value="<?php echo set_value('mobile_no'); ?>"  require="required">
                                             <span class="red"><?php echo form_error('mobile_no'); ?></span>
                                         </div>
                                     </div>

@@ -82,7 +82,11 @@
 <script type="text/javascript">
     
     $('#notice').DataTable({
-        responsive: true
+        responsive: true,
+        'aoColumnDefs': [{
+            'bSortable': false,
+            'aTargets': [-1] /* 1st one, start by the right */
+        }]
     });
 
     function delete_notices(id, tr_id) {

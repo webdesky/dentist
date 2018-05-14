@@ -36,7 +36,7 @@
                                     <td>
                                         <?php echo $count; ?> </td>
                                     <td>
-                                        <?php echo $message->first_name.' '.$message->last_name; ?> </td>
+                                        <?php echo ucwords($message->first_name.' '.$message->last_name); ?> </td>
                                     <td class="center">
                                         <?php echo $message->subject; ?> </td>
                                     <td class="center">
@@ -80,7 +80,14 @@ function delete_message(id) {
         });
     });
 }
-$('#dataTables').DataTable({
-    responsive: true
-});
+
+    $(document).ready(function() {
+        $('#dataTables').DataTable({
+            responsive: true,
+            'aoColumnDefs': [{
+                'bSortable': false,
+                'aTargets': [-1] /* 1st one, start by the right */
+            }]
+        });
+    });
 </script>

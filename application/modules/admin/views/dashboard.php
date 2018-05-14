@@ -22,7 +22,7 @@
                             <div class="huge">
                                 <?php echo $totalHospital;?>
                             </div>
-                            <div>Total Hospital!</div>
+                            <div>Total Hospitals!</div>
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                             <div class="huge">
                                 <?php echo $total_users_count[0]->doctor; ?>
                             </div>
-                            <div>Total Doctor!</div>
+                            <div>Total Doctors!</div>
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                             <div class="huge">
                                 <?php echo $total_users_count[0]->patient; ?>
                             </div>
-                            <div>Total Patient!</div>
+                            <div>Total Patients!</div>
                         </div>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
                             <div class="huge">
                                 <?php echo $totalAppointment ?>
                             </div>
-                            <div>Total Appointment!</div>
+                            <div>Total Appointments!</div>
                         </div>
                     </div>
                 </div>

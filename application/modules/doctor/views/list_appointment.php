@@ -42,7 +42,7 @@
                                         <?php echo $count; ?>
                                     </td>
                                     <td>
-                                        <?php echo $value->hospital_name; ?>
+                                        <?php echo ucwords($value->hospital_name); ?>
                                     </td>
                                     <td>
                                         <?php echo $value->appointment_id; ?>
@@ -79,9 +79,15 @@
     <!-- /.row -->
 </div>
 <script type="text/javascript">
-$(document).ready(function() {
-    $('#dataTables-example').DataTable();
-});
+
+
+$('#dataTables-example').DataTable({
+        responsive: true,
+        'aoColumnDefs': [{
+            'bSortable': false,
+            'aTargets': [-1] /* 1st one, start by the right */
+        }]
+    });
 
 function delete_appointment(id, tr_id) {
     swal({

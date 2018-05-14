@@ -1,10 +1,17 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">User</h1>
+            <?php if($user_role==2){ ?>
+            <h1 class="page-header">Edit Doctor</h1>
+            <?php }elseif($user_role==3){?>
+            <h1 class="page-header">Edit Patient</h1>
+            <?php }elseif($user_role==4){ ?>
+            <h1 class="page-header">Edit Sub Admin</h1>
+            <?php } ?>
         </div>
         <!-- /.col-lg-12 -->
     </div>
+    <?php $session_user_role = $this->session->userdata('user_role');?>
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
@@ -18,7 +25,7 @@
                         <?php if(isset($users[0]) && !empty($users[0])){?>
                             <form role="form" method="post" action="<?php echo base_url('admin/register/'.$users[0]->id.'/'.$users[0]->user_role) ?>" class="registration_form1" enctype="multipart/form-data">
                             <?php }?>
-                                <?php if(isset($users[0]) && $users[0]->user_role==2){?>
+                                <?php if(isset($users[0]) && $users[0]->user_role==2 && $session_user_role!=4){?>
                                 <div class="col-md-6">
                                     <div class="">
                                         <label class="col-md-3">Hospital *</label>
@@ -38,14 +45,33 @@
                                         <label class="col-md-3">Doctor Speciality *</label>
                                         <div class="col-md-9">
                                             <select class="form-control" name="specialization" id="category"> 
-                                        </select>
+                                            <?php foreach($speciality as $specialities){?>
+                                                <option value="<?php echo $specialities->id;?>"><?php echo $specialities->name;?></option>
+                                            <?php }?>
+                                            </select>
                                             <span class="red"><?php echo form_error('category'); ?></span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
                                 <br/>
-                                <?php } ?>
+                                <?php } if($session_user_role==4){?>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-md-3">Speciality *</label>
+                                        <div class="col-md-9">
+                                            <select class="form-control" name="speciality" id="speciality">
+                                                <option value="">--Select Speciality--</option>
+                                                <?php foreach($speciality as $specialities){?>
+                                                <option value="<?php echo $specialities->id?>" <?php if($doctor[0]->specialization==$specialities->id){ echo 'selected';}?>><?php echo $specialities->name?></option>
+                                                <?php }?>
+                                            </select> 
+                                        </div>
+                                        <span class="red"><?php echo form_error('user_name'); ?></span>
+                                    </div>
+                                </div>
+                                <?php }?>
+
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-md-3">User Name *</label>
@@ -213,9 +239,10 @@
             success: function(response) {
                 var option = '<option value="">-- Select Speciality --</option>';
                 for (var i = 0; i < response.length; i++) {
-                    option += '<option value="' + response[i].id + '">' + response[i].name + '</option>';
+                    $('#category').val(response[i].id);
+                    //option += '<option value="' + response[i].id + '" selected="selected">' + response[i].name + '</option>';
                 }
-                $('#category').html(option);
+                //$('#category').html(option);
             },
             error: function() {
                 alert('Something went wrong please try again later');

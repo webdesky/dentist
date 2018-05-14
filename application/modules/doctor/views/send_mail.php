@@ -23,16 +23,16 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
-                            <form role="form" method="post" action="<?php echo base_url('doctor/send_message') ?>" class="registration_form1">
+                            <form role="form" method="post" action="<?php echo base_url('doctor/send_mail') ?>" class="registration_form1">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="col-md-2">Send To * </label>
                                         <div class="col-md-6">
-                                            <select class="wide" name="reciever_id">
-                                                <option value="">--Select User--</option>
-                                                <?php foreach($users as $user){?>
-                                                <option value="<?php echo $user->email;?>">
-                                                    <?php echo ucwords($user->first_name.' '.$user->last_name);?>
+                                            <select class="form-control" multiple="multiple" name="reciever_id[]">
+                                                <option value="">--Select Users--</option>
+                                                <?php foreach($users_data as $user){?>
+                                                <option value="<?php echo $user['email'];?>">
+                                                    <?php echo ucwords($user['first_name'].' '.$user['last_name']);?>
                                                 </option>
                                                 <?php }?>
                                             </select>
@@ -76,7 +76,6 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
-    $('select').niceSelect();
     $(".registration_form1").validate({
         rules: {
             "reciever_id": "required",

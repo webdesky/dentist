@@ -83,7 +83,7 @@ class Model
         }
     }
     
-    public function GetJoinRecord($table, $field_first, $tablejointo, $field_second, $field_val, $where, $group_by = null)
+    public function GetJoinRecord($table, $field_first, $tablejointo, $field_second, $field_val, $where, $group_by = null, $order_by = null, $order = null)
     {
         
         if (!empty($field_val)) {
@@ -98,6 +98,9 @@ class Model
         }
         if (!empty($group_by)) {
             $this->CI->db->group_by("$table.$field_first");
+        }
+        if ($order_by != '') {
+            $this->CI->db->order_by($order_by, $order);
         }
         $q = $this->CI->db->get();
         if ($q->num_rows() > 0) {
@@ -165,8 +168,8 @@ class Model
         } else if ($limit != '') {
             $this->CI->db->limit($limit);
         }
-        $q          = $this->CI->db->get($table);
-        $num_rows   = $q->num_rows();
+        $q        = $this->CI->db->get($table);
+        $num_rows = $q->num_rows();
         if ($num_rows > 0) {
             foreach ($q->result_array() as $rows) {
                 $data[] = $rows;
@@ -215,26 +218,27 @@ class Model
         return $q->row();
     }
     
-    public function GetJoinRecordNew($table, $field_first, $tablejointo, $field_second, $tablejointhree, $field_third, $tablejoinfour, $field_four, $field, $value, $field_val)
+    public function GetJoinRecordNew($table, $field_first, $second_field_join, $tablejointo, $field_second, $tablejointhree, $field_third, $tablejoinfour, $field_four, $field, $value, $field_val)
     {
-        $this->db->cache_on();
+        
         $this->CI->db->select("$field_val");
         $this->CI->db->from("$table");
         $this->CI->db->join("$tablejointo", "$tablejointo.$field_second = $table.$field_first");
         
         if ($tablejointhree && $field_third) {
-            $this->CI->db->join("$tablejointhree", "$tablejointhree.$field_third = $table.$field_first");
+            $this->CI->db->join("$tablejointhree", "$tablejointhree.$field_third = $table.$second_field_join");
             
             if ($tablejoinfour && $field_four) {
                 $this->CI->db->join("$tablejoinfour", "$tablejoinfour.$field_four = $table.$field_first");
             }
         }
+        if (!empty($field) && !empty($value)) {
+            $this->CI->db->where("$table.$field", "$value");
+        }
         
-        $this->CI->db->where("$table.$field", "$value");
         //$this->db->group_by("$table.$field_first");
-        $this->CI->db->limit(1);
+        //$this->CI->db->limit(1);
         $q = $this->CI->db->get();
-        $this->db->cache_off();
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $rows) {
                 $data[] = $rows;
@@ -280,6 +284,7 @@ class Model
     public function delete($table, $where)
     {
         $this->CI->db->where($where)->delete($table);
+        
     }
     
     public function update($table, $update, $where)
@@ -350,11 +355,11 @@ class Model
     
     public function find_record($table, $where, $select)
     {
-        if(empty($select)){
+        if (empty($select)) {
             $select = '*';
         }
-        $query = $this->CI->db->query('select ' . $select . ' from users where FIND_IN_SET(' . $where['hospital_id'] . ',hospital_id) and user_role = '.$where['user_role'].' and is_active = 1');
-
+        $query = $this->CI->db->query('select ' . $select . ' from users where FIND_IN_SET(' . $where['hospital_id'] . ',hospital_id) and user_role = ' . $where['user_role'] . ' and is_active = 1');
+        
         $num_rows = $query->num_rows();
         if ($num_rows > 0) {
             foreach ($query->result() as $rows) {
@@ -363,5 +368,5 @@ class Model
             $query->free_result();
             return $data;
         }
-    }   
+    }
 }

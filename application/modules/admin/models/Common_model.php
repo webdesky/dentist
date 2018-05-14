@@ -8,10 +8,11 @@ class Common_model extends CI_Model
     public function getSchedule($table)
     {
         $this->db->select("s.id, s.doctor_id,s.hospital_id,u.first_name, GROUP_CONCAT(s.day SEPARATOR ',') as Days");
-        $this->db->from("schedule as s");
-        $this->db->join("users as u", "u.id = s.doctor_id");
+        $this->db->from("schedule s");
+        $this->db->join("users u", "u.id = s.doctor_id");
         $this->db->group_by("s.doctor_id");
         $q        = $this->db->get();
+        //echo $this->db->last_query();die;
         $num_rows = $q->num_rows();
         if ($num_rows > 0) {
             foreach ($q->result() as $rows) {

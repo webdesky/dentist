@@ -66,8 +66,15 @@
 $(document).ready(function() {
     $('#dataTables-example').DataTable({
         responsive: true,
+        'aoColumnDefs': [{
+            'bSortable': false,
+            'aTargets': [-1] /* 1st one, start by the right */
+        }]
     });
 });
+
+
+    
 
 function delete_document(id, tr_id) {
     swal({

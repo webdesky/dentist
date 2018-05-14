@@ -113,8 +113,12 @@ $(document).ready(function() {
                     tableClass: 'table'
                 } )
             }
-        }
-    } );
+        },
+        'aoColumnDefs': [{
+            'bSortable': false,
+            'aTargets': [-1] /* 1st one, start by the right */
+        }]
+    });
 });
 
 </script>

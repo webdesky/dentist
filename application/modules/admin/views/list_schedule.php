@@ -77,7 +77,11 @@
 </div>
 <script type="text/javascript">
     $('#schedule').DataTable({
-        responsive: true
+        responsive: true,
+        'aoColumnDefs': [{
+            'bSortable': false,
+            'aTargets': [-1] /* 1st one, start by the right */
+        }]
     });
 
 function delete_schedule(id, tr_id) {

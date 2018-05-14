@@ -147,7 +147,7 @@
                         <div class="col-lg-12">
                             <form role="form" method="post" action="<?php echo base_url('patient/doctor_review') ?>" class="registration_form1" enctype="multipart/form-data">
                                 <div class="col-lg-12">
-                                    <h3>How was your Appointment experience with Dr.<?php echo $doctor[0]->first_name.' '.$doctor[0]->last_name.'?'; ?></h3>
+                                    <h3>How was your Appointment experience with Dr.<?php if(!empty($doctor[0])){ echo $doctor[0]->first_name.' '.$doctor[0]->last_name.'?'; }?></h3>
                                     <h4>your feedback will help over 1 lac people choose the right doctor,daily.</h4>
                                 </div>
                                 <div class="col-lg-12">
@@ -167,7 +167,7 @@
                                             <label>Q2. For which health problem/treatment did you visit?</label>
                                         </div>
                                         <div class="col-lg-6">
-                                            <input type="hidden" name="doctor_id" value="<?php echo $doctor[0]->id; ?>">
+                                            <input type="hidden" name="doctor_id" value="<?php if(!empty($doctor[0])){ echo $doctor[0]->id;} ?>">
                                             <input type="hidden" name="prescription_id" value="<?php echo $prescription_id; ?>">
                                             <input type="text" class="form-control" name="problem" placeholder="eg.stomach,Ache,body pain">
                                         </div>

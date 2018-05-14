@@ -15,6 +15,8 @@
             <?php endif ?>
             <div class="panel panel-default">
                 <div class="panel-heading"> Doctor List </div>
+
+
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
@@ -121,4 +123,13 @@ function updateStatus(id, status, tr_id) {
         });
     });
 }
+$(document).ready(function() {
+    $('#dataTables-example').DataTable({
+        responsive: true,
+        'aoColumnDefs': [{
+            'bSortable': false,
+            'aTargets': [-1] /* 1st one, start by the right */
+        }]
+    });
+});
 </script>

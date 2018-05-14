@@ -58,8 +58,8 @@
 
                                     <?php if($user_role==1 || ($user_role==4 && $right3[1]==1 || $right3[2]==1)){?>
                                     <td class="center">
-                                        <?php if($user_role==1 || ($user_role==4 && $right3[1]==1)){?> <a href="<?php echo base_url('admin/speciality/').$value['id']; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <?php }if($user_role==1 || ($user_role==4 && $right3[2]==1)){?> <a href="javascript:void(0)" onclick="delete_speciality('<?php echo $value['id'];?>','<?php echo $count;?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                        <?php if($user_role==1 || ($user_role==4 && $right3[1]==1)){?> <a title="Edit" href="<?php echo base_url('admin/speciality/').$value['id']; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <?php }if($user_role==1 || ($user_role==4 && $right3[2]==1)){?> <a title="Delete" href="javascript:void(0)" onclick="delete_speciality('<?php echo $value['id'];?>','<?php echo $count;?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                         <?php }?> </td>
                                     <?php }?> </tr>
                                 <?php $count++; } }?> </tbody>
@@ -76,8 +76,13 @@
     <!-- /.row -->
 </div>
 <script type="text/javascript">
-$('#appointment').DataTable({
-        responsive: true
+
+    $('#appointment').DataTable({
+        responsive: true,
+        'aoColumnDefs': [{
+            'bSortable': false,
+            'aTargets': [-1] /* 1st one, start by the right */
+        }]
     });
 
 function delete_speciality(id,tr_id) {

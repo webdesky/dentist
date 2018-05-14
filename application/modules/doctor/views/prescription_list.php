@@ -80,9 +80,15 @@
     <!-- /.row -->
 </div>
 <script type="text/javascript">
-$('#dataTables-example').DataTable({
-    responsive: true
-});
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true,
+            'aoColumnDefs': [{
+                'bSortable': false,
+                'aTargets': [-1] /* 1st one, start by the right */
+            }]
+        });
+    });
 
 function delete_prescription(id, tr_id) {
     swal({

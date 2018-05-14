@@ -45,9 +45,8 @@ class Patient extends CI_Controller
             'user_role' => 2,
             'patient_id' => $this->session->userdata('id')
         );
-        $field_val = 'appointment.id,users.first_name,appointment.problem,appointment.is_active,appointment.appointment_date,appointment.appointment_time,appointment.appointment_id,users.last_name';
+        $field_val = 'appointment.id,appointment.problem,appointment.is_active,appointment.appointment_date,appointment.appointment_time,appointment.appointment_id,users.first_name,users.last_name';
         $data['appointmentList'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', $field_val, $where);
-        
         $data['body'] = 'appointment_list';
         $this->controller->load_view($data);
     }

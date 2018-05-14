@@ -22,7 +22,8 @@
                             <thead>
                                 <tr class="bg-primary">
                                     <th>Sr. no</th>
-                                    <th>Patient Name</th>
+                                    <th>Patient</th>
+                                    <th>Doctor</th>
                                     <th>Problem</th>
                                     <th>Allergies</th>
                                     <th>Diabetic</th>
@@ -34,7 +35,7 @@
                             </thead>
                             <tbody>
                                 <?php 
-                                $count=1;
+                                $count=1; 
                                 if($documents_list){
                                 foreach ($documents_list as  $value) { ?>
                                 <tr class="odd gradeX" id="tr_<?php echo $count;?>">
@@ -42,7 +43,10 @@
                                         <?php echo $count; ?>
                                     </td>
                                     <td>
-                                        <?php echo ucwords($value->first_name.' '.$value->last_name); ?>
+                                        <?php echo ucwords($value->patient_name); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo ucwords($value->doctor_name); ?>
                                     </td>
                                     <td class="center">
                                         <?php echo $value->problem; ?>
@@ -79,7 +83,11 @@
 </div>
 <script type="text/javascript">
     $('#dataTables-example').DataTable({
-        responsive: true
+        responsive: true,
+        'aoColumnDefs': [{
+            'bSortable': false,
+            'aTargets': [-1] /* 1st one, start by the right */
+        }]
     });
     function delete_case_study(id, tr_id) {
         swal({
@@ -92,7 +100,7 @@
             confirmButtonColor: "#ec6c62"
         }, function() {
             $.ajax({
-                url: "<?php echo base_url('admin/delete_appointment')?>",
+                url: "<?php echo base_url('admin/delete')?>",
                 data: {
                     id: id,
                     table: 'case_study'

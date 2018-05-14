@@ -3,13 +3,6 @@
         <div class="col-lg-9">
             <h1 class="page-header">Appointment </h1>
         </div>
-        <!-- <div class="col-lg-3">
-                    <button class="page-header btn btn-primary"><i class="fa fa-th-list">&nbsp;Csv </i></button>
-                    <button class="page-header btn btn-primary"><i class="fa fa-th-list">&nbsp;Excel</i></button>
-                    <button class="page-header btn btn-primary"><i class="fa fa-th-list">&nbsp;PDF </i></button>
-                    <button class="page-header btn btn-primary"><i class="fa fa-th-list">&nbsp;Print </i></button>
-                </div> -->
-        <!-- /.col-lg-12 -->
     </div>
     <!-- row -->
     <div class="row">
@@ -89,32 +82,13 @@
     <!-- /.row -->
 </div>
 <script type="text/javascript">
-$('#notice').DataTable({
-    responsive: true
+$(document).ready(function() {
+    $('#notice').DataTable({
+        responsive: true,
+        'aoColumnDefs': [{
+            'bSortable': false,
+            'aTargets': [-1] /* 1st one, start by the right */
+        }]
+    });
 });
-
-// function updateStatus(id, status) {
-//     swal({
-//         title: "Are you sure?",
-//         text: "Are you sure that you want to Update Status?",
-//         type: "warning",
-//         showCancelButton: true,
-//         closeOnConfirm: false,
-//         confirmButtonText: "Yes, Update it!",
-//         confirmButtonColor: "#ec6c62"
-//     }, function() {
-//         $.ajax({
-//             url: "<?php //echo base_url('admin/updateStatus')?>",
-//             data: {
-//                 id: id,
-//                 status: status
-//             },
-//             type: "POST"
-//         }).done(function(data) {
-//             swal("Deleted!", "Record was successfully updated!", "success");
-//             //$('#tr_' + tr_id).remove();
-//         });
-//     });
-
-// }
 </script>

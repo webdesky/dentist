@@ -36,11 +36,9 @@
                                     <thead>
                                         <tr class="bg-primary">
                                             <th>Sr no.</th>
-                                            <?php if($role==4){?>
                                             <th>Name</th>
-                                            <?php }else{?>
-                                            <th>Firstname</th>
-                                            <th>Lastname</th>
+                                            <?php if($user_role==4 && $role==2){?>
+                                            <th>Speciality</th>
                                             <?php }?>
                                             <th>Email</th>
                                             <th>Mobile</th>
@@ -53,16 +51,16 @@
                                             <?php }?> </tr>
                                     </thead>
                                     <tbody>
-                                        <?php  $i=1; if(!empty($users)){ foreach($users as $users_list){?>
+                                        <?php  $i=1;if(!empty($users)){ foreach($users as $users_list){?>
                                         <tr id="tr_<?php echo $i;?>">
                                             <td>
                                                 <?php echo $i; ?> </td>
                                             <td>
-                                                <?php echo ucfirst($users_list->first_name);?> </td>
+                                                <?php echo ucfirst($users_list->user_name);?> </td>
                                                  <?php if($role!=4){?>
-                                            <td>
-                                                <?php echo ucfirst($users_list->last_name);?> </td>
-                                                <?php }?>
+                                                <?php }if($user_role==4 && $role==2){?>
+                                            <td><?php echo ucfirst($users_list->speciality_name);?></td>
+                                            <?php }?>
                                             <td>
                                                 <?php echo $users_list->email;?> </td>
                                             <td>
@@ -103,10 +101,13 @@
 
     $('#users').DataTable({
         responsive: true,
-        
+        'aoColumnDefs': [{
+            'bSortable': false,
+            'aTargets': [-1] /* 1st one, start by the right */
+        }]
     });
 
-    function delete_user(id) {
+    function delete_user(id,tr_id) {
         swal({
             title: "Are you sure?",
             text: "want to delete?",
@@ -122,12 +123,15 @@
                     id: id,
                     table: 'users'
                 },
-                type: "POST"
-            }).done(function(data) {
-                swal("Deleted!", "Record was successfully deleted!", "success");
-                $('#tr_'+tr_id).remove();
+                type: "POST",
+            success: function () {
+                    swal("Done!", "It was succesfully deleted!", "success");
+                    $('#tr_'+tr_id).remove();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    swal("Error deleting!", "Please try again", "error");
+                }
             });
-
         });
     }
 

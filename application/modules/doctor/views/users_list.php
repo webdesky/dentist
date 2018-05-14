@@ -63,9 +63,16 @@
 </div>
 </div>
 <script type="text/javascript">
-$('#users').DataTable({
-    responsive: true
-});
+
+    $(document).ready(function() {
+        $('#users').DataTable({
+            responsive: true,
+            'aoColumnDefs': [{
+                'bSortable': false,
+                'aTargets': [-1] /* 1st one, start by the right */
+            }]
+        });
+    });
 
 function delete_user(id, tr_id) {
     swal({

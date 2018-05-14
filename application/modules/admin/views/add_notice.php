@@ -54,7 +54,10 @@
                                 <div class="form-group"> <label class="col-md-2">End Date * </label>
                                     <div class="col-lg-6"> <input type="text" id="end_date" name="end_date" class="form-control date" autocomplete="off" readonly="readonly" required="required" value=""> <span class="red"><?php echo form_error('end_date'); ?></span> </div>
                                 </div>
-                                <div class="col-md-12" align="center"><button type="submit" value="Save" class="btn btn-success">Save</button><input type="reset" class="btn btn-default" value="Reset"> </div>
+                                <div class="col-md-12" align="center">
+                                <button type="submit" value="Save" class="btn btn-success">Save</button>
+                                &nbsp;
+                                <input type="reset" class="btn btn-default" value="Reset"/> </div>
                             </form>
                         </div>
                     </div>
@@ -82,3 +85,9 @@
         });
     });
 </script>
+
+<style type="text/css">
+    .error {
+      color: red !important;
+   }
+</style>

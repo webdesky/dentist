@@ -29,15 +29,15 @@ class Admin extends CI_Controller
             $this->load->view('admin/login', $data);
         }
     }
-    public function add_doctor()
-    {
-        if ($this->controller->checkSession()) {
-            $data['body'] = 'add_doctor';
-            $this->controller->load_view($data);
-        } else {
-            $this->index();
-        }
-    }
+    // public function add_doctor()
+    // {
+    //     if ($this->controller->checkSession()) {
+    //         $data['body'] = 'add_doctor';
+    //         $this->controller->load_view($data);
+    //     } else {
+    //         $this->index();
+    //     }
+    // }
     public function last_executed_query()
     {
         echo $this->db->last_query();
@@ -76,7 +76,8 @@ class Admin extends CI_Controller
                 $data['appointmentList']   = $this->Common_model->get_Patient_Doctor_Record('appointment', $field_val1, $where);
                 $data['total_users_count'] = $this->Common_model->get_user_count($where);
                 $data['totalAppointment']  = $this->model->getcount('appointment', array(
-                    'hospital_id' => $this->session->userdata('hospital_id')
+                    'hospital_id' => $this->session->userdata('hospital_id'),
+                    'appointment_date >' => date('Y-m-d')
                 ));
             } else {
                 $data['appointmentList']   = $this->Common_model->get_Patient_Doctor_Record('appointment', $field_val1);
@@ -100,15 +101,15 @@ class Admin extends CI_Controller
         $result   = $this->model->getsingle('users', $where);
         if (!empty($result)) {
             $sess_array = array(
-                'id'            => $result->id,
-                'username'      => $result->username,
-                'email'         => $result->email,
-                'user_role'     => $result->user_role,
-                'first_name'    => $result->first_name,
-                'last_name'     => $result->last_name,
-                'hospital_id'   => $result->hospital_id
+                'id' => $result->id,
+                'username' => $result->username,
+                'email' => $result->email,
+                'user_role' => $result->user_role,
+                'first_name' => $result->first_name,
+                'last_name' => $result->last_name,
+                'hospital_id' => $result->hospital_id
             );
-            if($result->user_role!=4){
+            if ($result->user_role != 4) {
                 unset($sess_array['hospital_id']);
             }
             if ($result->user_role == 4) {
@@ -163,7 +164,7 @@ class Admin extends CI_Controller
     {
         $user_data = $this->session->all_userdata();
         foreach ($user_data as $key => $value) {
-            if ($key != 'session_id' && $key != 'ip_address' && $key != 'user_agent' && $key != 'last_activity'){
+            if ($key != 'session_id' && $key != 'ip_address' && $key != 'user_agent' && $key != 'last_activity') {
                 $this->session->unset_userdata($key);
             }
         }
@@ -178,11 +179,130 @@ class Admin extends CI_Controller
         $port_data = $this->model->get_matching_record($table, $val);
         echo json_encode($port_data);
     }
+
+    public function alpha_dash_space($str)
+    {
+        if(!preg_match("/^([-a-z_ ])+$/i", $str)){
+            $this->form_validation->set_message('check_captcha', 'Only Aplphabates allowed in this field');
+        }else{
+            return true;
+        }
+    }
+
+    public function add_doctor($id=null){
+        $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|callback_alpha_dash_space|min_length[2]');
+        $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|callback_alpha_dash_space|min_length[2]');
+        $this->form_validation->set_rules('dob', 'Date Of Birth', 'trim|required');
+        if (empty($id)) {
+            $this->form_validation->set_rules('user_name', 'User Name', 'trim|required|is_unique[users.username]');
+            $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]');
+            $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]|alpha_numeric');
+            $this->form_validation->set_rules('specialization', 'Specialization', 'trim|required'); 
+            $this->form_validation->set_rules('country', 'Country', 'trim|required'); 
+            $this->form_validation->set_rules('state', 'State', 'trim|required'); 
+            $this->form_validation->set_rules('city', 'City', 'trim|required'); 
+            $this->form_validation->set_rules('phone_no', 'Phone No.', 'trim|required'); 
+            $this->form_validation->set_rules('hospitals_id[]', 'Hospital', 'trim|required'); 
+            $this->form_validation->set_rules('specialization','Specialization','trim|required');          
+        }
+        
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('errors', validation_errors());
+            // if ($id !== 'null') {
+            //     $this->edit_user($id);
+            // } else {
+                $where             = array('is_active' => 1);
+                $data['countries'] = $this->model->getall('countries');
+                $data['category']  = $this->model->getAllwhere('speciality', $where);
+                $field_val         = 'id,hospital_name,other_speciality';
+                $data['hospitals'] = $this->model->getAllwhere('hospitals', $where, $field_val);
+                $data['body']      = 'add_doctor';
+                $data['user_role'] = 2;
+                $this->controller->load_view($data);
+            //}
+        } else {
+            if ($this->controller->checkSession()) {
+                if (empty($id)) {
+                    $user_role = $this->input->post('user_role');
+                } else {
+                    $user_role = 2;
+                }
+                $first_name  = $this->input->post('first_name');
+                $user_name   = $this->input->post('user_name');
+                $last_name   = $this->input->post('last_name');
+                $email       = $this->input->post('email');
+                $password    = $this->input->post('password');
+                $address     = $this->input->post('address');
+                $phone_no    = $this->input->post('phone_no');
+                $mobile_no   = $this->input->post('mobile_no');
+                $dob         = $this->input->post('dob');
+                $gender      = $this->input->post('gender');
+                $blood_group = $this->input->post('blood_group');
+                $status      = $this->input->post('status');
+                $specialization = $this->input->post('specialization');
+                if (!empty($_FILES)) {
+                    $file_name = $this->file_upload('image');
+                } else {
+                    $file_name = '';
+                }
+                
+                $data = array(
+                    'first_name' => $first_name,
+                    'last_name' => $last_name,
+                    'username' => $user_name,
+                    'email' => $email,
+                    'password' => MD5($password),
+                    'address' => $address,
+                    'phone_no' => $phone_no,
+                    'mobile' => $mobile_no,
+                    'date_of_birth' => $dob,
+                    'gender' => $gender,
+                    'blood_group' => $blood_group,
+                    'is_active' => $status,
+                    'user_role' => $user_role,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'profile_pic' => $file_name
+                );
+                if ($this->session->userdata('user_role') == 4) {
+                    $data['hospital_id'] = $this->session->userdata('hospitals_id');
+                }
+                if (!empty($id)) {
+                    $where = array(
+                        'id' => $id
+                    );
+                    unset($data['created_at']);
+                    unset($data['email']);
+                    unset($data['password']);
+                    $result = $this->model->updateFields('users', $data, $where);
+                } else {
+                    
+                    $hospital_id    = $this->input->post('hospitals_id');
+                       $data['hospital_id'] = implode(',', $hospital_id);
+                    
+                   
+                    $result = $this->model->insertData('users', $data);
+                    if ($user_role == 2) {
+                        $data = array(
+                            'doctor_id' => $result,
+                            'city' => $this->input->post('specialization'),
+                            'specialization' => $specialization,
+                            'is_active' => $status,
+                            'created_at' => date('Y-m-d H:i:s')
+                        );
+                        $data = $this->model->insertData('doctor', $data);
+                    }
+                }
+                redirect('admin/users_list/' . $user_role);
+            }
+        }
+    }
+
     public function register($id = null, $user_role = null)
     {
+
         $role = $user_role;
-        $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|alpha|min_length[2]');
-        $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|alpha|min_length[2]');
+        $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|callback_alpha_dash_space|min_length[2]');
+        $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|callback_alpha_dash_space|min_length[2]');
         $this->form_validation->set_rules('dob', 'Date Of Birth', 'trim|required');
         if (empty($id)) {
             $this->form_validation->set_rules('user_name', 'User Name', 'trim|required|is_unique[users.username]');
@@ -206,7 +326,7 @@ class Admin extends CI_Controller
                 $field_val         = 'id,hospital_name,other_speciality';
                 $data['hospitals'] = $this->model->getAllwhere('hospitals', $where, $field_val);
                 $data['body']      = 'register';
-                $data['user_role'] = "$role";
+                $data['user_role'] = $role;
                 $this->controller->load_view($data);
             }
         } else {
@@ -255,7 +375,7 @@ class Admin extends CI_Controller
                     'profile_pic' => $file_name
                 );
                 if ($this->session->userdata('user_role') == 4) {
-                    $data['hospital_id'] = $this->session->userdata('hospital_id');
+                    $data['hospital_id'] = $this->session->userdata('hospitals_id');
                 }
                 if (!empty($id)) {
                     $where = array(
@@ -267,8 +387,12 @@ class Admin extends CI_Controller
                     $result = $this->model->updateFields('users', $data, $where);
                 } else {
                     if ($user_role == 2) {
-                        $data['hospital_id'] = $this->input->post('hospitals_id');
+                        $hospital_id    = $this->input->post('hospitals_id');
+                        $data['hospital_id'] = implode(',', $hospital_id);
                     }
+                    // echo '<pre>'; 
+                    // print_r($data); 
+                    // die;
                     $result = $this->model->insertData('users', $data);
                     if ($user_role == 2) {
                         $data = array(
@@ -281,7 +405,7 @@ class Admin extends CI_Controller
                         $data = $this->model->insertData('doctor', $data);
                     }
                 }
-                $this->users_list($user_role);
+                redirect('admin/users_list/' . $user_role);
             }
         }
     }
@@ -304,16 +428,26 @@ class Admin extends CI_Controller
                 'hospital_id' => $hospital_id,
                 'user_role' => $user_role
             );
-            $data['users'] = $this->model->find_record('users', $where, '*');
-        } else {
-            $select        = 'id, hospital_id,first_name, last_name, email, mobile, gender, user_role';
-            $data['users'] = $this->model->getAllwhere('users', $where, $select);
+            $select        = 'id,CONCAT(first_name," ",last_name) as user_name,email,mobile,gender,user_role';
+            $data['users'] = $this->model->find_record('users', $where, $select);
             
-            // $field_val      = 'users.id, users.hospital_id, users.first_name, users.last_name, users.email, users.mobile, users.gender, users.user_role,hospitals.hospital_name';
-            // $data['users']  = $this->model->GetJoinRecord('hospitals', 'id', 'users', 'hospital_id', $field_val, $where);
-            // echo $this->db->last_query(); 
-            // die;
+            for ($i = 0; $i < count($data['users']); $i++) {
+                $where      = array(
+                    'doctor.doctor_id' => $data['users'][$i]->id
+                );
+                $select     = 'speciality.id, speciality.name';
+                $speciality = $this->model->GetJoinRecord('speciality', 'id', 'doctor', 'specialization', $select, $where);
+                if (!empty($speciality)) {
+                    $data['users'][$i]->speciality_name = $speciality[0]->name;
+                } else {
+                    $data['users'][$i]->speciality_name = 'not mentioned';
+                }
+            }
+        } else {
+            $select        = 'id, hospital_id,CONCAT(first_name," ",last_name) as user_name, email, mobile, gender, user_role';
+            $data['users'] = $this->model->getAllwhere('users', $where, $select);
         }
+        //echo '<pre>'; print_r($data['users']);die;
         $data['body'] = 'users_list';
         $this->controller->load_view($data);
     }
@@ -388,23 +522,26 @@ class Admin extends CI_Controller
             $result = $this->model->insertData('user_rights', $data);
         }
         
-        $this->subadmin_users_list('4');
+        redirect('admin/users_list/4');
     }
     public function edit_user($id)
     {
-        $where         = array(
-            'id ' => $id
+        $where             = array(
+            'id' => $id
         );
-        $data['users'] = $this->model->getAllwhere('users', $where);
-
+        $data['users']     = $this->model->getAllwhere('users', $where);
+        $data['user_role'] = $data['users'][0]->user_role;
+        
         if (!empty($data['users'][0]) && $data['users'][0]->user_role == 2) {
-            $field_val         = 'id,hospital_name';
-            $data['hospitals'] = $this->model->getAllwhere('hospitals', '', $field_val);
-            $where             = array(
+            $field_val          = 'id,hospital_name';
+            $data['hospitals']  = $this->model->getAllwhere('hospitals', '', $field_val);
+            $where              = array(
                 'doctor_id ' => $id
             );
-            $field_val         = 'specialization';
-            $data['doctor']    = $this->model->getAllwhere('doctor', $where, $field_val);
+            $field_val          = 'specialization';
+            $data['doctor']     = $this->model->getAllwhere('doctor', $where, $field_val);
+            $select             = 'id,name';
+            $data['speciality'] = $this->model->getAllwhere('speciality', '', $select);
         }
         $data['body'] = 'edit_user';
         $this->controller->load_view($data);
@@ -417,6 +554,7 @@ class Admin extends CI_Controller
             'id' => $id
         );
         $this->model->delete($table, $where);
+        //echo $this->db->last_query();
     }
     public function delete_hospital_from_user()
     {
@@ -426,7 +564,7 @@ class Admin extends CI_Controller
             'hospital_id' => $id
         );
         $this->model->delete($table, $where);
-        echo $this->db->last_query();
+        //echo $this->db->last_query();
     }
     public function change_status()
     {
@@ -644,7 +782,7 @@ class Admin extends CI_Controller
             'is_active' => $active
         );
         $where  = array(
-            'ap_id' => $id
+            'id' => $id
         );
         $this->model->update('appointment', $data, $where);
     }
@@ -670,14 +808,7 @@ class Admin extends CI_Controller
         
         $this->controller->load_view($data);
     }
-    public function delete_appointment()
-    {
-        $id    = $this->input->post('id');
-        $where = array(
-            'ap_id' => $id
-        );
-        $this->model->delete('appointment', $where);
-    }
+    
     public function profile()
     {
         $where         = array(
@@ -724,24 +855,10 @@ class Admin extends CI_Controller
                     if (move_uploaded_file($_FILES['image']['tmp_name'], 'asset/uploads/' . $_FILES['image']['name'])) {
                         
                         $data['profile_pic'] = $_FILES['image']['name'];
-                    }
-                    /*$count = count($_FILES['image']['name']);
-                    for ($i = 0; $i < $count; $i++) {
-                    if ($_FILES['image']['error'][$i] == 0) {
-                    if (move_uploaded_file($_FILES['image']['tmp_name'][$i], 'asset/uploads/' . $_FILES['image']['name'][$i])) {
-                    >>>>>>> a8efd675ac5c56fadf558494c61425a84d8344de
-                    
-                    $data['profile_pic'] = $_FILES['image']['name'][$i];
-                    }
-                    }
-                    }*/
+                    }   
                 }
-                
                 $result = $this->model->updateFields('users', $data, $where);
-                
-                
                 redirect('/admin/profile', 'refresh');
-                
             }
         }
     }
@@ -817,22 +934,23 @@ class Admin extends CI_Controller
                 } else {
                     $result = $this->model->insertData('case_study', $data);
                 }
-                $this->case_study_list();
+                
+                redirect('admin/case_study_list');
             }
         }
     }
+    
     public function case_study_list()
     {
-        $where     = array(
+        $where                  = array(
             'doctor_id' => $this->session->userdata('id')
         );
-        $field_val = 'case_study.*,users.first_name,users.last_name';
-        
-        $data['documents_list'] = $this->model->GetJoinRecord('case_study', 'patient_id', 'users', 'id', $field_val, '');
-        
-        $data['body'] = 'case_study_list';
+        $field_val              = 'case_study.*,CONCAT(u1.first_name," ",u1.last_name) as patient_name,CONCAT(u2.first_name," ",u2.last_name) as doctor_name';
+        $data['documents_list'] = $this->model->GetJoinRecordNew('case_study', 'patient_id', 'doctor_id', 'users u1', 'id', 'users u2', 'id', '', '', '', '', $field_val);
+        $data['body']           = 'case_study_list';
         $this->controller->load_view($data);
     }
+    
     public function notices($id = null)
     {
         $field_val         = 'id,hospital_name';
@@ -873,10 +991,10 @@ class Admin extends CI_Controller
                     'end_date' => date('Y-m-d', strtotime($end_date)),
                     'created_at' => date('Y-m-d H:i:s')
                 );
-
-
-                if(!empty($this->session->userdata('hospital_id'))){
-                    $hospital_id = $this->session->userdata('hospital_id');
+                
+                
+                if (!empty($this->session->userdata('hospital_id'))) {
+                    $hospital_id         = $this->session->userdata('hospital_id');
                     $data['hospital_id'] = $hospital_id;
                 }
                 
@@ -895,13 +1013,13 @@ class Admin extends CI_Controller
     }
     public function notices_list()
     {
-        if($this->session->userdata('user_role')==4){
-            $where = '(hospital_id='.$this->session->userdata('hospital_id').' or hospital_id is NULL)';
-            $data['notice_list'] = $this->model->getAllwhere('notices',$where);
-        }else{
+        if ($this->session->userdata('user_role') == 4) {
+            $where               = '(hospital_id=' . $this->session->userdata('hospital_id') . ' or hospital_id is NULL)';
+            $data['notice_list'] = $this->model->getAllwhere('notices', $where);
+        } else {
             $data['notice_list'] = $this->model->getAll('notices');
-        }        
-        $data['body']        = 'list_notice';
+        }
+        $data['body'] = 'list_notice';
         $this->controller->load_view($data);
     }
     public function send_mail()
@@ -978,34 +1096,34 @@ class Admin extends CI_Controller
         $where = array(
             'user_role != ' => $this->session->userdata('user_role')
         );
-        
-        $data['users'] = $this->model->getAllwhere('users', $where);
-        $this->form_validation->set_rules('reciever_id', 'Mail to', 'trim|required');
+        $this->form_validation->set_rules('reciever_id[]', 'Message to', 'trim|required');
         $this->form_validation->set_rules('subject', 'Subject', 'trim|required');
         $this->form_validation->set_rules('message', 'Message', 'trim|required');
         if ($this->form_validation->run() == false) {
+            $data['users'] = $this->model->getAllwhere('users', $where);
             $this->session->set_flashdata('errors', validation_errors());
             $data['body'] = 'send_message';
             $this->controller->load_view($data);
         } else {
             if ($this->controller->checkSession()) {
-                
                 $reciever_id = $this->input->post('reciever_id');
                 $subject     = $this->input->post('subject');
                 $message     = $this->input->post('message');
                 $sender_id   = $this->session->userdata('id');
                 
-                $data = array(
-                    'reciever_id' => $reciever_id,
-                    'sender_id' => $sender_id,
-                    'subject' => $subject,
-                    'message' => trim($message),
-                    'is_active' => 1,
-                    'created_at' => date('Y-m-d H:i:s')
-                );
-                
-                $result = $this->model->insertData('message', $data);
-                $this->message_list();
+                for ($i = 0; $i < count($reciever_id); $i++) {
+                    
+                    $data[] = array(
+                        'reciever_id' => $reciever_id[$i],
+                        'sender_id' => $sender_id,
+                        'subject' => $subject,
+                        'message' => trim($message),
+                        'is_active' => 1,
+                        'created_at' => date('Y-m-d H:i:s')
+                    );
+                }
+                $this->db->insert_batch('message', $data);
+                redirect('admin/message_list');
             }
         }
     }
@@ -1119,7 +1237,7 @@ class Admin extends CI_Controller
                 $where1                    = array(
                     'hospital_id' => $id
                 );
-                 $where2                   = array(
+                $where2                    = array(
                     'is_active' => 1
                 );
                 $data['hospitals']         = $this->model->getAllwhere('hospitals', $where);
@@ -1227,7 +1345,7 @@ class Admin extends CI_Controller
                     $data1['hospital_id'] = $result;
                     $result               = $this->model->insertData('users', $data1);
                 }
-                $this->hospitals_list();
+                redirect('admin/hospitals_list');
             }
         }
     }
@@ -1391,7 +1509,7 @@ class Admin extends CI_Controller
     }
     public function speciality($id = NULL)
     {
-        $this->form_validation->set_rules('speciality_name', 'Speciality Name', 'trim|required');
+        $this->form_validation->set_rules('speciality_name', 'Speciality Name', 'trim|required|is_unique[speciality.name]');
         $this->form_validation->set_rules('status', 'Status', 'trim|required');
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('errors', validation_errors());
@@ -1425,7 +1543,7 @@ class Admin extends CI_Controller
                 } else {
                     $result = $this->model->insertData('speciality', $data);
                 }
-                $this->speciality_list();
+                redirect('admin/speciality_list');
             }
         }
     }
@@ -1491,7 +1609,7 @@ class Admin extends CI_Controller
                 'id' => $doctor_id
             );
             $result       = $this->model->updateFields('users', $data, $where);
-            $this->schedule();
+            redirect('admin/schedule');
         }
     }
 }

@@ -106,17 +106,17 @@
                             <ul class="nav nav-second-level">
                                 <?php if($user_role==1 || ($user_role==4 && $right0[0]==1)){?>
                                 <li>
-                                    <a href="<?php echo base_url('admin/register/null/2')?>">Add Doctor</a>
+                                    <a href="<?php echo base_url('admin/add_doctor')?>">Add Doctor</a>
                                 </li>
                                 <?php }?>
                                 <li>
                                     <a href="<?php echo base_url('admin/users_list/2')?>">View Doctor</a>
                                 </li>
-                                <?php if($user_role==1){?>
-                                <li>
-                                    <a href="<?php echo base_url('admin/assign_doctor')?>">Assign Doctor to more hospital</a>
-                                </li>
-                                <?php }?>
+                                <?php //if($user_role==1){?>
+                               <!--  <li>
+                                    <a href="<?php //echo base_url('admin/assign_doctor')?>">Assign Doctor to more hospital</a>
+                                </li> -->
+                                <?php //}?>
                             </ul>
                         </li>
                         <?php } if($user_role==1 || ($right1[0]!=0 && $right1[1]!=0 && $right1[2]!=0)){?>

@@ -176,15 +176,10 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('select').niceSelect();
-        $(".registration_form1").validate({
-            rules: {
-                "doctor_id": "required",
-                "patient_id": "required",
-
-            },
-            submitHandler: function(form) {
-                form.submit();
-            }
-        });
     });
 </script>
+<style type="text/css">
+    .red{
+        color: red;
+    }
+</style>

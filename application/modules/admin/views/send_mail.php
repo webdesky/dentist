@@ -30,7 +30,7 @@
                             <form role="form" method="post" action="<?php echo base_url('admin/send_mail') ?>" class="registration_form1">
                                 <div class="form-group"> <label class="col-md-2">Title * </label>
                                     <div class="col-lg-6"> <select class="wide" name="reciever_id">
-                                        <option data-display="-- Select User --"> -- Select User --</option>
+                                        <option value=""> -- Select User --</option>
                                         <?php foreach($users as $user){?>
                                         <option value="<?php echo $user->id;?>"><?php echo ucwords($user->first_name.' '.$user->last_name);?></option>
                                         <?php }?>
@@ -47,6 +47,7 @@
                                         </script>
                                     </div>
                                 </div>
+                                <div class="clearfix"></div><br/><br/>
                                 <div class="col-md-12" align="center"> <button type="submit" value="Save" class="btn btn-success">Save</button><button type="reset" class="btn btn-default">Reset</button> </div>
                             </form>
                         </div>

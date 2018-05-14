@@ -30,12 +30,12 @@
                             <thead>
                                 <tr class="bg-primary">
                                     <th>Sr. no</th>
+                                    <th>Appointment Date</th>
+                                    <th>Appointment Time</th>
                                     <th>Appintment Type</th>
                                     <th>Appointment Id</th>
                                     <th>Doctor</th>
                                     <th>Patient</th>
-                                    <th>Appointment Date</th>
-                                    <th>Appointment Time</th>
                                     <th>Status</th>
                                     <?php if($user_role==1||($user_role==4 && $right3[1]==1||$right3[2]==1)){?>
                                     <th>Action</th>
@@ -48,6 +48,12 @@
                                         <?php echo $count; ?>
                                     </td>
                                     <td class="center">
+                                        <?php echo $value['appointment_date']; ?>
+                                    </td>
+                                    <td class="center">
+                                        <?php echo $value['appointment_time']; ?>
+                                    </td>
+                                    <td class="center">
                                         <?php  echo $value['appointment_type'];?>
                                     </td>
                                     <td class="center">
@@ -58,12 +64,6 @@
                                     </td>
                                     <td class="center">
                                         <?php echo ucwords($value['patient_name']); ?>
-                                    </td>
-                                    <td class="center">
-                                        <?php echo $value['appointment_date']; ?>
-                                    </td>
-                                    <td class="center">
-                                        <?php echo $value['appointment_time']; ?>
                                     </td>
                                     <td class="center">
                                         <?php  if($value['is_active']==0){ ?> <button class="btn btn-danger" onclick="updateStatus('<?php echo $value['id'] ?>','<?php echo $value['is_active'] ?>')">Pending</button>
@@ -89,8 +89,13 @@
     <!-- /.row -->
 </div>
 <script type="text/javascript">
+
     $('#appointment').DataTable({
-        responsive: true
+        responsive: true,
+        'aoColumnDefs': [{
+            'bSortable': false,
+            'aTargets': [-1] /* 1st one, start by the right */
+        }]
     });
 
     function delete_appointment(id, tr_id) {
@@ -104,9 +109,10 @@
             confirmButtonColor: "#ec6c62"
         }, function() {
             $.ajax({
-                url: "<?php echo base_url('admin/delete_appointment')?>",
+                 url: "<?php echo base_url('admin/delete')?>",
                 data: {
                     id: id,
+                    table: 'appointment'
                 },
                 type: "POST"
             }).done(function(data) {

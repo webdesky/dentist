@@ -23,8 +23,8 @@
                         <div class="col-lg-12 col-md-12">
                             <form role="form" method="post" action="<?php echo base_url('admin/send_message') ?>" class="registration_form1">
                                 <div class="form-group"> <label class="col-md-2">Title * </label>
-                                    <div class="col-lg-6"> <select class="wide" name="reciever_id">
-                                        <option data-display="-- Select User --">-- SELECT USER --</option>
+                                    <div class="col-lg-6"> <select class="form-control" name="reciever_id[]" multiple="multiple">
+                                        <option value="">-- Select User --</option>
                                         <?php foreach($users as $user){?>
                                         <option value="<?php echo $user->id;?>"><?php echo ucwords($user->first_name.' '.$user->last_name);?></option>
                                         <?php }?>
@@ -61,7 +61,6 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('select').niceSelect();
         $(".registration_form1").validate({
             rules: {
                 "reciever_id": "required",

@@ -1,7 +1,7 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Mail Board </h1>
+            <h1 class="page-header">Message Board </h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -37,7 +37,7 @@
                                         <?php echo $count; ?>
                                     </td>
                                     <td class="center">
-                                        <?php echo $value->reciever_id; ?>
+                                        <?php echo ucwords($value->first_name.' '.$value->last_name); ?>
                                     </td>
                                     <td class="center">
                                         <?php echo $value->subject;  ?>
@@ -46,7 +46,7 @@
                                         <?php echo $value->message;  ?>
                                     </td>
                                     <td class="center">
-                                        <?php echo $value->created_at;  ?>
+                                        <?php echo $value->message_date;  ?>
                                     </td>
                                 </tr>
                                 <?php $count++; }}?>
@@ -64,9 +64,13 @@
     <!-- /.row -->
 </div>
 <script type="text/javascript">
-$(document).ready(function() {
-    $('#notice').DataTable({
-        responsive: true
+    $(document).ready(function() {
+        $('#notice').DataTable({
+            responsive: true,
+            'aoColumnDefs': [{
+                'bSortable': false,
+                'aTargets': [-1] /* 1st one, start by the right */
+            }]
+        });
     });
-});
 </script>
