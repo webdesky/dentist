@@ -12,7 +12,7 @@
         </div>
         <!-- /.navbar-header -->
 
-        <ul class="nav navbar-top-links navbar-right ">
+        <ul class="nav navbar-top-links navbar-right">
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
@@ -75,17 +75,17 @@
                                 </li>
                             </ul>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a href="#"><i class="fa fa-users"></i> Sub Admin<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?php echo base_url('admin/users_list/4')?>">Manage Sub Admin</a>
+                                    <a href="<?php //echo base_url('admin/users_list/4')?>">Manage Sub Admin</a>
                                 </li>
-                                <!-- <li>
+                                <li>
                                     <a href="<?php //echo base_url('admin/subadmin_users_list/4')?>">Assign Rights</a>
-                                </li> -->
+                                </li> 
                             </ul>
-                        </li>
+                        </li>-->
                         <?php } if($user_role==1 || ($right4[0]!=0 && $right4[1]!=0 && $right4[2]!=0)){?>
                         <li>
                             <a href="#"><i class="fa fa-user-md" aria-hidden="true"></i> Speciality<span class="fa arrow"></span></a>
@@ -113,7 +113,7 @@
                                     <a href="<?php echo base_url('admin/users_list/2')?>">View Doctor</a>
                                 </li>
                                 <?php //if($user_role==1){?>
-                               <!--  <li>
+                                <!--  <li>
                                     <a href="<?php //echo base_url('admin/assign_doctor')?>">Assign Doctor to more hospital</a>
                                 </li> -->
                                 <?php //}?>
@@ -125,7 +125,7 @@
                             <ul class="nav nav-second-level">
                                 <?php if($user_role==1 || ($user_role==4 && $right1[0]==1)){?>
                                 <li>
-                                    <a href="<?php echo base_url('admin/register/null/3')?>">Add Patient</a>
+                                    <a href="<?php echo base_url('admin/register/')?>">Add Patient</a>
                                 </li>
                                 <?php }?>
                                 <li>

@@ -37,7 +37,7 @@
                                 <?php 
                                 $count=1; 
                                 if($documents_list){
-                                foreach ($documents_list as  $value) { ?>
+                                foreach ($documents_list as  $value) {?>
                                 <tr class="odd gradeX" id="tr_<?php echo $count;?>">
                                     <td>
                                         <?php echo $count; ?>

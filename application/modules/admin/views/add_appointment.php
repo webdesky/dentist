@@ -89,7 +89,7 @@
                                     <div class="panel panel-primary">
                                         <div class="panel-heading">Doctor Schedule</div>
                                         <div class="panel-body">
-                                            <table id="table" class="table" border="1">
+                                            <table id="table" class="table table-bordered" border="1">
                                                 <tr>
                                                     <th>Day</th>
                                                     <th>Start Time</th>

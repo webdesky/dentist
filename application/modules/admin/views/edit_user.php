@@ -22,18 +22,19 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12 col-md-o12">
-                        <?php if(isset($users[0]) && !empty($users[0])){?>
-                            <form role="form" method="post" action="<?php echo base_url('admin/register/'.$users[0]->id.'/'.$users[0]->user_role) ?>" class="registration_form1" enctype="multipart/form-data">
-                            <?php }?>
-                                <?php if(isset($users[0]) && $users[0]->user_role==2 && $session_user_role!=4){?>
+                        <?php if(isset($users[0]) && !empty($users[0]) && $users[0]->user_role==2){?>
+                            <form role="form" method="post" action="<?php echo base_url('admin/update_user/'.$users[0]->id.'/'.$users[0]->user_role) ?>" class="registration_form1" enctype="multipart/form-data">
+                            <?php }elseif(isset($users[0]) && !empty($users[0]) && $users[0]->user_role==3){?>
+                            <form role="form" method="post" action="<?php echo base_url('admin/update_patient/'.$users[0]->id.'/'.$users[0]->user_role) ?>" class="registration_form1" enctype="multipart/form-data">
+                                <?php }if(isset($users[0]) && $users[0]->user_role==2 && $session_user_role!=4){?>
                                 <div class="col-md-6">
                                     <div class="">
                                         <label class="col-md-3">Hospital *</label>
                                         <div class="col-md-9">
-                                            <select class="form-control" name="hospitals_id" id="hospitals_id" onchange="get_specialty($(this).find(':selected').data('speciality'))"> 
+                                            <select class="form-control" name="hospitals_id[]" id="hospitals_id" multiple="multiple"> 
                                             <option value="">-- Select Hospital --</option>
                                             <?php foreach ($hospitals as $value){?>
-                                            <option value="<?php echo $value->id; ?>" <?php if($users[0]->hospital_id==$value->id){ echo 'selected';}?>><?php echo ucfirst($value->hospital_name); ?></option>
+                                            <option value="<?php echo $value->id; ?>" <?php $hospitals_id = explode(',',$users[0]->hospital_id); if(in_array($value->id,$hospitals_id)){ echo 'selected';}?>><?php echo ucfirst($value->hospital_name); ?></option>
                                             <?php   } ?>
                                         </select>
                                             <span class="red"><?php echo form_error('hospitals_id'); ?></span>
@@ -55,7 +56,7 @@
                                 </div>
                                 <div class="clearfix"></div>
                                 <br/>
-                                <?php } if($session_user_role==4){?>
+                                <?php } if($users[0]->user_role==2){?>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-md-3">Speciality *</label>
@@ -103,7 +104,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Email Address *</label>
                                         <div class="col-md-9">
-                                            <input type="text" name="email" class="form-control" placeholder="Email Address" autocomplete="off" required="required" value="<?php if(isset($users[0])){ echo $users[0]->email;}else{ echo  set_value('email');}?>" readonly>
+                                            <input type="email" name="email" class="form-control" placeholder="Email Address" autocomplete="off" required="required" value="<?php if(isset($users[0])){ echo $users[0]->email;}else{ echo  set_value('email');}?>" readonly>
                                         </div>
                                         <span class="red"><?php echo form_error('email'); ?></span>
                                     </div>
@@ -139,7 +140,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Date of Birth</label>
                                         <div class="col-md-9">
-                                            <input type="text" id="datepicker" name="dob" class="form-control" autocomplete="off" readonly="readonly" required="required" value="<?php if(isset($users[0])){ echo $users[0]->date_of_birth;}else{ echo  set_value('date_of_birth');}?>">
+                                            <input type="text" id="datepicker" name="dob" class="form-control" autocomplete="off" readonly="readonly" required="required" value="<?php if(isset($users[0])){ echo date("Y-m-d", strtotime($users[0]->date_of_birth));}else{ echo  set_value('date_of_birth');}?>">
                                         </div>
                                         <span class="red"><?php echo form_error('dob'); ?></span>
                                     </div>
@@ -218,7 +219,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        <?php if($users[0]->user_role==2){?>
+        <?php if(isset($users[0]) && $users[0]->user_role==2){?>
         get_specialty('<?php echo $doctor[0]->specialization;?>');
         <?php }?>
     });

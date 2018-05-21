@@ -57,9 +57,9 @@
                                         <?php echo $value->visiting_fee; ?>
                                     </td>
                                     <td class="center">
-                                        <a href="<?php echo base_url('patient/view_prescription/'.$value->id);?>"><i class="fa fa-eye"></i></a>
+                                        <a href="<?php echo base_url('patient/view_prescription/'.$value->id);?>" title="View"><i class="fa fa-eye"></i></a>
                                         <?php if($review==''){ ?>
-                                        <a href="<?php echo base_url('patient/review_doctor/'.$value->doctor_id.'/'.$value->id);?>"><i class="fa fa-comments"></i></a>
+                                        | <a href="<?php echo base_url('patient/review_doctor/'.$value->doctor_id.'/'.$value->id);?>" title="Review"><i class="fa fa-comments"></i></a>
                                         <?php } ?>
                                         <!--  <a href="<?php echo base_url('doctor/edit_prescription/'.$value->id); ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> 
                                     | 

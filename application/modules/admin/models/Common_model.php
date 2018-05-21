@@ -67,7 +67,7 @@ class Common_model extends CI_Model
 
     function GetJoinedRecord($where=null){
         if(!empty($where)){
-            $where =  'AND appointment.hospital_id = '.$where['hospital_id'];
+            $where =  'AND appointment.hospital_id = '.$where['hospital_id'].' AND appointment.appointment_date >= CURDATE()';
         }else{
             $where = ''; 
         }

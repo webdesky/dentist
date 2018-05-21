@@ -6,134 +6,7 @@
         <!-- /.col-lg-12 -->
     </div>
     <style type="text/css">
-    .switch-field {
-        font-family: "Lucida Grande", Tahoma, Verdana, sans-serif;
-        padding: 40px;
-        overflow: hidden;
-    }
-
-    .switch-title {
-        margin-bottom: 6px;
-    }
-
-    .switch-field input {
-        position: absolute !important;
-        clip: rect(0, 0, 0, 0);
-        height: 1px;
-        width: 1px;
-        border: 0;
-        overflow: hidden;
-    }
-
-    .switch-field label {
-        float: left;
-    }
-
-    .switch-field label {
-        display: inline-block;
-        width: 60px;
-        background-color: #e4e4e4;
-        color: rgba(0, 0, 0, 0.6);
-        font-size: 14px;
-        font-weight: normal;
-        text-align: center;
-        text-shadow: none;
-        padding: 6px 14px;
-        border: 1px solid rgba(0, 0, 0, 0.2);
-        -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
-        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
-        -webkit-transition: all 0.1s ease-in-out;
-        -moz-transition: all 0.1s ease-in-out;
-        -ms-transition: all 0.1s ease-in-out;
-        -o-transition: all 0.1s ease-in-out;
-        transition: all 0.1s ease-in-out;
-    }
-
-    .switch-field label:hover {
-        cursor: pointer;
-    }
-
-    .switch-field input:checked+label {
-        background-color: #A5DC86;
-        -webkit-box-shadow: none;
-        box-shadow: none;
-    }
-
-    .switch-field label:first-of-type {
-        border-radius: 4px 0 0 4px;
-    }
-
-    .switch-field label:last-of-type {
-        border-radius: 0 4px 4px 0;
-    }
-
-    .checkbox label:after,
-    .radio label:after {
-        content: '';
-        display: table;
-        clear: both;
-    }
-
-    .checkbox .cr,
-    .radio .cr {
-        position: relative;
-        display: inline-block;
-        border: 1px solid #a9a9a9;
-        border-radius: .25em;
-        width: 1.3em;
-        height: 1.3em;
-        float: left;
-        margin-right: .5em;
-    }
-
-    .radio .cr {
-        border-radius: 50%;
-    }
-
-    .checkbox .cr .cr-icon,
-    .radio .cr .cr-icon {
-        position: absolute;
-        font-size: .8em;
-        line-height: 0;
-        top: 50%;
-        left: 20%;
-    }
-
-    .radio .cr .cr-icon {
-        margin-left: 0.04em;
-    }
-
-    .checkbox label input[type="checkbox"],
-    .radio label input[type="radio"] {
-        display: none;
-    }
-
-    .checkbox label input[type="checkbox"]+.cr>.cr-icon,
-    .radio label input[type="radio"]+.cr>.cr-icon {
-        transform: scale(3) rotateZ(-20deg);
-        opacity: 0;
-        transition: all .3s ease-in;
-    }
-
-    .checkbox label input[type="checkbox"]:checked+.cr>.cr-icon,
-    .radio label input[type="radio"]:checked+.cr>.cr-icon {
-        transform: scale(1) rotateZ(0deg);
-        opacity: 1;
-    }
-
-    .checkbox label input[type="checkbox"]:disabled+.cr,
-    .radio label input[type="radio"]:disabled+.cr {
-        opacity: .5;
-    }
-
-    .star-rating {
-        line-height: 32px;
-        font-size: 1.25em;
-    }
-
-    .star-rating .fa-star {
-        color: #87CEFA;
-    }
+        .switch-field{font-family:"Lucida Grande",Tahoma,Verdana,sans-serif;padding:40px;overflow:hidden}.switch-title{margin-bottom:6px}.switch-field input{position:absolute!important;clip:rect(0,0,0,0);height:1px;width:1px;border:0;overflow:hidden}.switch-field label{float:left;display:inline-block;width:60px;background-color:#e4e4e4;color:rgba(0,0,0,.6);font-size:14px;font-weight:400;text-align:center;text-shadow:none;padding:6px 14px;border:1px solid rgba(0,0,0,.2);-webkit-box-shadow:inset 0 1px 3px rgba(0,0,0,.3),0 1px rgba(255,255,255,.1);box-shadow:inset 0 1px 3px rgba(0,0,0,.3),0 1px rgba(255,255,255,.1);-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-ms-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out;transition:all .1s ease-in-out}.switch-field label:hover{cursor:pointer}.switch-field input:checked+label{background-color:#A5DC86;-webkit-box-shadow:none;box-shadow:none}.switch-field label:first-of-type{border-radius:4px 0 0 4px}.switch-field label:last-of-type{border-radius:0 4px 4px 0}.checkbox label:after,.radio label:after{content:'';display:table;clear:both}.checkbox .cr,.radio .cr{position:relative;display:inline-block;border:1px solid #a9a9a9;border-radius:.25em;width:1.3em;height:1.3em;float:left;margin-right:.5em}.radio .cr{border-radius:50%}.checkbox .cr .cr-icon,.radio .cr .cr-icon{position:absolute;font-size:.8em;line-height:0;top:50%;left:20%}.radio .cr .cr-icon{margin-left:.04em}.checkbox label input[type=checkbox],.radio label input[type=radio]{display:none}.checkbox label input[type=checkbox]+.cr>.cr-icon,.radio label input[type=radio]+.cr>.cr-icon{transform:scale(3) rotateZ(-20deg);opacity:0;transition:all .3s ease-in}.checkbox label input[type=checkbox]:checked+.cr>.cr-icon,.radio label input[type=radio]:checked+.cr>.cr-icon{transform:scale(1) rotateZ(0);opacity:1}.checkbox label input[type=checkbox]:disabled+.cr,.radio label input[type=radio]:disabled+.cr{opacity:.5}.star-rating{line-height:32px;font-size:1.25em}.star-rating .fa-star{color:#87CEFA}
     </style>
     <!-- /.row -->
     <div class="row">
@@ -234,8 +107,8 @@
                                 </div>
                                 <div class="col-lg-12" align="center">
                                     <div class="form-group">
+                                        <input type="reset" name="reset" value="Reset" class="btn btn-danger">
                                         <input type="submit" value="Submit" class="btn btn-primary">
-                                        <input type="reset" name="reset" value="Reset" class="btn btn-success">
                                     </div>
                                 </div>
                             </form>

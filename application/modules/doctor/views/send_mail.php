@@ -18,7 +18,7 @@
             <?php endif ?>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <a class="btn btn-primary" href="<?php echo base_url('doctor/mail_list')?>"><i class="fa fa-list">&nbsp;</i> Mail List</a>
+                    <a class="btn btn-primary" href="<?php echo base_url('doctor/mail_list')?>"><i class="fa fa-list">&nbsp;</i> Outbox</a>
                 </div>
                 <div class="panel-body">
                     <div class="row">

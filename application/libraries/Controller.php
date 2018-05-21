@@ -12,6 +12,7 @@ class Controller
         $this->CI->config->item('base_url');
         $this->CI->load->library('session', 'form_validation');
         $this->CI->load->database();   
+
     }
     
     public function verifylogin($data)

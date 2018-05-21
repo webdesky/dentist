@@ -10,7 +10,7 @@
     ?>
     <!-- /.row -->
     <div class="row">
-    <?php if($user_role==1){?>
+        <?php if($user_role==1){?>
         <div class="col-lg-3 col-md-6">
             <div class="panel panel-first">
                 <div class="panel-heading">

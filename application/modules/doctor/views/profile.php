@@ -19,21 +19,21 @@
                                 <?php if(!empty($users[0]->profile_pic)){?>
                                 <div class="form-group">
                                     <div class="col-md-12" align="center">
-                                        <img src="<?php echo base_url('asset/uploads/').$users[0]->profile_pic ?>" style="max-width: 300px;max-height: 300px;">
+                                        <img src="<?php echo base_url('asset/uploads/').$users[0]->profile_pic ?>" style="max-width: 100px;max-height: 100px;">
                                     </div>
                                 </div>
                                 <?php } ?>
+                                <div class="clearfix"></div><br/>
                                 <div class="col-md-6">
                                     <div class="">
-                                        <label class="control-label col-md-3">Doctor Category*</label>
+                                        <label class="control-label col-md-3">Speciality*</label>
                                         <div class="col-md-9">
                                             <select class="wide" name="category">
-                                                <option>Select Category</option>
+                                                <option value="">-- Select Speciality --</option>
                                                 <?php foreach ($category as $key => $value) { ?>
-                                                <option value="<?php echo $value['id']; ?>" <?php if($users[0]->category==$value['id']){ echo 'selected';}?>>
-                                                    <?php echo $value['name']; ?>
+                                                <option value="<?php echo $value['id']; ?>" <?php if(!empty($users[0]) && $users[0]->specialization==$value['id']){ echo 'selected';}?>><?php echo $value['name']; ?>
                                                 </option>
-                                                <?php   } ?>
+                                                <?php } ?>
                                             </select>
                                             <span class="red"><?php echo form_error('category'); ?></span>
                                         </div>
@@ -41,17 +41,17 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label col-md-3" for="first name"> First Name:</label>
+                                        <label class="control-label col-md-3" for="first name">First Name:</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="first_name" placeholder="Enter First Name" value="<?php echo $users[0]->first_name;?>">
+                                            <input type="text" class="form-control" name="first_name" placeholder="Enter First Name" value="<?php if(!empty($users[0])){ echo $users[0]->first_name;}?>">
                                         </div>
                                     </div>
-                                </div>
+                                </div><div class="clearfix"></div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label col-md-3" for="last name">Last Name:</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="last_name" placeholder="Enter Last Name" value="<?php echo $users[0]->last_name;?>">
+                                            <input type="text" class="form-control" name="last_name" placeholder="Enter Last Name" value="<?php if(!empty($users[0])){ echo $users[0]->last_name;}?>">
                                         </div>
                                     </div>
                                 </div>
@@ -59,7 +59,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3" for="email">Email:</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="email" placeholder="Enter Email" value="<?php echo $users[0]->email;?>">
+                                            <input type="text" class="form-control" name="email" placeholder="Enter Email" value="<?php if(!empty($users[0])){ echo $users[0]->email;}?>">
                                         </div>
                                     </div>
                                 </div>
@@ -67,7 +67,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3" for="date of birth">Date of Birth:</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="date_of_birth" id="date_of_birth" value="<?php echo $users[0]->date_of_birth;?>">
+                                            <input type="text" class="form-control" name="date_of_birth" id="date_of_birth" value="<?php if(!empty($users[0])){ echo date('Y-m-d', strtotime($users[0]->date_of_birth));}?>">
                                         </div>
                                     </div>
                                 </div>
@@ -77,14 +77,14 @@
                                         <div class="col-md-9">
                                             <select class="wide" name="blood_group">
                                                 <option value="">--SELECT--</option>
-                                                <option value="a+" <?php if($users[0]->blood_group=="a+"){echo 'selected';};?>>A+</option>
-                                                <option value="a-" <?php if($users[0]->blood_group=="a-"){echo 'selected';};?>>A-</option>
-                                                <option value="b+" <?php if($users[0]->blood_group=="b+"){echo 'selected';};?>>B+</option>
-                                                <option value="b-" <?php if($users[0]->blood_group=="b-"){echo 'selected';};?>>B-</option>
-                                                <option value="o+" <?php if($users[0]->blood_group=="o+"){echo 'selected';};?>>O+</option>
-                                                <option value="o-" <?php if($users[0]->blood_group=="o-"){echo 'selected';};?>>O-</option>
-                                                <option value="ab+" <?php if($users[0]->blood_group=="ab+"){echo 'selected';};?>> AB+</option>
-                                                <option value="ab-" <?php if($users[0]->blood_group=="ab-"){echo 'selected';};?>>AB-</option>
+                                                <option value="a+" <?php if(!empty($users[0]) && $users[0]->blood_group=="a+"){echo 'selected';};?>>A+</option>
+                                                <option value="a-" <?php if(!empty($users[0]) && $users[0]->blood_group=="a-"){echo 'selected';};?>>A-</option>
+                                                <option value="b+" <?php if(!empty($users[0]) && $users[0]->blood_group=="b+"){echo 'selected';};?>>B+</option>
+                                                <option value="b-" <?php if(!empty($users[0]) && $users[0]->blood_group=="b-"){echo 'selected';};?>>B-</option>
+                                                <option value="o+" <?php if(!empty($users[0]) && $users[0]->blood_group=="o+"){echo 'selected';};?>>O+</option>
+                                                <option value="o-" <?php if(!empty($users[0]) && $users[0]->blood_group=="o-"){echo 'selected';};?>>O-</option>
+                                                <option value="ab+"<?php if(!empty($users[0]) && $users[0]->blood_group=="ab+"){echo 'selected';};?>>AB+</option>
+                                                <option value="ab-"<?php if(!empty($users[0]) && $users[0]->blood_group=="ab-"){echo 'selected';};?>>AB-</option>
                                             </select>
                                         </div>
                                     </div>
@@ -93,7 +93,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3" for="mobile"> Mobile:</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="mobile" placeholder="Enter Mobile" value="<?php echo $users[0]->mobile;?>">
+                                            <input type="text" class="form-control" name="mobile" placeholder="Enter Mobile" value="<?php if(!empty($users[0])){ echo $users[0]->mobile; }?>">
                                         </div>
                                     </div>
                                 </div>
@@ -101,7 +101,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3" for="phone"> Phone no:</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="phone" placeholder="Enter Phone Number" value="<?php echo $users[0]->phone_no;?>">
+                                            <input type="text" class="form-control" name="phone" placeholder="Enter Phone Number" value="<?php if(!empty($users[0])){ echo $users[0]->phone_no; }?>">
                                         </div>
                                     </div>
                                 </div>
@@ -110,17 +110,9 @@
                                         <label class="control-label col-md-3" for="dob">Gender:</label>
                                         <div class="col-md-9">
                                             <label class="radio-inline">
-                                                <input type="radio" name="gender" value="male" <?php if($users[0]->gender=="male"){ echo 'checked';}?>>Male</label>
+                                                <input type="radio" name="gender" value="male" <?php if(!empty($users[0]) && $users[0]->gender=="male"){ echo 'checked';}?>>Male</label>
                                             <label class="radio-inline">
-                                                <input type="radio" name="gender" value="female" <?php if($users[0]->gender=="female"){ echo 'checked';}?>>Female</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3" for="address"> Specialization:</label>
-                                        <div class="col-md-9">
-                                            <input type="text" name="specialization" class="form-control" value="<?php echo $users[0]->specialization; ?>">
+                                                <input type="radio" name="gender" value="female" <?php if(!empty($users[0]) && $users[0]->gender=="female"){ echo 'checked';}?>>Female</label>
                                         </div>
                                     </div>
                                 </div>
@@ -134,17 +126,45 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label col-md-3" for="address"> City:</label>
+                                        <label class="col-md-3">Country *</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="city" placeholder="Enter City" value="<?php echo $users[0]->city;?>">
+                                            <select class="wide" name="country" id="country" onchange="get_state(this.value)">
+                                            <option value="">-- Select Country --</option>
+                                            <?php foreach($countries as $country){?>
+                                            <option value="<?php echo $country['id']?>" <?php if(!empty($hospitals[0]->country) && $hospitals[0]->country==$country['id']){ echo 'selected';}?>><?php echo $country['name']?></option>
+                                            <?php }?>
+                                        </select>
+                                            <span class="red"><?php echo form_error('country'); ?></span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label col-md-3" for="Consultancy Time">Consultancy Time</label>
+                                        <label class="col-md-3">State *</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="consultancy_time" id="consultancy_time" placeholder="Enter Consultancy Time In Minutes" value="<?php echo $users[0]->consultancy_time;?>">
+                                            <select class="wide" name="state" id="state" onchange="get_city(this.value)">
+                                                <option value="">-- Select State --</option>
+                                                <?php if(!empty($hospitals[0]->state_id)){?>
+                                                    <option value="<?php echo $hospitals[0]->state_id;?>" selected><?php echo $hospitals[0]->state_name;?></option>
+                                                <?php }?>
+                                            </select>
+                                            <span class="red"><?php echo form_error('state'); ?></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3" for="address"> City:</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="city" placeholder="Enter City" value="<?php if(!empty($users[0])){ echo $users[0]->city; }?>">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3" for="Consultancy Time">Consultancy Time:</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="consultancy_time" id="consultancy_time" placeholder="Enter Consultancy Time In Minutes" value="<?php if(!empty($users[0])){ echo $users[0]->consultancy_time;}?>">
                                         </div>
                                     </div>
                                 </div>
@@ -152,7 +172,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3" for="Consultancy Fess">Consultancy Fees:</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="consultancy_fees" placeholder="Enter Consultancy Fees" value="<?php echo $users[0]->consultancy_fees;?>">
+                                            <input type="text" class="form-control" name="consultancy_fees" placeholder="Enter Consultancy Fees" value="<?php if(!empty($users[0])){ echo $users[0]->consultancy_fees;}?>">
                                         </div>
                                     </div>
                                 </div>
@@ -160,20 +180,18 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3" for="address"> Address:</label>
                                         <div class="col-md-9">
-                                            <textarea class="form-control" name="address" placeholder="Enter Address">
-                                                <?php echo $users[0]->address;?>
-                                            </textarea>
+                                            <textarea class="form-control" name="address" placeholder="Enter Address"><?php if(!empty($users[0])){ echo $users[0]->address;}?></textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12 well well-sm">
-                                    <h3>Profesional Information</h3>
+                                    <h3>Professional Information</h3>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label col-md-3" for="mdeical">Medical Registration:</label>
                                         <div class="col-md-9">
-                                            <input type="text" name="registration" class="form-control" value="<?php echo $users[0]->registration ?>">
+                                            <input type="text" name="registration" class="form-control" value="<?php if(!empty($users[0])){ echo $users[0]->registration;} ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -181,7 +199,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3" for="number">Registration Number:</label>
                                         <div class="col-md-9">
-                                            <input type="text" name="registration_number" class="form-control" value="<?php echo $users[0]->registration_number ?>">
+                                            <input type="text" name="registration_number" class="form-control" value="<?php if(!empty($users[0])){ echo $users[0]->registration_number;} ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -197,7 +215,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3" for="number">Registration Year:</label>
                                         <div class="col-md-9">
-                                            <input type="text" name="registration_year" class="form-control" value="<?php echo $users[0]->registration_year ?>">
+                                            <input type="text" name="registration_year" class="form-control" value="<?php if(!empty($users[0])){ echo $users[0]->registration_year;} ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -205,7 +223,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3" for="number">Degree:</label>
                                         <div class="col-md-9">
-                                            <input type="text" name="degree" class="form-control" value="<?php echo $users[0]->degree ?>">
+                                            <input type="text" name="degree" class="form-control" value="<?php if(!empty($users[0])){ echo $users[0]->degree;} ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -213,23 +231,23 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3" for="number">College/Institute:</label>
                                         <div class="col-md-9">
-                                            <input type="text" name="college" class="form-control" value="<?php echo $users[0]->college ?>">
+                                            <input type="text" name="college" class="form-control" value="<?php if(!empty($users[0])){ echo $users[0]->college;} ?>">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label col-md-3" for="number"> Year of completion</label>
+                                        <label class="control-label col-md-3" for="number"> Year of completion:</label>
                                         <div class="col-md-9">
-                                            <input type="text" name="completion_year" class="form-control" value="<?php echo $users[0]->completion_year ?>">
+                                            <input type="text" name="completion_year" class="form-control" value="<?php if(!empty($users[0])){ echo $users[0]->completion_year;} ?>">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label col-md-3" for="number"> Experience</label>
+                                        <label class="control-label col-md-3" for="number"> Experience:</label>
                                         <div class="col-md-9">
-                                            <input type="text" name="experience" class="form-control" value="<?php echo $users[0]->experience ?>">
+                                            <input type="text" name="experience" class="form-control" value="<?php if(!empty($users[0])){ echo $users[0]->experience;} ?>">
                                         </div>
                                     </div>
                                 </div>

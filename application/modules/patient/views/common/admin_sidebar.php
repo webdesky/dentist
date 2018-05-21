@@ -8,7 +8,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-            <a class="navbar-brand" href="javascript:void(0)"><?php echo 'Welcome '. ucwords($this->session->userdata('first_name')); ?></a>
+            <a class="navbar-brand" href="javascript:void(0)" style="color:red"><?php echo 'Welcome, '. ucwords($this->session->userdata('first_name')); ?></a>
         </div>
         <!-- /.navbar-header -->
 

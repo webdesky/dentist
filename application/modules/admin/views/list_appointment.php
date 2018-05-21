@@ -66,8 +66,11 @@
                                         <?php echo ucwords($value['patient_name']); ?>
                                     </td>
                                     <td class="center">
-                                        <?php  if($value['is_active']==0){ ?> <button class="btn btn-danger" onclick="updateStatus('<?php echo $value['id'] ?>','<?php echo $value['is_active'] ?>')">Pending</button>
-                                        <?php }else{?> <button class="btn btn-success" onclick="updateStatus('<?php echo $value['id'] ?>','<?php echo $value['is_active'] ?>')">Approved</button>
+                                        <?php  if($value['is_active']==0){ ?> <button class="btn btn-danger">Pending</button>
+
+                                        <!-- <button class="btn btn-danger" onclick="updateStatus('<?php echo $value['id'] ?>','<?php echo $value['is_active'] ?>')">Pending</button> -->
+
+                                        <?php }else{?> <button class="btn btn-success">Approved</button>
                                         <?php } ?> </td>
                                     <?php if($user_role==1 || ($user_role==4 && $right3[1]==1 || $right3[2]==1)){?>
                                     <td class="center">
@@ -124,32 +127,4 @@
         });
     }
 
-    function updateStatus(id, active) {
-        if (active == 0) {
-            data = 1;
-        } else {
-            data = 0;
-        }
-        swal({
-            title: "Are you sure?",
-            text: "You want to Change Status?",
-            type: "warning",
-            showCancelButton: true,
-            closeOnConfirm: false,
-            confirmButtonText: "Yes, Change it!",
-            confirmButtonColor: "#ec6c62"
-        }, function() {
-            $.ajax({
-                url: "<?php echo base_url('admin/update_status')?>",
-                data: {
-                    id: id,
-                    active: data,
-                },
-                type: "POST"
-            }).done(function(data) {
-                swal("Changed!", "Status was successfully changed!", "success");
-                window.location.reload();
-            });
-        });
-    }
 </script>

@@ -26,20 +26,25 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <form role="form" method="post" action="<?php echo base_url('admin/add_doctor') ?>" class="registration_form12" enctype="multipart/form-data" id="registration_form">
+
+                                <?php if ($session_role != 4) {?>
                                 <div class="col-md-6">
                                     <div class="">
                                         <label class="col-md-3">Hospital *</label>
                                         <div class="col-md-9">
-                                        <select class="form-control" name="hospitals_id[]" id="hospitals_id" multiple="multiple">
-                                            <option value="">-- Select Hospital --</option>
-                                            <?php foreach ($hospitals as $value) { ?>
-                                            <option data-speciality="<?php echo $value->other_speciality;?>" value="<?php echo $value->id; ?>"><?php echo ucfirst($value->hospital_name); ?></option>
-                                            <?php   } ?>
-                                        </select>
-                                            <span class="red"><?php echo form_error('hospitals_id'); ?></span>
+                                        <select class="form-control" name="hospital_id[]" multiple="multiple" onchange="get_doctor(this.value)" required="required">
+                                        <option value="">--Select Hospital--</option>
+                                        <?php foreach ($hospitals as $value) { ?>
+                                        <option value="<?php echo $value->id; ?>" <?php echo set_select('hospital_id', $value->id); ?>><?php echo ucwords($value->hospital_name); ?></option>
+                                        <?php } ?>
+                                     </select>
                                         </div>
+                                        <span class="red"><?php echo form_error('hospital_id'); ?></span>
                                     </div>
                                 </div>
+                            <?php }elseif($session_role==4){?>
+                                <input type="hidden" name="hospital_id" value="<?php echo $hospital_id; ?>">
+                                <?php } ?>
                                 <div class="col-md-6">
                                     <div class="">
                                         <label class="col-md-3">Doctor Speciality *</label>
@@ -59,9 +64,6 @@
                                 </div>
                                 <div class="clearfix"></div>
                                 <br/>
-                                <?php if($session_role==4){?>
-                                <input type="hidden" name="hospitals_id" value="<?php echo $hospital_id; ?>">
-                                <?php } ?>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-md-3">User Name *</label>
@@ -161,9 +163,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="col-md-3">Phone No</label>
+                                        <label class="col-md-3">Contact No</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="phone_no" placeholder="Phone Number" autocomplete="off">
+                                            <input type="text" class="form-control" name="phone_no" placeholder="Phone Number" autocomplete="off" require="required">
                                             <span class="red"><?php echo form_error('phone_no'); ?></span>
                                         </div>
                                     </div>
@@ -172,7 +174,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Mobile No</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="mobile_no" placeholder="Mobile Number" autocomplete="off" value="<?php echo set_value('mobile_no'); ?>"  require="required">
+                                            <input type="text" class="form-control" name="mobile_no" placeholder="Mobile Number" autocomplete="off" value="<?php echo set_value('mobile_no'); ?>" >
                                             <span class="red"><?php echo form_error('mobile_no'); ?></span>
                                         </div>
                                     </div>

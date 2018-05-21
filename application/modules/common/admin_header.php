@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dentist Admin Panel</title>
+    <title>Admin Panel</title>
     <script src="<?php echo base_url('asset/js/jquery.js');?>"></script>
     <script src="<?php echo base_url('asset/js/jquery-ui.js');?>"></script>
     <script src="<?php echo base_url('asset/dist/js/jquery.nice-select.min.js');?>"></script>

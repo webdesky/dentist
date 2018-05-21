@@ -42,28 +42,29 @@
                                     <td>
                                         <?php echo $count; ?> </td>
                                     <td class="center">
-                                        <?php echo ucwords($value['hospital_name']);?> </td>
+                                        <?php echo ucwords($value->hospital_name);?> </td>
                                     <td class="center">
-                                        <?php echo $value['registration_number'];?> </td>
+                                        <?php echo $value->registration_number;?> </td>
                                     <td class="center">
-                                        <?php echo ucwords($value['owner_name']);?> </td>
+                                        <?php echo ucwords($value->owner_name);?> </td>
                                     <td class="center">
-                                        <?php echo ucwords($value['address']);?> </td>
+                                        <?php echo ucwords($value->address);?> </td>
                                     <td class="center">
-                                        <?php echo $value['staff_number'];?> </td>
+                                        <?php echo $value->staff_number;?> </td>
                                     <td class="center">
-                                        <?php echo $value['no_of_doc'];?> </td>
+                                        <?php echo $value->no_of_doc;?> </td>
                                     <td class="center">
-                                        <?php echo $value['speciality'];?> </td>
+                                        <?php echo $value->speciality;?> </td>
                                     <td class="center">
-                                        <?php echo $value['no_of_ambulance'];?> </td>
+                                        <?php echo $value->no_of_ambulance;?> </td>
                                     <td class="center">
-                                        <?php if($value['blood_bank']==1){ echo 'Yes';}else{ echo 'No';}  ?> </td>
+                                        <?php if($value->blood_bank==1){ echo 'Yes';}else{ echo 'No'; }?> </td>
                                     <td class="center">
-                                        <?php echo date('Y-m-d',strtotime($value['created_at']));  ?> </td>
+                                        <?php echo date('Y-m-d',strtotime($value->created_at));  ?> </td>
                                     <td class="center">
-                                        <a title="Edit" href="<?php echo base_url('admin/hospitals/'.$value['id']) ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a title="Delete" href="javascript:void(0)" onclick="delete_hospital('<?php echo $value['id']?>','<?php echo $count;?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                        <a title="Edit" href="<?php echo base_url('admin/hospitals/'.$value->id) ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        | <a title="Delete" href="javascript:void(0)" onclick="delete_hospital('<?php echo $value->id?>','<?php echo $count;?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                        | <a href="<?php echo base_url('admin/assign_rights/'.$value->user_id)?>" title="Assign Rights"><span class="glyphicon glyphicon-cog" ></span></a>
                                     </td>
                                 </tr>
                                 <?php $count++; }}?> </tbody>
