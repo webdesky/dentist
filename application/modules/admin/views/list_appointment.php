@@ -48,7 +48,7 @@
                                         <?php echo $count; ?>
                                     </td>
                                     <td class="center">
-                                        <?php echo $value['appointment_date']; ?>
+                                        <?php echo date("Y-m-d", strtotime($value['appointment_date'])); ?>
                                     </td>
                                     <td class="center">
                                         <?php echo $value['appointment_time']; ?>

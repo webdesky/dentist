@@ -22,15 +22,15 @@
             <?php endif ?>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                     <a class="btn btn-primary" href="<?php echo base_url('admin/mail_list')?>"><i class="fa fa-th-list">&nbsp;Mail List </i></a>
+                    <a class="btn btn-primary" href="<?php echo base_url('admin/mail_list')?>"><i class="fa fa-th-list">&nbsp;Mail List </i></a>
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
-                            <form role="form" method="post" action="<?php echo base_url('admin/send_mail') ?>" class="registration_form1">
+                            <form role="form" method="post" action="<?php echo base_url('admin/send_mail')?>" class="registration_form1">
                                 <div class="form-group"> <label class="col-md-2">Title * </label>
-                                    <div class="col-lg-6"> <select class="wide" name="reciever_id">
-                                        <option value=""> -- Select User --</option>
+                                    <div class="col-lg-6"> <select class="form-control" name="reciever_id[]" multiple="multiple">
+                                        <option value="">-- Select User --</option>
                                         <?php foreach($users as $user){?>
                                         <option value="<?php echo $user->id;?>"><?php echo ucwords($user->first_name.' '.$user->last_name);?></option>
                                         <?php }?>
@@ -65,7 +65,3 @@
 
 </div>
 </div>
-
-<script type="text/javascript">
-    $('select').niceSelect();
-</script>

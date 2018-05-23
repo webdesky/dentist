@@ -68,7 +68,7 @@
                                                 <?php }?>
                                             </select> 
                                         </div>
-                                        <span class="red"><?php echo form_error('user_name'); ?></span>
+                                        <span class="red"><?php echo form_error('speciality'); ?></span>
                                     </div>
                                 </div>
                                 <?php }?>

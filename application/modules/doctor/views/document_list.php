@@ -30,10 +30,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php 
-                                if($documents_list){
-                                    $count=1;
-                                foreach ($documents_list as  $value) { ?>
+                                <?php if($documents_list){
+                                        $count=1;
+                                        foreach ($documents_list as  $value) { ?>
                                 <tr class="odd gradeX" id="tr_<?php echo $count?>">
                                     <td>
                                         <?php echo $count; ?> </td>
@@ -41,7 +40,12 @@
                                         <?php echo ucwords($value->first_name.' '.$value->last_name); ?> </td>
                                     <td class="center">
                                         <?php echo $value->description; ?> </td>
-                                    <td class="center"><img src="<?php echo base_url('asset/uploads/'.$value->file); ?>" width='50px' height='50px'></td>
+                                    <td class="center">
+                                        <!-- <img src="<?php //echo base_url('asset/uploads/'.$value->file); ?>" width='50px' height='50px'> -->
+                                        <?php if(!empty($value->file)){?>
+                                            <a href="<?php echo base_url('asset/uploads/'.$value->file); ?>">View doc</a>
+                                        <?php }?>
+                                    </td>
                                     <td class="center">
                                         <a href="<?php echo base_url('doctor/add_document/'.$value->did); ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                         </a>
@@ -49,7 +53,8 @@
                                         </a>
                                     </td>
                                 </tr>
-                                <?php $count++; } }?> </tbody>
+                                <?php $count++;}}?>
+                            </tbody>
                         </table>
                     </div>
                     <!-- /.table-responsive -->
@@ -63,6 +68,7 @@
     <!-- /.row -->
 </div>
 <script type="text/javascript">
+
 $(document).ready(function() {
     $('#dataTables-example').DataTable({
         responsive: true,
@@ -73,13 +79,10 @@ $(document).ready(function() {
     });
 });
 
-
-    
-
 function delete_document(id, tr_id) {
     swal({
-        title: "Are you sure?",
-        text: "Are you sure that you want to delete?",
+        title: "Are you sure ?",
+        text: "Are you sure that you want to delete ?",
         type: "warning",
         showCancelButton: true,
         closeOnConfirm: false,
@@ -101,4 +104,5 @@ function delete_document(id, tr_id) {
         });
     });
 }
+
 </script>

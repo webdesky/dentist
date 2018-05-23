@@ -34,17 +34,19 @@
         <?php
         $user_role = $this->session->userdata('user_role');
         if ($user_role == 4) {
-            $rights = explode(',', trim($this->session->userdata('rights')->rights, '"'));
-            $right0 = str_split($rights[0]);
-            $right1 = str_split($rights[1]);
-            $right2 = str_split($rights[2]);
-            $right3 = str_split($rights[3]);
-            $right4 = str_split($rights[4]);
-            $right5 = str_split($rights[5]);
-            $right6 = str_split($rights[6]);
-            $right7 = str_split($rights[7]);
-            $right8 = str_split($rights[8]);
-            $right9 = str_split($rights[9]);
+            if(!empty($this->session->userdata('rights')->rights)){
+                $rights = explode(',', trim($this->session->userdata('rights')->rights, '"'));
+                $right0 = str_split($rights[0]);
+                $right1 = str_split($rights[1]);
+                $right2 = str_split($rights[2]);
+                $right3 = str_split($rights[3]);
+                $right4 = str_split($rights[4]);
+                $right5 = str_split($rights[5]);
+                $right6 = str_split($rights[6]);
+                $right7 = str_split($rights[7]);
+                $right8 = str_split($rights[8]);
+                $right9 = str_split($rights[9]);
+            }
         }
     ?>
             <div class="navbar-default sidebar" role="navigation">
@@ -86,7 +88,7 @@
                                 </li> 
                             </ul>
                         </li>-->
-                        <?php } if($user_role==1 || ($right4[0]!=0 && $right4[1]!=0 && $right4[2]!=0)){?>
+                        <?php } if($user_role==1 || (isset($right4) && $right4[0]!=0 && $right4[1]!=0 && $right4[2]!=0)){?>
                         <li>
                             <a href="#"><i class="fa fa-user-md" aria-hidden="true"></i> Speciality<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -100,7 +102,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <?php }if($user_role==1 || ($right0[0]!=0 && $right0[1]!=0 && $right0[2]!=0)){?>
+                        <?php }if($user_role==1 || (isset($right0) && $right0[0]!=0 && $right0[1]!=0 && $right0[2]!=0)){?>
                         <li>
                             <a href="#"><i class="fa fa-user-md" aria-hidden="true"></i> Doctors<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -119,7 +121,7 @@
                                 <?php //}?>
                             </ul>
                         </li>
-                        <?php } if($user_role==1 || ($right1[0]!=0 && $right1[1]!=0 && $right1[2]!=0)){?>
+                        <?php } if($user_role==1 || (isset($right1) && $right1[0]!=0 && $right1[1]!=0 && $right1[2]!=0)){?>
                         <li>
                             <a href="#"><i class="fa fa-wheelchair" aria-hidden="true"></i> Patients<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -133,7 +135,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <?php }if($user_role==1 || ($right2[0]!=0 && $right2[1]!=0 && $right2[2]!=0)){?>
+                        <?php }if($user_role==1 || (isset($right2) && $right2[0]!=0 && $right2[1]!=0 && $right2[2]!=0)){?>
                         <li>
                             <a href="#"><i class="fa fa-calendar" aria-hidden="true"></i> Schedule<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -148,7 +150,7 @@
 
                             </ul>
                         </li>
-                        <?php }if($user_role==1 || ($right3[0]!=0 && $right3[1]!=0 && $right3[2]!=0)){?>
+                        <?php }if($user_role==1 || (isset($right3) && $right3[0]!=0 && $right3[1]!=0 && $right3[2]!=0)){?>
                         <li>
                             <a href="#"><i class="fa fa-pencil" aria-hidden="true"></i> Appointments<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -162,7 +164,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <?php }if($user_role==1 || ($right4[0]!=0 && $right4[1]!=0 && $right4[2]!=0)){?>
+                        <?php }if($user_role==1 || (isset($right4) && $right4[0]!=0 && $right4[1]!=0 && $right4[2]!=0)){?>
                         <li>
                             <a href="#"><i class="fa fa-book" aria-hidden="true"></i> Prescriptions<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level treeview-menu">
@@ -176,7 +178,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <?php }if($user_role==1 || ($right5[0]!=0 && $right5[1]!=0 && $right5[2]!=0)){?>
+                        <?php }if($user_role==1 || (isset($right5) && $right5[0]!=0 && $right5[1]!=0 && $right5[2]!=0)){?>
                         <li>
                             <a href="#"><i class="fa fa-bell" aria-hidden="true"></i> NoticeBoard<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level treeview-menu">
@@ -190,7 +192,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <?php }if($user_role==1 || ($user_role==4 && $right6[0]==1)){?>
+                        <?php }if($user_role==1 || (isset($right6) && $right6[0]==1 && $user_role==4)){?>
                         <li>
                             <a href="#"><i class="fa fa-comments" aria-hidden="true"></i> Reviews<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level treeview-menu">
@@ -199,7 +201,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <?php } if($user_role==1 || ($right7[0]!=0 && $right7[1]!=0 && $right7[2]!=0)){?>
+                        <?php } if($user_role==1 || (isset($right7) && $right7[0]!=0 && $right7[1]!=0 && $right7[2]!=0)){?>
                         <li>
                             <a href="#"><i class="fa fa-commenting" aria-hidden="true"></i> Message<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level treeview-menu">
@@ -213,7 +215,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <?php }if($user_role==1 || ($right8[0]!=0 && $right8[1]!=0 && $right8[2]!=0)){?>
+                        <?php }if($user_role==1 || (isset($right8) && $right8[0]!=0 && $right8[1]!=0 && $right8[2]!=0)){?>
                         <li>
                             <a href="#"><i class="fa fa-envelope" aria-hidden="true"></i> Mail<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level treeview-menu">
@@ -227,7 +229,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <?php }if($user_role==1 || ($user_role==4 && $right9[0]==1)){?>
+                        <?php }if($user_role==1 || $user_role==4 && (isset($right6) && $right9[0]==1)){?>
                         <li>
                             <a href="#"><i class="fa fa-wrench" aria-hidden="true"></i> Inventory<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level treeview-menu">

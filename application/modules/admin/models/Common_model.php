@@ -12,7 +12,8 @@ class Common_model extends CI_Model
         $this->db->join("users u", "u.id = s.doctor_id");
         $this->db->group_by("s.doctor_id");
         $q        = $this->db->get();
-        //echo $this->db->last_query();die;
+        // echo $this->db->last_query(); 
+        // die;
         $num_rows = $q->num_rows();
         if ($num_rows > 0) {
             foreach ($q->result() as $rows) {

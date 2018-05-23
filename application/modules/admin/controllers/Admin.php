@@ -291,7 +291,7 @@ class Admin extends CI_Controller
                     if ($user_role == 2) {
                         $data = array(
                             'doctor_id' => $result,
-                            'city' => $this->input->post('specialization'),
+                            'city' => $this->input->post('city'),
                             'specialization' => $specialization,
                             'is_active' => $status,
                             'created_at' => date('Y-m-d H:i:s')
@@ -745,11 +745,13 @@ class Admin extends CI_Controller
                 
                 
                 $data = $this->input->post();
+               // echo '<pre>'
                 $data = array(
                     'appointment_type' => $data['appointment_type'],
                     'appointment_id' => 'AP' . mt_rand(100000, 999999),
                     'patient_id' => $data['patient_id'],
                     'doctor_id' => $data['doctor_id'],
+                    'hospital_id' => $data['hospital_id'],
                     'appointment_date' => $data['appointment_date'],
                     'appointment_time' => $data['appointment_time'],
                     'problem' => $data['problem'],
@@ -1003,32 +1005,26 @@ class Admin extends CI_Controller
     public function notices($id = null)
     {
         if ($this->controller->checkSession()) {
-            $field_val         = 'id,hospital_name';
-            $data['hospitals'] = $this->model->getAllwhere('hospitals', '', $field_val);
             $this->form_validation->set_rules('title', 'title', 'trim|required');
             $this->form_validation->set_rules('description', 'description', 'trim|required');
-            
             if (empty($id)) {
                 $this->form_validation->set_rules('title', 'title', 'trim|required');
                 $this->form_validation->set_rules('description', 'description', 'trim|required');
             }
             
             if ($this->form_validation->run() == false) {
+                $field_val         = 'id,hospital_name';
+                $data['hospitals'] = $this->model->getAllwhere('hospitals', '', $field_val);
                 $this->session->set_flashdata('errors', validation_errors());
                 $data['body'] = 'add_notice';
                 
                 if (!empty($id)) {
-                    $where           = array(
-                        'id' => $id
-                    );
+                    $where           = array('id' => $id);
                     $data['notices'] = $this->model->getAllwhere('notices', $where);
                     $data['body']    = 'edit_notices';
                 }
-                
                 $this->controller->load_view($data);
             } else {
-                
-                
                 $title       = $this->input->post('title');
                 $description = $this->input->post('description');
                 $start_date  = $this->input->post('start_date');
@@ -1039,7 +1035,8 @@ class Admin extends CI_Controller
                     'description' => $description,
                     'start_date' => date('Y-m-d', strtotime($start_date)),
                     'end_date' => date('Y-m-d', strtotime($end_date)),
-                    'created_at' => date('Y-m-d H:i:s')
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'added_by' => $this->session->userdata('id')
                 );
                 
                 
@@ -1074,83 +1071,6 @@ class Admin extends CI_Controller
                 $data['notice_list'] = $this->model->getAll('notices');
             }
             $data['body'] = 'list_notice';
-            $this->controller->load_view($data);
-        } else {
-            redirect('admin/index');
-        }
-    }
-    public function send_mail()
-    {
-        if ($this->controller->checkSession()) {
-            $where         = array(
-                'user_role != ' => $this->session->userdata('user_role')
-            );
-            $data['users'] = $this->model->getAllwhere('users', $where);
-            $this->form_validation->set_rules('reciever_id', 'Mail to', 'trim|required');
-            $this->form_validation->set_rules('subject', 'Subject', 'trim|required');
-            $this->form_validation->set_rules('message', 'Message', 'trim|required');
-            
-            if ($this->form_validation->run() == false) {
-                $this->session->set_flashdata('errors', validation_errors());
-                $data['body'] = 'send_mail';
-                $this->controller->load_view($data);
-            } else {
-                
-                
-                $reciever_id = $this->input->post('reciever_id');
-                $subject     = $this->input->post('subject');
-                $message     = $this->input->post('message');
-                $sender_id   = $this->session->userdata('id');
-                
-                $data = array(
-                    'reciever_id' => $reciever_id,
-                    'sender_id' => $sender_id,
-                    'subject' => $subject,
-                    'message' => trim($message),
-                    'is_active' => 1,
-                    'created_at' => date('Y-m-d H:i:s')
-                );
-                
-                $config_mail = Array(
-                    'protocol' => 'smtp',
-                    'smtp_host' => 'ssl://smtp.googlemail.com',
-                    'smtp_port' => '465',
-                    'smtp_user' => '',
-                    'smtp_pass' => '',
-                    'mailtype' => 'html',
-                    'charset' => 'iso-8859-1',
-                    'newline' => "\r\n"
-                );
-                
-                $this->load->library('email', $config_mail);
-                $this->email->set_mailtype("html");
-                $this->email->set_newline("\r\n");
-                $this->email->from($this->session->userdata('email'), "Admin Team");
-                $this->email->to($reciever_id);
-                $this->email->subject($subject);
-                $this->email->message($message);
-                
-                if (!$this->email->send()) {
-                    show_error($this->email->print_debugger());
-                }
-                
-                $result = $this->model->insertData('mail', $data);
-                $this->mail_list();
-                
-            }
-        } else {
-            redirect('admin/index');
-        }
-    }
-    public function mail_list()
-    {
-        if ($this->controller->checkSession()) {
-            $where             = array(
-                'sender_id =' => $this->session->userdata('id')
-            );
-            $field_val         = 'mail.*,users.first_name,users.last_name';
-            $data['mail_list'] = $this->model->GetJoinRecord('mail', 'reciever_id', 'users', 'id', $field_val, $where);
-            $data['body']      = 'mail_list';
             $this->controller->load_view($data);
         } else {
             redirect('admin/index');
@@ -1196,6 +1116,96 @@ class Admin extends CI_Controller
             redirect('admin/index');
         }
     }
+    public function send_mail()
+    {
+        if ($this->controller->checkSession()) {
+            $where         = array(
+                'user_role != ' => $this->session->userdata('user_role')
+            );
+            $this->form_validation->set_rules('reciever_id[]', 'Mail to', 'trim|required');
+            $this->form_validation->set_rules('subject', 'Subject', 'trim|required');
+            $this->form_validation->set_rules('message', 'Message', 'trim|required');
+            if ($this->form_validation->run() == false) {
+                $this->session->set_flashdata('errors', validation_errors());
+                 $data['users'] = $this->model->getAllwhere('users', $where);
+                $data['body'] = 'send_mail';
+                $this->controller->load_view($data);
+            } else {
+                
+                
+                $reciever_id = $this->input->post('reciever_id');
+                $subject     = $this->input->post('subject');
+                $message     = $this->input->post('message');
+                $sender_id   = $this->session->userdata('id');
+                
+                $data = array(
+                    'reciever_id' => $reciever_id,
+                    'sender_id' => $sender_id,
+                    'subject' => $subject,
+                    'message' => trim($message),
+                    'is_active' => 1,
+                    'created_at' => date('Y-m-d H:i:s')
+                );
+
+                
+                $config_mail = Array(
+                    'protocol' => 'smtp',
+                    'smtp_host' => 'ssl://smtp.googlemail.com',
+                    'smtp_port' => '465',
+                    'smtp_user' => '',
+                    'smtp_pass' => '',
+                    'mailtype' => 'html',
+                    'charset' => 'iso-8859-1',
+                    'newline' => "\r\n"
+                );
+
+                $this->load->library('email', $config_mail);
+                $this->email->set_mailtype("html");
+                $this->email->set_newline("\r\n");
+                
+
+                for ($i = 0; $i < count($reciever_id); $i++) {
+                    $this->email->from($this->session->userdata('email'), "Admin Team");
+                    $this->email->to($reciever_id[$i]);
+                    $this->email->subject($subject);
+                    $this->email->message($message);
+                    $data[] = array(
+                        'reciever_id' => $reciever_id[$i],
+                        'sender_id' => $sender_id,
+                        'subject' => $subject,
+                        'message' => trim($message),
+                        'is_active' => 1,
+                        'created_at' => date('Y-m-d H:i:s')
+                    );
+                }
+                
+                                                       
+                if (!$this->email->send()) {
+                    show_error($this->email->print_debugger());
+                }
+                $this->db->insert_batch('mail', $data);
+                redirect('admin/mail_list');
+                
+            }
+        } else {
+            redirect('admin/index');
+        }
+    }
+    public function mail_list()
+    {
+        if ($this->controller->checkSession()) {
+            $where             = array(
+                'sender_id =' => $this->session->userdata('id')
+            );
+            $field_val         = 'mail.*,users.first_name,users.last_name';
+            $data['mail_list'] = $this->model->GetJoinRecord('mail', 'reciever_id', 'users', 'id', $field_val, $where);
+            $data['body']      = 'mail_list';
+            $this->controller->load_view($data);
+        } else {
+            redirect('admin/index');
+        }
+    }
+    
     public function message_list()
     {
         if ($this->controller->checkSession()) {
@@ -1355,10 +1365,7 @@ class Admin extends CI_Controller
                 $data['countries']  = $this->model->getAll('countries');
                 $data['body']       = 'hospitals';
                 $this->controller->load_view($data);
-            } else {
-                
-                
-                
+            } else {                
                 $hospital_name       = $this->input->post('hospital_name');
                 $registration_number = $this->input->post('registration_number');
                 $owner_name          = $this->input->post('owner_name');
@@ -1398,21 +1405,34 @@ class Admin extends CI_Controller
                     'logo' => $file_name,
                     'created_at' => date('Y-m-d H:i:s')
                 );
-                $data1 = array(
-                    'first_name' => $hospital_name,
-                    'date_of_birth' => $this->input->post('registration_date'),
-                    'profile_pic' => $file_name,
-                    'username' => $this->input->post('username'),
-                    'email' => $this->input->post('email'),
-                    'password' => MD5($this->input->post('password')),
-                    'mobile' => $this->input->post('mobile'),
-                    'phone_no' => $this->input->post('phone_no'),
-                    'address' => $address,
-                    'user_role' => 4,
-                    'is_active' => $status,
-                    'created_at' => date('Y-m-d H:i:s')
-                );
-                
+                if(!empty($id)){
+                    $data1 = array(
+                        'first_name' => $hospital_name,
+                        'date_of_birth' => $this->input->post('registration_date'),
+                        'profile_pic' => $file_name,
+                        'mobile' => $this->input->post('mobile'),
+                        'phone_no' => $this->input->post('phone_no'),
+                        'address' => $address,
+                        'is_active' => $status,
+                        'created_at' => date('Y-m-d H:i:s')
+                    );
+                }else{
+                    $data1 = array(
+                        'first_name' => $hospital_name,
+                        'date_of_birth' => $this->input->post('registration_date'),
+                        'profile_pic' => $file_name,
+                        'username' => $this->input->post('username'),
+                        'email' => $this->input->post('email'),
+                        'password' => MD5($this->input->post('password')),
+                        'mobile' => $this->input->post('mobile'),
+                        'phone_no' => $this->input->post('phone_no'),
+                        'address' => $address,
+                        'user_role' => 4,
+                        'is_active' => $status,
+                        'created_at' => date('Y-m-d H:i:s')
+                    );
+                }
+
                 if (!empty($id)) {
                     $where  = array(
                         'id' => $id
@@ -1451,8 +1471,11 @@ class Admin extends CI_Controller
                 $field = '';
                 $value = '';
             }
-            $field_val              = 'hospitals.hospital_name,hospitals.id,hospitals.registration_number,hospitals.owner_name,hospitals.address,hospitals.staff_number,hospitals.no_of_doc,hospitals.no_of_ambulance,hospitals.blood_bank,hospitals.created_at,u1.id as user_id,u2.name as speciality';
-            $data['hospitals_list'] = $this->model->GetJoinRecordNew('hospitals', 'id', 'speciality', 'users u1', 'hospital_id', 'speciality u2', 'id', $field, $value, $field_val);
+            $field_val              = 'hospitals.hospital_name,hospitals.id,hospitals.registration_number,hospitals.owner_name,hospitals.address,hospitals.staff_number,hospitals.no_of_doc,hospitals.no_of_ambulance,hospitals.blood_bank,hospitals.created_at,u1.id as user_id,u1.user_role,u2.name as speciality';
+            $where = array('u1.user_role'=>4);
+
+            $data['hospitals_list'] = $this->model->GetJoinRecordNew('hospitals', 'id', 'speciality', 'users u1', 'hospital_id', 'speciality u2', 'id', $field, $value, $field_val,$where);
+            
             $data['body']           = 'hospitals_list';
             $this->controller->load_view($data);
         } else {
@@ -1767,27 +1790,27 @@ class Admin extends CI_Controller
             $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|callback_alpha_dash_space|min_length[2]');
             $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|callback_alpha_dash_space|min_length[2]');
             $this->form_validation->set_rules('dob', 'Date Of Birth', 'trim|required');
-            $this->form_validation->set_rules('user_name', 'User Name', 'trim|required|is_unique[users.username]');
-            $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]');
             
+            if(empty($id)){
+                $this->form_validation->set_rules('user_name', 'User Name', 'trim|required|is_unique[users.username]');
+                $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]');
+            }
             if ($this->form_validation->run() == false) {
                 $this->session->set_flashdata('errors', validation_errors());
                 $this->edit_user($id);
             } else {
-                
-                $hospitals_id   = implode(',', $this->input->post('hospitals_id'));
-                $specialization = $this->input->post('specialization');
-                $user_name      = $this->input->post('user_name');
+               
                 $first_name     = $this->input->post('first_name');
                 $last_name      = $this->input->post('last_name');
-                $email          = $this->input->post('email');
+                $address        = $this->input->post('address');
                 $phone_no       = $this->input->post('phone_no');
                 $mobile_no      = $this->input->post('mobile_no');
                 $dob            = $this->input->post('dob');
                 $gender         = $this->input->post('gender');
-                $status         = $this->input->post('status');
                 $blood_group    = $this->input->post('blood_group');
-                $address        = $this->input->post('address');
+                $status         = $this->input->post('status');
+                $hospitals_id   = implode(',', $this->input->post('hospitals_id'));
+                $specialization = $this->input->post('specialization');
                 
                 if (!empty($_FILES)) {
                     $file_name = $this->file_upload('image');
@@ -1795,29 +1818,36 @@ class Admin extends CI_Controller
                     $file_name = '';
                 }
                 $data   = array(
-                    'first_name' => $first_name,
-                    'last_name' => $last_name,
-                    'username' => $user_name,
-                    'email' => $email,
-                    'password' => MD5($password),
-                    'address' => $address,
-                    'phone_no' => $phone_no,
-                    'mobile' => $mobile_no,
-                    'date_of_birth' => $dob,
-                    'gender' => $gender,
-                    'blood_group' => $blood_group,
-                    'is_active' => $status,
-                    'user_role' => 3,
-                    'created_at' => date('Y-m-d H:i:s'),
-                    'profile_pic' => $file_name,
-                    'hospital_id' => $hospitals_id
-                );
-                $where  = array(
-                    'id' => $id
-                );
+                                'first_name' => $first_name,
+                                'last_name' => $last_name,
+                                'address' => $address,
+                                'phone_no' => $phone_no,
+                                'mobile' => $mobile_no,
+                                'date_of_birth' => $dob,
+                                'gender' => $gender,
+                                'blood_group' => $blood_group,
+                                'is_active' => $status,
+                                'user_role' => $role,
+                                'profile_pic' => $file_name,
+                                'hospital_id' => $hospitals_id
+                            );
+
+
+                $data1 = array(
+                            'specialization' => $specialization,
+                            'is_active' => $status
+                        );
+
+
+                $where  = array('id' => $id);
+
+                $where1  = array('doctor_id' => $id);
+
                 $result = $this->model->updateFields('users', $data, $where);
+
+                $result = $this->model->updateFields('doctor', $data1, $where1);
+
                 redirect('admin/users_list/2');
-                
             }
         } else {
             redirect('admin/index');

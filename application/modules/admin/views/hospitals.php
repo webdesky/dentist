@@ -1,16 +1,9 @@
-
-
-
-<style>
-    
+<style>  
 .fix-heights {
     min-height: 50px;
     max-height: 95px;
     overflow: auto;    
-}
-
-</style>
-
+}</style>
 
 <div id="page-wrapper">
     <div class="row">
@@ -30,6 +23,7 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <form role="form" method="post" action="<?php if(isset($hospitals[0])){ echo base_url('admin/hospitals/'.$hospitals[0]->id); }else{ echo base_url('admin/hospitals'); }?>" class="registration_form1" enctype="multipart/form-data">
+                            
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-md-3">Hospital Name *</label>
@@ -67,7 +61,7 @@
                                     </div>
                                 </div>
                                 <?php if(empty($hospitals_details[0])){?>
-                                <div class="col-md-6">
+                                <!-- <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-md-3">Email *</label>
                                         <div class="col-md-9">
@@ -93,7 +87,7 @@
                                             <span class="red"><?php echo form_error('password'); ?></span>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <?php }?>
                                 <div class="col-md-6">
                                     <div class="form-group">

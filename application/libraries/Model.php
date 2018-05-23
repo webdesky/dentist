@@ -218,7 +218,7 @@ class Model
         return $q->row();
     }
     
-    public function GetJoinRecordNew($table, $field_first, $second_field_join, $tablejointo, $field_second, $tablejointhree, $field_third, $field, $value, $field_val)
+    public function GetJoinRecordNew($table, $field_first, $second_field_join, $tablejointo, $field_second, $tablejointhree, $field_third, $field, $value, $field_val,$where)
     {
         
         $this->CI->db->select("$field_val");
@@ -230,6 +230,12 @@ class Model
         }
         if (!empty($field) && !empty($value)) {
             $this->CI->db->where("$table.$field", "$value");
+        }
+        if (!empty($where)) {
+            $this->CI->db->where($where);
+        }
+        if(!empty($group_by)){
+            $this->CI->db->group_by($group_by);
         }
         $q = $this->CI->db->get();
         if ($q->num_rows() > 0) {

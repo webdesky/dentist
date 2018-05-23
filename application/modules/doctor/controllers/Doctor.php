@@ -930,10 +930,14 @@ class Doctor extends CI_Controller
     public function notices_list()
     {
         if ($this->controller->checkSession()) {
-            $where               = array(
-                'is_active' => 1
-            );
-            $data['notice_list'] = $this->model->getAllwhere('notices', $where, '*', 'DESC');
+            $this->db->select('notices.*,CONCAT(u.first_name," ", u.last_name) as sender_name');
+            $this->db->from('notices');
+             $this->db->join('users as u',"u.id=notices.added_by");
+            $this->db->where("CURDATE() BETWEEN notices.start_date AND notices.end_date");
+            $this->db->where('notices.is_active' , 1);
+            $this->db->where('notices.hospital_id' , NULL);
+            $query               =   $this->db->get();
+            $data['notice_list'] =   $query->result();
             $data['body']        = 'list_notice';
             $this->controller->load_view($data);
         } else {
