@@ -12,6 +12,7 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
+
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
@@ -61,7 +62,7 @@
                                     </div>
                                 </div>
                                 <?php if(empty($hospitals_details[0])){?>
-                                <!-- <div class="col-md-6">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-md-3">Email *</label>
                                         <div class="col-md-9">
@@ -87,7 +88,7 @@
                                             <span class="red"><?php echo form_error('password'); ?></span>
                                         </div>
                                     </div>
-                                </div> -->
+                                </div>
                                 <?php }?>
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -154,8 +155,9 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Address *</label>
                                         <div class="col-md-9">
-                                            <input type="text" name="address" class="form-control" placeholder="Address" autocomplete="off" value="<?php if(!empty($hospitals[0]->address)){ echo $hospitals[0]->address;}else{ echo set_value('address');} ?>">
+                                            <input type="text" name="address" id="address" class="form-control" placeholder="Address" autocomplete="off" value="<?php if(!empty($hospitals[0]->address)){ echo $hospitals[0]->address;}else{ echo set_value('address');} ?>">
                                             <span class="red"><?php echo form_error('address'); ?></span>
+                                            <?php echo form_error('address', '<div class="error">', '</div>'); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -188,9 +190,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="col-md-3">Main Speciality*</label>
+                                        <label class="col-md-3">Speciality*</label>
                                         <div class="col-md-9">
-                                            <select class="form-control" name="speciality" id="speciality"> 
+                                            <select class="form-control" name="speciality[]" id="speciality" multiple="multiple"> 
                                                 <option value="">-- Select Speciality --</option>
                                                 <?php 
                                                     foreach ($speciality as $value) {
@@ -209,6 +211,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Logo</label>
                                         <div class="col-md-9">
+                                            <input type="hidden" name="address1" id="address1">
                                             <input type="file" name="logo" id="logo" class="form-control">
                                             <span class="red"><?php echo form_error('logo'); ?></span>
                                         </div>
@@ -242,7 +245,7 @@
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
-                                <div class="col-md-6">
+                                <!-- <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-md-3">Other Speciality*</label>
                                         <div class="col-md-9">
@@ -270,7 +273,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="clearfix"></div>
+                                <div class="clearfix"></div> -->
                                 <br>
                                 <div class="col-md-12" align="center">
                                     <input type="submit" name="submit" class="btn btn-success" value="Save">
@@ -323,8 +326,8 @@
                 alert("error");
             }
         });
-
     }
+
 
     function get_city(state_id) {
         $.ajax({
@@ -349,6 +352,20 @@
                 alert("error");
             }
         });
-
     }
+
+
+    $('#address').blur(function(){
+         var address = $(this).val();
+         var country = $('#country option:selected').html();
+         var state   = $('#state option:selected').html();
+         var city    = $('#city option:selected').html();
+        
+         var address1 = address +','+ city + ','+state+ ','+country;
+         $('#address1').val(address1);
+    });
+
+
+
+
 </script>

@@ -238,10 +238,7 @@ class Admin extends CI_Controller
                 $address = $this->input->post('address');
                 
                
-                    $ip=$_SERVER['REMOTE_ADDR'];
-                    echo "<pre>";
-                    echo var_export(unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip)));
-                    die;
+                    
         
                 if(!empty($address)){
                     //Formatted address
@@ -1357,7 +1354,7 @@ class Admin extends CI_Controller
             $this->form_validation->set_rules('city', 'City', 'trim|required|xss_clean|numeric');
             $this->form_validation->set_rules('address', 'Address', 'trim|required|xss_clean');
             $this->form_validation->set_rules('no_of_doc', 'Number of Doctor', 'trim|required|numeric');
-            $this->form_validation->set_rules('speciality', 'Speciality', 'trim|required|xss_clean');
+           // $this->form_validation->set_rules('speciality', 'Speciality', 'trim|required|xss_clean');
             $this->form_validation->set_rules('blood_bank', 'Blood Bank', 'trim|required');
             
             if (empty($id)) {
@@ -1411,6 +1408,7 @@ class Admin extends CI_Controller
                 $this->controller->load_view($data);
 
             } else {                
+                
 
                 $hospital_name       = $this->input->post('hospital_name');
                 $registration_number = $this->input->post('registration_number');
@@ -1423,7 +1421,7 @@ class Admin extends CI_Controller
                 $no_of_ambulance     = $this->input->post('no_of_ambulance');
                 $blood_bank          = $this->input->post('blood_bank');
                 $status              = $this->input->post('status');
-                $other_speciality    = $this->input->post('other_speciality');
+               // $other_speciality    = $this->input->post('other_speciality');
                 
                 if (!empty($_FILES)) {
                     $file_name = $this->file_upload('logo');
@@ -1431,9 +1429,36 @@ class Admin extends CI_Controller
                     $file_name = '';
                 }
                 
-                if (!empty($other_speciality)) {
-                    $other_speciality = implode(',', $other_speciality);
+                if (!empty($speciality)) {
+                    $speciality = implode(',', $speciality);
                 }
+
+
+                    
+                
+                $address1             = $this->input->post('address1');
+                if(!empty($address1)){
+        
+                    //Formatted address
+                    $formattedAddr = str_replace(' ','+',$address1);
+                    //Send request and receive json data by address
+                    $geocodeFromAddr = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$formattedAddr.'&sensor=false&key=AIzaSyCSZ2Wy8ghd5Zby2FlNwgzUXPYgg0xqVIA'); 
+                    $output = json_decode($geocodeFromAddr,true);
+                   
+                    if($output['status']=='ZERO_RESULTS'){
+                       $this->form_validation->set_message('address','Address Not Found Enter Valid address');
+                       redirect('admin/hospitals');
+                       return false;
+                    //Get latitude and longitute from json data
+                   
+                    }else{
+                      $latitude  = $output['results'][0]['geometry']['location']['lat']; 
+                      $longitude = $output['results'][0]['geometry']['location']['lng'];
+                    }
+                    
+                    //Return latitude and longitude of the given address
+                }
+
                 
                 $data = array(
                     'hospital_name' => $hospital_name,
@@ -1444,7 +1469,9 @@ class Admin extends CI_Controller
                     'staff_number' => $staff_number,
                     'no_of_doc' => $no_of_doc,
                     'speciality' => $speciality,
-                    'other_speciality' => $other_speciality,
+                    'latitude'     => $latitude,
+                    'longitude'     => $longitude,
+                   // 'other_speciality' => $other_speciality,
                     'no_of_ambulance' => $no_of_ambulance,
                     'blood_bank' => $blood_bank,
                     'is_active' => $status,
