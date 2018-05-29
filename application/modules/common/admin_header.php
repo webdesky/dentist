@@ -17,11 +17,13 @@
     <script src="<?php echo base_url('asset/dist/js/dataTables.bootstrap.js')?>"></script>
     <script src="<?php echo base_url('asset/dist/js/sweetalert.min.js')?>"></script>
     <script src="<?php echo base_url('asset/dist/js/dataTables.rowReorder.min.js')?>"></script>
+
     <script src="<?php //echo base_url('asset/dist/js/dataTables.responsive.min.js')?>"></script>
+
     <script src="<?php echo base_url('asset/vendor/metisMenu/metisMenu.min.js');?>"></script>
     <script src="<?php echo base_url('asset/dist/js/sb-admin-2.js');?>"></script>
     <script src="<?php echo base_url('asset/dist/js/bootstrap-datepicker.js')?>"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.1/js/responsive.bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.1.0/js/responsive.bootstrap.min.js" type="text/javascript"></script>
     <script src="<?php echo base_url('asset/dist/js/custom.js')?>"></script>
 
 

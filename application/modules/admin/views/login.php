@@ -10,7 +10,7 @@
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style type="text/css">
         .alert>p, .alert>ul {
-            font-size: 17px !important;
+            font-size: 16px !important;
         }
     </style>
 </head>

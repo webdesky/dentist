@@ -71,7 +71,7 @@ class Admin extends CI_Controller
                     'hospital_id' => $this->session->userdata('hospital_id'),
                     'appointment_date >' => date('Y-m-d')
                 ));
-                
+
             } else {
                 $where5                    = array(
                     'appointment_date >' => date('Y-m-d')
@@ -210,13 +210,11 @@ class Admin extends CI_Controller
                     $this->form_validation->set_rules('hospital_id[]', 'Hospital', 'trim|required');
                 }
 
-                
                 $this->form_validation->set_rules('specialization', 'Specialization', 'trim|required');
             }
             
             if ($this->form_validation->run() == false) {
-                // echo validation_errors();
-                // die;
+
                 $this->session->set_flashdata('errors', validation_errors());
                 $where             = array(
                     'is_active' => 1
@@ -229,11 +227,12 @@ class Admin extends CI_Controller
                 $data['user_role'] = 2;
                 $this->controller->load_view($data);
             } else {
-                
+
                 if (empty($id)) {
                     $user_role = $this->input->post('user_role');
                 } else {
                     $user_role = 2;
+
                 }
 
                 $address = $this->input->post('address');
@@ -267,6 +266,7 @@ class Admin extends CI_Controller
 
                 
    
+
                 $first_name     = $this->input->post('first_name');
                 $user_name      = $this->input->post('user_name');
                 $last_name      = $this->input->post('last_name');
@@ -304,8 +304,6 @@ class Admin extends CI_Controller
                     'profile_pic' => $file_name
                 );
 
-
-
                 if ($this->session->userdata('user_role') == 4) {
                     $data['hospital_id'] = $this->session->userdata('hospital_id');
                 } else {
@@ -321,6 +319,7 @@ class Admin extends CI_Controller
                     unset($data['password']);
                     $result = $this->model->updateFields('users', $data, $where);
                 } else {
+
                     
                     $result = $this->model->insertData('users', $data);
                     if ($user_role == 2) {
@@ -332,6 +331,7 @@ class Admin extends CI_Controller
                             'latitude'              => $latitude,
                             'longitude'             => $longitude,
                             'created_at'            => date('Y-m-d H:i:s')
+
                         );
                         $data = $this->model->insertData('doctor', $data);
                     }
@@ -766,7 +766,7 @@ class Admin extends CI_Controller
             }
             
             if ($this->form_validation->run() == false) {
-                
+
                 $this->session->set_flashdata('errors', validation_errors());
                 $data['body']    = 'add_appointment';
                 $where           = array(
@@ -780,7 +780,7 @@ class Admin extends CI_Controller
                 $this->controller->load_view($data);
             } else {
                 
-                
+
                 $data = $this->input->post();
                // echo '<pre>'
                 $data = array(
@@ -897,7 +897,7 @@ class Admin extends CI_Controller
                 $data['body'] = 'profile';
                 $this->controller->load_view($data);
             } else {
-                
+
                 
                 $first_name  = $this->input->post('first_name');
                 $last_name   = $this->input->post('last_name');
@@ -920,7 +920,6 @@ class Admin extends CI_Controller
                     'gender' => $gender,
                     'blood_group' => $blood_group
                 );
-                
                 
                 if (isset($_FILES['image']['name']) && !empty($_FILES['image']['name'])) {
                     
@@ -1056,7 +1055,9 @@ class Admin extends CI_Controller
                 $data['body'] = 'add_notice';
                 
                 if (!empty($id)) {
+
                     $where           = array('id' => $id);
+
                     $data['notices'] = $this->model->getAllwhere('notices', $where);
                     $data['body']    = 'edit_notices';
                 }
@@ -1156,7 +1157,9 @@ class Admin extends CI_Controller
     public function send_mail()
     {
         if ($this->controller->checkSession()) {
-            $where         = array(
+
+            $where = array(
+
                 'user_role != ' => $this->session->userdata('user_role')
             );
             $this->form_validation->set_rules('reciever_id[]', 'Mail to', 'trim|required');
@@ -1164,8 +1167,10 @@ class Admin extends CI_Controller
             $this->form_validation->set_rules('message', 'Message', 'trim|required');
             if ($this->form_validation->run() == false) {
                 $this->session->set_flashdata('errors', validation_errors());
+
                  $data['users'] = $this->model->getAllwhere('users', $where);
                 $data['body'] = 'send_mail';
+
                 $this->controller->load_view($data);
             } else {
                 
@@ -1185,6 +1190,7 @@ class Admin extends CI_Controller
                 );
 
                 
+                
                 $config_mail = Array(
                     'protocol' => 'smtp',
                     'smtp_host' => 'ssl://smtp.googlemail.com',
@@ -1199,6 +1205,7 @@ class Admin extends CI_Controller
                 $this->load->library('email', $config_mail);
                 $this->email->set_mailtype("html");
                 $this->email->set_newline("\r\n");
+
                 
 
                 for ($i = 0; $i < count($reciever_id); $i++) {
@@ -1402,7 +1409,9 @@ class Admin extends CI_Controller
                 $data['countries']  = $this->model->getAll('countries');
                 $data['body']       = 'hospitals';
                 $this->controller->load_view($data);
+
             } else {                
+
                 $hospital_name       = $this->input->post('hospital_name');
                 $registration_number = $this->input->post('registration_number');
                 $owner_name          = $this->input->post('owner_name');
@@ -1426,7 +1435,7 @@ class Admin extends CI_Controller
                     $other_speciality = implode(',', $other_speciality);
                 }
                 
-                $data  = array(
+                $data = array(
                     'hospital_name' => $hospital_name,
                     'registration_number' => $registration_number,
                     'owner_name' => $owner_name,
@@ -1442,7 +1451,9 @@ class Admin extends CI_Controller
                     'logo' => $file_name,
                     'created_at' => date('Y-m-d H:i:s')
                 );
+
                 if(!empty($id)){
+
                     $data1 = array(
                         'first_name' => $hospital_name,
                         'date_of_birth' => $this->input->post('registration_date'),
@@ -1453,7 +1464,9 @@ class Admin extends CI_Controller
                         'is_active' => $status,
                         'created_at' => date('Y-m-d H:i:s')
                     );
+
                 }else{
+
                     $data1 = array(
                         'first_name' => $hospital_name,
                         'date_of_birth' => $this->input->post('registration_date'),
@@ -1508,12 +1521,14 @@ class Admin extends CI_Controller
                 $field = '';
                 $value = '';
             }
+
             $field_val              = 'hospitals.hospital_name,hospitals.id,hospitals.registration_number,hospitals.owner_name,hospitals.address,hospitals.staff_number,hospitals.no_of_doc,hospitals.no_of_ambulance,hospitals.blood_bank,hospitals.created_at,u1.id as user_id,u1.user_role,u2.name as speciality';
             $where = array('u1.user_role'=>4);
 
             $data['hospitals_list'] = $this->model->GetJoinRecordNew('hospitals', 'id', 'speciality', 'users u1', 'hospital_id', 'speciality u2', 'id', $field, $value, $field_val,$where);
             
             $data['body']           = 'hospitals_list';
+
             $this->controller->load_view($data);
         } else {
             redirect('admin/index');
@@ -1694,7 +1709,16 @@ class Admin extends CI_Controller
     public function speciality($id = NULL)
     {
         if ($this->controller->checkSession()) {
+
             $this->form_validation->set_rules('speciality_name', 'Speciality Name', 'trim|required|is_unique[speciality.name]');
+
+            if (empty($id)) {
+                $this->form_validation->set_rules('speciality_name', 'Speciality Name', 'trim|required|is_unique[speciality.name]');
+            } else {
+                $this->form_validation->set_rules('speciality_name', 'Speciality Name', 'trim|required');
+            }
+            
+
             $this->form_validation->set_rules('status', 'Status', 'trim|required');
             if ($this->form_validation->run() == false) {
                 $this->session->set_flashdata('errors', validation_errors());
@@ -1828,7 +1852,9 @@ class Admin extends CI_Controller
             $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|callback_alpha_dash_space|min_length[2]');
             $this->form_validation->set_rules('dob', 'Date Of Birth', 'trim|required');
             
-            if(empty($id)){
+
+            if (empty($id)) {
+
                 $this->form_validation->set_rules('user_name', 'User Name', 'trim|required|is_unique[users.username]');
                 $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]');
             }
@@ -1836,7 +1862,7 @@ class Admin extends CI_Controller
                 $this->session->set_flashdata('errors', validation_errors());
                 $this->edit_user($id);
             } else {
-               
+
                 $first_name     = $this->input->post('first_name');
                 $last_name      = $this->input->post('last_name');
                 $address        = $this->input->post('address');
@@ -1854,35 +1880,41 @@ class Admin extends CI_Controller
                 } else {
                     $file_name = '';
                 }
-                $data   = array(
-                                'first_name' => $first_name,
-                                'last_name' => $last_name,
-                                'address' => $address,
-                                'phone_no' => $phone_no,
-                                'mobile' => $mobile_no,
-                                'date_of_birth' => $dob,
-                                'gender' => $gender,
-                                'blood_group' => $blood_group,
-                                'is_active' => $status,
-                                'user_role' => $role,
-                                'profile_pic' => $file_name,
-                                'hospital_id' => $hospitals_id
-                            );
 
-
+                $data = array(
+                    'first_name' => $first_name,
+                    'last_name' => $last_name,
+                    'address' => $address,
+                    'phone_no' => $phone_no,
+                    'mobile' => $mobile_no,
+                    'date_of_birth' => $dob,
+                    'gender' => $gender,
+                    'blood_group' => $blood_group,
+                    'is_active' => $status,
+                    'user_role' => $role,
+                    'profile_pic' => $file_name,
+                    'hospital_id' => $hospitals_id
+                );
+                
+                
                 $data1 = array(
-                            'specialization' => $specialization,
-                            'is_active' => $status
-                        );
-
-
-                $where  = array('id' => $id);
-
-                $where1  = array('doctor_id' => $id);
-
+                    'specialization' => $specialization,
+                    'is_active' => $status
+                );
+                
+                
+                $where = array(
+                    'id' => $id
+                );
+                
+                $where1 = array(
+                    'doctor_id' => $id
+                );
+                
                 $result = $this->model->updateFields('users', $data, $where);
-
+                
                 $result = $this->model->updateFields('doctor', $data1, $where1);
+                
 
                 redirect('admin/users_list/2');
             }
@@ -1944,6 +1976,7 @@ class Admin extends CI_Controller
             }
         } else {
             redirect('admin/index');
+
         }
     }
 
@@ -1965,6 +1998,7 @@ class Admin extends CI_Controller
             
             //return address to ajax 
             echo $location;
+
         }
     }
 }

@@ -181,16 +181,16 @@ class Model
     
     public function getAllwherenew($table, $where, $select = 'all')
     {
-        //$this->CI->db->cache_on();
+
         if ($select == 'all') {
             $this->CI->db->select('*');
         } else {
             $this->CI->db->select($select);
         }
         $this->CI->db->where($where, NULL, FALSE);
-        $q = $this->db->get($table);
-        //$this->CI->db->cache_off();
-        
+
+        $q = $this->db->get($table);        
+
         $num_rows = $q->num_rows();
         if ($num_rows > 0) {
             foreach ($q->result() as $rows) {
@@ -218,7 +218,9 @@ class Model
         return $q->row();
     }
     
-    public function GetJoinRecordNew($table, $field_first, $second_field_join, $tablejointo, $field_second, $tablejointhree, $field_third, $field, $value, $field_val,$where)
+
+    public function GetJoinRecordNew($table, $field_first, $second_field_join, $tablejointo, $field_second, $tablejointhree, $field_third, $field, $value, $field_val,$where=null)
+
     {
         
         $this->CI->db->select("$field_val");
@@ -262,6 +264,7 @@ class Model
             return $data;
         }
     }
+    
     public function getRecords($table)
     {
         $query = $this->CI->db->get($table);

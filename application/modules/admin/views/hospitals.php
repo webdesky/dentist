@@ -28,7 +28,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Hospital Name *</label>
                                         <div class="col-md-9">
-                                            <input class="form-control capitalize" type="text" placeholder="Hospital Name" name="hospital_name" autocomplete="off" value="<?php if(!empty($hospitals[0]->hospital_name)){ echo $hospitals[0]->hospital_name;}else{ echo set_value('hospital_name');} ?>">
+                                            <input class="form-control capitalize" type="text" placeholder="Hospital Name" name="hospital_name" autocomplete="off" value="<?php if(!empty($hospitals[0]->hospital_name)){ echo $hospitals[0]->hospital_name;}else{ echo set_value('hospital_name');} ?>" maxlength="30">
                                             <span class="red"><?php echo form_error('hospital_name'); ?></span>
                                         </div>
                                     </div>
@@ -55,7 +55,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Owner Name *</label>
                                         <div class="col-md-9">
-                                            <input class="form-control" type="text" name="owner_name" placeholder="Owner Name" autocomplete="off" value="<?php if(!empty($hospitals[0]->owner_name)){ echo $hospitals[0]->owner_name;}else{ echo set_value('owner_name');} ?>">
+                                            <input class="form-control" type="text" name="owner_name" placeholder="Owner Name" autocomplete="off" value="<?php if(!empty($hospitals[0]->owner_name)){ echo $hospitals[0]->owner_name;}else{ echo set_value('owner_name');} ?>" maxlength="30">
                                             <span class="red"><?php echo form_error('owner_name'); ?></span>
                                         </div>
                                     </div>
