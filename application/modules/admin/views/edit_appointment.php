@@ -112,9 +112,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Problem *</label>
                                         <div class="col-md-9">
-                                            <textarea class="form-control" rows="5" id="problem"  name="problem" placeholder="Problem">
-                                                <?php echo $appointment[0]->problem; ?>
-                                            </textarea>
+                                            <textarea class="form-control" rows="5" id="problem"  name="problem" placeholder="Problem"><?php echo $appointment[0]->problem; ?></textarea>
                                         </div>
                                     </div>
                                 </div>        
@@ -138,12 +136,9 @@
     $(document).ready(function() {      
         $('#timepicker').timepicker({
             change: function(time) {
-
-                doctor_id = $('#doctor_id').val();
-                appointment_date = $('#appointment_date').val();
-
-                var appointment_time = $(this).val();
-
+                doctor_id               = $('#doctor_id').val();
+                appointment_date        = $('#appointment_date').val();
+                var appointment_time    = $(this).val();
                 $.ajax({
                     type: "POST",
                     url: "<?php echo base_url('patient/get_time')?>",
@@ -161,8 +156,8 @@
                                 $('#timepicker').focus();
                                 return false;
                             }else{
-                                 $('#error').text('');
-                                 $("#submit").removeAttr("disabled");
+                                $('#error').text('');
+                                $("#submit").removeAttr("disabled");
                             }
                         }
                     }
@@ -173,7 +168,7 @@
     });
   window.onload = getSchedule();
   function getSchedule() {
-        var doctor_id = $('#doctor_id').val();
+        var doctor_id        = $('#doctor_id').val();
         var appointment_date = $('#appointment_date').val();
         var appointment_time = $('#timepicker').val();
         $.ajax({

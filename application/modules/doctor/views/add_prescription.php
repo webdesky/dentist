@@ -27,20 +27,16 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th width="33.33%">
+                                                <th width="40%">
                                                     <ul class="list-unstyled">
                                                         <li>
-                                                            <select name="patient_id" class="invoice-input wide" onchange="get_patient_data(this)">
+                                                            <select name="patient_id" class="invoice-input form-control" onchange="get_patient_data(this)">
                                                                 <option value="">--Select Patient--</option>
                                                                 <?php if(!empty($patient)){ foreach($patient as $value){?>
                                                                  <option value="<?php echo $value->id;?>"><?php echo ucwords($value->first_name.' '.$value->last_name);?></option>
                                                                 <?php }}?>
                                                             </select>
                                                             <span class="red"><?php echo form_error('patient_id'); ?></span>
-                                                        </li>
-                                                        <li>
-                                                            <input type="text" placeholder="Patient  Name" class="invoice-input form-control" id="patient_name" name="patient_name">
-                                                            <span class="red"><?php echo form_error('patient_name'); ?></span>
                                                         </li>
                                                         <li>
                                                             <input type="text" placeholder="Sex" class="invoice-input form-control" id="sex" name="sex">
@@ -77,10 +73,19 @@
                                                 </th>
                                                 <th width="33.33%">
                                                     <ul class="list-unstyled">
-                                                        <li><input type="text" name="appointment_id" id="appointment_id" value="" class="invoice-input form-control" placeholder="Appointment ID"></li>
+                                                        <li><input type="text" name="appointment_id" id="appointment_id" value="<?php echo 'AP' . mt_rand(100000, 999999);?>" class="invoice-input form-control" placeholder="Appointment ID" readonly="readonly"></li>
+                                                        
                                                         <li><input type="text" name="date" required="required" value="<?php echo date('Y-m-d')?>" class="invoice-input form-control" placeholder="Date" id="datepicker"></li>
-                                                        <li><input type="text" value="Demo Hospital Limited" class="invoice-input form-control" placeholder="Hospital Name"></li>
-                                                        <li><input type="text" value="105, Magnet Tower, Indore, 452001" class="invoice-input form-control" placeholder="Address"></li>
+                                                        
+                                                        <li><select class="invoice-input form-control" name="hospital_id" 
+                                                        onchange="set_address($(this).find(':selected').data('address'))">
+                                                            <option value="">-- Select Hospital --</option>
+                                                            <?php foreach($hospitals as $hospital){?>
+                                                            <option value="<?php echo $hospital['id'];?>" data-address="<?php echo $hospital['address']?>"><?php echo ucwords($hospital['hospital_name']);?></option>
+                                                            <?php }?>
+                                                        </select></li>
+                                                        
+                                                        <li><input type="text" id="address" value="" class="invoice-input form-control" placeholder="Address"></li>
                                                     </ul>
                                                 </th>
                                             </tr>
@@ -179,7 +184,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-    $('select').niceSelect();
+    //$('select').niceSelect();
     // medicine list
     $('body').on('keyup change click', '.medicine', function() {
         $(this).autocomplete({
@@ -220,8 +225,6 @@ $(document).ready(function() {
 
 
 function get_patient_data(str) {
-    var appointment_id = $(str).find(':selected').data("appointment");
-    $('#appointment_id').val(appointment_id);
     $.ajax({
         type: 'POST',
         url: "<?php echo base_url('doctor/get_user')?>",
@@ -233,11 +236,15 @@ function get_patient_data(str) {
             if (data[0] != "") {
                 var first_name = data[0].first_name.toUpperCase();
                 var last_name = data[0].last_name.toUpperCase();
-                $('#patient_name').val(first_name + ' ' + last_name);
+                //$('#patient_name').val(first_name + ' ' + last_name);
                 $('#sex').val(data[0].gender);
                 $('#date_of_birth').val(data[0].date_of_birth);
             }
         }
     });
+}
+
+function set_address(str){
+    $('#address').val(str);
 }
 </script>

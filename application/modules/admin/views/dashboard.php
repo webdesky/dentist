@@ -5,8 +5,12 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
+    <?php 
+        $user_role = $this->session->userdata('user_role');
+    ?>
     <!-- /.row -->
     <div class="row">
+        <?php if($user_role==1){?>
         <div class="col-lg-3 col-md-6">
             <div class="panel panel-first">
                 <div class="panel-heading">
@@ -16,13 +20,13 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge">
-                                <?php echo $totalHospital ?>
+                                <?php echo $totalHospital;?>
                             </div>
-                            <div>Total Hospital!</div>
+                            <div>Total Hospitals!</div>
                         </div>
                     </div>
                 </div>
-                <a href="<?php echo base_url('admin/hospitals_list') ?>">
+                <a href="<?php echo base_url('admin/hospitals_list');?>">
                     <div class="panel-footer">
                         <span class="pull-left">Hospitals</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -31,6 +35,7 @@
                 </a>
             </div>
         </div>
+        <?php }?>
         <div class="col-lg-3 col-md-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
@@ -42,11 +47,11 @@
                             <div class="huge">
                                 <?php echo $total_users_count[0]->doctor; ?>
                             </div>
-                            <div>Total Doctor!</div>
+                            <div>Total Doctors!</div>
                         </div>
                     </div>
                 </div>
-                <a href="<?php echo base_url('admin/users_list/2') ?>">
+                <a href="<?php echo base_url('admin/users_list/2');?>">
                     <div class="panel-footer">
                         <span class="pull-left">Doctors</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -55,7 +60,6 @@
                 </a>
             </div>
         </div>
-
         <div class="col-lg-3 col-md-6">
             <div class="panel panel-yellow">
                 <div class="panel-heading">
@@ -67,7 +71,7 @@
                             <div class="huge">
                                 <?php echo $total_users_count[0]->patient; ?>
                             </div>
-                            <div>Total Patient!</div>
+                            <div>Total Patients!</div>
                         </div>
                     </div>
                 </div>
@@ -80,7 +84,6 @@
                 </a>
             </div>
         </div>
-
         <div class="col-lg-3 col-md-6">
             <div class="panel panel-green">
                 <div class="panel-heading">
@@ -92,7 +95,7 @@
                             <div class="huge">
                                 <?php echo $totalAppointment ?>
                             </div>
-                            <div>Total Appointment!</div>
+                            <div>Total Appointments!</div>
                         </div>
                     </div>
                 </div>
@@ -105,14 +108,11 @@
                 </a>
             </div>
         </div>
-
     </div>
     <!-- /.row -->
 
     <div class="row" style="margin-top: 25px;">
-
         <div class="col-lg-12">
-
             <!-- /.panel -->
             <?php if(!empty($appointmentList)){?>
             <div class="col-lg-6">
@@ -159,14 +159,12 @@
                                                 </td>
                                             </tr>
                                             <?php $count++;  } ?>
-
                                         </tbody>
                                     </table>
                                 </div>
                                 <!-- /.table-responsive -->
                             </div>
                             <!-- /.col-lg-4 (nested) -->
-
                             <!-- /.col-lg-8 (nested) -->
                         </div>
                         <!-- /.row -->
@@ -216,14 +214,12 @@
 
                                             </tr>
                                             <?php $count++;  }  ?>
-
                                         </tbody>
                                     </table>
                                 </div>
                                 <!-- /.table-responsive -->
                             </div>
                             <!-- /.col-lg-4 (nested) -->
-
                             <!-- /.col-lg-8 (nested) -->
                         </div>
                         <!-- /.row -->
@@ -234,6 +230,5 @@
             <?php }?>
         </div>
     </div>
-
 </div>
 <!-- /#page-wrapper -->

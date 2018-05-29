@@ -1,7 +1,7 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Mail List</h1>
+            <h1 class="page-header">Outbox</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -13,7 +13,7 @@
                 <?php echo $info_message; ?> </div>
             <?php endif ?>
             <div class="panel panel-default">
-                <div class="panel-heading"><a class="btn btn-primary" href="<?php echo base_url('doctor/send_mail')?>"><i class="fa fa-th-list">&nbsp; Send Mail</i></a></div>
+                <div class="panel-heading"><a class="btn btn-primary" href="<?php echo base_url('doctor/send_mail')?>"><i class="fa fa-th-list">&nbsp; Compose Mail</i></a></div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
@@ -36,7 +36,7 @@
                                     <td>
                                         <?php echo $count; ?> </td>
                                     <td>
-                                        <?php echo $message->first_name.' '.$message->last_name; ?> </td>
+                                        <?php echo ucwords($message->first_name.' '.$message->last_name); ?> </td>
                                     <td class="center">
                                         <?php echo $message->subject; ?> </td>
                                     <td class="center">
@@ -80,7 +80,14 @@ function delete_message(id) {
         });
     });
 }
-$('#dataTables').DataTable({
-    responsive: true
-});
+
+    $(document).ready(function() {
+        $('#dataTables').DataTable({
+            responsive: true,
+            'aoColumnDefs': [{
+                'bSortable': false,
+                'aTargets': [-1] /* 1st one, start by the right */
+            }]
+        });
+    });
 </script>

@@ -23,7 +23,8 @@
                         <table class="table table-bordered display nowrap" cellspacing="0" width="100%" id="notice">
                             <thead>
                                 <tr class="bg-primary">
-                                    <th>SL.No</th>
+                                    <th>S.No</th>
+                                    <th>Sent By</th>
                                     <th>Title</th>
                                     <th>Description</th>
                                     <th>Start Date</th>
@@ -32,13 +33,16 @@
                             </thead>
                             <tbody>
                                 <?php 
-                                $count=1;
-                                if($notice_list){
-                                foreach ($notice_list as  $value) {
-                                 ?>
+                                    $count = 1;
+                                    if($notice_list){
+                                        foreach ($notice_list as $value) {
+                                ?>
                                 <tr class="odd gradeX">
                                     <td>
                                         <?php echo $count; ?>
+                                    </td>
+                                    <td class="center">
+                                        <?php echo $value->sender_name;?>
                                     </td>
                                     <td class="center">
                                         <?php echo $value->title; ?>
@@ -68,8 +72,15 @@
     <!-- /.row -->
 </div>
 <script type="text/javascript">
-$('#notice').DataTable({
-    responsive: true
+
+$(document).ready(function() {
+    $('#notice').DataTable({
+        responsive: true,
+        'aoColumnDefs': [{
+            'bSortable': false,
+            'aTargets': [-1] /* 1st one, start by the right */
+        }]
+    });
 });
 
 function delete_notices(id) {
@@ -89,4 +100,5 @@ function delete_notices(id) {
     }
     return false;
 }
+
 </script>

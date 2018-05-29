@@ -42,42 +42,33 @@
                                 </thead>
                                 <tbody>
                                 <?php 
-                                $count=1;
-                                if($notice_list){
-                                foreach ($notice_list as  $value) {
+                                    $count=1;
+                                    $notice_lists = json_decode(json_encode($notice_list),true);
+                                    
+                                    if($notice_lists){
+                                        foreach ($notice_lists as  $value) {
                                  ?>
                                     <tr class="odd gradeX" id="tr_<?php echo $count;?>">
-                                          <td><?php echo $count; ?></td>
-                                          <td class="center"><?php echo $value['title']; ?></td>
-                                          <td class="center"><?php echo $value['description'];  ?></td>
-                                          <td class="center"><?php echo $value['start_date'];  ?></td>
-                                          <td class="center"><?php echo $value['end_date'];  ?></td>
-                                        
-                                       
+                                        <td><?php echo $count; ?></td>
+                                        <td class="center"><?php echo $value['title']; ?></td>
+                                        <td class="center"><?php echo $value['description'];  ?></td>
+                                        <td class="center"><?php echo $value['start_date'];  ?></td>
+                                        <td class="center"><?php echo $value['end_date'];  ?></td>
                                         <?php if($user_role==1 || ($user_role==4 && $right4[1]==1 || $right4[2]==1)){?>
-
                                         <td class="center">
                                             <?php if($user_role==1 || ($user_role==4 && $right4[1]==1)){?>
                                             <a href="<?php echo base_url('admin/notices/').$value['id']; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                             <?php }if($user_role==1 || ($user_role==4 && $right4[2]==1)){?>
-
                                             <a href="javascript:void(0)" onclick="delete_notices('<?php echo $value['id']?>','<?php echo $count;?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-
                                             <?php }?>
-                                        
                                         </td>
-
                                     <?php }?>
-
                                     </tr>
-                                 <?php $count++; } }?>
-                                    
-                                    
+                                <?php $count++; } }?>
                                 </tbody>
                             </table>
-                        </div>
+                            </div>
                             <!-- /.table-responsive -->
-                          
                         </div>
                         <!-- /.panel-body -->
                     </div>
@@ -86,15 +77,16 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-
-
         </div>
-
      
 <script type="text/javascript">
     
     $('#notice').DataTable({
-        responsive: true
+        responsive: true,
+        'aoColumnDefs': [{
+            'bSortable': false,
+            'aTargets': [-1] /* 1st one, start by the right */
+        }]
     });
 
     function delete_notices(id, tr_id) {

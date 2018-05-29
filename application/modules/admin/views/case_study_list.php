@@ -14,7 +14,7 @@
             </div>
             <?php endif ?>
             <div class="panel panel-default">
-                <div class="panel-heading"> <a class="btn btn-primary" href="<?php echo base_url('admin/case_study')?>"><i class="fa fa-th-list">&nbsp;Add Case Study </i></a>  </div>
+                <div class="panel-heading"> <a class="btn btn-primary" href="<?php echo base_url('admin/case_study')?>"><i class="fa fa-th-list">&nbsp;Add Case Study </i></a> </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
@@ -22,7 +22,8 @@
                             <thead>
                                 <tr class="bg-primary">
                                     <th>Sr. no</th>
-                                    <th>Patient Name</th>
+                                    <th>Patient</th>
+                                    <th>Doctor</th>
                                     <th>Problem</th>
                                     <th>Allergies</th>
                                     <th>Diabetic</th>
@@ -34,15 +35,18 @@
                             </thead>
                             <tbody>
                                 <?php 
-                                $count=1;
+                                $count=1; 
                                 if($documents_list){
-                                foreach ($documents_list as  $value) { ?>
+                                foreach ($documents_list as  $value) {?>
                                 <tr class="odd gradeX" id="tr_<?php echo $count;?>">
                                     <td>
                                         <?php echo $count; ?>
                                     </td>
                                     <td>
-                                        <?php echo ucwords($value->first_name.' '.$value->last_name); ?>
+                                        <?php echo ucwords($value->patient_name); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo ucwords($value->doctor_name); ?>
                                     </td>
                                     <td class="center">
                                         <?php echo $value->problem; ?>
@@ -78,30 +82,34 @@
     <!-- /.row -->
 </div>
 <script type="text/javascript">
-$('#dataTables-example').DataTable({responsive: true});
-
-
-function delete_case_study(id , tr_id) {
-    swal({
-        title: "Are you sure?",
-        text: "you want to delete?",
-        type: "warning",
-        showCancelButton: true,
-        closeOnConfirm: false,
-        confirmButtonText: "Yes, Delete it!",
-        confirmButtonColor: "#ec6c62"
-    }, function() {
-        $.ajax({
-            url: "<?php echo base_url('admin/delete_appointment')?>",
-            data: {
-                id: id,
-                table: 'case_study'
-            },
-            type: "POST"
-        }).done(function(data) {
-            swal("Deleted!", "Record was successfully deleted!", "success");
-            $('#tr_' + tr_id).remove();
-        });
+    $('#dataTables-example').DataTable({
+        responsive: true,
+        'aoColumnDefs': [{
+            'bSortable': false,
+            'aTargets': [-1] /* 1st one, start by the right */
+        }]
     });
-}
+    function delete_case_study(id, tr_id) {
+        swal({
+            title: "Are you sure?",
+            text: "you want to delete?",
+            type: "warning",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            confirmButtonText: "Yes, Delete it!",
+            confirmButtonColor: "#ec6c62"
+        }, function() {
+            $.ajax({
+                url: "<?php echo base_url('admin/delete')?>",
+                data: {
+                    id: id,
+                    table: 'case_study'
+                },
+                type: "POST"
+            }).done(function(data) {
+                swal("Deleted!", "Record was successfully deleted!", "success");
+                $('#tr_' + tr_id).remove();
+            });
+        });
+    }
 </script>

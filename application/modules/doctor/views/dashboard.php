@@ -18,7 +18,7 @@
                             <div class="huge">
                                 <?php echo $totalAppointment ?>
                             </div>
-                            <div>Total Patient!</div>
+                            <div>Total Patients!</div>
                         </div>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                             <div class="huge">
                                 <?php echo $totalAppointment ?>
                             </div>
-                            <div>Total Appointment!</div>
+                            <div>Total Appointments!</div>
                         </div>
                     </div>
                 </div>
@@ -77,9 +77,9 @@
                                                 <th>#</th>
                                                 <th>Appoitnment Id</th>
                                                 <th>Patient ID</th>
-                                                <th>Doctor Name</th>
                                                 <th>Date</th>
                                                 <th>Time</th>
+                                                <th>View</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -94,14 +94,15 @@
                                                 <td>
                                                     <?php echo $value->patient_id; ?>
                                                 </td>
-                                                <td>
-                                                    <?php echo $value->first_name; ?>
-                                                </td>
+                                                
                                                 <td>
                                                     <?php echo $value->appointment_date; ?>
                                                 </td>
                                                 <td>
                                                     <?php echo $value->appointment_time; ?>
+                                                </td>
+                                                <td>
+                                                    <a href="<?php echo base_url('doctor/appointment_list/') ?>"><i class="fa fa-eye"></i></a>
                                                 </td>
                                             </tr>
                                             <?php $count++;  }?>

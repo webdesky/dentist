@@ -12,6 +12,7 @@ class Controller
         $this->CI->config->item('base_url');
         $this->CI->load->library('session', 'form_validation');
         $this->CI->load->database();   
+
     }
     
     public function verifylogin($data)
@@ -22,7 +23,6 @@ class Controller
             if ($this->CI->form_validation->run() == false) {
                 $this->CI->load->view('login');
             } else {
-                
                 if ($this->checkSession()) {
                     $log = $this->CI->session->userdata['user_role'];
                     if ($log == 1 || $log == 4) {

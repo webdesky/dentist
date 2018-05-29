@@ -1,17 +1,18 @@
+<style>  
+.fix-heights {
+    min-height: 50px;
+    max-height: 95px;
+    overflow: auto;    
+}</style>
+
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-
             <h1 class="page-header">Add Hospitals</h1>
-
         </div>
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
-
-    <style type="text/css">
-    </style>
-
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
@@ -22,6 +23,7 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <form role="form" method="post" action="<?php if(isset($hospitals[0])){ echo base_url('admin/hospitals/'.$hospitals[0]->id); }else{ echo base_url('admin/hospitals'); }?>" class="registration_form1" enctype="multipart/form-data">
+                            
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-md-3">Hospital Name *</label>
@@ -33,9 +35,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="col-md-3">Registration No. *</label>
+                                        <label class="col-md-3">Registration No *</label>
                                         <div class="col-md-9">
-
                                             <input class="form-control" type="text" placeholder="Registration Number" name="registration_number" id="registration_number" autocomplete="off" value="<?php if(!empty($hospitals[0]->registration_number)){ echo $hospitals[0]->registration_number;}else{ echo set_value('registration_number');}?>">
                                             <span class="red"><?php echo form_error('registration_number'); ?></span>
                                         </div>
@@ -43,9 +44,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="col-md-3">Registration Date. *</label>
+                                        <label class="col-md-3">Registration Date *</label>
                                         <div class="col-md-9">
-                                            <input class="form-control" type="text" placeholder="Registration Date" name="registration_date" id="registration_date" autocomplete="off" value="<?php if(!empty($hospitals_details[0]->date_of_birth)){ echo date("Y-m-d", strtotime($hospitals_details[0]->date_of_birth));}else{ echo set_value('registration_date');}?>">
+                                            <input class="form-control" type="text" placeholder="Registration Date" name="registration_date" id="registration_date" autocomplete="off" value="<?php if(!empty($hospitals_details[0]->date_of_birth)){ echo date(" Y-m-d ", strtotime($hospitals_details[0]->date_of_birth));}else{ echo set_value('registration_date');}?>">
                                             <span class="red"><?php echo form_error('registration_date'); ?></span>
                                         </div>
                                     </div>
@@ -60,7 +61,7 @@
                                     </div>
                                 </div>
                                 <?php if(empty($hospitals_details[0])){?>
-                                 <div class="col-md-6">
+                                <!-- <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-md-3">Email *</label>
                                         <div class="col-md-9">
@@ -86,8 +87,8 @@
                                             <span class="red"><?php echo form_error('password'); ?></span>
                                         </div>
                                     </div>
-                                </div>
-                                 <?php }?>
+                                </div> -->
+                                <?php }?>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-md-3">Mobile No *</label>
@@ -111,12 +112,13 @@
                                         <label class="col-md-3">Country *</label>
                                         <div class="col-md-9">
                                             <select class="form-control" name="country" id="country" onchange="get_state(this.value)">
-                                            <option data-display="-- Select Country --">-- Select Country --</option>
-                                            <?php foreach($countries as $country){?>
-                                            <option value="<?php echo $country['id']?>" <?php if(!empty($hospitals[0]->country) && $hospitals[0]->country==$country['id']){ echo 'selected';}?>><?php echo $country['name']?></option>
-                                            <?php }?>
-                                        </select>
-                                            <span class="red"><?php echo form_error('country'); ?></span>
+                                                <option data-display="-- Select Country --">-- Select Country --</option>
+                                                <?php foreach($countries as $country){?>
+                                                <option value="<?php echo $country['id']?>" <?php if(!empty($hospitals[0]->country) && $hospitals[0]->country==$country['id']){ echo 'selected';}?>><?php echo $country['name']?>
+                                                </option>
+                                                <?php }?>
+                                            </select>
+                                            <span class="red"><?php echo form_error('country');?></span>
                                         </div>
                                     </div>
                                 </div>
@@ -188,30 +190,30 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Main Speciality*</label>
                                         <div class="col-md-9">
-                                            <input type="text" id="speciality" name="speciality" class="form-control" autocomplete="off" value="<?php if(!empty($hospitals[0]->speciality)){ echo $hospitals[0]->speciality ;}else{set_value('speciality'); }?>" placeholder="Speciality">
+                                            <select class="form-control" name="speciality" id="speciality"> 
+                                                <option value="">-- Select Speciality --</option>
+                                                <?php 
+                                                    foreach ($speciality as $value) {
+                                                ?>
+                                                    <option value="<?php echo $value->id; ?>" <?php if(isset($hospitals[0]) && !empty($hospitals[0]) && $value->id==$hospitals[0]->speciality){  
+                                                    echo "selected";}?>><?php echo $value->name; ?>
+                                                    </option>
+
+                                                <?php } ?>
+                                            </select>
                                             <span class="red"><?php echo form_error('speciality'); ?></span>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="col-md-3">Other Speciality*</label>
+                                        <label class="col-md-3">Logo</label>
                                         <div class="col-md-9">
-                                        <select class="form-control" name="other_speciality[]" id="other_speciality" multiple="multiple"> 
-                                            <option value="">-- Select Speciality --</option>
-                                            <?php 
-                                            	foreach ($speciality as $value) { 
-                                            	$HiddenProducts = explode(',',$hospitals[0]->other_speciality);
-											?>
-                                            <option value="<?php echo $value->id; ?>" <?php if (in_array($value->id, $HiddenProducts)) { echo "selected";}?>><?php echo $value->name; ?></option>
-                                            <?php } ?>
-                                        </select>    
-                                            <span class="red"><?php echo form_error('other_speciality'); ?></span>
+                                            <input type="file" name="logo" id="logo" class="form-control">
+                                            <span class="red"><?php echo form_error('logo'); ?></span>
                                         </div>
                                     </div>
                                 </div>
-                                
                                 <div class="col-md-6">
                                     <div class="formas">
                                         <label class="col-md-3">Blood Bank*</label>
@@ -239,17 +241,37 @@
                                         </div>
                                     </div>
                                 </div>
-                               <!--  <div class="clearfix"></div>
-                                <br/> -->
+                                <div class="clearfix"></div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="col-md-3">Logo</label>
+                                        <label class="col-md-3">Other Speciality*</label>
                                         <div class="col-md-9">
-                                            <input type="file" name="logo" id="logo" class="form-control">
-                                            <span class="red"><?php echo form_error('logo'); ?></span>
+                                             <div class="fix-heights">   
+                                            <ul class="list-unstyled">
+                                            <?php 
+                                                foreach ($speciality as $value) { 
+                                                    if(isset($hospitals[0]) && !empty($hospitals[0])){
+                                                        $HiddenProducts = explode(',',$hospitals[0]->other_speciality);
+                                            ?>
+                                           
+                                                <li>
+                                                    <input type="checkbox" value="<?php echo $value->id; ?>" name="other_speciality[]" id="other_speciality" <?php if(in_array($value->id, $HiddenProducts)){ echo "checked";}?>>
+                                                    <?php echo $value->name; ?>
+                                                </li>
+                                            <?php } else{?>
+                                                <li>
+                                                    <input type="checkbox" value="<?php echo $value->id; ?>" name="other_speciality[]" id="other_speciality"> <?php echo $value->name; ?>
+                                                </li>
+                                            <?php }}?>
+                                            
+                                            </ul> 
+                                            </div>
+                                            <span class="red"><?php echo form_error('other_speciality'); ?></span>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="clearfix"></div>
+                                <br>
                                 <div class="col-md-12" align="center">
                                     <input type="submit" name="submit" class="btn btn-success" value="Save">
                                     <input type="reset" class="btn btn-default" value="Reset">
@@ -272,7 +294,7 @@
 
 
 <script type="text/javascript">
- //$('select').niceSelect();
+    //$('select').niceSelect();
     $("#registration_date").datepicker({
         format: 'yyyy-mm-dd',
         autoclose: true

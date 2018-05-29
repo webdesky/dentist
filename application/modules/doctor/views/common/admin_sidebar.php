@@ -8,7 +8,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-            <a class="navbar-brand" href="javascript:void(0)"><?php echo 'Welcome '.ucwords($this->session->userdata('first_name').' '.$this->session->userdata('last_name')); ?></a>
+            <a class="navbar-brand" href="javascript:void(0)" style="color:red"><?php echo 'Welcome, '.ucwords($this->session->userdata('first_name').' '.$this->session->userdata('last_name')); ?></a>
             <!-- <br/>
                 <a href="#"><i class="fa fa-circle text-success"></i>Doctor</a> -->
         </div>
@@ -52,61 +52,37 @@
                     <li>
                         <a href="<?php echo base_url('doctor/dashboard')?>"><i class="fa fa-home" aria-hidden="true"></i> Dashboard</a>
                     </li>
-
-                    <!-- <li>
-                        <a href="#"><i class="fa fa-wheelchair-alt" aria-hidden="true"></i> Patients<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level treeview-menu">
-                            <li>
-                                <a href="<?php //echo base_url('doctor/register/')?>">Add Patients</a>
-                            </li>
-                            <li>
-                                <a href="<?php //echo base_url('doctor/users_list/')?>">View Patients</a>
-                            </li>
-                        </ul>
-                         //nav-second-level 
-                    </li> -->
-
                     <li>
                         <a href="#"><i class="fa fa-file-text" aria-hidden="true"></i> Document<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level treeview-menu">
-                            <!-- <li>
-                                <a href="<?php echo base_url('doctor/add_document/')?>">Add Document</a>
-                            </li> -->
                             <li>
                                 <a href="<?php echo base_url('doctor/document_list/')?>">Document List</a>
                             </li>
-
                         </ul>
                     </li>
-
                     <li>
                         <a href="#"><i class="fa fa-pencil-square" aria-hidden="true"></i> Appointment<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level treeview-menu">
-                            <!-- <li>
-                                <a href="<?php echo base_url('doctor/Appointment/')?>">Add Appointment</a>
-                            </li> -->
                             <li>
                                 <a href="<?php echo base_url('doctor/appointment_list/')?>">View Appointment</a>
                             </li>
 
                         </ul>
                     </li>
-
-                     <li>
+                    <li>
                         <a href="#"><i class="fa fa-calendar"></i> Schedule<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                        
+
                             <li>
                                 <a href="<?php echo base_url('doctor/Schedule/')?>">Add Schedule</a>
                             </li>
-                      
+
                             <li>
                                 <a href="<?php echo base_url('doctor/list_schedule/')?>">View Schedule</a>
                             </li>
 
                         </ul>
                     </li>
-
                     <li>
                         <a href="#"><i class="fa fa-book" aria-hidden="true"></i> Prescription<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level treeview-menu">
@@ -126,16 +102,13 @@
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-bell" aria-hidden="true"></i> NoticeBoard<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level treeview-menu">
-                                <!-- <li>
-                                    <a href="<?php //echo base_url('admin/notices/')?>">Add Notice</a>
-                                </li> -->
-                                <li>
-                                    <a href="<?php echo base_url('doctor/notices_list/')?>">Notice List</a>
-                                </li>
-                                
-                            </ul>
-                        </li>
+                        <ul class="nav nav-second-level treeview-menu">
+                            <li>
+                                <a href="<?php echo base_url('doctor/notices_list/')?>">Notice List</a>
+                            </li>
+
+                        </ul>
+                    </li>
                     <li>
                         <a href="#"><i class="fa fa-commenting" aria-hidden="true"></i> Message<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level treeview-menu">
@@ -147,22 +120,20 @@
                             </li>
                         </ul>
                     </li>
-
                     <li>
                         <a href="#"><i class="fa fa-envelope" aria-hidden="true"></i> Mail<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level treeview-menu">
                             <li>
-                                <a href="<?php echo base_url('doctor/send_mail/')?>">Send Mail</a>
+                                <a href="<?php echo base_url('doctor/send_mail/')?>">Compose</a>
                             </li>
                             <li>
-                                <a href="<?php echo base_url('doctor/mail_list/')?>">Mail by Me</a>
+                                <a href="<?php echo base_url('doctor/mail_list_me/')?>">Inbox</a>
                             </li>
                             <li>
-                                <a href="<?php echo base_url('doctor/mail_list_me/')?>">Mail to Me</a>
+                                <a href="<?php echo base_url('doctor/mail_list/')?>">Outbox</a>
                             </li>
                         </ul>
                     </li>
-
                     <li>
                         <a href="#"><i class="fa fa-wrench" aria-hidden="true"></i> Inventory<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level treeview-menu">
@@ -172,11 +143,9 @@
                             <li>
                                 <a href="<?php echo base_url('doctor/inventory_list/')?>">Inventory Request by Me</a>
                             </li>
-                            
+
                         </ul>
                     </li>
-
-
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->

@@ -49,7 +49,7 @@
                                     <div class="star-rating">
                                          <?php $rating= $value['rating']; 
                                         for ($i=1; $i <=$rating ; $i++) { ?>
-                                        <span class="fa fa-star-o" data-rating="1" style="font-size:25px;"></span>
+                                        <span class="fa fa-star" data-rating="1" style="font-size:25px;"></span>
                                        <?php }?>         
                                     </div>
                                    
@@ -80,11 +80,19 @@
     </div>
     <!-- /.row -->
 </div>
-
+<style type="text/css">
+    .star-rating .fa-star{color:goldenrod}
+</style>
 <script type="text/javascript">
-$('#notice').DataTable({
-        responsive: true
+
+    $('#notice').DataTable({
+        responsive: true,
+        'aoColumnDefs': [{
+            'bSortable': false,
+            'aTargets': [-1] /* 1st one, start by the right */
+        }]
     });
+
     function updateStatus(id, active) {
     if (active == 0) {
         data = 1;

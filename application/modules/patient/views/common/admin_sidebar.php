@@ -8,7 +8,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-            <a class="navbar-brand" href="javascript:void(0)"><?php echo 'Welcome '. ucwords($this->session->userdata('first_name')); ?></a>
+            <a class="navbar-brand" href="javascript:void(0)" style="color:red"><?php echo 'Welcome, '. ucwords($this->session->userdata('first_name')); ?></a>
         </div>
         <!-- /.navbar-header -->
 
@@ -35,7 +35,6 @@
             <!-- /.dropdown -->
         </ul>
         <!-- /.navbar-top-links -->
-
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav sidebar-menu" id="side-menu">
@@ -77,10 +76,10 @@
                         <a href="#"><i class="fa fa-calendar" aria-hidden="true"></i> Appointment <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="<?php echo base_url('patient/addAppointment') ?>">Add Appointment<span class="fa arrow"></span></a>
+                                <a href="<?php echo base_url('patient/addAppointment')?>">Take Appointment<span class="fa arrow"></span></a>
                             </li>
                             <li>
-                                <a href="<?php echo base_url('patient/appointment_list') ?>">Appointment List<span class="fa arrow"></span></a>
+                                <a href="<?php echo base_url('patient/appointment_list')?>">Appointment List<span class="fa arrow"></span></a>
                             </li>
                         </ul>
                     </li>

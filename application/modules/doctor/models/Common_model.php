@@ -34,11 +34,11 @@ class Common_model extends CI_Model
         }
     }
 
-    public function get_hospitals_by_id($id){
+    public function get_hospitals_by_id($id,$table,$select, $field){
         $id   = explode(',', $id);
-        $this->db->select("id, hospital_name");
-        $this->db->from("hospitals");
-        $this->db->where_in('id',$id);
+        $this->db->select("$select");
+        $this->db->from("$table");
+        $this->db->where_in("$field",$id);
         $q = $this->db->get();
         $num_rows = $q->num_rows();
         if ($num_rows > 0) {

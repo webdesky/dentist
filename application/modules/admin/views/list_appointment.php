@@ -30,12 +30,12 @@
                             <thead>
                                 <tr class="bg-primary">
                                     <th>Sr. no</th>
+                                    <th>Appointment Date</th>
+                                    <th>Appointment Time</th>
                                     <th>Appintment Type</th>
                                     <th>Appointment Id</th>
                                     <th>Doctor</th>
                                     <th>Patient</th>
-                                    <th>Appointment Date</th>
-                                    <th>Appointment Time</th>
                                     <th>Status</th>
                                     <?php if($user_role==1||($user_role==4 && $right3[1]==1||$right3[2]==1)){?>
                                     <th>Action</th>
@@ -46,6 +46,12 @@
                                 <tr class="odd gradeX" id="tr_<?php echo $count;?>">
                                     <td class="center">
                                         <?php echo $count; ?>
+                                    </td>
+                                    <td class="center">
+                                        <?php echo date("Y-m-d", strtotime($value['appointment_date'])); ?>
+                                    </td>
+                                    <td class="center">
+                                        <?php echo $value['appointment_time']; ?>
                                     </td>
                                     <td class="center">
                                         <?php  echo $value['appointment_type'];?>
@@ -60,14 +66,11 @@
                                         <?php echo ucwords($value['patient_name']); ?>
                                     </td>
                                     <td class="center">
-                                        <?php echo $value['appointment_date']; ?>
-                                    </td>
-                                    <td class="center">
-                                        <?php echo $value['appointment_time']; ?>
-                                    </td>
-                                    <td class="center">
-                                        <?php  if($value['is_active']==0){ ?> <button class="btn btn-danger" onclick="updateStatus('<?php echo $value['id'] ?>','<?php echo $value['is_active'] ?>')">Pending</button>
-                                        <?php }else{?> <button class="btn btn-success" onclick="updateStatus('<?php echo $value['id'] ?>','<?php echo $value['is_active'] ?>')">Approved</button>
+                                        <?php  if($value['is_active']==0){ ?> <button class="btn btn-danger">Pending</button>
+
+                                        <!-- <button class="btn btn-danger" onclick="updateStatus('<?php echo $value['id'] ?>','<?php echo $value['is_active'] ?>')">Pending</button> -->
+
+                                        <?php }else{?> <button class="btn btn-success">Approved</button>
                                         <?php } ?> </td>
                                     <?php if($user_role==1 || ($user_role==4 && $right3[1]==1 || $right3[2]==1)){?>
                                     <td class="center">
@@ -89,8 +92,13 @@
     <!-- /.row -->
 </div>
 <script type="text/javascript">
+
     $('#appointment').DataTable({
-        responsive: true
+        responsive: true,
+        'aoColumnDefs': [{
+            'bSortable': false,
+            'aTargets': [-1] /* 1st one, start by the right */
+        }]
     });
 
     function delete_appointment(id, tr_id) {
@@ -104,9 +112,10 @@
             confirmButtonColor: "#ec6c62"
         }, function() {
             $.ajax({
-                url: "<?php echo base_url('admin/delete_appointment')?>",
+                 url: "<?php echo base_url('admin/delete')?>",
                 data: {
                     id: id,
+                    table: 'appointment'
                 },
                 type: "POST"
             }).done(function(data) {
@@ -118,32 +127,4 @@
         });
     }
 
-    function updateStatus(id, active) {
-        if (active == 0) {
-            data = 1;
-        } else {
-            data = 0;
-        }
-        swal({
-            title: "Are you sure?",
-            text: "You want to Change Status?",
-            type: "warning",
-            showCancelButton: true,
-            closeOnConfirm: false,
-            confirmButtonText: "Yes, Change it!",
-            confirmButtonColor: "#ec6c62"
-        }, function() {
-            $.ajax({
-                url: "<?php echo base_url('admin/update_status')?>",
-                data: {
-                    id: id,
-                    active: data,
-                },
-                type: "POST"
-            }).done(function(data) {
-                swal("Changed!", "Status was successfully changed!", "success");
-                window.location.reload();
-            });
-        });
-    }
 </script>

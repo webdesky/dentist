@@ -29,6 +29,7 @@
                                     <th>Patient Name</th>
                                     <th>Appointment Date</th>
                                     <th>Appointment Time</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -36,13 +37,13 @@
                             <?php 
                                 $count=1;
                                 if($appointmentList){
-                                foreach ($appointmentList as  $value) { ?>
+                                foreach ($appointmentList as  $value) {?>
                                 <tr class="odd gradeX" id="tr_<?php echo $count;?>">
                                     <td>
                                         <?php echo $count; ?>
                                     </td>
                                     <td>
-                                        <?php echo $value->hospital_name; ?>
+                                        <?php echo ucwords($value->hospital_name); ?>
                                     </td>
                                     <td>
                                         <?php echo $value->appointment_id; ?>
@@ -59,6 +60,11 @@
                                     <td class="center">
                                         <?php echo $value->appointment_time; ?>
                                     </td>
+                                    <td class="center">
+                                        <?php  if($value->is_active==0){ ?> 
+                                        <button class="btn btn-danger" onclick="updateStatus('<?php echo $value->id ?>','<?php echo $value->is_active; ?>')">Pending</button> 
+                                        <?php }else{?> <button class="btn btn-success" onclick="updateStatus('<?php echo $value->id ?>','<?php echo $value->is_active ?>')">Approved</button>
+                                        <?php } ?> </td>
                                     <td class="center"><a href="<?php echo base_url('doctor/edit_appointment/').$value->id; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                         <a href="javascript:void(0)" onclick="delete_appointment('<?php echo $value->id?>','<?php echo $count;?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                         <!-- <i class="fa fa fa-plus" aria-hidden="true" onclick="updateStatus(<?php echo $value->doctor_id; ?>,<?php echo $value->doctor_status; ?>)"></i> -->
@@ -79,9 +85,15 @@
     <!-- /.row -->
 </div>
 <script type="text/javascript">
-$(document).ready(function() {
-    $('#dataTables-example').DataTable();
-});
+
+
+$('#dataTables-example').DataTable({
+        responsive: true,
+        'aoColumnDefs': [{
+            'bSortable': false,
+            'aTargets': [-1] /* 1st one, start by the right */
+        }]
+    });
 
 function delete_appointment(id, tr_id) {
     swal({
@@ -106,4 +118,32 @@ function delete_appointment(id, tr_id) {
         });
     });
 }
+function updateStatus(id, active) {
+        if (active == 0) {
+            data = 1;
+        } else {
+            data = 0;
+        }
+        swal({
+            title: "Are you sure?",
+            text: "You want to Change Status?",
+            type: "warning",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            confirmButtonText: "Yes, Change it!",
+            confirmButtonColor: "#ec6c62"
+        }, function() {
+            $.ajax({
+                url: "<?php echo base_url('admin/update_status')?>",
+                data: {
+                    id: id,
+                    active: data,
+                },
+                type: "POST"
+            }).done(function(data) {
+                swal("Changed!", "Status was successfully changed!", "success");
+                window.location.reload();
+            });
+        });
+    }
 </script>

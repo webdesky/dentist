@@ -1,7 +1,7 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">User</h1>
+            <h1 class="page-header">User's List</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -63,9 +63,16 @@
 </div>
 </div>
 <script type="text/javascript">
-$('#users').DataTable({
-    responsive: true
-});
+
+    $(document).ready(function() {
+        $('#users').DataTable({
+            responsive: true,
+            'aoColumnDefs': [{
+                'bSortable': false,
+                'aTargets': [-1] /* 1st one, start by the right */
+            }]
+        });
+    });
 
 function delete_user(id, tr_id) {
     swal({

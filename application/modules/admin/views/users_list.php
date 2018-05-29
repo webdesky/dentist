@@ -5,7 +5,7 @@
             <h1 class="page-header">Doctor List</h1>
             <?php }elseif($role==3){ ?>
             <h1 class="page-header">Patient List</h1>
-            <?php   }else{ ?>
+            <?php }else{ ?>
             <h1 class="page-header">Sub Admin List</h1>
             <?php } ?>
         </div>
@@ -24,10 +24,11 @@
                         }
                         if($user_role==1 || ($user_role==4 && $right0[0]==1)){
                     ?>
-                    <?php if($role==2){ ?> <a class="btn btn-primary" href="<?php echo base_url('admin/register/null/2')?>"><i class="fa fa-th-list">&nbsp;Add Doctor</i></a>
+                    <?php if($role==2){ ?> <a class="btn btn-primary" href="<?php echo base_url('admin/add_doctor')?>"><i class="fa fa-th-list">&nbsp;Add Doctor</i></a>
                     <?php }elseif($role==3){ ?> <a class="btn btn-primary" href="<?php echo base_url('admin/register/null/3')?>"><i class="fa fa-th-list">&nbsp;Add Patient</i></a>
                     <?php } else{?> <a class="btn btn-primary" href="<?php echo base_url('admin/register/null/4')?>"><i class="fa fa-th-list">&nbsp;Add Subadmin</i></a>
-                    <?php }}    ?> </div>
+                    <?php }}    ?>
+                </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">
@@ -36,40 +37,61 @@
                                     <thead>
                                         <tr class="bg-primary">
                                             <th>Sr no.</th>
-                                            <th>Firstname</th>
-                                            <th>Lastname</th>
+                                            <?php if($role!=4){?>
+                                            <th>Name</th>
+                                            <?php }if($user_role==4 && $role==2){?>
+                                            <th>Speciality</th>
+                                            <?php }?>
                                             <th>Email</th>
                                             <th>Mobile</th>
+                                            <?php if($role!=4){?>
                                             <th>Gender</th>
+                                            <?php }?>
                                             <th>User Role</th>
                                             <?php if($user_role==1 || ($user_role==4 && $right0[1]==1 || $right0[2]==1)){?>
                                             <th>Action</th>
-                                            <?php }?> </tr>
+                                            <?php }?>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $i=1; if(!empty($users)){ foreach($users as $users_list){?>
+                                        <?php  $i=1;if(!empty($users)){ foreach($users as $users_list){?>
                                         <tr id="tr_<?php echo $i;?>">
                                             <td>
-                                                <?php echo $i; ?> </td>
+                                                <?php echo $i; ?>
+                                            </td>
+                                            <?php if($role!=4){?>
                                             <td>
-                                                <?php echo ucfirst($users_list->first_name);?> </td>
+                                                <?php echo ucfirst($users_list->user_name);?>
+                                            </td>
+                                            <?php }if($user_role==4 && $role==2){?>
                                             <td>
-                                                <?php echo ucfirst($users_list->last_name);?> </td>
+                                                <?php echo ucfirst($users_list->speciality_name);?>
+                                            </td>
+                                            <?php }?>
                                             <td>
-                                                <?php echo $users_list->email;?> </td>
+                                                <?php echo $users_list->email;?>
+                                            </td>
                                             <td>
-                                                <?php echo $users_list->mobile;?> </td>
+                                                <?php echo $users_list->mobile;?>
+                                            </td>
+                                            <?php if($role!=4){?>
                                             <td>
-                                                <?php echo $users_list->gender;?> </td>
+                                                <?php echo ucfirst($users_list->gender);?>
+                                            </td>
+                                            <?php }?>
                                             <td>
-                                                <?php if($users_list->user_role==2){ echo 'Doctor';}elseif($users_list->user_role==3){ echo 'Patient';}elseif($users_list->user_role==4){ echo 'Sub-Admin';}else{echo 'Admin';}?> </td>
+                                                <?php if($users_list->user_role==2){ echo 'Doctor';}elseif($users_list->user_role==3){ echo 'Patient';}elseif($users_list->user_role==4){ echo 'Sub-Admin';}else{echo 'Admin';}?>
+                                            </td>
                                             <?php if($user_role==1 || ($user_role==4 && $right0[1]==1 || $right0[2]==1)){?>
                                             <td>
-                                                <?php if($user_role==1 || ($user_role==4 && $right0[1]==1)){?> <a href="<?php echo base_url('admin/edit_user/'.$users_list->id)?>"><span class="glyphicon glyphicon-edit"></span></a> |
-                                                <?php }if($user_role==1 || ($user_role==4 && $right0[2]==1)){?> <a href="javascript:void(0)" onclick="delete_user('<?php echo $users_list->id?>','<?php echo $i;?>')"><span class="glyphicon glyphicon-trash"></span></a>
-                                                <?php }?> </td>
-                                            <?php }?> </tr>
-                                        <?php $i++;}}?> </tbody>
+                                                <?php if($user_role==1 || ($user_role==4 && $right0[1]==1)){?> <a href="<?php echo base_url('admin/edit_user/'.$users_list->id)?>" title="Edit"><span class="glyphicon glyphicon-edit"></span></a> |
+                                                <?php }if($user_role==1 || ($user_role==4 && $right0[2]==1)){?> <a href="javascript:void(0)" onclick="delete_user('<?php echo $users_list->id?>','<?php echo $i;?>')" title="Delete"><span class="glyphicon glyphicon-trash"></span></a>
+                                                <?php }?>
+                                            </td>
+                                            <?php }?>
+                                        </tr>
+                                        <?php $i++;}}?>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -86,13 +108,15 @@
 </div>
 </div>
 <script type="text/javascript">
-
     $('#users').DataTable({
         responsive: true,
-        
+        'aoColumnDefs': [{
+            'bSortable': false,
+            'aTargets': [-1] /* 1st one, start by the right */
+        }]
     });
 
-    function delete_user(id) {
+    function delete_user(id, tr_id) {
         swal({
             title: "Are you sure?",
             text: "want to delete?",
@@ -108,13 +132,15 @@
                     id: id,
                     table: 'users'
                 },
-                type: "POST"
-            }).done(function(data) {
-                swal("Deleted!", "Record was successfully deleted!", "success");
-                $('#tr_'+tr_id).remove();
+                type: "POST",
+                success: function() {
+                    swal("Done!", "It was succesfully deleted!", "success");
+                    $('#tr_' + tr_id).remove();
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    swal("Error deleting!", "Please try again", "error");
+                }
             });
-
         });
     }
-
 </script>

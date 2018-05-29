@@ -51,8 +51,8 @@
                                 <div class="form-group">
                                     <label class="col-md-2">Doctor * </label>
                                     <div class="col-lg-6">
-                                        <input class="form-control" readonly name="doctor_id" value="<?php echo ucwords($this->session->userdata('first_name').' '.$this->session->userdata('last_name')); ?>">
-                                        <input type="hidden" id="doctor_id" value="<?php echo $this->session->userdata('id') ?>">
+                                        <input class="form-control" readonly name="doctor" value="<?php echo ucwords($this->session->userdata('first_name').' '.$this->session->userdata('last_name')); ?>">
+                                        <input type="hidden" name="doctor_id" id="doctor_id" value="<?php echo $this->session->userdata('id') ?>">
                                         <span><?php echo form_error('doctor_id'); ?></span> </div>
                                 </div>
                                 <div id="data" style="display: none" class="col-lg-12">

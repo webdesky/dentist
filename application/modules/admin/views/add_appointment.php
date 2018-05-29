@@ -8,7 +8,8 @@
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
-            <?php if(validation_errors()){?>
+            <?php $session_user_role  =  $this->session->userdata('user_role');
+                if(validation_errors()){?>
             <div class="alert alert-danger"> <strong>Danger!</strong>
                 <?php echo validation_errors(); ?> </div>
             <?php }if(!empty($msg)){?>
@@ -16,7 +17,7 @@
                 <?php echo $msg;?> </div>
             <?php }?>
             <?php if ($info_message = $this->session->flashdata('info_message')): ?>
-            <div id="form-messages" class="alert alert-success" role="alert">
+            <div id="form-messages" class="alert alert-info" role="alert">
                 <?php echo $info_message; ?> </div>
             <?php endif ?>
             <div class="panel panel-default">
@@ -49,8 +50,11 @@
                                         </select>
                                         <span><?php echo form_error('patient_id'); ?></span>
                                     </div>
+                                    <?php if($session_user_role==1){?>
                                     <div class=""><a href="<?php echo base_url('admin/register/null/3')?>">Add New Patient</a></div>
+                                    <?php }?>
                                 </div>
+                                <?php if($session_user_role!=4){?>
                                 <div class="form-group">
                                     <label class="col-md-2">Hospital * </label>
                                     <div class="col-lg-6">
@@ -63,6 +67,16 @@
                                         <span><?php echo form_error('hospital_id'); ?></span>
                                     </div>
                                 </div>
+                                <?php }elseif($session_user_role==4){
+                                    $hospital_id = $this->session->userdata('hospital_id');
+                                ?>
+                                <input type="hidden" name="hospital_id" value="<?php echo $hospital_id; ?>">
+                                <script type="text/javascript">
+                                    $(document).ready(function() {
+                                        get_doctor('<?php echo $hospital_id; ?>');
+                                    });
+                                </script>
+                                <?php }?>
                                 <div class="form-group">
                                     <label class="col-md-2">Doctor Name * </label>
                                     <div class="col-lg-6">
@@ -75,7 +89,7 @@
                                     <div class="panel panel-primary">
                                         <div class="panel-heading">Doctor Schedule</div>
                                         <div class="panel-body">
-                                            <table id="table" class="table" border="1">
+                                            <table id="table" class="table table-bordered" border="1">
                                                 <tr>
                                                     <th>Day</th>
                                                     <th>Start Time</th>
@@ -122,9 +136,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        
         $('select').niceSelect();
-
         $(".registration_form1").validate({
             rules: {
                 "fname": "required",
@@ -136,17 +148,17 @@
 
         $('#timepicker').timepicker({
             change: function(time) {
-                doctor_id               = $('#doctor_id').val();
-                appointment_date        = $('#appointment_date').val();
-                hospital_id             = $('#hospital_id').val();     
-                var appointment_time    = $(this).val();
+                doctor_id 				= $('#doctor_id').val();
+                appointment_date 		= $('#appointment_date').val();
+                hospital_id 			= $('#hospital_id').val();
+                var appointment_time 	= $(this).val();
                 $.ajax({
-                    type: "POST",
+                    type: 'POST',
                     url: "<?php echo base_url('admin/get_time')?>",
                     data: {
                         'doctor_id': doctor_id,
                         'appointment_date': appointment_date,
-                        'hospital_id'     : hospital_id
+                        'hospital_id': hospital_id
                     },
                     success: function(data) {
                         var obj = JSON.parse(data);
@@ -170,10 +182,10 @@
 
 
     function getSchedule(id) {
-        var doctor_id = id;
+        var doctor_id 		 = id;
         var appointment_date = $('#appointment_date').val();
         var appointment_time = $('#timepicker').val();
-        var hospital_id      = $('#hospital_id').val();
+        var hospital_id 	 = $('#hospital_id').val();
         $.ajax({
             type: "POST",
             url: "<?php echo base_url('admin/get_schedule')?>",
@@ -181,15 +193,14 @@
                 'doctor_id': doctor_id,
                 'appointment_date': appointment_date,
                 'appointment_time': appointment_time,
-                 'hospital_id'     : hospital_id
+                'hospital_id': hospital_id
             },
             success: function(data) {
                 var obj = JSON.parse(data);
-
                 $('#table tr').html('');
                 $('#table').append('<tr><th>Hospital</th><th>Day</th><th>StartTime</th><th>EndTime</th></tr>');
                 for (var i = 0; i < obj.length; i++) {
-                    $('#table').append('<tr><td>'+obj[i].hospital_name+'</td><td>'+obj[i].day+'</td><td>'+obj[i].starttime+'</td><td>'+obj[i].endtime+'</td></tr>');
+                    $('#table').append('<tr><td>' + obj[i].hospital_name + '</td><td>' + obj[i].day + '</td><td>' + obj[i].starttime + '</td><td>' + obj[i].endtime + '</td></tr>');
                     $('#data').show();
                 }
             }
