@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
                                 <?php if(empty($hospitals_details[0])){?>
-                                <!-- <div class="col-md-6">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-md-3">Email *</label>
                                         <div class="col-md-9">
@@ -87,7 +87,7 @@
                                             <span class="red"><?php echo form_error('password'); ?></span>
                                         </div>
                                     </div>
-                                </div> -->
+                                </div>
                                 <?php }?>
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -294,10 +294,11 @@
 
 
 <script type="text/javascript">
-    //$('select').niceSelect();
+
     $("#registration_date").datepicker({
         format: 'yyyy-mm-dd',
-        autoclose: true
+        autoclose: true,
+        endDate: '+0d',
     });
 
     function get_state(country_id) {

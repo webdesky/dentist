@@ -24,7 +24,7 @@
                                         <label class="col-md-2">Hospital *</label>
                                         <div class="col-lg-6">
                                             <select class="form-control" name="hospital_id" id="hospital_id"> 
-                                            <option value="">-- Select Hospital or Don't choose any , if you want to send notice to all the hospitals --</option>
+                                            <option value="">-Select Hospital or Don't choose any , if you want to send notice to all the hospitals -</option>
                                             <?php foreach ($hospitals as $value) { ?>
                                             <option value="<?php echo $value->id; ?>"><?php echo ucfirst($value->hospital_name); ?></option>
                                             <?php   } ?>

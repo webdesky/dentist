@@ -238,10 +238,10 @@ class Admin extends CI_Controller
                 $address = $this->input->post('address');
                 
                
-                    $ip=$_SERVER['REMOTE_ADDR'];
-                    echo "<pre>";
-                    echo var_export(unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip)));
-                    die;
+                    // $ip=$_SERVER['REMOTE_ADDR'];
+                    // echo "<pre>";
+                    // echo var_export(unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip)));
+                    // die;
         
                 if(!empty($address)){
                     //Formatted address
@@ -261,11 +261,6 @@ class Admin extends CI_Controller
                     
                     //Return latitude and longitude of the given address
                 }
-
-
-
-                
-   
 
                 $first_name     = $this->input->post('first_name');
                 $user_name      = $this->input->post('user_name');

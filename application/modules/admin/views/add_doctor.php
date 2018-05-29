@@ -6,7 +6,6 @@
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
-
     <?php   
         $session_role    = $this->session->userdata('user_role');
         if($session_role==4){
@@ -25,26 +24,18 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
-
-                            <!--  <button onclick="getLocation()">Try It</button>
-                             <p id="demo"></p>
- -->
                             <form role="form" method="post" action="<?php echo base_url('admin/add_doctor') ?>" class="registration_form12" enctype="multipart/form-data" id="registration_form">
-                                   
-
                                 <?php if ($session_role != 4) {?>
                                 <div class="col-md-6">
                                     <div class="">
                                         <label class="col-md-3">Hospital *</label>
                                         <div class="col-md-9">
                                         <select class="form-control" name="hospital_id[]" multiple="multiple" onchange="get_doctor(this.value)" required="required">
-
                                             <option value="">--Select Hospital--</option>
                                             <?php foreach ($hospitals as $value) { ?>
                                             <option value="<?php echo $value->id; ?>" <?php echo set_select('hospital_id', $value->id); ?>><?php echo ucwords($value->hospital_name); ?></option>
                                             <?php } ?>
                                          </select>
-
                                         </div>
                                         <span class="red"><?php echo form_error('hospital_id'); ?></span>
                                     </div>
@@ -54,7 +45,7 @@
                                 <?php } ?>
                                 <div class="col-md-6">
                                     <div class="">
-                                        <label class="col-md-3">Doctor Speciality *</label>
+                                        <label class="col-md-3">Speciality *</label>
                                         <div class="col-md-9">
                                             <select class="form-control" name="specialization" id="category">
                                             <?php if($user_role==2){?>

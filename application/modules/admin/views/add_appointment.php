@@ -59,7 +59,7 @@
                                     <label class="col-md-2">Hospital * </label>
                                     <div class="col-lg-6">
                                         <select class="wide" name="hospital_id" id="hospital_id" onchange="get_doctor(this.value)">
-                                            <option value="">--Select Hospital--</option>
+                                            <option value="">-- Select Hospital --</option>
                                             <?php foreach ($hospitals as $value) { ?>
                                             <option value="<?php echo $value->id; ?>" <?php echo set_select('hospital_id', $value->id); ?>><?php echo ucwords($value->hospital_name); ?></option>
                                             <?php } ?>
