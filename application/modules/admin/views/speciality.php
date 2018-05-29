@@ -22,11 +22,10 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <form role="form" method="post" action="<?php if(!empty($speciality[0])){ echo base_url('admin/speciality/'.$speciality[0]->id);}else{echo base_url('admin/speciality');} ?>" class="registration_form1" enctype="multipart/form-data">
-                                
                                 <div class="form-group">
                                     <label class="col-md-2">Speciality Name * </label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="speciality_name" id="speciality_name" class="form-control" value="<?php if(!empty($speciality[0]->name)){echo $speciality[0]->name;}else{ echo set_value('speciality_name');}?>">
+                                        <input type="text" name="speciality_name" id="speciality_name" class="form-control" value="<?php if(!empty($speciality[0]->name)){echo $speciality[0]->name;}else{ echo set_value('speciality_name');}?>" maxlength="30">
                                         <span class="red"><?php echo form_error('speciality_name'); ?></span>
                                     </div>
                                 </div>
@@ -37,20 +36,18 @@
                                         <span><?php echo form_error('details'); ?></span>
                                     </div>
                                 </div>
-                               
                                 <div class="form-group">
                                     <label class="col-md-2">Status *</label>
                                     <div class="col-md-6">
                                         <label class="radio-inline">
-                                            <input type="radio" name="status" value="1"<?php if(!empty($speciality[0]->is_active) && $speciality[0]->is_active==1){ echo 'checked';}else{ echo set_value('no_of_ambulance');} ?>>Active
+                                            <input type="radio" name="status" value="1"  <?php if(!empty($speciality[0]->is_active)){ echo ($speciality[0]->is_active=='1')?'checked':'';}else{ echo set_value('status');} ?>>Active
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="status" value="0"<?php if(!empty($speciality[0]->is_active) && $speciality[0]->is_active==0){ echo 'checked';}else{ echo set_value('no_of_ambulance');} ?>>Inactive
+                                            <input type="radio" name="status" value="0" <?php if(!empty($speciality[0]->is_active)){ echo ($speciality[0]->is_active=='0')?'checked':''; }else{ echo set_value('status');}?>>Inactive
                                         </label>
                                         <span class="red"><?php echo form_error('status'); ?></span>
                                     </div>
                                 </div>
-                               
                                 <div class="col-md-12" align="center">
                                     <button type="submit" value="Save" id="submit" class="btn btn-success">Save</button>
                                     <input type="reset" class="btn btn-default" value="Reset"> </div>
@@ -69,7 +66,7 @@
 </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function() {
-    $('select').niceSelect();
-});
+    $(document).ready(function() {
+        $('select').niceSelect();
+    });
 </script>

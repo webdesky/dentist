@@ -1,9 +1,9 @@
 /*! * Start Bootstrap - SB Admin 2 v3.3.7+1 (http://startbootstrap.com/template-overviews/sb-admin-2) * Copyright 2013-2016 Start Bootstrap * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE) */
- @import url('https://fonts.googleapis.com/css?family=Bellefair');
+ @import url('https://fonts.googleapis.com/css?family=Ubuntu');
  body {
      background-color: #f8f8f8;
-     font-family: Bellefair !important;
-     font-size: 18px;
+     font-family: Ubuntu !important;
+     /*font-size: 18px;*/
 }
  #wrapper {
      width: 100%;
@@ -520,8 +520,8 @@
      font-size: 17px;
 }
  .registration_form12 label {
-     font-size: 18px;
-     color: black;
+     font-size: 17px;
+     color: #666;
 }
 
  .registration_form12 input::placeholder, .registration_form12 textarea::placeholder, .registration_form12 select::placeholder {
@@ -544,9 +544,9 @@
 }
 
 .registration_form1 label {
-    font-size: 18px;
-    /*color: #666;*/
-    color:black;
+    font-size: 17px;
+    color: #666;
+    /*color:black;*/
 }
 
  table.dataTable thead th {
@@ -581,6 +581,6 @@ input {
   }
 
 
-.nav>li>a {
+/*.nav>li>a {
     font-size: 18px !important;
-}
+}*/

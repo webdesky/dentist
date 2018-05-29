@@ -229,7 +229,10 @@
     $(document).ready(function() {
         $("#datepicker").datepicker({
             format: 'yyyy-mm-dd',
-            autoclose: true
+            autoclose: true,
+            endDate: '+0d',
+            startDate:'-100y',
+
         });
     });
 

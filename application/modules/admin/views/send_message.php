@@ -24,7 +24,7 @@
                             <form role="form" method="post" action="<?php echo base_url('admin/send_message') ?>" class="registration_form1">
                                 <div class="form-group"> <label class="col-md-2">Title * </label>
                                     <div class="col-lg-6"> <select class="form-control" name="reciever_id[]" multiple="multiple">
-                                        <option value="">-- Select User --</option>
+                                        <option value="">-- Select Receiver --</option>
                                         <?php foreach($users as $user){?>
                                         <option value="<?php echo $user->id;?>"><?php echo ucwords($user->first_name.' '.$user->last_name);?></option>
                                         <?php }?>

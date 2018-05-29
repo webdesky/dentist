@@ -28,14 +28,14 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Hospital Name *</label>
                                         <div class="col-md-9">
-                                            <input class="form-control capitalize" type="text" placeholder="Hospital Name" name="hospital_name" autocomplete="off" value="<?php if(!empty($hospitals[0]->hospital_name)){ echo $hospitals[0]->hospital_name;}else{ echo set_value('hospital_name');} ?>">
+                                            <input class="form-control capitalize" type="text" placeholder="Hospital Name" name="hospital_name" autocomplete="off" value="<?php if(!empty($hospitals[0]->hospital_name)){ echo $hospitals[0]->hospital_name;}else{ echo set_value('hospital_name');} ?>" maxlength="30">
                                             <span class="red"><?php echo form_error('hospital_name'); ?></span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="col-md-3">Registration No. *</label>
+                                        <label class="col-md-3">Registration No *</label>
                                         <div class="col-md-9">
                                             <input class="form-control" type="text" placeholder="Registration Number" name="registration_number" id="registration_number" autocomplete="off" value="<?php if(!empty($hospitals[0]->registration_number)){ echo $hospitals[0]->registration_number;}else{ echo set_value('registration_number');}?>">
                                             <span class="red"><?php echo form_error('registration_number'); ?></span>
@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="col-md-3">Registration Date. *</label>
+                                        <label class="col-md-3">Registration Date *</label>
                                         <div class="col-md-9">
                                             <input class="form-control" type="text" placeholder="Registration Date" name="registration_date" id="registration_date" autocomplete="off" value="<?php if(!empty($hospitals_details[0]->date_of_birth)){ echo date(" Y-m-d ", strtotime($hospitals_details[0]->date_of_birth));}else{ echo set_value('registration_date');}?>">
                                             <span class="red"><?php echo form_error('registration_date'); ?></span>
@@ -55,7 +55,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Owner Name *</label>
                                         <div class="col-md-9">
-                                            <input class="form-control" type="text" name="owner_name" placeholder="Owner Name" autocomplete="off" value="<?php if(!empty($hospitals[0]->owner_name)){ echo $hospitals[0]->owner_name;}else{ echo set_value('owner_name');} ?>">
+                                            <input class="form-control" type="text" name="owner_name" placeholder="Owner Name" autocomplete="off" value="<?php if(!empty($hospitals[0]->owner_name)){ echo $hospitals[0]->owner_name;}else{ echo set_value('owner_name');} ?>" maxlength="30">
                                             <span class="red"><?php echo form_error('owner_name'); ?></span>
                                         </div>
                                     </div>

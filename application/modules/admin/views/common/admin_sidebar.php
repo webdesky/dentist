@@ -51,8 +51,8 @@
     ?>
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav sidebar-menu" id="side-menu">
-                        <li class="sidebar-search">
+                    <ul class="nav sidebar-menu" id="side-menu" style="margin-top:50px">
+                        <!-- <li class="sidebar-search">
                             <div class="input-group custom-search-form">
                                 <input type="text" class="form-control" placeholder="Search...">
                                 <span class="input-group-btn">
@@ -61,8 +61,7 @@
                                     </button>
                                 </span>
                             </div>
-                            <!-- /input-group -->
-                        </li>
+                        </li> -->
                         <li>
                             <a href="<?php echo base_url('admin/index')?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
@@ -77,17 +76,6 @@
                                 </li>
                             </ul>
                         </li>
-                        <!-- <li>
-                            <a href="#"><i class="fa fa-users"></i> Sub Admin<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="<?php //echo base_url('admin/users_list/4')?>">Manage Sub Admin</a>
-                                </li>
-                                <li>
-                                    <a href="<?php //echo base_url('admin/subadmin_users_list/4')?>">Assign Rights</a>
-                                </li> 
-                            </ul>
-                        </li>-->
                         <?php } if($user_role==1 || (isset($right4) && $right4[0]!=0 && $right4[1]!=0 && $right4[2]!=0)){?>
                         <li>
                             <a href="#"><i class="fa fa-user-md" aria-hidden="true"></i> Speciality<span class="fa arrow"></span></a>

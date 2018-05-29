@@ -1,7 +1,7 @@
 /* Stylesheet */
 /* Imports */
  @import url(animate.css);
- @import url('https://fonts.googleapis.com/css?family=Bellefair');
+ @import url('https://fonts.googleapis.com/css?family=Ubuntu');
  
 /* Selections */
  ::selection {
@@ -168,7 +168,7 @@
      background: #f4f4f4;
 }
  body{
-     font-family: 'Bellefair', serif !important;
+     font-family: 'Ubuntu', serif !important;
      font-size: 16px;
      line-height: 1.42857143;
      background-color: #31708f !important;
@@ -178,5 +178,5 @@
 }
 
 .login_form label, .login_form input, .login_form input::placeholder {
-     font-size: 18px !important;
+     font-size: 17px !important;
 }
