@@ -12,6 +12,7 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
+
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
@@ -154,8 +155,9 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Address *</label>
                                         <div class="col-md-9">
-                                            <input type="text" name="address" class="form-control" placeholder="Address" autocomplete="off" value="<?php if(!empty($hospitals[0]->address)){ echo $hospitals[0]->address;}else{ echo set_value('address');} ?>">
+                                            <input type="text" name="address" id="address" class="form-control" placeholder="Address" autocomplete="off" value="<?php if(!empty($hospitals[0]->address)){ echo $hospitals[0]->address;}else{ echo set_value('address');} ?>">
                                             <span class="red"><?php echo form_error('address'); ?></span>
+                                            <?php echo form_error('address', '<div class="error">', '</div>'); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -188,15 +190,14 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="col-md-3">Main Speciality*</label>
+                                        <label class="col-md-3">Speciality*</label>
                                         <div class="col-md-9">
-                                            <select class="form-control" name="speciality" id="speciality"> 
+                                            <select class="form-control" name="speciality[]" id="speciality" multiple="multiple"> 
                                                 <option value="">-- Select Speciality --</option>
                                                 <?php 
                                                     foreach ($speciality as $value) {
                                                 ?>
-                                                    <option value="<?php echo $value->id; ?>" <?php if(isset($hospitals[0]) && !empty($hospitals[0]) && $value->id==$hospitals[0]->speciality){  
-                                                    echo "selected";}?>><?php echo $value->name; ?>
+                                                    <option value="<?php echo $value->id; ?>" <?php if(isset($hospitals[0]) && in_array($value->id,explode(',',$hospitals[0]->speciality))){ echo "selected";}?>><?php echo $value->name; ?>
                                                     </option>
 
                                                 <?php } ?>
@@ -209,6 +210,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Logo</label>
                                         <div class="col-md-9">
+                                            <input type="hidden" name="address1" id="address1" value="<?php if(!empty($hospitals[0]->address)){ echo ucwords($hospitals[0]->address.', '. $hospitals[0]->city_name.', '. $hospitals[0]->state_name.', '.$country_name[0]->name);}else{ echo set_value('address');} ?>">
                                             <input type="file" name="logo" id="logo" class="form-control">
                                             <span class="red"><?php echo form_error('logo'); ?></span>
                                         </div>
@@ -242,7 +244,7 @@
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
-                                <div class="col-md-6">
+                                <!-- <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-md-3">Other Speciality*</label>
                                         <div class="col-md-9">
@@ -270,7 +272,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="clearfix"></div>
+                                <div class="clearfix"></div> -->
                                 <br>
                                 <div class="col-md-12" align="center">
                                     <input type="submit" name="submit" class="btn btn-success" value="Save">
@@ -324,8 +326,8 @@
                 alert("error");
             }
         });
-
     }
+
 
     function get_city(state_id) {
         $.ajax({
@@ -350,6 +352,20 @@
                 alert("error");
             }
         });
-
     }
+
+
+    $('#address').blur(function(){
+         var address = $(this).val();
+         var country = $('#country option:selected').html();
+         var state   = $('#state option:selected').html();
+         var city    = $('#city option:selected').html();
+        
+         var address1 = address +','+ city + ','+state+ ','+country;
+         $('#address1').val(address1);
+    });
+
+
+
+
 </script>

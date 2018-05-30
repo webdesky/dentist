@@ -71,7 +71,7 @@ class Admin extends CI_Controller
                     'hospital_id' => $this->session->userdata('hospital_id'),
                     'appointment_date >' => date('Y-m-d')
                 ));
-
+                
             } else {
                 $where5                    = array(
                     'appointment_date >' => date('Y-m-d')
@@ -209,12 +209,12 @@ class Admin extends CI_Controller
                 } else {
                     $this->form_validation->set_rules('hospital_id[]', 'Hospital', 'trim|required');
                 }
-
+                
                 $this->form_validation->set_rules('specialization', 'Specialization', 'trim|required');
             }
             
             if ($this->form_validation->run() == false) {
-
+                
                 $this->session->set_flashdata('errors', validation_errors());
                 $where             = array(
                     'is_active' => 1
@@ -227,41 +227,36 @@ class Admin extends CI_Controller
                 $data['user_role'] = 2;
                 $this->controller->load_view($data);
             } else {
-
+                
                 if (empty($id)) {
                     $user_role = $this->input->post('user_role');
                 } else {
                     $user_role = 2;
-
+                    
                 }
-
+                
                 $address = $this->input->post('address');
                 
-               
-                    // $ip=$_SERVER['REMOTE_ADDR'];
-                    // echo "<pre>";
-                    // echo var_export(unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip)));
-                    // die;
-        
-                if(!empty($address)){
+                
+                if (!empty($address)) {
                     //Formatted address
-                    $formattedAddr = str_replace(' ','+',$address);
+                    $formattedAddr   = str_replace(' ', '+', $address);
                     //Send request and receive json data by address
-                    $geocodeFromAddr = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$formattedAddr.'&sensor=false&key=AIzaSyCSZ2Wy8ghd5Zby2FlNwgzUXPYgg0xqVIA'); 
-                    $output = json_decode($geocodeFromAddr,true);
-                   
-                    if(!empty($output)){
-                    //Get latitude and longitute from json data
-                    $latitude  = $output['results'][0]['geometry']['location']['lat']; 
-                    $longitude = $output['results'][0]['geometry']['location']['lng'];
-                    }else{
-                        $latitude = NULL;
-                        $longitude= NULL;
+                    $geocodeFromAddr = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . $formattedAddr . '&sensor=false&key=AIzaSyCSZ2Wy8ghd5Zby2FlNwgzUXPYgg0xqVIA');
+                    $output          = json_decode($geocodeFromAddr, true);
+                    
+                    if (!empty($output)) {
+                        //Get latitude and longitute from json data
+                        $latitude  = $output['results'][0]['geometry']['location']['lat'];
+                        $longitude = $output['results'][0]['geometry']['location']['lng'];
+                    } else {
+                        $latitude  = NULL;
+                        $longitude = NULL;
                     }
                     
                     //Return latitude and longitude of the given address
                 }
-
+                
                 $first_name     = $this->input->post('first_name');
                 $user_name      = $this->input->post('user_name');
                 $last_name      = $this->input->post('last_name');
@@ -298,7 +293,7 @@ class Admin extends CI_Controller
                     'created_at' => date('Y-m-d H:i:s'),
                     'profile_pic' => $file_name
                 );
-
+                
                 if ($this->session->userdata('user_role') == 4) {
                     $data['hospital_id'] = $this->session->userdata('hospital_id');
                 } else {
@@ -314,19 +309,19 @@ class Admin extends CI_Controller
                     unset($data['password']);
                     $result = $this->model->updateFields('users', $data, $where);
                 } else {
-
+                    
                     
                     $result = $this->model->insertData('users', $data);
                     if ($user_role == 2) {
                         $data = array(
-                            'doctor_id'             => $result,
-                            'city'                  => $this->input->post('city'),
-                            'specialization'        => $specialization,
-                            'is_active'             => $status,
-                            'latitude'              => $latitude,
-                            'longitude'             => $longitude,
-                            'created_at'            => date('Y-m-d H:i:s')
-
+                            'doctor_id' => $result,
+                            'city' => $this->input->post('city'),
+                            'specialization' => $specialization,
+                            'is_active' => $status,
+                            'latitude' => $latitude,
+                            'longitude' => $longitude,
+                            'created_at' => date('Y-m-d H:i:s')
+                            
                         );
                         $data = $this->model->insertData('doctor', $data);
                     }
@@ -528,7 +523,7 @@ class Admin extends CI_Controller
                 $result = $this->model->insertData('user_rights', $data);
             }
             
-            redirect('admin/users_list/4');
+            redirect('admin/hospitals_list');
         } else {
             redirect('admin/index');
         }
@@ -761,7 +756,7 @@ class Admin extends CI_Controller
             }
             
             if ($this->form_validation->run() == false) {
-
+                
                 $this->session->set_flashdata('errors', validation_errors());
                 $data['body']    = 'add_appointment';
                 $where           = array(
@@ -775,9 +770,9 @@ class Admin extends CI_Controller
                 $this->controller->load_view($data);
             } else {
                 
-
+                
                 $data = $this->input->post();
-               // echo '<pre>'
+                // echo '<pre>'
                 $data = array(
                     'appointment_type' => $data['appointment_type'],
                     'appointment_id' => 'AP' . mt_rand(100000, 999999),
@@ -892,7 +887,7 @@ class Admin extends CI_Controller
                 $data['body'] = 'profile';
                 $this->controller->load_view($data);
             } else {
-
+                
                 
                 $first_name  = $this->input->post('first_name');
                 $last_name   = $this->input->post('last_name');
@@ -1050,9 +1045,11 @@ class Admin extends CI_Controller
                 $data['body'] = 'add_notice';
                 
                 if (!empty($id)) {
-
-                    $where           = array('id' => $id);
-
+                    
+                    $where = array(
+                        'id' => $id
+                    );
+                    
                     $data['notices'] = $this->model->getAllwhere('notices', $where);
                     $data['body']    = 'edit_notices';
                 }
@@ -1152,9 +1149,9 @@ class Admin extends CI_Controller
     public function send_mail()
     {
         if ($this->controller->checkSession()) {
-
+            
             $where = array(
-
+                
                 'user_role != ' => $this->session->userdata('user_role')
             );
             $this->form_validation->set_rules('reciever_id[]', 'Mail to', 'trim|required');
@@ -1162,10 +1159,10 @@ class Admin extends CI_Controller
             $this->form_validation->set_rules('message', 'Message', 'trim|required');
             if ($this->form_validation->run() == false) {
                 $this->session->set_flashdata('errors', validation_errors());
-
-                 $data['users'] = $this->model->getAllwhere('users', $where);
-                $data['body'] = 'send_mail';
-
+                
+                $data['users'] = $this->model->getAllwhere('users', $where);
+                $data['body']  = 'send_mail';
+                
                 $this->controller->load_view($data);
             } else {
                 
@@ -1183,7 +1180,7 @@ class Admin extends CI_Controller
                     'is_active' => 1,
                     'created_at' => date('Y-m-d H:i:s')
                 );
-
+                
                 
                 
                 $config_mail = Array(
@@ -1196,13 +1193,13 @@ class Admin extends CI_Controller
                     'charset' => 'iso-8859-1',
                     'newline' => "\r\n"
                 );
-
+                
                 $this->load->library('email', $config_mail);
                 $this->email->set_mailtype("html");
                 $this->email->set_newline("\r\n");
-
                 
-
+                
+                
                 for ($i = 0; $i < count($reciever_id); $i++) {
                     $this->email->from($this->session->userdata('email'), "Admin Team");
                     $this->email->to($reciever_id[$i]);
@@ -1218,7 +1215,7 @@ class Admin extends CI_Controller
                     );
                 }
                 
-                                                       
+                
                 if (!$this->email->send()) {
                     show_error($this->email->print_debugger());
                 }
@@ -1352,7 +1349,7 @@ class Admin extends CI_Controller
             $this->form_validation->set_rules('city', 'City', 'trim|required|xss_clean|numeric');
             $this->form_validation->set_rules('address', 'Address', 'trim|required|xss_clean');
             $this->form_validation->set_rules('no_of_doc', 'Number of Doctor', 'trim|required|numeric');
-            $this->form_validation->set_rules('speciality', 'Speciality', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('speciality[]', 'Speciality', 'trim|required|xss_clean');
             $this->form_validation->set_rules('blood_bank', 'Blood Bank', 'trim|required');
             
             if (empty($id)) {
@@ -1390,9 +1387,13 @@ class Admin extends CI_Controller
                         'id' => $state[0]->state_id
                     );
                     $country                          = $this->model->getAllwhere('states', $where_state);
+                    $where_country                    = array(
+                        'id' => $country[0]->country_id
+                    );
                     $data['hospitals'][0]->state_id   = $state[0]->state_id;
                     $data['hospitals'][0]->state_name = $country[0]->name;
                     $data['hospitals'][0]->country    = $country[0]->country_id;
+                    $data['country_name']             = $this->model->getAllwhere('countries', $where_country);
                     $data['hospitals'][0]->city_name  = $state[0]->name;
                 }
                 
@@ -1404,9 +1405,10 @@ class Admin extends CI_Controller
                 $data['countries']  = $this->model->getAll('countries');
                 $data['body']       = 'hospitals';
                 $this->controller->load_view($data);
-
-            } else {                
-
+                
+            } else {
+                
+                
                 $hospital_name       = $this->input->post('hospital_name');
                 $registration_number = $this->input->post('registration_number');
                 $owner_name          = $this->input->post('owner_name');
@@ -1418,7 +1420,7 @@ class Admin extends CI_Controller
                 $no_of_ambulance     = $this->input->post('no_of_ambulance');
                 $blood_bank          = $this->input->post('blood_bank');
                 $status              = $this->input->post('status');
-                $other_speciality    = $this->input->post('other_speciality');
+                // $other_speciality    = $this->input->post('other_speciality');
                 
                 if (!empty($_FILES)) {
                     $file_name = $this->file_upload('logo');
@@ -1426,9 +1428,33 @@ class Admin extends CI_Controller
                     $file_name = '';
                 }
                 
-                if (!empty($other_speciality)) {
-                    $other_speciality = implode(',', $other_speciality);
+                if (!empty($speciality)) {
+                    $speciality = implode(',', $speciality);
                 }
+                
+                $address1 = $this->input->post('address1');
+                if (!empty($address1)) {
+                    
+                    //Formatted address
+                    $formattedAddr   = str_replace(' ', '+', $address1);
+                    //Send request and receive json data by address
+                    $geocodeFromAddr = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . $formattedAddr . '&sensor=false&key=AIzaSyCSZ2Wy8ghd5Zby2FlNwgzUXPYgg0xqVIA');
+                    $output          = json_decode($geocodeFromAddr, true);
+                    
+                    if ($output['status'] == 'ZERO_RESULTS') {
+                        $this->form_validation->set_message('address', 'Address Not Found Enter Valid address');
+                        redirect('admin/hospitals');
+                        return false;
+                        //Get latitude and longitute from json data
+                        
+                    } else {
+                        $latitude  = $output['results'][0]['geometry']['location']['lat'];
+                        $longitude = $output['results'][0]['geometry']['location']['lng'];
+                    }
+                    
+                    //Return latitude and longitude of the given address
+                }
+                
                 
                 $data = array(
                     'hospital_name' => $hospital_name,
@@ -1439,16 +1465,18 @@ class Admin extends CI_Controller
                     'staff_number' => $staff_number,
                     'no_of_doc' => $no_of_doc,
                     'speciality' => $speciality,
-                    'other_speciality' => $other_speciality,
+                    'latitude' => $latitude,
+                    'longitude' => $longitude,
+                    // 'other_speciality' => $other_speciality,
                     'no_of_ambulance' => $no_of_ambulance,
                     'blood_bank' => $blood_bank,
                     'is_active' => $status,
                     'logo' => $file_name,
                     'created_at' => date('Y-m-d H:i:s')
                 );
-
-                if(!empty($id)){
-
+                
+                if (!empty($id)) {
+                    
                     $data1 = array(
                         'first_name' => $hospital_name,
                         'date_of_birth' => $this->input->post('registration_date'),
@@ -1459,9 +1487,9 @@ class Admin extends CI_Controller
                         'is_active' => $status,
                         'created_at' => date('Y-m-d H:i:s')
                     );
-
-                }else{
-
+                    
+                } else {
+                    
                     $data1 = array(
                         'first_name' => $hospital_name,
                         'date_of_birth' => $this->input->post('registration_date'),
@@ -1477,7 +1505,7 @@ class Admin extends CI_Controller
                         'created_at' => date('Y-m-d H:i:s')
                     );
                 }
-
+                
                 if (!empty($id)) {
                     $where  = array(
                         'id' => $id
@@ -1516,14 +1544,16 @@ class Admin extends CI_Controller
                 $field = '';
                 $value = '';
             }
-
-            $field_val              = 'hospitals.hospital_name,hospitals.id,hospitals.registration_number,hospitals.owner_name,hospitals.address,hospitals.staff_number,hospitals.no_of_doc,hospitals.no_of_ambulance,hospitals.blood_bank,hospitals.created_at,u1.id as user_id,u1.user_role,u2.name as speciality';
-            $where = array('u1.user_role'=>4);
-
-            $data['hospitals_list'] = $this->model->GetJoinRecordNew('hospitals', 'id', 'speciality', 'users u1', 'hospital_id', 'speciality u2', 'id', $field, $value, $field_val,$where);
             
-            $data['body']           = 'hospitals_list';
-
+            $field_val = 'hospitals.hospital_name,hospitals.id,hospitals.registration_number,hospitals.owner_name,hospitals.address,hospitals.staff_number,hospitals.no_of_doc,hospitals.no_of_ambulance,hospitals.blood_bank,hospitals.created_at,u1.id as user_id,u1.user_role,u2.name as speciality';
+            $where     = array(
+                'u1.user_role' => 4
+            );
+            
+            $data['hospitals_list'] = $this->model->GetJoinRecordNew('hospitals', 'id', 'speciality', 'users u1', 'hospital_id', 'speciality u2', 'id', $field, $value, $field_val, $where);
+            
+            $data['body'] = 'hospitals_list';
+            
             $this->controller->load_view($data);
         } else {
             redirect('admin/index');
@@ -1704,16 +1734,16 @@ class Admin extends CI_Controller
     public function speciality($id = NULL)
     {
         if ($this->controller->checkSession()) {
-
+            
             $this->form_validation->set_rules('speciality_name', 'Speciality Name', 'trim|required|is_unique[speciality.name]');
-
+            
             if (empty($id)) {
                 $this->form_validation->set_rules('speciality_name', 'Speciality Name', 'trim|required|is_unique[speciality.name]');
             } else {
                 $this->form_validation->set_rules('speciality_name', 'Speciality Name', 'trim|required');
             }
             
-
+            
             $this->form_validation->set_rules('status', 'Status', 'trim|required');
             if ($this->form_validation->run() == false) {
                 $this->session->set_flashdata('errors', validation_errors());
@@ -1847,9 +1877,9 @@ class Admin extends CI_Controller
             $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|callback_alpha_dash_space|min_length[2]');
             $this->form_validation->set_rules('dob', 'Date Of Birth', 'trim|required');
             
-
+            
             if (empty($id)) {
-
+                
                 $this->form_validation->set_rules('user_name', 'User Name', 'trim|required|is_unique[users.username]');
                 $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]');
             }
@@ -1857,7 +1887,7 @@ class Admin extends CI_Controller
                 $this->session->set_flashdata('errors', validation_errors());
                 $this->edit_user($id);
             } else {
-
+                
                 $first_name     = $this->input->post('first_name');
                 $last_name      = $this->input->post('last_name');
                 $address        = $this->input->post('address');
@@ -1875,7 +1905,7 @@ class Admin extends CI_Controller
                 } else {
                     $file_name = '';
                 }
-
+                
                 $data = array(
                     'first_name' => $first_name,
                     'last_name' => $last_name,
@@ -1910,7 +1940,7 @@ class Admin extends CI_Controller
                 
                 $result = $this->model->updateFields('doctor', $data1, $where1);
                 
-
+                
                 redirect('admin/users_list/2');
             }
         } else {
@@ -1971,29 +2001,30 @@ class Admin extends CI_Controller
             }
         } else {
             redirect('admin/index');
-
+            
         }
     }
-
-    public function get_location(){
-        if(!empty($_POST['latitude']) && !empty($_POST['longitude'])){
+    
+    public function get_location()
+    {
+        if (!empty($_POST['latitude']) && !empty($_POST['longitude'])) {
             //send request and receive json data by latitude and longitude
-            $url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='.trim($_POST['latitude']).','.trim($_POST['longitude']).'&sensor=false';
-            $json = @file_get_contents($url);
-            $data = json_decode($json);
+            $url    = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' . trim($_POST['latitude']) . ',' . trim($_POST['longitude']) . '&sensor=false';
+            $json   = @file_get_contents($url);
+            $data   = json_decode($json);
             $status = $data->status;
             
             //if request status is successful
-            if($status == "OK"){
+            if ($status == "OK") {
                 //get address from json data
                 $location = $data->results[0]->formatted_address;
-            }else{
-                $location =  '';
+            } else {
+                $location = '';
             }
             
             //return address to ajax 
             echo $location;
-
+            
         }
     }
 }

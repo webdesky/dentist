@@ -1,5 +1,4 @@
 /*! * Start Bootstrap - SB Admin 2 v3.3.7+1 (http://startbootstrap.com/template-overviews/sb-admin-2) * Copyright 2013-2016 Start Bootstrap * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE) */
-
 @import url('https://fonts.googleapis.com/css?family=Work+Sans');
 body {
     background-color: #f8f8f8;
@@ -45,6 +44,43 @@ ul.nav-third-level {
     display: inline-block;
     border: 1px solid rgba(59, 70, 72, 0.5);
     z-index: 99;
+}
+ #wrapper {
+     width: 100%;
+}
+ #page-wrapper {
+     padding: 0 15px;
+     min-height: auto !important;
+     height: 900px !important;
+    /*height:auto!important;
+    */
+     background-color: white;
+}
+ ul.nav.nav-second-level, ul.nav-third-level {
+     position: relative;
+}
+ .sidebar-menu .nav-second-level:before {
+     width: 1px;
+     bottom: 0;
+     background: rgba(59, 70, 72, 0.5);
+     content: "";
+     position: absolute;
+     top: 0;
+     left: 37px;
+     right: 0;
+     display: block;
+     z-index: 99;
+}
+ .sidebar-menu .nav-second-level > li::before, .sidebar .nav-third-level li::before {
+     left: 38px;
+     top: 20px;
+     width: 14px;
+     content: ' ';
+     position: absolute;
+     display: inline-block;
+     border: 1px solid rgba(59, 70, 72, 0.5);
+     z-index: 99;
+>>>>>>> 47d66bba44b46d5e9aae8584fef7b9f5a52cfd37
 }
 
 
