@@ -75,21 +75,28 @@
                 <!-- /.panel-body -->
             </div>
             <!-- /.panel -->
+
+            <!-- calender starts -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+<h2 align="center"><a href="#">View all appointments</a></h2>
+<div id="calendar"></div>
+            
+            <!-- calender ends -->
         </div>
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
 </div>
 <script type="text/javascript">
-
-
 $('#dataTables-example').DataTable({
-        responsive: true,
-        'aoColumnDefs': [{
-            'bSortable': false,
-            'aTargets': [-1] /* 1st one, start by the right */
-        }]
-    });
+    responsive: true,
+    'aoColumnDefs': [{
+        'bSortable': false,
+        'aTargets': [-1] /* 1st one, start by the right */
+    }]
+});
 
 function delete_appointment(id, tr_id) {
     swal({
@@ -114,32 +121,60 @@ function delete_appointment(id, tr_id) {
         });
     });
 }
+
 function updateStatus(id, active) {
-        if (active == 0) {
-            data = 1;
-        } else {
-            data = 0;
-        }
-        swal({
-            title: "Are you sure?",
-            text: "You want to Change Status?",
-            type: "warning",
-            showCancelButton: true,
-            closeOnConfirm: false,
-            confirmButtonText: "Yes, Change it!",
-            confirmButtonColor: "#ec6c62"
-        }, function() {
-            $.ajax({
-                url: "<?php echo base_url('admin/update_status')?>",
-                data: {
-                    id: id,
-                    active: data,
-                },
-                type: "POST"
-            }).done(function(data) {
-                swal("Changed!", "Status was successfully changed!", "success");
-                window.location.reload();
-            });
-        });
+    if (active == 0) {
+        data = 1;
+    } else {
+        data = 0;
     }
+    swal({
+        title: "Are you sure?",
+        text: "You want to Change Status?",
+        type: "warning",
+        showCancelButton: true,
+        closeOnConfirm: false,
+        confirmButtonText: "Yes, Change it!",
+        confirmButtonColor: "#ec6c62"
+    }, function() {
+        $.ajax({
+            url: "<?php echo base_url('admin/update_status')?>",
+            data: {
+                id: id,
+                active: data,
+            },
+            type: "POST"
+        }).done(function(data) {
+            swal("Changed!", "Status was successfully changed!", "success");
+            window.location.reload();
+        });
+    });
+}
+</script>
+
+<script>
+$(document).ready(function() {
+    var today = moment().day();
+    $('#calendar').fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay,listWeek'
+        },
+        firstDay: today,
+        navLinks: true, // can click day/week names to navigate views
+        editable: true,
+        eventLimit: true, // allow "more" link when too many events
+        timeFormat: 'HH:mm',
+        events: [
+            <?php foreach ($appointmentList as  $value) {?> {
+                title: '<?php echo $value->appointment_id;?> - <?php echo $value->first_name." ".$value->last_name;?> ',
+                start: '<?php $date = explode(' ', $value->appointment_date); echo $date[0]?>T<?php $a = explode(' ', $value->appointment_time); echo $a[0]?>',
+            },
+            <?php }?>
+        ]
+    });
+
+});
+
 </script>
