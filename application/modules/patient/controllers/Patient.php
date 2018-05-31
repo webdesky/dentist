@@ -40,6 +40,12 @@ class Patient extends CI_Controller
     public function appointment_list()
     {
         if ($this->controller->checkSession()) {
+
+            $notification  = $this->model->getcount('appointment',array('patient_id' => $this->session->userdata('id'),'notification_status'=>1),'updated_by,appointment_date');
+            
+            if(!empty($notification)){
+                $this->session->set_userData('notification',$notification);
+            }
             $where                   = array(
                 'user_role' => 2,
                 'patient_id' => $this->session->userdata('id')
@@ -51,6 +57,23 @@ class Patient extends CI_Controller
         } else {
             redirect('admin/index');
         }
+    }
+
+    public function get_notification(){
+         $notification  = $this->model->getAllwhere('appointment',array('patient_id' => $this->session->userdata('id'),'notification_status'=>1),'updated_by,appointment_date,id');
+
+         print_r(json_encode($notification));
+    }
+
+    public function read_notification(){
+         $appointment_id = $this->uri->segment(3);  
+         $data = array('notification_status'=>0);
+         $this->model->updateFields('appointment',$data,array('id'=>$appointment_id));
+         $this->session->unset_userdata('notification');
+         $this->appointment_list();  
+
+
+
     }
     public function view_appointment($id)
     {
@@ -116,9 +139,9 @@ class Patient extends CI_Controller
                 } else {
 
 
-                    echo "<pre>";
-                    print_r($_FILES
-                    print_r($this->input->post());die;
+                    // echo "<pre>";
+                    // print_r($_FILES
+                    // print_r($this->input->post());die;
                     
                     $doctor_id   = $this->input->post('doctor_id');
                     $patient_id  = $this->session->userdata('id');
