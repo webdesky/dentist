@@ -65,9 +65,6 @@
                                  <?php if(isset($edit_doc_id)){ 
                                     if(!empty($edit_document_data)){
                                      foreach ($edit_document_data as $key => $value) {
-                                    
-                                        
-                                    
                                     ?>
                                     <div class="form-group">
                                         <label class="col-md-2">Attach File * </label>
@@ -77,10 +74,6 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <input type="file" id="file" name="file[]" class="form-control">
-
-
-                                            
-                                            
                                             <img src="<?php echo base_url('asset/uploads/'.$value->image); ?>" width='50px' height='50px'>
                                             <span class="red"><?php echo form_error('file'); ?></span>
                                         </div>
@@ -100,19 +93,10 @@
                                             <span class="red"><?php echo form_error('file'); ?></span>
                                         </div>
                                     </div>
-
-
-
-
                                 <?php } ?>
 
                                     <div class="col-lg-2" style="margin-top: 5px;"><i class="fa fa-plus-circle" aria-hidden="true" id="add" style="font-size: 25px;"></i></div>
                                 </div>
-                                
-
-
-
-                                 
                                 <div class="col-md-12" align="center">
                                     <?php if(isset($edit_doc_id)){?>
                                     <button type="submit" value="Save" class="btn btn-success">Update</button>

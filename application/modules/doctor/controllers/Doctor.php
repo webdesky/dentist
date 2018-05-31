@@ -65,22 +65,22 @@ class Doctor extends CI_Controller
             $this->form_validation->set_rules('old_password', 'Old Password', 'trim|required|callback_oldpass_check');
             $this->form_validation->set_rules('new_password', 'New Password', 'trim|required|md5');
             $this->form_validation->set_rules('confirm_password', 'Confirm Password', 'trim|required|matches[new_password]|md5');
-
-
+            
+            
             if ($this->form_validation->run() == false) {
                 $this->session->set_flashdata('errors', validation_errors());
                 $data['body'] = 'change_password';
                 $this->controller->load_view($data);
             } else {
-
                 
-                $data   = array(
+                
+                $data  = array(
                     'password' => $this->input->post('new_password', TRUE)
                 );
-                $where  = array(
+                $where = array(
                     'id' => $this->session->userdata('id')
                 );
-
+                
                 $table  = 'admins';
                 $result = $this->model->updateFields($table, $data, $where);
                 redirect('doctor/change_password', 'refresh');
@@ -111,10 +111,9 @@ class Doctor extends CI_Controller
     
     public function Appointment()
     {
-
-        if ($this->controller->checkSession()) 
-        {
-
+        
+        if ($this->controller->checkSession()) {
+            
             $data['body'] = 'add_appointment';
             
             $where  = array(
@@ -151,14 +150,14 @@ class Doctor extends CI_Controller
                 $this->session->set_flashdata('errors', validation_errors());
                 $data['body'] = 'add_appointment';
                 
-
+                
                 $where  = array(
                     'user_role' => 2
                 );
                 $wheres = array(
                     'user_role ' => 3
                 );
-
+                
                 
                 $data['doctor']  = $this->model->getAllwhere('users', $where);
                 $data['patient'] = $this->model->getAllwhere('users', $wheres);
@@ -169,20 +168,22 @@ class Doctor extends CI_Controller
                 if ($this->controller->checkSession()) {
                     
                     $data = $this->input->post();
-
+                    
                     $data = array(
-                                'appointment_id'    =>  'AP'.mt_rand(100000, 999999),
-                                'patient_id'        =>  $data['patient_id'],
-                                'doctor_id'         =>  $data['doctor_id'],
-                                'appointment_date'  =>  $data['appointment_date'],
-                                'appointment_time'  =>  $data['appointment_time'],
-                                'problem'           =>  $data['problem'],
-                                'created_at'        =>  date('Y-m-d H:i:s')
-                            );
+                        'appointment_id' => 'AP' . mt_rand(100000, 999999),
+                        'patient_id' => $data['patient_id'],
+                        'doctor_id' => $data['doctor_id'],
+                        'appointment_date' => $data['appointment_date'],
+                        'appointment_time' => $data['appointment_time'],
+                        'problem' => $data['problem'],
+                        'created_at' => date('Y-m-d H:i:s')
+                    );
                     
                     if (!empty($id)) {
-                        $where = array('id' => $id);
-
+                        $where = array(
+                            'id' => $id
+                        );
+                        
                         unset($data['created_at']);
                         unset($data['appointment_id']);
                         $data['notification_status'] =1;
@@ -210,7 +211,7 @@ class Doctor extends CI_Controller
             );
             $field_val   = 'appointment.appointment_id,appointment.id,appointment.appointment_date,appointment.appointment_time,users.first_name,users.last_name,appointment.hospital_id,appointment.is_active';
             $appointment = $this->model->GetJoinRecord('appointment', 'patient_id', 'users', 'id', $field_val, $where);
-
+            
             if (!empty($appointment)) {
                 foreach ($appointment as $key => $value) {
                     $hospital_name                    = $this->model->getAllwhere('hospitals', array(
@@ -326,7 +327,7 @@ class Doctor extends CI_Controller
                     
                     
                     if (isset($_FILES['image']['name']) && !empty($_FILES['image']['name'])) {
-
+                        
                         $count = count($_FILES['image']['name']);
                         for ($i = 0; $i < $count; $i++) {
                             if ($_FILES['image']['error'] == 0) {
@@ -939,14 +940,14 @@ class Doctor extends CI_Controller
         if ($this->controller->checkSession()) {
             $this->db->select('notices.*,CONCAT(u.first_name," ", u.last_name) as sender_name');
             $this->db->from('notices');
-
-            $this->db->join('users as u',"u.id=notices.added_by");
-
+            
+            $this->db->join('users as u', "u.id=notices.added_by");
+            
             $this->db->where("CURDATE() BETWEEN notices.start_date AND notices.end_date");
-            $this->db->where('notices.is_active' , 1);
-            $this->db->where('notices.hospital_id' , NULL);
-            $query               =   $this->db->get();
-            $data['notice_list'] =   $query->result();
+            $this->db->where('notices.is_active', 1);
+            $this->db->where('notices.hospital_id', NULL);
+            $query               = $this->db->get();
+            $data['notice_list'] = $query->result();
             $data['body']        = 'list_notice';
             $this->controller->load_view($data);
         } else {
@@ -1358,5 +1359,34 @@ class Doctor extends CI_Controller
         } else {
             redirect('admin/index');
         }
+    }
+    
+    public function calender_records()
+    {
+        if ($this->controller->checkSession()) {
+            $where       = array(
+                'doctor_id' => $this->session->userdata('id'),
+                'appointment_date >=' => date('Y-m-d')
+            );
+            $field_val   = 'appointment.appointment_id,appointment.id,appointment.appointment_date,appointment.appointment_time,users.first_name,users.last_name,appointment.hospital_id,appointment.is_active';
+            $appointment = $this->model->GetJoinRecord('appointment', 'patient_id', 'users', 'id', $field_val, $where);
+            
+            if (!empty($appointment)) {
+                foreach ($appointment as $key => $value) {
+                    $hospital_name                    = $this->model->getAllwhere('hospitals', array(
+                        'id' => $value->hospital_id
+                    ), 'hospital_name');
+                    $appointment[$key]->hospital_name = $hospital_name[0]->hospital_name;
+                }
+            }
+            // $data['appointmentList'] = $appointment;
+            // echo '<pre>'; 
+            // print_r($data['appointmentList']);
+            echo json_encode(array("events" => $appointment));
+     exit();
+        } else {
+            redirect('admin/index');
+        }
+        
     }
 }

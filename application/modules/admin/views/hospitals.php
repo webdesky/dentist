@@ -75,11 +75,9 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Username *</label>
                                         <div class="col-md-9">
-<<<<<<< HEAD
-                                            <input class="form-control" type="text" name="username" placeholder="Username" maxlength="30" autocomplete="off" value="<?php if(!empty($hospitals_details[0]->username)){ echo $hospitals_details[0]->username;}else{ echo set_value('username');} ?>">
-=======
-                                            <input class="form-control" type="text" name="username" placeholder="Username" autocomplete="new-password" value="<?php if(!empty($hospitals_details[0]->username)){ echo $hospitals_details[0]->username;}else{ echo set_value('username');} ?>">
->>>>>>> 5a9f6dabfb21ed6d89335b724b63f6b4d466fe9e
+
+                                            <input class="form-control" type="text" name="username" placeholder="Username" maxlength="30" autocomplete="new-password" value="<?php if(!empty($hospitals_details[0]->username)){ echo $hospitals_details[0]->username;}else{ echo set_value('username');} ?>">
+
                                             <span class="red"><?php echo form_error('username'); ?></span>
                                         </div>
                                     </div>
