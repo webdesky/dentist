@@ -165,8 +165,8 @@
                                             <div class="form-group row">
                                                 <div class="col-sm-offset-3 col-md-6">
                                                     <div class="ui buttons">
+                                                        <input type="submit" name="submit" class="ui positive button btn btn-success" value="Save">&nbsp;
                                                         <button type="reset" class="ui button btn btn-default">Reset</button>
-                                                        <input type="submit" name="submit" class="ui positive button btn btn-success" value="Save">
                                                     </div>
                                                 </div>
                                             </div>

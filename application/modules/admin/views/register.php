@@ -58,7 +58,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">E-mail *</label>
                                         <div class="col-md-9">
-                                            <input type="text" name="email" class="form-control" placeholder="Email Address" autocomplete="off" value="<?php echo set_value('email'); ?>">
+                                            <input type="text" name="email" class="form-control" placeholder="Email Address" autocomplete="new-password" value="<?php echo set_value('email'); ?>">
                                             <span class="red"><?php echo form_error('email'); ?></span>
                                         </div>
                                     </div>
@@ -67,7 +67,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Password *</label>
                                         <div class="col-md-9">
-                                            <input type="Password" class="form-control" id="password" name="password" placeholder="Password">
+                                            <input type="Password" class="form-control" id="password" name="password" placeholder="Password" autocomplete="new-password">
                                             <span class="red"><?php echo form_error('password'); ?></span>
                                         </div>
                                     </div>
@@ -206,8 +206,9 @@
                                         <span class="red"><?php echo form_error('blood_group'); ?></span>
                                     </div>
                                 </div>
+                                <div class="clearfix"></div>
                                 <div class="col-md-12" align="center">
-                                    <input type="submit" name="submit" class="btn btn-success" value="Save">
+                                    <input type="submit" name="submit" class="btn btn-success" value="Save">&nbsp;
                                     <input type="reset" class="btn btn-default" value="Reset">
                                 </div>
                             </form>

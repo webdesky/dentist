@@ -66,7 +66,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Email *</label>
                                         <div class="col-md-9">
-                                            <input class="form-control" type="email" name="email" placeholder="Email" autocomplete="off" value="<?php if(!empty($hospitals_details[0]->email)){ echo $hospitals_details[0]->email;}else{ echo set_value('email');} ?>">
+                                            <input class="form-control" type="email" name="email" placeholder="Email" autocomplete="new-password" value="<?php if(!empty($hospitals_details[0]->email)){ echo $hospitals_details[0]->email;}else{ echo set_value('email');} ?>">
                                             <span class="red"><?php echo form_error('email'); ?></span>
                                         </div>
                                     </div>
@@ -75,7 +75,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Username *</label>
                                         <div class="col-md-9">
-                                            <input class="form-control" type="text" name="username" placeholder="Username" autocomplete="off" value="<?php if(!empty($hospitals_details[0]->username)){ echo $hospitals_details[0]->username;}else{ echo set_value('username');} ?>">
+                                            <input class="form-control" type="text" name="username" placeholder="Username" autocomplete="new-password" value="<?php if(!empty($hospitals_details[0]->username)){ echo $hospitals_details[0]->username;}else{ echo set_value('username');} ?>">
                                             <span class="red"><?php echo form_error('username'); ?></span>
                                         </div>
                                     </div>
@@ -84,7 +84,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Password *</label>
                                         <div class="col-md-9">
-                                            <input class="form-control" type="password" name="password" placeholder="Password" autocomplete="off" value="<?php if(!empty($hospitals_details[0]->password)){ echo $hospitals_details[0]->password;}else{ echo set_value('password');} ?>">
+                                            <input class="form-control" type="password" name="password" placeholder="Password" autocomplete="new-password" value="<?php if(!empty($hospitals_details[0]->password)){ echo $hospitals_details[0]->password;}else{ echo set_value('password');} ?>">
                                             <span class="red"><?php echo form_error('password'); ?></span>
                                         </div>
                                     </div>
@@ -157,7 +157,7 @@
                                         <div class="col-md-9">
                                             <input type="text" name="address" id="address" class="form-control" placeholder="Address" autocomplete="off" value="<?php if(!empty($hospitals[0]->address)){ echo $hospitals[0]->address;}else{ echo set_value('address');} ?>">
                                             <span class="red"><?php echo form_error('address'); ?></span>
-                                            <?php echo form_error('address', '<div class="error">', '</div>'); ?>
+                                            <?php //echo form_error('address', '<div class="error">', '</div>'); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -202,7 +202,7 @@
 
                                                 <?php } ?>
                                             </select>
-                                            <span class="red"><?php echo form_error('speciality'); ?></span>
+                                            <span class="red"><?php echo form_error('speciality[]'); ?></span>
                                         </div>
                                     </div>
                                 </div>
@@ -274,8 +274,9 @@
                                 </div>
                                 <div class="clearfix"></div> -->
                                 <br>
+                                <div class="clearfix"></div>
                                 <div class="col-md-12" align="center">
-                                    <input type="submit" name="submit" class="btn btn-success" value="Save">
+                                    <input type="submit" name="submit" class="btn btn-success" value="Save">&nbsp;
                                     <input type="reset" class="btn btn-default" value="Reset">
                                 </div>
                             </form>

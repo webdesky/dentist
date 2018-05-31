@@ -34,7 +34,7 @@
                                 <div class="form-group">
                                     <label class="col-md-2">Appointment Id</label>
                                     <div class="col-lg-6">
-                                        <input type="text" readonly="readonly" value="<?php echo $appointment[0]->appointment_id ?>" class="form-control" disabled="disabled"> <span><?php echo form_error('doctor_id'); ?></span> </div>
+                                        <input type="text" readonly="readonly" value="<?php echo $appointment[0]->appointment_id ?>" class="form-control" disabled="disabled"></div>
                                 </div>
                                 
                                 <div class="form-group">
@@ -46,12 +46,12 @@
                                                 <?php echo ucwords($value->first_name);?>
                                             </option>
                                             <?php } ?>
-                                        </select> <span><?php echo form_error('doctor_id'); ?></span> </div>
+                                        </select> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-2">Appointment Date </label>
                                     <div class="col-lg-3">
-                                        <input type="text" id="startdate" name="appointment_date" id="appointment_date" value="<?php echo $appointment[0]->appointment_date; ?>" class="form-control" autocomplete="off" readonly="readonly" placeholder="Start Time" disabled="disabled">
+                                        <input type="text" id="startdate" name="appointment_date" id="appointment_date" value="<?php echo date("Y-m-d", strtotime($appointment[0]->appointment_date)); ?>" class="form-control" autocomplete="off" readonly="readonly" placeholder="Start Time" disabled="disabled">
                                     </div>
                                     <div class="col-lg-3">
                                         <input type="text" id="timepicker" name="appointment_time" class="form-control" value="<?php echo $appointment[0]->appointment_time; ?>" autocomplete="off" readonly="readonly" placeholder="Start Time" disabled="disabled">
@@ -60,7 +60,7 @@
                                 <div class="form-group">
                                     <label class="col-md-2">Problem </label>
                                     <div class="col-lg-6">
-                                        <textarea class="form-control" rows="5" id="problem" " name="problem " placeholder="Problem " disabled="disabled "><?php echo $appointment[0]->problem; ?></textarea></div>
+                                        <textarea class="form-control" rows="5" id="problem" name="problem" placeholder="Problem" disabled="disabled"><?php echo $appointment[0]->problem; ?></textarea></div>
                                         </div>
                                         <!-- <button type="button " class="btn btn-default " onclick="go_back(); ">Back</button> -->
                                     </form>

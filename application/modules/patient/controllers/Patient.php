@@ -203,7 +203,7 @@ class Patient extends CI_Controller
             redirect('admin/index');
         }
     }
-
+    
     public function prescription_list()
     {
         if ($this->controller->checkSession()) {

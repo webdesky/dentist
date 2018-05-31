@@ -115,8 +115,9 @@
                                         <span><?php echo form_error('problem'); ?></span>
                                     </div>
                                 </div>
+                                <div class="clearfix"></div>
                                 <div class="col-md-12" align="center">
-                                    <button type="submit" value="Save" id="submit" class="btn btn-success">Save</button>
+                                    <button type="submit" value="Save" id="submit" class="btn btn-success">Save</button>&nbsp;
                                     <input type="reset" class="btn btn-default" value="Reset"> </div>
                             </form>
                         </div>
@@ -148,10 +149,10 @@
 
         $('#timepicker').timepicker({
             change: function(time) {
-                doctor_id 				= $('#doctor_id').val();
-                appointment_date 		= $('#appointment_date').val();
-                hospital_id 			= $('#hospital_id').val();
-                var appointment_time 	= $(this).val();
+                doctor_id            = $('#doctor_id').val();
+                appointment_date     = $('#appointment_date').val();
+                hospital_id          = $('#hospital_id').val();
+                var appointment_time = $(this).val();
                 $.ajax({
                     type: 'POST',
                     url: "<?php echo base_url('admin/get_time')?>",
@@ -182,10 +183,10 @@
 
 
     function getSchedule(id) {
-        var doctor_id 		 = id;
+        var doctor_id = id;
         var appointment_date = $('#appointment_date').val();
         var appointment_time = $('#timepicker').val();
-        var hospital_id 	 = $('#hospital_id').val();
+        var hospital_id = $('#hospital_id').val();
         $.ajax({
             type: "POST",
             url: "<?php echo base_url('admin/get_schedule')?>",

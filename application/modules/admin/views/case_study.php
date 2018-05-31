@@ -152,10 +152,10 @@
                                         </label>
                                         </div>
                                     </div>
-                                </div>
+                                </div><div class="clearfix"></div>
                                 <div class="col-md-12" align="center">
                                     <input type="submit" name="submit" class="btn btn-success" value="Save">
-
+                                    &nbsp;
                                     <input type="reset" class="btn btn-default" value="Reset">
                                 </div>
                             </form>
