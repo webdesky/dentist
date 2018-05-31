@@ -24,7 +24,7 @@
                                         <label class="col-md-2">Hospital *</label>
                                         <div class="col-lg-6">
                                             <select class="form-control" name="hospital_id" id="hospital_id"> 
-                                            <option value="">-- Select Hospital or Don't choose any , if you want to send notice to all the hospitals --</option>
+                                            <option value="">-Select Hospital or Don't choose any , if you want to send notice to all the hospitals -</option>
                                             <?php foreach ($hospitals as $value) { ?>
                                             <option value="<?php echo $value->id; ?>"><?php echo ucfirst($value->hospital_name); ?></option>
                                             <?php   } ?>
@@ -54,10 +54,11 @@
                                 <div class="form-group"> <label class="col-md-2">End Date * </label>
                                     <div class="col-lg-6"> <input type="text" id="end_date" name="end_date" class="form-control date" autocomplete="off" readonly="readonly" required="required" value=""> <span class="red"><?php echo form_error('end_date'); ?></span> </div>
                                 </div>
+                                <div class="clearfix"></div>
                                 <div class="col-md-12" align="center">
                                 <button type="submit" value="Save" class="btn btn-success">Save</button>
                                 &nbsp;
-                                <input type="reset" class="btn btn-default" value="Reset"/> </div>
+                                <input type="reset" value="Reset" class="btn btn-default"/> </div>
                             </form>
                         </div>
                     </div>

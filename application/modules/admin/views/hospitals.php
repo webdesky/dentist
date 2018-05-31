@@ -66,7 +66,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Email *</label>
                                         <div class="col-md-9">
-                                            <input class="form-control" type="email" name="email" placeholder="Email" autocomplete="off" value="<?php if(!empty($hospitals_details[0]->email)){ echo $hospitals_details[0]->email;}else{ echo set_value('email');} ?>">
+                                            <input class="form-control" type="email" name="email" placeholder="Email" autocomplete="new-password" value="<?php if(!empty($hospitals_details[0]->email)){ echo $hospitals_details[0]->email;}else{ echo set_value('email');} ?>">
                                             <span class="red"><?php echo form_error('email'); ?></span>
                                         </div>
                                     </div>
@@ -75,7 +75,11 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Username *</label>
                                         <div class="col-md-9">
+<<<<<<< HEAD
                                             <input class="form-control" type="text" name="username" placeholder="Username" maxlength="30" autocomplete="off" value="<?php if(!empty($hospitals_details[0]->username)){ echo $hospitals_details[0]->username;}else{ echo set_value('username');} ?>">
+=======
+                                            <input class="form-control" type="text" name="username" placeholder="Username" autocomplete="new-password" value="<?php if(!empty($hospitals_details[0]->username)){ echo $hospitals_details[0]->username;}else{ echo set_value('username');} ?>">
+>>>>>>> 5a9f6dabfb21ed6d89335b724b63f6b4d466fe9e
                                             <span class="red"><?php echo form_error('username'); ?></span>
                                         </div>
                                     </div>
@@ -84,7 +88,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Password *</label>
                                         <div class="col-md-9">
-                                            <input class="form-control" type="password" name="password" placeholder="Password" autocomplete="off" value="<?php if(!empty($hospitals_details[0]->password)){ echo $hospitals_details[0]->password;}else{ echo set_value('password');} ?>">
+                                            <input class="form-control" type="password" name="password" placeholder="Password" autocomplete="new-password" value="<?php if(!empty($hospitals_details[0]->password)){ echo $hospitals_details[0]->password;}else{ echo set_value('password');} ?>">
                                             <span class="red"><?php echo form_error('password'); ?></span>
                                         </div>
                                     </div>
@@ -157,7 +161,7 @@
                                         <div class="col-md-9">
                                             <input type="text" name="address" id="address" class="form-control" placeholder="Address" autocomplete="off" value="<?php if(!empty($hospitals[0]->address)){ echo $hospitals[0]->address;}else{ echo set_value('address');} ?>">
                                             <span class="red"><?php echo form_error('address'); ?></span>
-                                            <?php echo form_error('address', '<div class="error">', '</div>'); ?>
+                                            <?php //echo form_error('address', '<div class="error">', '</div>'); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -197,13 +201,12 @@
                                                 <?php 
                                                     foreach ($speciality as $value) {
                                                 ?>
-                                                    <option value="<?php echo $value->id; ?>" <?php if(isset($hospitals[0]) && !empty($hospitals[0]) && $value->id==$hospitals[0]->speciality){  
-                                                    echo "selected";}?>><?php echo $value->name; ?>
+                                                    <option value="<?php echo $value->id; ?>" <?php if(isset($hospitals[0]) && in_array($value->id,explode(',',$hospitals[0]->speciality))){ echo "selected";}?>><?php echo $value->name; ?>
                                                     </option>
 
                                                 <?php } ?>
                                             </select>
-                                            <span class="red"><?php echo form_error('speciality'); ?></span>
+                                            <span class="red"><?php echo form_error('speciality[]'); ?></span>
                                         </div>
                                     </div>
                                 </div>
@@ -211,7 +214,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Logo</label>
                                         <div class="col-md-9">
-                                            <input type="hidden" name="address1" id="address1">
+                                            <input type="hidden" name="address1" id="address1" value="<?php if(!empty($hospitals[0]->address)){ echo ucwords($hospitals[0]->address.', '. $hospitals[0]->city_name.', '. $hospitals[0]->state_name.', '.$country_name[0]->name);}else{ echo set_value('address');} ?>">
                                             <input type="file" name="logo" id="logo" class="form-control">
                                             <span class="red"><?php echo form_error('logo'); ?></span>
                                         </div>
@@ -275,8 +278,9 @@
                                 </div>
                                 <div class="clearfix"></div> -->
                                 <br>
+                                <div class="clearfix"></div>
                                 <div class="col-md-12" align="center">
-                                    <input type="submit" name="submit" class="btn btn-success" value="Save">
+                                    <input type="submit" name="submit" class="btn btn-success" value="Save">&nbsp;
                                     <input type="reset" class="btn btn-default" value="Reset">
                                 </div>
                             </form>
@@ -297,10 +301,11 @@
 
 
 <script type="text/javascript">
-    //$('select').niceSelect();
+
     $("#registration_date").datepicker({
         format: 'yyyy-mm-dd',
-        autoclose: true
+        autoclose: true,
+        endDate: '+0d',
     });
 
     function get_state(country_id) {

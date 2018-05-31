@@ -137,7 +137,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php $count=1;foreach ($appointmentList as $key => $value) {?>
+                                            <?php 
+                                                $count=1;
+                                                foreach ($appointmentList as $key => $value){?>
                                             <tr>
                                                 <td>
                                                     <?php echo $count; ?>
@@ -152,13 +154,13 @@
                                                     <?php echo ucfirst($value->doctor_name); ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $value->appointment_date; ?>
+                                                    <?php echo date("Y-m-d", strtotime($value->appointment_date)); ?>
                                                 </td>
                                                 <td>
                                                     <?php echo $value->appointment_time; ?>
                                                 </td>
                                             </tr>
-                                            <?php $count++;  } ?>
+                                            <?php $count++;} ?>
                                         </tbody>
                                     </table>
                                 </div>

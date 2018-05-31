@@ -50,7 +50,8 @@
                                     </div>
                                 </div>
                                 <div class="clearfix"></div><br/><br/>
-                                <div class="col-md-12" align="center"> <button type="submit" value="Save" class="btn btn-success">Save</button><button type="reset" class="btn btn-default">Reset</button> </div>
+                                <div class="col-md-12" align="center"> <button type="submit" value="Save" class="btn btn-success">Save</button>
+                                &nbsp;<button type="reset" class="btn btn-default">Reset</button> </div>
                             </form>
                         </div>
                     </div>

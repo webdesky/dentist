@@ -36,7 +36,7 @@
                                                 </option>
                                                 <?php }?>
                                             </select>
-                                        </div> <span class="red"><?php echo form_error('reciever_id'); ?></span> </div>
+                                        </div> <span class="red"><?php echo form_error('reciever_id[]'); ?></span> </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -56,8 +56,10 @@
                                         </script>
                                     </div>
                                 </div>
+                                <div class="clearfix"></div>
+                                <br/><br/>
                                 <div class="col-md-12" align="center">
-                                    <button type="submit" value="Save" class="btn btn-success">Save</button>
+                                    <button type="submit" value="Save" class="btn btn-success">Save</button>&nbsp;
                                     <button type="reset" class="btn btn-default">Reset</button>
                                 </div>
                             </form>

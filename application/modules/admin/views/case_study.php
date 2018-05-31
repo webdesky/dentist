@@ -47,8 +47,8 @@
                                         <label class="col-md-3">Doctor *</label>
                                         <div class="col-md-9">
                                             <select class="wide" name="doctor_id" id="doctor_id">
-                                            
-                                        </select>
+                                                <option value="">-- Select Doctor --</option>                                            
+                                            </select>
                                         </div>
                                         <span class="red"><?php echo form_error('doctor_id'); ?></span>
                                     </div>
@@ -152,10 +152,10 @@
                                         </label>
                                         </div>
                                     </div>
-                                </div>
+                                </div><div class="clearfix"></div>
                                 <div class="col-md-12" align="center">
                                     <input type="submit" name="submit" class="btn btn-success" value="Save">
-
+                                    &nbsp;
                                     <input type="reset" class="btn btn-default" value="Reset">
                                 </div>
                             </form>

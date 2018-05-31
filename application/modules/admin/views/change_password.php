@@ -5,7 +5,6 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
-
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
@@ -25,7 +24,11 @@
                                 <div class="form-group"> <label class="col-md-2">Confirm Password * </label>
                                     <div class="col-lg-6"> <input type="password" name="confirm_password" id="confirm_password" onblur="password(this.value)" class="form-control" placeholder="Confirm Password" autocomplete="off" required="required" value="<?php echo set_value('confirm_password'); ?>"> <span class="red" id="new"><?php echo form_error('confirm_password'); ?></span> </div>
                                 </div>
-                                <div class="col-md-12" align="center"> <input type="submit" id="submit" disabled name="submit" class="btn btn-success" value="Save"><button type="reset" class="btn btn-default">Reset</button> </div>
+                                <div class="clearfix"></div>
+                                <div class="col-md-12" align="center"> 
+                                    <input type="submit" id="submit" disabled name="submit" class="btn btn-success" value="Save">&nbsp;
+                                    <button type="reset" class="btn btn-default">Reset</button> 
+                                </div>
                             </form>
                         </div>
                     </div>

@@ -1,8 +1,8 @@
 /* Stylesheet */
 /* Imports */
  @import url(animate.css);
- @import url('https://fonts.googleapis.com/css?family=Ubuntu');
- 
+@import url('https://fonts.googleapis.com/css?family=Work+Sans');
+
 /* Selections */
  ::selection {
      color: #fff;
@@ -67,7 +67,7 @@
      color: #555;
 }
  input {
-     font-family: "Helvetica Neue", Helvetica, sans-serif;
+     font-family: 'Work Sans', sans-serif;;
      font-size: 12px;
      outline: none;
 }
@@ -168,7 +168,7 @@
      background: #f4f4f4;
 }
  body{
-     font-family: 'Ubuntu', serif !important;
+     font-family: 'Work Sans', sans-serif !important;
      font-size: 16px;
      line-height: 1.42857143;
      background-color: #31708f !important;

@@ -51,11 +51,8 @@
                                     <td class="center">
                                         <?php echo ucwords($value->first_name.' '. $value->last_name); ?>
                                     </td>
-                                    <!-- <td class="center">
-                                        <?php echo ucwords($value->first_name.' '. $value->last_name); ?>
-                                    </td> -->
                                     <td class="center">
-                                        <?php echo $value->appointment_date; ?>
+                                        <?php echo date("Y-m-d", strtotime($value->appointment_date)); ?>
                                     </td>
                                     <td class="center">
                                         <?php echo $value->appointment_time; ?>
@@ -67,7 +64,6 @@
                                         <?php } ?> </td>
                                     <td class="center"><a href="<?php echo base_url('doctor/edit_appointment/').$value->id; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                         <a href="javascript:void(0)" onclick="delete_appointment('<?php echo $value->id?>','<?php echo $count;?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                                        <!-- <i class="fa fa fa-plus" aria-hidden="true" onclick="updateStatus(<?php echo $value->doctor_id; ?>,<?php echo $value->doctor_status; ?>)"></i> -->
                                     </td>
                                 </tr>
                                 <?php $count++; } }?>
