@@ -26,7 +26,7 @@
                                     <th>Sr.No</th>
                                     <th>Doctor Name</th>
                                     <th>Description</th>
-                                    <th>File</th>
+                                   <!--  <th>File</th> -->
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -45,7 +45,7 @@
                                     <td class="center">
                                         <?php echo $value->description; ?>
                                     </td>
-                                    <td class="center"><img src="<?php echo base_url('asset/uploads/'.$value->file); ?>" width='50px' height='50px'></td>
+                                    <!-- <td class="center"><img src="<?php echo base_url('asset/uploads/'.$value->file); ?>" width='50px' height='50px'></td> -->
                                     <td class="center"><a href="<?php echo base_url('patient/edit_document/'.$value->did); ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                         <a href="javascript:void(0)" onclick="delete_doc('<?php echo $value->did?>')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                         <!-- <i class="fa fa fa-plus" aria-hidden="true" onclick="updateStatus(<?php echo $value->doctor_id; ?>,<?php echo $value->doctor_status; ?>)"></i> -->

@@ -37,7 +37,7 @@
                                 <?php }?>
 
                                 <div class="form-group"> <label class="col-md-2">Title * </label>
-                                    <div class="col-lg-6"> <input class="form-control" type="text" name="title" placeholder="Title" autocomplete="off" required="required" value="<?php echo set_value('title'); ?>"> <span class="red"><?php echo form_error('title'); ?></span> </div>
+                                    <div class="col-lg-6"> <input class="form-control" type="text" name="title" placeholder="Title" autocomplete="off" maxlength="30" required="required" value="<?php echo set_value('title'); ?>"> <span class="red"><?php echo form_error('title'); ?></span> </div>
                                 </div>
                                 <div class="form-group"> <label class="col-md-2">Description * </label>
                                     <div class="col-lg-6"> <textarea class="form-control" rows="5" id="Description" name="description" placeholder="description"></textarea> <span class="red"><?php echo form_error('description'); ?></span>

@@ -33,7 +33,7 @@
                                     </select> <span class="red"><?php echo form_error('reciever_id'); ?></span> </div>
                                 </div>
                                 <div class="form-group"> <label class="col-md-2">Subject * </label>
-                                    <div class="col-lg-6"> <input type="text" id="subject" name="subject" class="form-control"> <span class="red"><?php echo form_error('subject'); ?></span> </div>
+                                    <div class="col-lg-6"> <input type="text" id="subject" maxlength="30" name="subject" class="form-control"> <span class="red"><?php echo form_error('subject'); ?></span> </div>
                                 </div>
                                 <div class="form-group"> <label class="col-md-2">Message * </label>
                                     <div class="col-lg-6"> <textarea class="form-control" rows="5" id="message" name="message" placeholder="Message">

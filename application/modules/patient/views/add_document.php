@@ -60,13 +60,59 @@
                                     </div>
                                 </div>
                                 <div class="clearfix"></div><br/>
-                                <div class="form-group">
-                                    <label class="col-md-2">Attach File * </label>
-                                    <div class="col-lg-6">
-                                        <input type="file" id="file" name="file" class="form-control"> <span><?php if(!empty($edit_document_data[0]->file)){ echo $edit_document_data[0]->file;}?>
-                                            </span> <span class="red"><?php echo form_error('file'); ?></span>
+
+                                <div id="app">
+                                 <?php if(isset($edit_doc_id)){ 
+                                    if(!empty($edit_document_data)){
+                                     foreach ($edit_document_data as $key => $value) {
+                                    
+                                        
+                                    
+                                    ?>
+                                    <div class="form-group">
+                                        <label class="col-md-2">Attach File * </label>
+                                        <div class="col-lg-3">
+                                            <input type="text" id="file_description" name="file_description[]" class="form-control" placeholder="enter File Title" value="<?php if(!empty($edit_document_data[$key]->file_description)){ echo $edit_document_data[$key]->file_description;}?>"> <span>
+                                                </span> <span class="red"><?php echo form_error('file_description'); ?></span>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <input type="file" id="file" name="file[]" class="form-control">
+
+
+                                            
+                                            
+                                            <img src="<?php echo base_url('asset/uploads/'.$value->image); ?>" width='50px' height='50px'>
+                                            <span class="red"><?php echo form_error('file'); ?></span>
+                                        </div>
                                     </div>
+
+                                <?php }  } }else{ ?>
+
+                                     <div class="form-group">
+                                        <label class="col-md-2">Attach File * </label>
+                                        <div class="col-lg-3">
+                                            <input type="text" id="file_description" name="file_description[]" class="form-control" placeholder="enter File Title" > <span>
+                                                </span> <span class="red"><?php echo form_error('file_description'); ?></span>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <input type="file" id="file" name="file[]" class="form-control">
+                                            
+                                            <span class="red"><?php echo form_error('file'); ?></span>
+                                        </div>
+                                    </div>
+
+
+
+
+                                <?php } ?>
+
+                                    <div class="col-lg-2" style="margin-top: 5px;"><i class="fa fa-plus-circle" aria-hidden="true" id="add" style="font-size: 25px;"></i></div>
                                 </div>
+                                
+
+
+
+                                 
                                 <div class="col-md-12" align="center">
                                     <?php if(isset($edit_doc_id)){?>
                                     <button type="submit" value="Save" class="btn btn-success">Update</button>
@@ -92,5 +138,25 @@
 
 
 <script type="text/javascript">
+    $(document).ready(function() {
     $('select').niceSelect();
+
+     $("#add").click(function() {
+         $("#app").append('<div class="form-group"><label class="col-md-2">Attach File * </label><div class="col-lg-3"><input type="text" id="file_description" name="file_description[]" class="form-control" placeholder="enter File Title"> <span><?php //if(!empty($edit_document_data[0]->file)){ echo $edit_document_data[0]->file;}?></span> <span class="red"><?php echo form_error('file_description'); ?></span></div><div class="col-lg-3"><input type="file" id="file" name="file[]" class="form-control"> <span><?php if(!empty($edit_document_data[0]->file)){ echo $edit_document_data[0]->file;}?>
+                                                </span> <span class="red"><?php echo form_error('file'); ?></span></div><i class="fa fa-minus-circle remove" aria-hidden="true" id="removeButton" style="font-size:25px;margin-left: 15px;"></i></div>');
+
+
+    });
+
+    $("body").on("click", ".remove", function() {
+        $(this).closest("div").remove();
+    });
+   
+
+
+    // $("body").on("click", ".remove", function() {
+    //     $(this).closest("div").remove();
+    // });
+});
+
 </script>

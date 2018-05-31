@@ -31,7 +31,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">User Name *</label>
                                         <div class="col-md-9">
-                                            <input class="form-control" type="text" placeholder="User Name" name="user_name" autocomplete="off" value="<?php echo set_value('user_name');?>">
+                                            <input class="form-control" type="text" placeholder="User Name" maxlength="30" name="user_name" autocomplete="off" value="<?php echo set_value('user_name');?>">
                                             <span class="red"><?php echo form_error('user_name'); ?></span>
                                         </div>
                                     </div>
@@ -40,7 +40,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">First Name *</label>
                                         <div class="col-md-9">
-                                            <input class="form-control" type="text" placeholder="First Name" name="first_name" id="first_name" autocomplete="off" value="<?php echo set_value('first_name');?>">
+                                            <input class="form-control" type="text" placeholder="First Name" maxlength="30" name="first_name" id="first_name" autocomplete="off" value="<?php echo set_value('first_name');?>">
                                             <span class="red"><?php echo form_error('first_name'); ?></span>
                                         </div>
                                     </div>
@@ -49,7 +49,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Last Name *</label>
                                         <div class="col-md-9">
-                                            <input class="form-control" type="text" name="last_name" placeholder="Last Name" autocomplete="off" value="<?php echo set_value('last_name'); ?>">
+                                            <input class="form-control" type="text" name="last_name" placeholder="Last Name" maxlength="30" autocomplete="off" value="<?php echo set_value('last_name'); ?>">
                                             <span class="red"><?php echo form_error('last_name'); ?></span>
                                         </div>
                                     </div>
@@ -127,7 +127,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Phone No *</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="phone_no" placeholder="Phone Number" autocomplete="off">
+                                            <input type="text" class="form-control" name="phone_no" maxlength="10" placeholder="Phone Number" autocomplete="off">
                                             <span class="red"><?php echo form_error('phone_no'); ?></span>
                                         </div>
                                     </div>
@@ -136,7 +136,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Mobile No</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="mobile_no" placeholder="Mobile Number" autocomplete="off" value="<?php echo set_value('mobile_no'); ?>" require="required">
+                                            <input type="text" class="form-control" name="mobile_no" placeholder="Mobile Number" maxlength="10" autocomplete="off" value="<?php echo set_value('mobile_no'); ?>" require="required">
                                             <span class="red"><?php echo form_error('mobile_no'); ?></span>
                                         </div>
                                     </div>

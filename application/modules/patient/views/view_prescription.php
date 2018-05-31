@@ -42,11 +42,11 @@ function ageCalculator($dob){
                                             <tr class="bg-primary">
                                                 <td>
                                                     <strong>Patient ID</strong>:
-                                                    <?php echo $prescription[0]->patient_id;?>,
+                                                    <?php echo $prescription[0]['patient_id'];?>,
                                                     <strong>App ID</strong>:
-                                                    <?php echo $prescription[0]->appointment_id;?> </td>
+                                                    <?php echo $prescription[0]['appointment_id'];?> </td>
                                                 <td class="text-right"><strong>Date</strong>:
-                                                    <?php echo $prescription[0]->created_at;?> </td>
+                                                    <?php echo $prescription[0]['created_at'];?> </td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -58,9 +58,9 @@ function ageCalculator($dob){
                                                 </td>
                                                 <td width="50%" class="text-right">
                                                 <ul class="list-unstyled">
-                                                    <li><strong><?php if(!empty($prescription[0]->hospital_name)){ echo ucwords($prescription[0]->hospital_name);}?></strong></li>
-                                                    <li><?php if(!empty($prescription[0]->address)){ 
-                                                                echo ucwords($prescription[0]->address);
+                                                    <li><strong><?php if(!empty($prescription[0]['hospital_name'])){ echo ucwords($prescription[0]['hospital_name']);}?></strong></li>
+                                                    <li><?php if(!empty($prescription[0]['address'])){ 
+                                                                echo ucwords($prescription[0]['address']);
                                                         }?>
                                                     </li>
                                                     <li>
@@ -74,18 +74,18 @@ function ageCalculator($dob){
                                             <tr class="bg-primary">
                                                 <td colspan="2">
                                                     <strong>Patient  Name</strong>:
-                                                    <?php echo ucwords($prescription[0]->first_name.' '.$prescription[0]->last_name);?>,
+                                                    <?php echo ucwords($prescription[0]['first_name'].' '.$prescription[0]['last_name']);?>,
                                                     <strong>Age</strong>:
                                                     <?php   
-                                                        $dob    =   $prescription[0]->date_of_birth;
+                                                        $dob    =   $prescription[0]['date_of_birth'];
                                                         echo ageCalculator($dob);
                                                     ?>,
                                                     <strong>Sex</strong>:
-                                                    <?php echo $prescription[0]->gender;?>,
+                                                    <?php echo $prescription[0]['gender'];?>,
                                                     <strong>Weight</strong>:
-                                                    <?php echo $prescription[0]->weight;?>,
+                                                    <?php echo $prescription[0]['weight'];?>,
                                                     <strong>BP</strong>:
-                                                    <?php echo $prescription[0]->blood_pressure;?>,
+                                                    <?php echo $prescription[0]['blood_pressure'];?>,
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -97,11 +97,11 @@ function ageCalculator($dob){
                                         <!-- chief_complain -->
                                         <p>
                                             <strong>Chief Complain</strong>:
-                                            <?php echo ucfirst($prescription[0]->chief_complain);?> </p>
+                                            <?php echo ucfirst($prescription[0]['chief_complain']);?> </p>
                                         <!-- patient_notes -->
                                         <p>
                                             <strong>Patient Notes</strong>:
-                                            <?php echo ucfirst($prescription[0]->patient_note);?> </p>
+                                            <?php echo ucfirst($prescription[0]['patient_note']);?> </p>
                                     </div>
                                     <div style="float:left;width:65%;padding-left:10px">
                                         <!-- Medicine -->

@@ -75,7 +75,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Username *</label>
                                         <div class="col-md-9">
-                                            <input class="form-control" type="text" name="username" placeholder="Username" autocomplete="off" value="<?php if(!empty($hospitals_details[0]->username)){ echo $hospitals_details[0]->username;}else{ echo set_value('username');} ?>">
+                                            <input class="form-control" type="text" name="username" placeholder="Username" maxlength="30" autocomplete="off" value="<?php if(!empty($hospitals_details[0]->username)){ echo $hospitals_details[0]->username;}else{ echo set_value('username');} ?>">
                                             <span class="red"><?php echo form_error('username'); ?></span>
                                         </div>
                                     </div>
@@ -94,7 +94,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Mobile No *</label>
                                         <div class="col-md-9">
-                                            <input class="form-control" type="text" name="mobile" placeholder="Mobile" autocomplete="off" value="<?php if(!empty($hospitals_details[0]->mobile)){ echo $hospitals_details[0]->mobile;}else{ echo set_value('mobile');} ?>">
+                                            <input class="form-control" type="text" name="mobile" placeholder="Mobile" maxlength="10" autocomplete="off" value="<?php if(!empty($hospitals_details[0]->mobile)){ echo $hospitals_details[0]->mobile;}else{ echo set_value('mobile');} ?>">
                                             <span class="red"><?php echo form_error('mobile'); ?></span>
                                         </div>
                                     </div>
@@ -103,7 +103,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Phone No *</label>
                                         <div class="col-md-9">
-                                            <input class="form-control" type="text" name="phone_no" placeholder="phone" autocomplete="off" value="<?php if(!empty($hospitals_details[0]->phone_no)){ echo $hospitals_details[0]->phone_no;}else{ echo set_value('phone_no');} ?>">
+                                            <input class="form-control" type="text" name="phone_no" placeholder="phone" maxlength="10" autocomplete="off" value="<?php if(!empty($hospitals_details[0]->phone_no)){ echo $hospitals_details[0]->phone_no;}else{ echo set_value('phone_no');} ?>">
                                             <span class="red"><?php echo form_error('phone_no'); ?></span>
                                         </div>
                                     </div>

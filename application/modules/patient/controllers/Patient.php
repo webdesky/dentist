@@ -91,6 +91,8 @@ class Patient extends CI_Controller
             redirect('admin/index');
         }
     }
+
+
     public function edit_document($id = '')
     {
         if ($this->controller->checkSession()) {
@@ -99,9 +101,11 @@ class Patient extends CI_Controller
             );
             $data['doctor']             = $this->model->getAllwhere('users', $where);
             $where1                     = array(
-                'id' => $id
+                'documents.id' => $id
             );
-            $data['edit_document_data'] = $this->model->getAllwhere('documents', $where1);
+            $data['edit_document_data'] = $this->model->GetJoinRecord('documents', 'id', 'document_files', 'document_id', 'documents.id as id,documents.description,document_files.description as file_description,document_files.image,documents.doctor_id', $where1);
+
+            //$data['edit_document_data'] = $this->model->getAllwhere('documents', $where1);
             $data['edit_doc_id']        = $id;
             $data['body']               = 'add_document';
             if ($this->input->post('doctor_id')) {
@@ -110,6 +114,11 @@ class Patient extends CI_Controller
                 if ($this->form_validation->run() == false) {
                     $this->session->set_flashdata('errors', validation_errors());
                 } else {
+
+
+                    echo "<pre>";
+                    print_r($_FILES
+                    print_r($this->input->post());die;
                     
                     $doctor_id   = $this->input->post('doctor_id');
                     $patient_id  = $this->session->userdata('id');
@@ -121,6 +130,42 @@ class Patient extends CI_Controller
                         'is_active' => 1,
                         'created_at' => date('Y-m-d H:i:s')
                     );
+                    // $delete_files = $this->model->delete('document_files',array('document_id'=>$id));
+                    // $delete_document = $this->model->delete('documents',array('id'=>$id));
+                    // $result = $this->model->insertData('documents', $data);
+
+
+                    //     $new_array =[];
+                     
+                    //         for ($i=0; $i <10 ; $i++) { 
+                                               
+                                                           
+                    //             if (isset($_FILES['file']['name'][$i]) && !empty($_FILES['file']['name'][$i])) {
+                    //                 if ($_FILES['file']['error'][$i] == 0) {
+                    //                     $f_extension = explode('.', $_FILES['file']['name'][$i]); //To breaks the string into array
+                    //                     $f_extension = strtolower(end($f_extension)); //end() is used to retrun a last element to the array
+                    //                     $f_newfile   = "";
+                    //                     if ($_FILES['file']['name'][$i]) {
+                    //                         $f_newfile    = uniqid() . '.' . $f_extension;
+                    //                         $store        = "asset/uploads/" . $f_newfile;
+                    //                         $image        = move_uploaded_file($_FILES['file']['tmp_name'][$i], $store);
+                    //                         $new_array[]['image']    = $f_newfile;
+                                            
+                    //                     }
+                    //                 }
+                    //             }
+                    //         } 
+                        
+                    //     $desc = $this->input->post('file_description');
+                    //     if(!empty($desc)){
+                    //         foreach ($desc as $key => $value) {
+                    //              $new_array[$key]['document_id'] = $result;
+                    //              $new_array[$key]['description'] = $value;
+                    //         }
+                    //     }
+
+                    //     $this->model->insertBatch('document_files',$new_array);
+                    //     $this->document_list();
                     if (isset($_FILES['file']['name']) && !empty($_FILES['file']['name'])) {
                         if ($_FILES['file']['error'] == 0) {
                             $f_extension = explode('.', $_FILES['file']['name']); //To breaks the string into array
@@ -163,6 +208,8 @@ class Patient extends CI_Controller
                     $this->controller->load_view($data);
                 } else {
                     if ($this->controller->checkSession()) {
+
+
                         $doctor_id   = $this->input->post('doctor_id');
                         $patient_id  = $this->session->userdata('id');
                         $description = $this->input->post('description');
@@ -173,21 +220,40 @@ class Patient extends CI_Controller
                             'is_active' => 1,
                             'created_at' => date('Y-m-d H:i:s')
                         );
-                        if (isset($_FILES['file']['name']) && !empty($_FILES['file']['name'])) {
-                            if ($_FILES['file']['error'] == 0) {
-                                $f_extension = explode('.', $_FILES['file']['name']); //To breaks the string into array
-                                $f_extension = strtolower(end($f_extension)); //end() is used to retrun a last element to the array
-                                $f_newfile   = "";
-                                if ($_FILES['file']['name']) {
-                                    $f_newfile    = uniqid() . '.' . $f_extension;
-                                    $store        = "asset/uploads/" . $f_newfile;
-                                    $image        = move_uploaded_file($_FILES['file']['tmp_name'], $store);
-                                    $data['file'] = $f_newfile;
-                                    
+                       
+                        $result = $this->model->insertData('documents', $data);
+
+
+                        $new_array =[];
+                     
+                            for ($i=0; $i <10 ; $i++) { 
+                                               
+                                                           
+                                if (isset($_FILES['file']['name'][$i]) && !empty($_FILES['file']['name'][$i])) {
+                                    if ($_FILES['file']['error'][$i] == 0) {
+                                        $f_extension = explode('.', $_FILES['file']['name'][$i]); //To breaks the string into array
+                                        $f_extension = strtolower(end($f_extension)); //end() is used to retrun a last element to the array
+                                        $f_newfile   = "";
+                                        if ($_FILES['file']['name'][$i]) {
+                                            $f_newfile    = uniqid() . '.' . $f_extension;
+                                            $store        = "asset/uploads/" . $f_newfile;
+                                            $image        = move_uploaded_file($_FILES['file']['tmp_name'][$i], $store);
+                                            $new_array[]['image']    = $f_newfile;
+                                            
+                                        }
+                                    }
                                 }
+                            } 
+                        
+                        $desc = $this->input->post('file_description');
+                        if(!empty($desc)){
+                            foreach ($desc as $key => $value) {
+                                 $new_array[$key]['document_id'] = $result;
+                                $new_array[$key]['description'] = $value;
                             }
                         }
-                        $result = $this->model->insertData('documents', $data);
+
+                        $this->model->insertBatch('document_files',$new_array);
                         $this->document_list();
                     }
                 }
@@ -276,15 +342,15 @@ class Patient extends CI_Controller
                     $blood_group = $this->input->post('blood_group');
                     
                     $data = array(
-                        'first_name' => $first_name,
-                        'last_name' => $last_name,
-                        'email' => $email,
-                        'address' => $address,
-                        'phone_no' => $phone_no,
-                        'mobile' => $mobile_no,
+                        'first_name'    => $first_name,
+                        'last_name'     => $last_name,
+                        'email'         => $email,
+                        'address'       => $address,
+                        'phone_no'      => $phone_no,
+                        'mobile'        => $mobile_no,
                         'date_of_birth' => $dob,
-                        'gender' => $gender,
-                        'blood_group' => $blood_group
+                        'gender'        => $gender,
+                        'blood_group'   => $blood_group
                     );
                     
                     
