@@ -793,6 +793,8 @@ class Admin extends CI_Controller
                     $where = array(
                         'id' => $id
                     );
+                    $data['updated_by'] ='admin';
+                    $data['notification_status'] = 1;
                     unset($data['created_at']);
                     unset($data['appointment_id']);
                     $result = $this->model->updateFields('appointment', $data, $where);

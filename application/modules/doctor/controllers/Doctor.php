@@ -186,6 +186,8 @@ class Doctor extends CI_Controller
                         
                         unset($data['created_at']);
                         unset($data['appointment_id']);
+                        $data['notification_status'] =1;
+                        $data['updated_by'] = $data['doctor_id'];
                         $result = $this->model->updateFields('appointment', $data, $where);
                     } else {
                         $result = $this->model->insertData('appointment', $data);
