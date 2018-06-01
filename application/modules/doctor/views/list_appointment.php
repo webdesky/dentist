@@ -80,7 +80,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
-<h2 align="center"><a href="#">View all appointments</a></h2>
+<h2 align="center"><a href="javascript:void(0)">View all appointments</a></h2>
 <div id="calendar"></div>
             
             <!-- calender ends -->
