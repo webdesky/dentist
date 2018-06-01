@@ -167,11 +167,13 @@ $(document).ready(function() {
         eventLimit: true, // allow "more" link when too many events
         timeFormat: 'HH:mm',
         events: [
-            <?php foreach ($appointmentList as  $value) {?> {
+            <?php 
+            if(!empty($appointmentList)){
+            foreach ($appointmentList as  $value) {?> {
                 title: '<?php echo $value->appointment_id;?> - <?php echo $value->first_name." ".$value->last_name;?> ',
                 start: '<?php $date = explode(' ', $value->appointment_date); echo $date[0]?>T<?php $a = explode(' ', $value->appointment_time); echo $a[0]?>',
             },
-            <?php }?>
+            <?php } }?>
         ]
     });
 

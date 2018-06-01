@@ -217,7 +217,11 @@ class Doctor extends CI_Controller
                     $hospital_name                    = $this->model->getAllwhere('hospitals', array(
                         'id' => $value->hospital_id
                     ), 'hospital_name');
+                    if(!empty($hospital_name)){
                     $appointment[$key]->hospital_name = $hospital_name[0]->hospital_name;
+                    }else{
+                        $appointment[$key]->hospital_name =NULL;
+                    }
                 }
             }
             $data['appointmentList'] = $appointment;
