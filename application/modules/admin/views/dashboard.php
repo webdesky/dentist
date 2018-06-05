@@ -5,9 +5,7 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
-    <?php 
-        $user_role = $this->session->userdata('user_role');
-    ?>
+    <?php $user_role = $this->session->userdata('user_role');?>
     <!-- /.row -->
     <div class="row">
         <?php if($user_role==1){?>

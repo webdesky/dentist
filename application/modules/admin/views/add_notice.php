@@ -18,22 +18,21 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <form role="form" method="post" action="<?php echo base_url('admin/notices')?>" class="registration_form1" enctype="multipart/form-data">
-
                                 <?php if($this->session->userdata('user_role')==1){?>
                                 <div class="form-group">
-                                        <label class="col-md-2">Hospital *</label>
-                                        <div class="col-lg-6">
-                                            <select class="form-control" name="hospital_id" id="hospital_id"> 
+                                    <label class="col-md-2">Hospital *</label>
+                                    <div class="col-lg-6">
+                                        <select class="form-control" name="hospital_id" id="hospital_id"> 
                                             <option value="">-Select Hospital or Don't choose any , if you want to send notice to all the hospitals -</option>
                                             <?php foreach ($hospitals as $value) { ?>
                                             <option value="<?php echo $value->id; ?>"><?php echo ucfirst($value->hospital_name); ?></option>
                                             <?php   } ?>
                                         </select>
-                                            <span class="red"><?php echo form_error('hospital_id'); ?></span>
+                                        <span class="red"><?php echo form_error('hospital_id'); ?></span>
                                     </div>
                                 </div>
                                 <?php }elseif($this->session->userdata('user_role')==4){?>
-                                    <input type="hidden" name="hospital_id" value="<?php echo $this->session->userdata('hospital_id'); ?>">
+                                <input type="hidden" name="hospital_id" value="<?php echo $this->session->userdata('hospital_id'); ?>">
                                 <?php }?>
 
                                 <div class="form-group"> <label class="col-md-2">Title * </label>
@@ -56,9 +55,8 @@
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="col-md-12" align="center">
-                                <button type="submit" value="Save" class="btn btn-success">Save</button>
-                                &nbsp;
-                                <input type="reset" value="Reset" class="btn btn-default"/> </div>
+                                    <button type="submit" value="Save" class="btn btn-success">Save</button> &nbsp;
+                                    <input type="reset" value="Reset" class="btn btn-default" /> </div>
                             </form>
                         </div>
                     </div>
@@ -89,6 +87,6 @@
 
 <style type="text/css">
     .error {
-      color: red !important;
-   }
+        color: red !important;
+    }
 </style>

@@ -40,11 +40,14 @@ class Patient extends CI_Controller
     public function appointment_list()
     {
         if ($this->controller->checkSession()) {
-
-            $notification  = $this->model->getcount('appointment',array('patient_id' => $this->session->userdata('id'),'notification_status'=>1),'updated_by,appointment_date');
             
-            if(!empty($notification)){
-                $this->session->set_userData('notification',$notification);
+            $notification = $this->model->getcount('appointment', array(
+                'patient_id' => $this->session->userdata('id'),
+                'is_active' => 1
+            ), 'updated_by,appointment_date');
+            
+            if (!empty($notification)) {
+                $this->session->set_userData('notification', $notification);
             }
             $where                   = array(
                 'user_role' => 2,
@@ -52,28 +55,38 @@ class Patient extends CI_Controller
             );
             $field_val               = 'appointment.id,appointment.problem,appointment.is_active,appointment.appointment_date,appointment.appointment_time,appointment.appointment_id,users.first_name,users.last_name';
             $data['appointmentList'] = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', $field_val, $where);
+            
             $data['body']            = 'appointment_list';
             $this->controller->load_view($data);
         } else {
             redirect('admin/index');
         }
     }
-
-    public function get_notification(){
-         $notification  = $this->model->getAllwhere('appointment',array('patient_id' => $this->session->userdata('id'),'notification_status'=>1),'updated_by,appointment_date,id');
-
-         print_r(json_encode($notification));
+    
+    public function get_notification()
+    {
+        $notification = $this->model->getAllwhere('appointment', array(
+            'patient_id' => $this->session->userdata('id'),
+            'notification_status' => 1
+        ), 'updated_by,appointment_date,id');
+        
+        print_r(json_encode($notification));
     }
-
-    public function read_notification(){
-         $appointment_id = $this->uri->segment(3);  
-         $data = array('notification_status'=>0);
-         $this->model->updateFields('appointment',$data,array('id'=>$appointment_id));
-         $this->session->unset_userdata('notification');
-         $this->appointment_list();  
-
-
-
+    
+    public function read_notification()
+    {
+        $appointment_id = $this->uri->segment(3);
+        $data           = array(
+            'notification_status' => 0
+        );
+        $this->model->updateFields('appointment', $data, array(
+            'id' => $appointment_id
+        ));
+        $this->session->unset_userdata('notification');
+        $this->appointment_list();
+        
+        
+        
     }
     public function view_appointment($id)
     {
@@ -135,56 +148,55 @@ class Patient extends CI_Controller
                 if ($this->form_validation->run() == false) {
                     $this->session->set_flashdata('errors', validation_errors());
                 } else {
-
                     
-                    $doctor_id   = $this->input->post('doctor_id');
-                    $patient_id  = $this->session->userdata('id');
-                    $description = $this->input->post('description');
-                    $data        = array(
-                        'patient_id' => $patient_id,
-                        'description' => $description,
-                        'doctor_id' => $doctor_id,
-                        'is_active' => 1,
-                        'created_at' => date('Y-m-d H:i:s')
-                    );
-                    
-                    $delete_document = $this->model->delete('documents', array(
-                        'id' => $id
-                    ));
-                    $delete_files    = $this->model->delete('document_files', array(
-                        'document_id' => $id
-                    ));
-                    $result          = $this->model->insertData('documents', $data);
-                    
-                    
-                    $new_array = array();
-                    
-                    for ($i = 0; $i < 10; $i++) {
-                        if (isset($_FILES['file']['name'][$i]) && !empty($_FILES['file']['name'][$i])) {
-                            if ($_FILES['file']['error'][$i] == 0) {
-                                $f_extension = explode('.', $_FILES['file']['name'][$i]); //To breaks the string into array
-                                $f_extension = strtolower(end($f_extension)); //end() is used to retrun a last element to the array
-                                $f_newfile   = "";
-                                if ($_FILES['file']['name'][$i]) {
-                                    $f_newfile            = uniqid() . '.' . $f_extension;
-                                    $store                = "asset/uploads/" . $f_newfile;
-                                    $image                = move_uploaded_file($_FILES['file']['tmp_name'][$i], $store);
-                                    $new_array[]['image'] = $f_newfile;
-                                    
+                    if (!empty($_FILES['file']['name'][0])) {
+                        
+                        $doctor_id   = $this->input->post('doctor_id');
+                        $patient_id  = $this->session->userdata('id');
+                        $description = $this->input->post('description');
+                        $data        = array(
+                                            'patient_id' => $patient_id,
+                                            'description' => $description,
+                                            'doctor_id' => $doctor_id,
+                                            'is_active' => 1,
+                                            'created_at' => date('Y-m-d H:i:s')
+                                            );
+                        
+                        $delete_document = $this->model->delete('documents', array(
+                            'id' => $id
+                        ));
+                        $delete_files    = $this->model->delete('document_files', array(
+                            'document_id' => $id
+                        ));
+                        $result          = $this->model->insertData('documents', $data);
+                        $new_array       = array();
+                        for ($i = 0; $i < 10; $i++) {
+                            if (isset($_FILES['file']['name'][$i]) && !empty($_FILES['file']['name'][$i])) {
+                                if ($_FILES['file']['error'][$i] == 0) {
+                                    $f_extension = explode('.', $_FILES['file']['name'][$i]); //To breaks the string into array
+                                    $f_extension = strtolower(end($f_extension)); //end() is used to retrun a last element to the array
+                                    $f_newfile   = "";
+                                    if ($_FILES['file']['name'][$i]) {
+                                        $f_newfile            = uniqid() . '.' . $f_extension;
+                                        $store                = "asset/uploads/" . $f_newfile;
+                                        $image                = move_uploaded_file($_FILES['file']['tmp_name'][$i], $store);
+                                        $new_array[]['image'] = $f_newfile;
+                                        
+                                    }
                                 }
                             }
                         }
-                    }
-                    
-                    $desc = $this->input->post('file_description');
-                    if (!empty($desc)) {
-                        foreach ($desc as $key => $value) {
-                            $new_array[$key]['document_id'] = $result;
-                            $new_array[$key]['description'] = $value;
+                        
+                        $desc = $this->input->post('file_description');
+                        if (!empty($desc)) {
+                            foreach ($desc as $key => $value) {
+                                $new_array[$key]['document_id'] = $result;
+                                $new_array[$key]['description'] = $value;
+                            }
                         }
+                        
+                        $this->model->insertBatch('document_files', $new_array);
                     }
-                    
-                    $this->model->insertBatch('document_files', $new_array);
                     redirect("patient/document_list", "refresh");
                 }
             }
@@ -198,7 +210,7 @@ class Patient extends CI_Controller
         if ($this->controller->checkSession()) {
             if ($this->input->post('doctor_id')) {
                 $this->form_validation->set_rules('doctor_id', 'Doctor Name', 'trim|required');
-                if (empty($_FILES['file']['name'])) {
+                if (empty($_FILES['file']['name'][0])) {
                     $this->form_validation->set_rules('file', 'Attach File', 'required');
                 }
                 $this->form_validation->set_rules('description', 'Description', 'trim|required');
@@ -209,8 +221,6 @@ class Patient extends CI_Controller
                     $this->controller->load_view($data);
                 } else {
                     if ($this->controller->checkSession()) {
-                        
-                        
                         $doctor_id   = $this->input->post('doctor_id');
                         $patient_id  = $this->session->userdata('id');
                         $description = $this->input->post('description');

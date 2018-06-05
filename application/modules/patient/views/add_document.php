@@ -1,3 +1,21 @@
+
+
+
+<style>
+    
+.registration_form1 input[type="file"] {
+    float: left;
+    width: 82%;
+}
+
+.registration_form1 .form-group img {
+    width: 16%;
+}
+
+</style>
+
+
+
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
@@ -74,7 +92,7 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <input type="file" id="file" name="file[]" class="form-control">
-                                            <img src="<?php echo base_url('asset/uploads/'.$value->image); ?>" width='50px' height='50px'>
+                                            <img src="<?php echo base_url('asset/uploads/'.$value->image); ?>">
                                             <span class="red"><?php echo form_error('file'); ?></span>
                                         </div>
                                     </div>
@@ -99,11 +117,12 @@
                                 </div>
                                 <div class="col-md-12" align="center">
                                     <?php if(isset($edit_doc_id)){?>
-                                    <button type="submit" value="Save" class="btn btn-success">Update</button>
+                                    
                                     <?php }else{?>
                                     <button type="submit" value="Save" class="btn btn-success">Save</button>
-                                    <?php }?>
                                     <button type="reset" class="btn btn-default">Reset</button>
+                                    <?php }?>
+                                    
                                 </div>
                             </form>
                         </div>
