@@ -56,7 +56,7 @@
                                 <div class="clearfix"></div>
                                 <div class="col-md-12" align="center">
                                     <button type="submit" value="Save" class="btn btn-success">Save</button> &nbsp;
-                                    <input type="reset" value="Reset" class="btn btn-default" /> </div>
+                                    <input type="reset" value="Reset" class="btn btn-default"/> </div>
                             </form>
                         </div>
                     </div>
@@ -72,17 +72,7 @@
 </div>
 </div>
 <script type="text/javascript">
-    $(document).ready(function() {
-        $(".registration_form1").validate({
-            rules: {
-                "title": "required",
-                "description": "required",
-            },
-            submitHandler: function(form) {
-                form.submit();
-            }
-        });
-    });
+    $(document).ready(function(){$(".registration_form1").validate({rules:{"title":"required","description":"required",},submitHandler:function(form){form.submit()}})});
 </script>
 
 <style type="text/css">

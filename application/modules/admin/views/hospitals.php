@@ -47,7 +47,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Registration Date *</label>
                                         <div class="col-md-9">
-                                            <input class="form-control" type="text" placeholder="Registration Date" name="registration_date" id="registration_date" autocomplete="off" value="<?php if(!empty($hospitals_details[0]->date_of_birth)){ echo date(" Y-m-d ", strtotime($hospitals_details[0]->date_of_birth));}else{ echo set_value('registration_date');}?>">
+                                            <input class="form-control" type="text" placeholder="Registration Date" name="registration_date" id="registration_date" autocomplete="off" value="<?php if(!empty($hospitals_details[0]->date_of_birth)){ echo date("Y-m-d", strtotime($hospitals_details[0]->date_of_birth));}else{ echo set_value('registration_date');}?>">
                                             <span class="red"><?php echo form_error('registration_date'); ?></span>
                                         </div>
                                     </div>
@@ -75,9 +75,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Username *</label>
                                         <div class="col-md-9">
-
                                             <input class="form-control" type="text" name="username" placeholder="Username" maxlength="30" autocomplete="new-password" value="<?php if(!empty($hospitals_details[0]->username)){ echo $hospitals_details[0]->username;}else{ echo set_value('username');} ?>">
-
                                             <span class="red"><?php echo form_error('username'); ?></span>
                                         </div>
                                     </div>
@@ -196,9 +194,7 @@
                                         <div class="col-md-9">
                                             <select class="form-control" name="speciality[]" id="speciality" multiple="multiple"> 
                                                 <option value="">-- Select Speciality --</option>
-                                                <?php 
-                                                    foreach ($speciality as $value) {
-                                                ?>
+                                                <?php foreach ($speciality as $value) {?>
                                                     <option value="<?php echo $value->id; ?>" <?php if(isset($hospitals[0]) && in_array($value->id,explode(',',$hospitals[0]->speciality))){ echo "selected";}?>><?php echo $value->name; ?>
                                                     </option>
 
@@ -367,8 +363,4 @@
          var address1 = address +','+ city + ','+state+ ','+country;
          $('#address1').val(address1);
     });
-
-
-
-
 </script>

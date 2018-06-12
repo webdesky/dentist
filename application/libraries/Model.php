@@ -181,7 +181,6 @@ class Model
     
     public function getAllwherenew($table, $where, $select = 'all')
     {
-
         if ($select == 'all') {
             $this->CI->db->select('*');
         } else {
@@ -219,14 +218,10 @@ class Model
     }
     
 
-    public function GetJoinRecordNew($table, $field_first, $second_field_join, $tablejointo, $field_second, $tablejointhree, $field_third, $field, $value, $field_val,$where=null)
-
-    {
-        
+    public function GetJoinRecordNew($table, $field_first, $second_field_join, $tablejointo, $field_second, $tablejointhree, $field_third, $field, $value, $field_val,$where=null){
         $this->CI->db->select("$field_val");
         $this->CI->db->from("$table");
         $this->CI->db->join("$tablejointo", "$tablejointo.$field_second = $table.$field_first");
-        
         if ($tablejointhree && $field_third) {
             $this->CI->db->join("$tablejointhree", "$tablejointhree.$field_third = $table.$second_field_join");
         }
@@ -273,20 +268,17 @@ class Model
     
     public function getAllRecords($table, $conditions = '')
     {
-        //$this->CI->db->cache_on();
         if (!empty($conditions)) {
             $query = $this->CI->db->get_where($table, $conditions);
         } else {
             $query = $this->CI->db->get($table);
         }
-        //$this->CI->db->cache_off();
         return $query->result_array();
     }
     
     public function delete($table, $where)
     {
         $this->CI->db->where($where)->delete($table);
-        
     }
     
     public function update($table, $update, $where)
@@ -312,9 +304,7 @@ class Model
     public function insertPasswordResetString($email_address, $password_reset_key)
     {
         $this->CI->db->where('email', $email_address);
-        $this->CI->db->update(USERS, array(
-            "password_reset_key" => $password_reset_key
-        ));
+        $this->CI->db->update(USERS, array("password_reset_key" => $password_reset_key));
     }
     
     public function exists($fields)
@@ -360,8 +350,7 @@ class Model
         if (empty($select)) {
             $select = '*';
         }
-        $query = $this->CI->db->query('select ' . $select . ' from users where FIND_IN_SET(' . $where['hospital_id'] . ',hospital_id) and user_role = ' . $where['user_role'] . ' and is_active = 1');
-        
+        $query = $this->CI->db->query('select ' .$select. ' from users where FIND_IN_SET(' .$where['hospital_id']. ',hospital_id) and user_role = ' .$where['user_role']. ' and is_active = 1');
         $num_rows = $query->num_rows();
         if ($num_rows > 0) {
             foreach ($query->result() as $rows) {

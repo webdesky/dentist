@@ -1684,7 +1684,7 @@ class Admin extends CI_Controller
                     $patient    = $this->model->self_join_records($patient_id, $doctor_id);
                     
                     if (!empty($patient[0]['doctor_first_name'])) {
-                        $data['review'][$key]['doctor_first_name'] = $patient[0]['doctor_first_name'];
+                        $data['review'][$key]['doctor_first_name'] =  $patient[0]['doctor_first_name'];
                     }
                     if (!empty($patient[0]['patient_first_name'])) {
                         $data['review'][$key]['patient_first_name'] = $patient[0]['patient_first_name'];
@@ -1736,16 +1736,12 @@ class Admin extends CI_Controller
     public function speciality($id = NULL)
     {
         if ($this->controller->checkSession()) {
-            
-            $this->form_validation->set_rules('speciality_name', 'Speciality Name', 'trim|required|is_unique[speciality.name]');
-            
+            //$this->form_validation->set_rules('speciality_name', 'Speciality Name', 'trim|required|is_unique[speciality.name]');
             if (empty($id)) {
                 $this->form_validation->set_rules('speciality_name', 'Speciality Name', 'trim|required|is_unique[speciality.name]');
             } else {
                 $this->form_validation->set_rules('speciality_name', 'Speciality Name', 'trim|required');
             }
-            
-            
             $this->form_validation->set_rules('status', 'Status', 'trim|required');
             if ($this->form_validation->run() == false) {
                 $this->session->set_flashdata('errors', validation_errors());
@@ -1780,7 +1776,6 @@ class Admin extends CI_Controller
                     $result = $this->model->insertData('speciality', $data);
                 }
                 redirect('admin/speciality_list');
-                
             }
         } else {
             redirect('admin/index');

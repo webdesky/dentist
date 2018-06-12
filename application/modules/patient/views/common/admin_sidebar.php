@@ -70,11 +70,11 @@ div.demo-content input[type='text'],textarea{
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
             <a class="navbar-brand" href="javascript:void(0)" style="color:red"><?php echo 'Welcome, '. ucwords($this->session->userdata('first_name')); ?></a>
         </div>
         <!-- /.navbar-header -->
@@ -82,8 +82,7 @@ div.demo-content input[type='text'],textarea{
              $notification = $this->session->userData('notification');
         ?>
         <ul class="nav navbar-top-links navbar-right">
-     
-                     <i class="fa fa-bell fa-lg dropbtn " aria-hidden="true" onclick="get_notification()">
+                     <i class="fa fa-bell fa-lg dropbtn" aria-hidden="true" onclick="get_notification()">
                      <span class="badge badge-notify"><?php echo $notification;  ?></span></i>
                      <div id="notification-latest" style="display: none;"><ul></ul></div>
                 
@@ -91,8 +90,8 @@ div.demo-content input[type='text'],textarea{
             <!-- /.dropdown -->
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw" ></i> <i class="fa fa-caret-down"></i>
-                    </a>
+                    <i class="fa fa-user fa-fw" ></i> <i class="fa fa-caret-down"></i>
+                </a>
                 <ul class="dropdown-menu dropdown-user">
                     <li style="font-size: 16px">
                         <a href="<?php echo base_url('patient/profile')?>"><i class="fa fa-user fa-fw"></i> Update Profile</a>

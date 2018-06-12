@@ -9,10 +9,10 @@
     <div class="row">
         <div class="col-lg-12">
             <?php 
-                    $session_user_role  = $this->session->userdata('user_role');
-                    if($session_user_role==4){
-                        $hospital_id    = $this->session->userdata('hospital_id');
-                    }
+                $session_user_role  = $this->session->userdata('user_role');    
+                if($session_user_role==4){
+                    $hospital_id    = $this->session->userdata('hospital_id');
+                }
                     
             if(!empty($msg)){?>
             <div class="alert alert-success">
@@ -28,7 +28,6 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <form role="form" method="post" action="<?php echo base_url('admin/addSchedule') ?>" class="registration_form1" enctype="multipart/form-data">
-
                             <?php if($session_user_role!=4){?>
                                 <div> <label class="col-md-2">Hospital * </label>
                                     <div class="col-lg-9"> <select class="wide" name="hospital_id"  id="hospital_id" onchange="get_doctor(this.value)">
@@ -90,7 +89,7 @@
                                 <br>
                                 <div class="col-md-12" align="center"> 
                                     <button type="submit" value="Save" class="btn btn-success">Save</button>&nbsp;
-                                    <input type="reset" class="btn btn-default" value="Reset"> </div>
+                                    <button type="reset" value="Reset" class="btn btn-default">Reset</button> </div>
                             </form>
                         </div>
                     </div>

@@ -65,15 +65,12 @@ class Doctor extends CI_Controller
             $this->form_validation->set_rules('old_password', 'Old Password', 'trim|required|callback_oldpass_check');
             $this->form_validation->set_rules('new_password', 'New Password', 'trim|required|md5');
             $this->form_validation->set_rules('confirm_password', 'Confirm Password', 'trim|required|matches[new_password]|md5');
-            
-            
+
             if ($this->form_validation->run() == false) {
                 $this->session->set_flashdata('errors', validation_errors());
                 $data['body'] = 'change_password';
                 $this->controller->load_view($data);
             } else {
-                
-                
                 $data  = array(
                     'password' => $this->input->post('new_password', TRUE)
                 );

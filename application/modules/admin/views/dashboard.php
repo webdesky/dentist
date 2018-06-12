@@ -211,7 +211,6 @@
                                                 <td>
                                                     <?php echo date('Y-m-d',strtotime($value->created_at)) ?>
                                                 </td>
-
                                             </tr>
                                             <?php $count++;  }  ?>
                                         </tbody>

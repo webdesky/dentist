@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Panel</title>
+    
     <script src="<?php echo base_url('asset/js/jquery.js');?>"></script>
     <script src="<?php echo base_url('asset/js/jquery-ui.js');?>"></script>
     <script src="<?php echo base_url('asset/dist/js/jquery.nice-select.min.js');?>"></script>
@@ -17,9 +18,7 @@
     <script src="<?php echo base_url('asset/dist/js/dataTables.bootstrap.js')?>"></script>
     <script src="<?php echo base_url('asset/dist/js/sweetalert.min.js')?>"></script>
     <script src="<?php echo base_url('asset/dist/js/dataTables.rowReorder.min.js')?>"></script>
-
     <script src="<?php //echo base_url('asset/dist/js/dataTables.responsive.min.js')?>"></script>
-
     <script src="<?php echo base_url('asset/vendor/metisMenu/metisMenu.min.js');?>"></script>
     <script src="<?php echo base_url('asset/dist/js/sb-admin-2.js');?>"></script>
     <script src="<?php echo base_url('asset/dist/js/bootstrap-datepicker.js')?>"></script>

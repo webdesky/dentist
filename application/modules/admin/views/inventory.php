@@ -33,7 +33,7 @@
                                     <span class="red"><?php echo form_error('others'); ?></span>
                                 </div>
                                 <input type="submit" name="submit" class="btn btn-success" value="Submit">
-                                <button type="reset" class="btn btn-default">Reset</button>
+                                <input type="reset" class="btn btn-default" value="Reset"/>
                             </form>
                         </div>
                     </div>
@@ -46,6 +46,5 @@
         <!-- /.col-lg-12 -->
     </div>
     <!-- row -->
-
 </div>
 </div>

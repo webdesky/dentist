@@ -36,6 +36,8 @@ class Common_model extends CI_Model
             $this->db->where($where);
         }
         $q = $this->db->get();
+        // echo $this->db->last_query();
+        // die;
         $num_rows = $q->num_rows();
         if ($num_rows > 0) {
             foreach ($q->result() as $rows) {
@@ -63,6 +65,8 @@ class Common_model extends CI_Model
             $this->db->where('FIND_IN_SET(' . $where['cs.hospital_id'] . ',hospital_id)<> 0');
         }
         $query = $this->db->get();
+        // echo $this->db->last_query();
+        // die;
         return $query->result();
     }
 

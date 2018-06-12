@@ -31,7 +31,7 @@
             <!-- /.dropdown -->
         </ul>
         <!-- /.navbar-top-links -->
-        <?php
+    <?php
         $user_role = $this->session->userdata('user_role');
         if ($user_role == 4) {
             if(!empty($this->session->userdata('rights')->rights)){

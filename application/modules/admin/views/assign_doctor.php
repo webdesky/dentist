@@ -44,13 +44,14 @@
                                 <div class="form-group">
                                     <label class="col-md-2">Hospitals * </label>
                                     <div class="col-lg-6" id="hospitals">
-                                    <ul style="list-style:none;margin:0;padding:0;" id="hospital_ids">
-                                        <?php foreach($hospitals as $hospital){?>
-                                        <li>
-                                            <input type="checkbox" name="hospital_ids[]" value="<?php echo $hospital->id;?>"> <?php echo ucwords(trim($hospital->hospital_name));?>
-                                        </li>
-                                        <?php }?>
-                                    </ul>
+                                        <ul style="list-style:none;margin:0;padding:0;" id="hospital_ids">
+                                            <?php foreach($hospitals as $hospital){?>
+                                            <li>
+                                                <input type="checkbox" name="hospital_ids[]" value="<?php echo $hospital->id;?>">
+                                                <?php echo ucwords(trim($hospital->hospital_name));?>
+                                            </li>
+                                            <?php }?>
+                                        </ul>
                                         <span class="red"><?php echo form_error('speciality_name'); ?></span>
                                     </div>
                                 </div>
@@ -77,8 +78,8 @@
         $('select').niceSelect();
     });
 
-    function get_hospital_list(id){
-        if(id!==''){
+    function get_hospital_list(id) {
+        if (id !== '') {
             $.ajax({
                 type: "GET",
                 url: "<?php echo base_url('admin/get_hospitals')?>",
@@ -88,12 +89,12 @@
                 success: function(data) {
                     var obj = JSON.parse(data);
                     var ids = obj[0].hospital_id.split(',');
-                    if(ids.length>0){
-                        $('#hospital_ids').find('input[type=checkbox]').prop('checked', false); 
+                    if (ids.length > 0) {
+                        $('#hospital_ids').find('input[type=checkbox]').prop('checked', false);
                         for (var i = 0; i < ids.length; i++) {
-                            $('#hospital_ids').find('input[type=checkbox][value="'+ids[i]+'"]').prop('checked', true);  
+                            $('#hospital_ids').find('input[type=checkbox][value="' + ids[i] + '"]').prop('checked', true);
                         }
-                    }                    
+                    }
                 }
             });
         }
