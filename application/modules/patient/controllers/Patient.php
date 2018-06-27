@@ -40,7 +40,6 @@ class Patient extends CI_Controller
     public function appointment_list()
     {
         if ($this->controller->checkSession()) {
-            
             $notification = $this->model->getcount('appointment', array(
                 'patient_id' => $this->session->userdata('id'),
                 'is_active' => 1

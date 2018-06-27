@@ -57,10 +57,10 @@
                                 </div>
                                 <div class="col-md-12" align="center">
                                     <button type="submit" name="submit" class="btn btn-success">Save</button>
-                                    <button type="reset" class="btn btn-default">Reset</button></div>
+                                    <button type="reset" class="btn btn-default">Reset</button>
+                                </div>
                             </form>
                         </div>
-
                     </div>
                     <!-- /.row (nested) -->
                 </div>

@@ -22,13 +22,13 @@
                                         <img src="<?php echo base_url('asset/uploads/').$users[0]->profile_pic ?>" style="max-width: 100px;max-height: 100px;">
                                     </div>
                                 </div>
-                                <?php } ?>
+                                <?php }?>
                                 <div class="clearfix"></div><br/>
                                 <div class="col-md-6">
                                     <div class="">
                                         <label class="control-label col-md-3">Speciality*</label>
                                         <div class="col-md-9">
-                                            <select class="wide" name="category">
+                                            <select class="form-control" name="category">
                                                 <option value="">-- Select Speciality --</option>
                                                 <?php foreach ($category as $key => $value) { ?>
                                                 <option value="<?php echo $value['id']; ?>" <?php if(!empty($users[0]) && $users[0]->specialization==$value['id']){ echo 'selected';}?>><?php echo $value['name']; ?>
@@ -75,7 +75,7 @@
                                     <div class="">
                                         <label class="control-label col-md-3" for="Blood Group">Blood Group:</label>
                                         <div class="col-md-9">
-                                            <select class="wide" name="blood_group">
+                                            <select class="form-control" name="blood_group">
                                                 <option value="">--SELECT--</option>
                                                 <option value="a+" <?php if(!empty($users[0]) && $users[0]->blood_group=="a+"){echo 'selected';};?>>A+</option>
                                                 <option value="a-" <?php if(!empty($users[0]) && $users[0]->blood_group=="a-"){echo 'selected';};?>>A-</option>
@@ -128,12 +128,12 @@
                                     <div class="form-group">
                                         <label class="col-md-3">Country *</label>
                                         <div class="col-md-9">
-                                            <select class="wide" name="country" id="country" onchange="get_state(this.value)">
-                                            <option value="">-- Select Country --</option>
-                                            <?php foreach($countries as $country){?>
-                                            <option value="<?php echo $country['id']?>" <?php if(!empty($hospitals[0]->country) && $hospitals[0]->country==$country['id']){ echo 'selected';}?>><?php echo $country['name']?></option>
-                                            <?php }?>
-                                        </select>
+                                            <select class="form-control" name="country" id="country" onchange="get_state(this.value)">
+                                                <option value="">-- Select Country --</option>
+                                                <?php foreach($countries as $country){?>
+                                                <option value="<?php echo $country['id']?>" <?php if(!empty($hospitals[0]->country) && $hospitals[0]->country==$country['id']){ echo 'selected';}?>><?php echo $country['name']?></option>
+                                                <?php }?>
+                                            </select>
                                             <span class="red"><?php echo form_error('country'); ?></span>
                                         </div>
                                     </div>
@@ -142,7 +142,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3">State *</label>
                                         <div class="col-md-9">
-                                            <select class="wide" name="state" id="state" onchange="get_city(this.value)">
+                                            <select class="form-control" name="state" id="state" onchange="get_city(this.value)">
                                                 <option value="">-- Select State --</option>
                                                 <?php if(!empty($hospitals[0]->state_id)){?>
                                                     <option value="<?php echo $hospitals[0]->state_id;?>" selected><?php echo $hospitals[0]->state_name;?></option>
@@ -156,7 +156,12 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3" for="address"> City:</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="city" placeholder="Enter City" value="<?php if(!empty($users[0])){ echo $users[0]->city; }?>">
+                                            <select class="form-control" name="city" id="city">
+                                                <option value="">-- Select City --</option>
+                                            </select>
+                                            <span class="red"><?php echo form_error('city'); ?></span>
+
+                                            <!-- <input type="text" class="form-control" name="city" id="city" placeholder="Enter City" value="<?php //if(!empty($users[0])){ echo $users[0]->city; }?>"> -->
                                         </div>
                                     </div>
                                 </div>
@@ -199,7 +204,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3" for="number">Registration Number:</label>
                                         <div class="col-md-9">
-                                            <input type="text" name="registration_number" class="form-control" value="<?php if(!empty($users[0])){ echo $users[0]->registration_number;} ?>">
+                                            <input type="text" name="registration_number" class="form-control" value="<?php if(!empty($users[0])){ echo $users[0]->registration_number;} ?>" placeholder="9876541230">
                                         </div>
                                     </div>
                                 </div>
@@ -215,7 +220,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3" for="number">Registration Year:</label>
                                         <div class="col-md-9">
-                                            <input type="text" name="registration_year" class="form-control" value="<?php if(!empty($users[0])){ echo $users[0]->registration_year;} ?>">
+                                            <input type="text" name="registration_year" class="form-control" value="<?php if(!empty($users[0])){ echo $users[0]->registration_year;} ?>" placeholder="Ex:- 2018">
                                         </div>
                                     </div>
                                 </div>
@@ -223,7 +228,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3" for="number">Degree:</label>
                                         <div class="col-md-9">
-                                            <input type="text" name="degree" class="form-control" value="<?php if(!empty($users[0])){ echo $users[0]->degree;} ?>">
+                                            <input type="text" name="degree" class="form-control" value="<?php if(!empty($users[0])){ echo $users[0]->degree;} ?>" placeholder="Ex:- MBBS,MD,DCH">
                                         </div>
                                     </div>
                                 </div>
@@ -247,7 +252,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3" for="number"> Experience:</label>
                                         <div class="col-md-9">
-                                            <input type="text" name="experience" class="form-control" value="<?php if(!empty($users[0])){ echo $users[0]->experience;} ?>">
+                                            <input type="text" name="experience" class="form-control" value="<?php if(!empty($users[0])){ echo $users[0]->experience;} ?>" placeholder="Experience in Years">
                                         </div>
                                     </div>
                                 </div>
@@ -279,7 +284,58 @@ $(document).ready(function() {
 
 
 })
-$('select').niceSelect();
+//$('select').niceSelect();
 
 /*$('#consultancy_time').timepicker();*/
+
+
+function get_state(country_id) {
+    $.ajax({
+        url: "<?php echo base_url('admin/get_record')?>",
+        method: "GET",
+        dataType: "json",
+        data: {
+            id: country_id,
+            table: 'states',
+            field: 'country_id'
+        },
+        success: function(response) {
+            var option = '<option value="">-- Select State --</option>';
+            for (var i = 0; i < response.length; i++) {
+                option += '<option value="' + response[i].id + '">' + response[i].name + '</option>';
+            }
+            $("#state").html('');
+            $("#state").html(option);
+            $("#state").niceSelect('update');
+        },
+        error: function() {
+            alert("error");
+        }
+    });
+}
+
+function get_city(state_id) {
+    $.ajax({
+        url: "<?php echo base_url('admin/get_record')?>",
+        method: "GET",
+        dataType: "json",
+        data: {
+            id: state_id,
+            table: 'cities',
+            field: 'state_id'
+        },
+        success: function(response) {
+            var option = '<option value="">-- Select City --</option>';
+            for (var i = 0; i < response.length; i++) {
+                option += '<option value="' + response[i].id + '">' + response[i].name + '</option>';
+            }
+            $("#city").html('');
+            $("#city").html(option);
+            $("#city").niceSelect('update');
+        },
+        error: function() {
+            alert("error");
+        }
+    });
+}
 </script>

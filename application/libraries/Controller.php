@@ -69,4 +69,9 @@ class Controller
     {
         $this->CI->load->view('common/templates/default', $page_data);
     }
+
+    public function load_view1($page_data)
+    {
+        $this->CI->load->view('common/templates1/default', $page_data);
+    }
 }

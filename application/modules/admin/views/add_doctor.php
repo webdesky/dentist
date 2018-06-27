@@ -23,7 +23,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
-                            <form role="form" method="post" action="<?php echo base_url('admin/add_doctor') ?>" class="registration_form12" enctype="multipart/form-data" id="registration_form">
+                            <form role="form" method="post" action="<?php echo base_url('admin/add_doctor')?>" class="registration_form12" enctype="multipart/form-data" id="registration_form">
                                 <?php if ($session_role != 4) {?>
                                 <div class="col-md-6">
                                     <div class="">
@@ -276,7 +276,6 @@
 $(document).ready(function() {
     $("#datepicker").datepicker({
         format: 'yyyy-mm-dd',
-
         autoclose: true,
         startView: "months",
         startDate: '-100y',

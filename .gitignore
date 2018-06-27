@@ -14,5 +14,6 @@
 /application/views/*
 /system/*
 /install/*
+*.zip
 
 

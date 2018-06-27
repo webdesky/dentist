@@ -401,6 +401,7 @@ class Doctor extends CI_Controller
     
     public function profile()
     {
+        
         if ($this->controller->checkSession()) {
             $where            = array(
                 'users.id' => $this->session->userdata('id')
@@ -408,6 +409,7 @@ class Doctor extends CI_Controller
             $where1           = array(
                 'doctor.doctor_id' => $this->session->userdata('id')
             );
+            $data['countries'] = $this->model->getall('countries');
             $data['users']    = $this->model->GetJoinRecord('users', 'id', 'doctor', 'doctor_id', '', $where);
             $data['category'] = $this->model->getAll('speciality');
             $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|alpha|min_length[2]');
@@ -464,7 +466,7 @@ class Doctor extends CI_Controller
                     
                     $data1 = array(
                         'category' => $category,
-                        'specialization' => $specialization,
+                        'specialization' => $category,
                         'registration' => $registration,
                         'registration_number' => $registration_number,
                         'registration_council' => $registration_council,
@@ -477,8 +479,7 @@ class Doctor extends CI_Controller
                         'consultancy_time' => $consultancy_time,
                         'consultancy_fees' => $consultancy_fees
                         
-                    );
-                    
+                    );                   
                     
                     if (isset($_FILES['image']['name']) && !empty($_FILES['image']['name'])) {
                         if (move_uploaded_file($_FILES['image']['tmp_name'], 'asset/uploads/' . $_FILES['image']['name'])) {
