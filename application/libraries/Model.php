@@ -111,6 +111,37 @@ class Model
             return $data;
         }
     }
+
+
+
+        public function GetJoinRecord1($table, $field_first, $tablejointo, $field_second, $field_val, $where, $group_by = null, $order_by = null, $order = null)
+    {
+        
+        if (!empty($field_val)) {
+            $this->CI->db->select("$field_val");
+        } else {
+            $this->CI->db->select("*");
+        }
+        $this->CI->db->from("$table");
+        $this->CI->db->join("$tablejointo", "$tablejointo.$field_second = $table.$field_first");
+        if (!empty($where)) {
+            $this->CI->db->where($where);
+        }
+        if (!empty($group_by)) {
+            $this->CI->db->group_by("$table.$field_first");
+        }
+        if ($order_by != '') {
+            $this->CI->db->order_by($order_by, $order);
+        }
+        $q = $this->CI->db->get();
+        if ($q->num_rows() > 0) {
+            foreach ($q->result() as $rows) {
+                $data[] = $rows;
+            }
+            $q->free_result();
+            return $data;
+        }
+    }
     
     public function getAllwhere($table, $where = '', $select = 'all', $order_fld = '', $order_type = '', $limit = '', $offset = '', $or_where = null)
     {

@@ -16,30 +16,33 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-3">
-                    <div class="col-xs-6 col-sm-4 toggle-img">
+                    <div class="col-xs-3 col-sm-4 toggle-img">
                         <img src="<?php echo base_url('asset/images/toggle.png')?>" alt="toggle">
                     </div>
 
                     <div class="col-xs-6 col-sm-8 logos">
-                        <img src="<?php echo base_url('asset/images/logo_2.png')?>" alt="toggle">
+                        <a href="<?php echo base_url();?>"><img src="<?php echo base_url('asset/images/logo_2.png')?>" alt="toggle"></a>
+                        
                     </div>
+                    <div class="col-xs-3"></div>
                 </div>
-                <div class="col-xs-12 col-sm-5">
+                <div class="col-xs-12 col-sm-5 search-box">
                     <form class="form-inline" action="/action_page.php">
                         <div class="form-group">
-                            <label for="email"><img src="<?php echo base_url('asset/images/location.png')?>" alt="location"></label>
-                            <input type="email" class="form-control" id="email" placeholder="Indore">
+                            <label for="email"><img src="<?php echo base_url('asset/images/location.png')?>" class="search-loc1" alt="location"></label>
+                            <input type="email" class="form-control" id="city_name" placeholder="City Name">
                             <img src="<?php echo base_url('asset/images/area.png')?>">
                         </div>
-                        <div class="form-group second-search">
-                            <label for="pwd"><img src="<?php echo base_url('asset/images/search.png')?>"></label>
-
-                            <select class="form-control">
-                  <option>Dentist</option>
-                  <option>Dentist</option>
-                  <option>Dentist</option>
-                  <option>Dentist</option>
-                </select>
+                        <div class="form-group second-search" id="search_doctor">
+                            <label for="pwd"><img src="<?php echo base_url('asset/images/search.png')?>" class="search-lo2"></label>
+                            
+                            <input type="text" placeholder="Search Doctor Clinic Hospital etc" id="search_doctor1">
+                            <ul style="display: none" id="speciality_list1">
+                                <?php foreach($speciality as $specialities){?>
+                                    <li><i class="fa fa-search aa"></i><a href="<?php echo base_url('front/search_doctor/'.$specialities->id);?>"><?php echo $specialities->name;?></a></li>
+                                <?php }?>
+                            </ul>
+                            <div class="white-bg"></div>
                         </div>
                     </form>
                 </div>

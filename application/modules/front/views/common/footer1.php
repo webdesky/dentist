@@ -55,6 +55,7 @@
             var duration = 2000;
             $('#myDiv').toggle(effect, options, duration);
         });
+        
     </script>
 </body>
 </html>

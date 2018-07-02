@@ -66,13 +66,13 @@
                             <a href="<?php echo base_url('admin/index')?>"><i class="fa fa-dashboard fa-fw" style="font-size: 21px"></i> Dashboard</a>
                         </li>
                         <?php if($user_role==1){?>
-                        <li> <a href="#"><i class="fa fa-hospital-o" style="font-size: 21px"></i> Hospitals<span class="fa arrow"></span></a>
+                        <li> <a href="#"><i class="fa fa-hospital-o" style="font-size: 21px"></i> Hospitals / Clinic<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?php echo base_url('admin/hospitals')?>">Add Hospital</a>
+                                    <a href="<?php echo base_url('admin/hospitals')?>">Add Hospital / Clinic</a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo base_url('admin/hospitals_list')?>">View Hospital</a>
+                                    <a href="<?php echo base_url('admin/hospitals_list')?>">View Hospital / Clinic</a>
                                 </li>
                             </ul>
                         </li>

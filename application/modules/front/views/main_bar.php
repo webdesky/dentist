@@ -1,3 +1,9 @@
+<?php if($this->session->flashdata('msg')): ?>
+
+    <div class="alert alert-success">
+      <strong>Success!</strong> <?php echo $this->session->flashdata('msg'); ?>
+    </div>
+<?php endif; ?>
 <body>
     <div class="baner_poster">
         <section class="top_section" id="home1">
@@ -9,7 +15,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
-                        </button> <a class="navbar-brand" href="#"><img src="<?php echo base_url('asset/images/logos.png')?>" alt="Logo"></a> </div>
+                        </button> <a class="navbar-brand" href="<?php echo base_url();?>"><img src="<?php echo base_url('asset/images/logos.png')?>" alt="Logo"></a> </div>
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="active"><a href="">Safty for Your Data</a></li>
@@ -79,7 +85,7 @@
                 <input type="text" placeholder="Search Doctor Clinic Hospital etc" id="search_doctor">
                 <ul style="display: none" id="speciality_list">
                     <?php foreach($speciality as $specialities){?>
-                        <li><a href="<?php echo base_url('front/search_doctor/'.$specialities->id);?>"><?php echo $specialities->name;?></a></li>
+                        <li><i class="fa fa-search aa"></i><a href="<?php echo base_url('front/search_doctor/'.$specialities->id);?>"><?php echo $specialities->name;?></a></li>
                     <?php }?>
                 </ul>
             </form>

@@ -37,7 +37,7 @@
                 <ul class="terms_conditionns">
                     <li>Terms and Condition</li>
                     <li>Privacy Policy</li>
-                    <li>© Copyright 2018 Teqween.</li>
+                    <li>© Copyright 2018</li>
                     <li>- All Rights Reserved</li>
                 </ul>
             </div>
@@ -59,7 +59,7 @@
     new WOW().init();
 
     $(function() {
-        $('.repeat ').click(function() {
+        $('.repeat').click(function() {
             var classes = $(this).parent().attr('class ');
             $(this).parent().attr('class', 'animate ');
             var indicator = $(this);
@@ -107,6 +107,18 @@
         $(document).on('click', function(e) {
             speciality_list.hide();
         });
+
+        var speciality_list1 = $('#speciality_list1');
+
+        $('#search_doctor1').on('click', function(e) {
+            e.stopPropagation();
+            speciality_list1.toggle();
+        });
+
+        $(document).on('click', function(e) {
+            speciality_list1.hide();
+        });
+
     });
 
 
@@ -145,6 +157,35 @@
         var duration = 2000;
         $('#myDiv').toggle(effect, options, duration);
     });
+
+
+    function get_doctor_schedule(id) {
+        var doctor_id = id;
+        $.ajax({
+            type: "POST",
+            url: "<?php echo base_url('front/get_schedule')?>",
+
+            data: {
+                'doctor_id': doctor_id,
+            },
+            success: function(data) {
+                var obj = JSON.parse(data);
+                if(obj==null){
+                    alert('No Schedule Found');
+                }else{
+                    $('#table tr').html('');
+                    $('#table').append('<tr><th>Day</th><th>StartTime</th><th>EndTime</th></tr>');
+                    for (var i = 0; i < obj.length; i++) {
+                        var day_name = obj[i].day;
+                        $('#table').append('<tr><td>' + day_name.charAt(0).toUpperCase() + day_name.slice(1) + '</td><td>' + obj[i].starttime + '</td><td>' + obj[i].endtime + '</td></tr>');
+                    }
+                    $('#myModal1').modal('toggle');
+                }
+            }
+        });
+    }
+
+
 </script>
 
 <script type="text/javascript">
@@ -245,7 +286,6 @@
                                                             <input type="text" name="signup_contact" id="signup_contact" class="form-control" placeholder="Contact No">
                                                             <span class="red"><?php echo form_error('signup_confirm_password'); ?></span>
                                                         </div>
-
                                                         <div class="form-group">
                                                             <textarea name="signup_address" id="signup_address" class="form-control" placeholder="Address"></textarea>
                                                             <span class="red"><?php echo form_error('signup_address'); ?></span>
@@ -259,12 +299,12 @@
                                                             &nbsp;&nbsp;
                                                             <input type="radio" name="signup_sex" tabindex="2" value="female">&nbsp;Female
                                                         </div>
-                                                        <div class="form-group">
+                                                        <!-- <div class="form-group">
                                                         <b>I want to Sign up as : </b>
                                                             &nbsp;<input type="radio" name="signup_type"  tabindex="2" value="2">&nbsp;Doctor
                                                             &nbsp;&nbsp;
                                                             <input type="radio" name="signup_type" tabindex="2" value="3">&nbsp;Patient
-                                                        </div>
+                                                        </div> -->
                                                         <div class="form-group">
                                                             <div class="row">
                                                                 <div class="col-sm-6 col-sm-offset-3">
@@ -284,9 +324,7 @@
                 </div>
             </div>
         </div>
-
-
-        <style type="text/css">
+<style type="text/css">
     #myModal .panel-login {
         border-color: #ccc;
         -webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);

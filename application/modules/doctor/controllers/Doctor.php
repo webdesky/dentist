@@ -41,7 +41,8 @@ class Doctor extends CI_Controller
             );
             $where3       = array(
                 'user_role' => 2,
-                'doctor_id' => $this->session->userdata('id')
+                'doctor_id' => $this->session->userdata('id'),
+                'appointment_date >=' => date('Y-m-d')
             );
             $where4       = array(
                 
@@ -51,7 +52,10 @@ class Doctor extends CI_Controller
             $field_val                = 'message.*,users.first_name,users.last_name';
             $data['messages_list']    = $this->model->GetJoinRecord('message', 'sender_id', 'users', 'id', $field_val, $where4);
             $data['totalAppointment'] = $this->model->getcount('appointment', $where);
+
             $data['appointmentList']  = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', '', $where3);
+
+            //echo $this->db->last_query();die;
             
             $this->controller->load_view($data);
         } else {
@@ -208,6 +212,8 @@ class Doctor extends CI_Controller
             );
             $field_val   = 'appointment.appointment_id,appointment.id,appointment.appointment_date,appointment.appointment_time,users.first_name,users.last_name,appointment.hospital_id,appointment.is_active';
             $appointment = $this->model->GetJoinRecord('appointment', 'patient_id', 'users', 'id', $field_val, $where);
+
+           
             
             if (!empty($appointment)) {
                 foreach ($appointment as $key => $value) {
@@ -221,7 +227,9 @@ class Doctor extends CI_Controller
                     }
                 }
             }
+
             $data['appointmentList'] = $appointment;
+
             $data['body']            = 'list_appointment';
             $this->controller->load_view($data);
         } else {
@@ -1280,7 +1288,7 @@ class Doctor extends CI_Controller
                 'user_role' => 2
             );
             $data['doctor']   = $this->model->getAllwhere('users', $where1);
-            $data['schedule'] = $this->model->GetJoinRecord('schedule', 'doctor_id', 'users', 'id', 'schedule.sc_id,schedule.doctor_id,schedule.day,schedule.starttime,schedule.endtime,users.first_name', $where);
+            $data['schedule'] = $this->model->GetJoinRecord('schedule', 'doctor_id', 'users', 'id', 'schedule.id,schedule.doctor_id,schedule.day,schedule.starttime,schedule.endtime,users.first_name', $where);
             $this->controller->load_view($data);
         } else {
             redirect('admin/index');

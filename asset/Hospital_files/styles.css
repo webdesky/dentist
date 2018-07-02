@@ -142,6 +142,7 @@ a:hover {
 }
 
 .search_bar .searchform {
+  z-index: 0;
   background: #f4f4f4;
   background: #ececec;
   border: 1px solid #d3d3d3;
@@ -169,7 +170,7 @@ a:hover {
   border: none;
   font: 12px/12px 'HelveticaNeue', Helvetica, Arial, sans-serif;
   margin-right: 5px;
-  padding: 19px 0 13px;
+  padding: 15px 0;
   border-radius: 0px;
   width: 230px;
   box-shadow: 0 0 4px rgba(0, 0, 0, .4) inset, 1px 1px 1px rgba(255, 255, 255, .75);
@@ -208,7 +209,7 @@ a:hover {
   color: #6f2a97;
   cursor: pointer;
   font: 13px/13px 'HelveticaNeue', Helvetica, Arial, sans-serif;
-  padding: 14px 12px;
+  padding: 8px 12px;
   margin-right: 10px;
   margin-left: 10px;
   font-size: 24px;
@@ -371,7 +372,7 @@ a:hover {
 .baner_1 .baner-texts {
   position: relative;
   right: -79px;
-  
+  z-index: 0;
 }
 
 .carousel.vertical .item {
@@ -495,7 +496,7 @@ a:hover {
   overflow: hidden;
   clear: both;
   right: 0;
-
+  z-index: 0;
 }
 
 .baner_slider .container-fluid {
@@ -2623,7 +2624,9 @@ ul.con_inner_text li span {
 
 /* ========================= */
 
-
+.remove-padding1 {
+  padding: 0px;
+}
 
 .remove-padding2 {}
 
@@ -2841,6 +2844,7 @@ ul.con_inner_text li span {
   color: #6800a5;
   font-size: 18px;
   text-align: left;
+      text-transform: uppercase;
 }
 
 .contact-clinic-expand-div p {
@@ -3105,51 +3109,13 @@ ul.con_inner_text li span {
 }
 
 
-/* June 28 */
-#speciality_list{
-  width: 36%;
-  background: #ececec;
-  position: absolute;
-  display: block;
-  left: 45%;
-  right: -1px;
-  top: 52px;
-  border-radius: 5px;
-  padding: 0px 0px;
-  box-shadow: 2px 2px 7px;
-}
-#speciality_list li{
-  padding: 10px 10px;
-}
-#speciality_list li a{
-    font-size: 16px;
-    color: #333;
-  }
-  .all-filer h5{
-    font-weight: 600;
-  }
-  #speciality_list li i{
-    padding: 5px;
-    color: #6f2a97;
-  }
-  #speciality_list li{
-    border-bottom: 1px solid #ccc;
-  }
-  #speciality_list li:last-child{
-    border-bottom: none;
-  }
-/* // June 28 */
-
 /* // item-list */
 
 
 /* Responsive */
 @media screen and (max-width: 767px){
-  .remove-padding-xs-1 {
-    padding: 0px;
-  }
   #header2 {
-      height: 60px;
+      height: 70px;
       background: linear-gradient(14deg, #550484, #8929c0);
   }
   .search-box label{
@@ -3188,14 +3154,10 @@ ul.con_inner_text li span {
     margin-left: 0;
   }
   #header2 .logos img {
-      padding: 2px 0px;
-      width: 80%;
-      margin: auto;
-      display: block;
+    padding: 2px 0px;
   }
   #header2 .toggle-img img {
-    margin-top: 23px;
-    width: 30px;
+    margin-top: 22px;
   }
   .search-box{
     margin: 15px 0px;
@@ -3227,134 +3189,26 @@ ul.con_inner_text li span {
     width: 90%;
     margin-left: 5%;
   }
- .Availability ul.dropdown-menu {
-    position: absolute;
-    width: 100%;
-    margin-left: 0%;
-  }
   .filter-section .outer-ul .outer-li .dropdown-toggle {
     background: rgba(255, 0, 0, 0);
     color: #721da3;
-    border: 1px solid #721da3!important;
+    border: 1px solid #721da3;
     border-radius: 5px;
-    width: 100%;
+    width: 94%;
     font-size: 16px;
     margin: auto;
     display: block;
-  }
-  .Relevance {
-    padding-top: 10px;
-    text-align: center;
   }
   .filter-section .outer-ul .outer-li {
     width: 100%;
   }
   .outer-li .checkbox{
-    width: 100%;
+    width: 95%;
     margin: 10px auto;
     display: block;
-    text-align: center;
-  }
-  .filter-section {
-    height: auto;
-  }
-  .Relevance, .Availability{
-    position: relative;
-    width: 100%;
-    margin-left: 0;
-  }
-  .filter-section .outer-ul {
-    padding: 23px 15px;
-  }
-  .all-filer .dropdown-menu, .Relevance .dropdown-menu{
-    width: 100%;
-    position: absolute;
-    left: 0;
-  }
-  .Online-Booking .checkbox{
-    margin-top: 0px;
-  }
-  .bdr {
-      height: 1px;
-      width: 90%;
-      background: #e8e8e8;
-      margin: auto;
-  }
-  .item-list {
-    padding: 30px 10px;
-    margin-bottom: 60px;
-  }
-  .dr-details{
-    padding: 0px;
-  }
-  .dr-name{
-
-  }
-  .dr-details .dr-name {
-    padding-top: 15px;
-  }
-  .img-bottom h3 {
-    margin-top: 0;
-    padding: 15px 15px 0;
-  }
-  .img-bottom img{
-    width: 100%;
-  }
-  .dr-location{
-    margin-top: 30px;
   }
 }
 
 /* ========================= */
 /*25.6.18*/
 /* ========================= */
-
-.filter-section .outer-ul ul.dropdown-menu {
-    min-width: 210px;
-    padding: 0;
-}
-
-.filter-section .outer-ul ul.dropdown-menu li {
-    padding: 4px 7px 8px;
-    border-bottom: solid 1px #5f0d907d;
-}
-
-.filter-section .outer-ul ul.dropdown-menu li:hover {
-    background-color: #ddddddc2;
-    
-}
-
-.filter-section .outer-ul ul.dropdown-menu li input[type="radio"] {
-    margin-right: 8px;
-    position: relative;
-    top: 2px;    
-}
-
-#speciality_list1 {
-    width: 36%;
-    background: #ececec;
-    position: absolute;
-    display: block;
-    left: 55%;
-    right: -1px;
-    top: 65px;
-    border-radius: 5px;
-    padding: 0px 0px;
-    box-shadow: 2px 2px 7px;
-    z-index: 9;
-}
-
-#speciality_list1 li {
-    border-bottom: 1px solid #ccc;
-    padding: 10px 10px;
-}
-
-#speciality_list1 li i {
-    padding: 5px;
-    color: #6f2a97;
-}
-
-#speciality_list1 li a {
-    font-size: 16px;
-    color: #333;
-}
