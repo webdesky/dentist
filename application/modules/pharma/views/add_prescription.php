@@ -28,7 +28,7 @@
                                         <thead>
                                             <tr>
                                                 <th width="40%">
-                                                    <ul class="list-unstyled firstli">
+                                                    <ul class="list-unstyled">
                                                         <li>
                                                             <select name="patient_id" class="invoice-input form-control" onchange="get_patient_data(this)">
                                                                 <option value="">--Select Patient--</option>
@@ -74,16 +74,17 @@
                                                 <th width="33.33%">
                                                     <ul class="list-unstyled">
                                                         <li><input type="text" name="appointment_id" id="appointment_id" value="<?php echo 'AP' . mt_rand(100000, 999999);?>" class="invoice-input form-control" placeholder="Appointment ID" readonly="readonly"></li>
-
+                                                        
                                                         <li><input type="text" name="date" required="required" value="<?php echo date('Y-m-d')?>" class="invoice-input form-control" placeholder="Date" id="datepicker"></li>
-
-                                                        <li><select class="invoice-input form-control" name="hospital_id" onchange="set_address($(this).find(':selected').data('address'))">
+                                                        
+                                                        <li><select class="invoice-input form-control" name="hospital_id" 
+                                                        onchange="set_address($(this).find(':selected').data('address'))">
                                                             <option value="">-- Select Hospital --</option>
                                                             <?php foreach($hospitals as $hospital){?>
                                                             <option value="<?php echo $hospital['id'];?>" data-address="<?php echo $hospital['address']?>"><?php echo ucwords($hospital['hospital_name']);?></option>
                                                             <?php }?>
                                                         </select></li>
-
+                                                        
                                                         <li><input type="text" id="address" value="" class="invoice-input form-control" placeholder="Address"></li>
                                                     </ul>
                                                 </th>
@@ -182,67 +183,68 @@
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        //$('select').niceSelect();
-        // medicine list
-        $('body').on('keyup change click', '.medicine', function() {
-            $(this).autocomplete({
-                source: [
-                    "Napa", "Poleka", "homena",
-                ]
-            });
-        });
-
-        //#------------------------------------
-        //   STARTS OF MEDICINE 
-        //#------------------------------------    
-        //add row
-        $('body').on('click', '.MedAddBtn', function() {
-            var itemData = $(this).parent().parent().parent();
-            $('#medicine').append("<tr>" + itemData.html() + "</tr>");
-            $('#medicine tr:last-child').find(':input').val('');
-        });
-        //remove row
-        $('body').on('click', '.MedRemoveBtn', function() {
-            $(this).parent().parent().parent().remove();
-        });
-
-        //#------------------------------------
-        //   STARTS OF DIAGNOSIS 
-        //#------------------------------------    
-        //add row
-        $('body').on('click', '.DiaAddBtn', function() {
-            var itemData = $(this).parent().parent().parent();
-            $('#diagnosis').append("<tr>" + itemData.html() + "</tr>");
-            $('#diagnosis tr:last-child').find(':input').val('');
-        });
-        //remove row
-        $('body').on('click', '.DiaRemoveBtn', function() {
-            $(this).parent().parent().parent().remove();
+$(document).ready(function() {
+    //$('select').niceSelect();
+    // medicine list
+    $('body').on('keyup change click', '.medicine', function() {
+        $(this).autocomplete({
+            source: [
+                "Napa", "Poleka", "homena",
+            ]
         });
     });
 
+    //#------------------------------------
+    //   STARTS OF MEDICINE 
+    //#------------------------------------    
+    //add row
+    $('body').on('click', '.MedAddBtn', function() {
+        var itemData = $(this).parent().parent().parent();
+        $('#medicine').append("<tr>" + itemData.html() + "</tr>");
+        $('#medicine tr:last-child').find(':input').val('');
+    });
+    //remove row
+    $('body').on('click', '.MedRemoveBtn', function() {
+        $(this).parent().parent().parent().remove();
+    });
 
-    function get_patient_data(str) {
-        $.ajax({
-            type: 'POST',
-            url: "<?php echo base_url('doctor/get_user')?>",
-            dataType: 'json',
-            data: {
-                id: str.value
-            },
-            success: function(data) {
-                if (data[0] != "") {
-                    var first_name = data[0].first_name.toUpperCase();
-                    var last_name = data[0].last_name.toUpperCase();
-                    $('#sex').val(data[0].gender);
-                    $('#date_of_birth').val(data[0].date_of_birth);
-                }
+    //#------------------------------------
+    //   STARTS OF DIAGNOSIS 
+    //#------------------------------------    
+    //add row
+    $('body').on('click', '.DiaAddBtn', function() {
+        var itemData = $(this).parent().parent().parent();
+        $('#diagnosis').append("<tr>" + itemData.html() + "</tr>");
+        $('#diagnosis tr:last-child').find(':input').val('');
+    });
+    //remove row
+    $('body').on('click', '.DiaRemoveBtn', function() {
+        $(this).parent().parent().parent().remove();
+    });
+});
+
+
+function get_patient_data(str) {
+    $.ajax({
+        type: 'POST',
+        url: "<?php echo base_url('doctor/get_user')?>",
+        dataType: 'json',
+        data: {
+            id: str.value
+        },
+        success: function(data) {
+            if (data[0] != "") {
+                var first_name = data[0].first_name.toUpperCase();
+                var last_name = data[0].last_name.toUpperCase();
+                //$('#patient_name').val(first_name + ' ' + last_name);
+                $('#sex').val(data[0].gender);
+                $('#date_of_birth').val(data[0].date_of_birth);
             }
-        });
-    }
+        }
+    });
+}
 
-    function set_address(str) {
-        $('#address').val(str);
-    }
+function set_address(str){
+    $('#address').val(str);
+}
 </script>

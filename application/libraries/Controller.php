@@ -31,8 +31,8 @@ class Controller
                         redirect('doctor/dashboard');
                     } else if ($log == 3) {
                         redirect('patient/dashboard');
-                    } else {
-                        
+                    } else if ($log == 5) {
+                        redirect('pharma/dashboard');
                     } 
                 }
             }

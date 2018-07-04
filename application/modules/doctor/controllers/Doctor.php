@@ -52,11 +52,8 @@ class Doctor extends CI_Controller
             $field_val                = 'message.*,users.first_name,users.last_name';
             $data['messages_list']    = $this->model->GetJoinRecord('message', 'sender_id', 'users', 'id', $field_val, $where4);
             $data['totalAppointment'] = $this->model->getcount('appointment', $where);
-
             $data['appointmentList']  = $this->model->GetJoinRecord('appointment', 'doctor_id', 'users', 'id', '', $where3);
-
             //echo $this->db->last_query();die;
-            
             $this->controller->load_view($data);
         } else {
             $this->index();
@@ -950,9 +947,7 @@ class Doctor extends CI_Controller
         if ($this->controller->checkSession()) {
             $this->db->select('notices.*,CONCAT(u.first_name," ", u.last_name) as sender_name');
             $this->db->from('notices');
-            
             $this->db->join('users as u', "u.id=notices.added_by");
-            
             $this->db->where("CURDATE() BETWEEN notices.start_date AND notices.end_date");
             $this->db->where('notices.is_active', 1);
             $this->db->where('notices.hospital_id', NULL);
@@ -1371,32 +1366,32 @@ class Doctor extends CI_Controller
         }
     }
     
-    public function calender_records()
-    {
-        if ($this->controller->checkSession()) {
-            $where       = array(
-                'doctor_id' => $this->session->userdata('id'),
-                'appointment_date >=' => date('Y-m-d')
-            );
-            $field_val   = 'appointment.appointment_id,appointment.id,appointment.appointment_date,appointment.appointment_time,users.first_name,users.last_name,appointment.hospital_id,appointment.is_active';
-            $appointment = $this->model->GetJoinRecord('appointment', 'patient_id', 'users', 'id', $field_val, $where);
+    // public function calender_records()
+    // {
+    //     if ($this->controller->checkSession()) {
+    //         $where       = array(
+    //             'doctor_id' => $this->session->userdata('id'),
+    //             'appointment_date >=' => date('Y-m-d')
+    //         );
+    //         $field_val   = 'appointment.appointment_id,appointment.id,appointment.appointment_date,appointment.appointment_time,users.first_name,users.last_name,appointment.hospital_id,appointment.is_active';
+    //         $appointment = $this->model->GetJoinRecord('appointment', 'patient_id', 'users', 'id', $field_val, $where);
             
-            if (!empty($appointment)) {
-                foreach ($appointment as $key => $value) {
-                    $hospital_name                    = $this->model->getAllwhere('hospitals', array(
-                        'id' => $value->hospital_id
-                    ), 'hospital_name');
-                    $appointment[$key]->hospital_name = $hospital_name[0]->hospital_name;
-                }
-            }
-            // $data['appointmentList'] = $appointment;
-            // echo '<pre>'; 
-            // print_r($data['appointmentList']);
-            echo json_encode(array("events" => $appointment));
-     exit();
-        } else {
-            redirect('admin/index');
-        }
+    //         if (!empty($appointment)) {
+    //             foreach ($appointment as $key => $value) {
+    //                 $hospital_name                    = $this->model->getAllwhere('hospitals', array(
+    //                     'id' => $value->hospital_id
+    //                 ), 'hospital_name');
+    //                 $appointment[$key]->hospital_name = $hospital_name[0]->hospital_name;
+    //             }
+    //         }
+    //         // $data['appointmentList'] = $appointment;
+    //         // echo '<pre>'; 
+    //         // print_r($data['appointmentList']);
+    //         echo json_encode(array("events" => $appointment));
+    //  exit();
+    //     } else {
+    //         redirect('admin/index');
+    //     }
         
-    }
+    // }
 }

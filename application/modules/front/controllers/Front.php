@@ -6,6 +6,9 @@ class Front extends CI_Controller
     {
         parent::__construct();
     }
+    
+    
+    
     public function index($msg = NULL)
     {
         $data['body']       = 'main_bar';
@@ -15,17 +18,26 @@ class Front extends CI_Controller
         $data['speciality'] = $this->model->getAllwhere('speciality', $where, 'all');
         $this->controller->load_view($data);
     }
+    
+    
+    
     public function last_executed_query()
     {
         echo $this->db->last_query();
         die;
     }
+    
+    
+    
     public function print_array($data = NULL)
     {
         echo '<pre>';
         print_r($data);
         echo '</pre>';
     }
+    
+    
+    
     public function verifylogin()
     {
         $data = $this->input->post();
@@ -43,12 +55,16 @@ class Front extends CI_Controller
                         redirect('doctor/dashboard');
                     } else if ($log == 3) {
                         redirect('patient/dashboard');
-                    } else {
+                    } else if ($log == 5) {
+                        redirect('pharma/dashboard');
                     }
                 }
             }
         }
     }
+    
+    
+    
     public function checkSession()
     {
         if (!empty($this->session->userdata('user_role'))) {
@@ -60,6 +76,10 @@ class Front extends CI_Controller
             }
         }
     }
+    
+    
+    
+    
     public function check_database($password)
     {
         $username = $this->input->post('login_username', TRUE);
@@ -95,6 +115,9 @@ class Front extends CI_Controller
             return false;
         }
     }
+    
+    
+    
     public function oldpass_check($oldpass)
     {
         $user_id = $this->session->userdata('id');
@@ -107,6 +130,9 @@ class Front extends CI_Controller
             return TRUE;
         }
     }
+    
+    
+    
     public function logout()
     {
         $user_data = $this->session->all_userdata();
@@ -119,6 +145,9 @@ class Front extends CI_Controller
         $msg = "You have been logged out Successfully...";
         $this->index($msg);
     }
+    
+    
+    
     public function alpha_dash_space($str)
     {
         if (!preg_match("/^([-a-z_ ])+$/i", $str)) {
@@ -127,6 +156,9 @@ class Front extends CI_Controller
             return true;
         }
     }
+    
+    
+    
     public function check_password()
     {
         $old_password = $this->input->post('data');
@@ -141,6 +173,10 @@ class Front extends CI_Controller
             echo '1';
         }
     }
+    
+    
+    
+    
     public function add_user()
     {
         $this->form_validation->set_rules('signup_first_name', 'First Name', 'trim|required|callback_alpha_dash_space|min_length[2]');
@@ -215,6 +251,9 @@ class Front extends CI_Controller
         $this->session->set_flashdata('msg', 'user registered successfully');
         redirect('front/index');
     }
+    
+    
+    
     public function search_doctor()
     {
         $where              = array(
@@ -246,6 +285,9 @@ class Front extends CI_Controller
             $this->controller->load_view1($data);
         }
     }
+    
+    
+    
     public function filter_doctor()
     {
         
@@ -323,7 +365,7 @@ class Front extends CI_Controller
                         'doctor_id' => $value->id,
                         'day' => $availability
                     );
-                    $field_val                           = 'doctor_id,day,starttime,endtime';
+                    $field_val                       = 'doctor_id,day,starttime,endtime';
                     $data['doctors'][$key]->schedule = $this->model->getAllwhere('schedule', $where1, $field_val);
                     if (empty($data['doctors'][$key]->schedule[0])) {
                         unset($data['doctors'][$key]);
@@ -339,6 +381,9 @@ class Front extends CI_Controller
         $data['body'] = 'search_doctor';
         $this->controller->load_view1($data);
     }
+    
+    
+    
     public function get_schedule()
     {
         $doctor_id = $this->input->post('doctor_id');

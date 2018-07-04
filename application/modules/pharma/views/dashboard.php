@@ -7,7 +7,7 @@
     </div>
     <!-- /.row -->
     <div class="row">
-        <div class="col-lg-6 col-md-12">
+        <!-- <div class="col-lg-6 col-md-12">
             <div class="panel panel-yellow">
                 <div class="panel-heading">
                     <div class="row">
@@ -54,71 +54,12 @@
                     </div>
                 </a>
             </div>
-        </div>
+        </div> -->
     </div>
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
             <!-- /.panel -->
-            <div class="col-lg-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <i class="fa fa-tasks "></i> Current Appointments
-                    </div>
-                    <!-- /.panel-heading -->
-                    <?php $count=1;if(!empty($appointmentList)){?>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-hover table-striped">
-                                        <thead>
-                                            <tr class="bg-primary">
-                                                <th>#</th>
-                                                <th>Appoitnment Id</th>
-                                                <!--  <th>Patient ID</th> -->
-                                                <th>Date</th>
-                                                <th>Time</th>
-                                                <th>View</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php foreach ($appointmentList as $key => $value) {?>
-                                            <tr>
-                                                <td>
-                                                    <?php echo $count; ?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $value->appointment_id; ?>
-                                                </td>
-                                                <!--  <td>
-                                                    <?php //echo $value->patient_id; ?>
-                                                </td> -->
-                                                <td>
-                                                    <?php echo date("Y-m-d", strtotime($value->appointment_date)); ?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $value->appointment_time; ?>
-                                                </td>
-                                                <td>
-                                                    <a href="<?php echo base_url('doctor/appointment_list/') ?>"><i class="fa fa-eye"></i></a>
-                                                </td>
-                                            </tr>
-                                            <?php $count++;  }?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!-- /.table-responsive -->
-                            </div>
-                            <!-- /.col-lg-4 (nested) -->
-                            <!-- /.col-lg-8 (nested) -->
-                        </div>
-                        <!-- /.row -->
-                    </div>
-                    <?php }?>
-                    <!-- /.panel-body -->
-                </div>
-            </div>
             <?php $count=1;if(!empty($messages_list)){?>
             <div class="col-lg-6">
                 <div class="panel panel-default">
