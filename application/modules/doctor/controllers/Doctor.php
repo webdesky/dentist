@@ -793,6 +793,7 @@ class Doctor extends CI_Controller
             $this->form_validation->set_rules('patient_id', 'Patient Name', 'trim|required');
             $this->form_validation->set_rules('blood_pressure', 'High Blood Pressure', 'trim|required');
             $this->form_validation->set_rules('weight', 'Weight', 'trim|required');
+            $this->form_validation->set_rules('pharma', 'Pharma', 'trim|required');
             
             if ($this->form_validation->run() == false) {
                 $this->session->set_flashdata('errors', validation_errors());
@@ -807,7 +808,6 @@ class Doctor extends CI_Controller
                 $this->controller->load_view($data);
             } else {
                 if ($this->controller->checkSession()) {
-                    //echo '<pre>'; print_r($_POST);die;
                     $patient_id     = $this->input->post('patient_id');
                     $hospital_id    = $this->input->post('hospital_id');
                     $appointment_id = $this->input->post('appointment_id');

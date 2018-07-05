@@ -311,7 +311,6 @@ class Front extends CI_Controller
         }
         if (!empty($this->input->post('specialization'))) {
             $specialization = $this->input->post('specialization');
-            
         }
         if (!empty($this->input->post('availability'))) {
             $availability = date("l", strtotime($this->input->post('availability')));

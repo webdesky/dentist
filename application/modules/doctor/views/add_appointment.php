@@ -149,8 +149,7 @@ $(document).ready(function() {
         });
 });
 
-function getSchedule() {
-
+    function getSchedule() {
         var doctor_id = $('#doctor_id').val();
         var appointment_date = $('#appointment_date').val();
         var appointment_time = $('#timepicker').val();
@@ -171,7 +170,6 @@ function getSchedule() {
                     $('#data').show();
 
                 }
-
             }
         });
     }

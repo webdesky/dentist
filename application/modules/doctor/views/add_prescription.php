@@ -1,5 +1,5 @@
 <style>
-.manage-forms{margin-top:0}.manage-forms ul.list-unstyled li{margin-bottom:10px}.manage-forms ul.list-unstyled li .form-control{border-radius:2px;height:38px;border:1px solid #eee;box-shadow:0 0 0 1px #ccc}.manage-forms #diagnosis tr td .form-control,.manage-forms #medicine tr td .form-control{border-radius:2px;border:1px solid #eee;box-shadow:0 0 0 1px #ccc}.psform .col-md-2.col-sm-2{width:13.666667%}.psform .manage-forms{width:85.333333%}
+.manage-forms{margin-top:0}.manage-forms ul.list-unstyled li{margin-bottom:10px}.manage-forms ul.list-unstyled li .form-control{border-radius:2px;height:38px;border:1px solid #eee;box-shadow:0 0 0 1px #ccc}.manage-forms #diagnosis tr td .form-control,.manage-forms #medicine tr td .form-control{border-radius:2px;border:1px solid #eee;box-shadow:0 0 0 1px #ccc}.psform .col-md-2.col-sm-2{width:13.666667%}.psform .manage-forms{width:85.333333%}.prescription.table>thead>tr>th{vertical-align:top;border-bottom:2px solid #ddd}
 </style>
 <div class="content">
     <div class="container-fluid psform">
@@ -24,7 +24,7 @@
                             <div class="col-md-12 col-sm-12 table-responsive">
                                 <form action="<?php echo base_url('doctor/add_prescription')?>" class="registration_form1" method="post" accept-charset="utf-8">
                                     <!-- Information -->
-                                    <table class="table">
+                                    <table class="table prescription">
                                         <thead>
                                             <tr>
                                                 <th width="40%">
@@ -46,6 +46,15 @@
                                                             <input type="text" placeholder="Date of Birth" class="invoice-input form-control date" id="date_of_birth" name="date_of_birth">
                                                             <span class="red"><?php echo form_error('date_of_birth'); ?></span>
                                                         </li>
+                                                        <li><input type="text" name="appointment_id" id="appointment_id" value="<?php echo 'AP' . mt_rand(100000, 999999);?>" class="invoice-input form-control" placeholder="Appointment ID" readonly="readonly"></li>
+
+                                                        <li><select class="invoice-input form-control" name="hospital_id" onchange="set_address($(this).find(':selected').data('address'))">
+                                                            <option value="">-- Select Hospital --</option>
+                                                            <?php foreach($hospitals as $hospital){?>
+                                                            <option value="<?php echo $hospital['id'];?>" data-address="<?php echo $hospital['address']?>"><?php echo ucwords($hospital['hospital_name']);?></option>
+                                                            <?php }?>
+                                                        </select></li>
+
                                                     </ul>
                                                 </th>
                                                 <th width="33.33%">
@@ -58,6 +67,7 @@
                                                             <input type="text" name="blood_pressure" placeholder="Blood Pressure" class="invoice-input form-control">
                                                             <span class="red"><?php echo form_error('blood_pressure'); ?></span>
                                                         </li>
+
                                                         <li>
                                                             <input type="text" name="reference_by" placeholder="Reference" class="invoice-input form-control">
                                                             <span class="red"><?php echo form_error('reference_by'); ?></span>
@@ -69,22 +79,7 @@
                                                                 <label class="radio-inline"><input type="radio" name="patient_type" value="Old">Old</label>
                                                             </div>
                                                         </li>
-                                                    </ul>
-                                                </th>
-                                                <th width="33.33%">
-                                                    <ul class="list-unstyled">
-                                                        <li><input type="text" name="appointment_id" id="appointment_id" value="<?php echo 'AP' . mt_rand(100000, 999999);?>" class="invoice-input form-control" placeholder="Appointment ID" readonly="readonly"></li>
-
                                                         <li><input type="text" name="date" required="required" value="<?php echo date('Y-m-d')?>" class="invoice-input form-control" placeholder="Date" id="datepicker"></li>
-
-                                                        <li><select class="invoice-input form-control" name="hospital_id" onchange="set_address($(this).find(':selected').data('address'))">
-                                                            <option value="">-- Select Hospital --</option>
-                                                            <?php foreach($hospitals as $hospital){?>
-                                                            <option value="<?php echo $hospital['id'];?>" data-address="<?php echo $hospital['address']?>"><?php echo ucwords($hospital['hospital_name']);?></option>
-                                                            <?php }?>
-                                                        </select></li>
-
-                                                        <li><input type="text" id="address" value="" class="invoice-input form-control" placeholder="Address"></li>
                                                     </ul>
                                                 </th>
                                             </tr>
@@ -162,6 +157,14 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
+                                                <label for="patient_notes" class="col-xs-3 col-form-label">Transfer to Pharma</label>
+                                                <div class="col-xs-9">
+                                                    <input type="radio" name="pharma" value="1"> Yes &nbsp;
+                                                    <input type="radio" name="pharma" value="0"> No
+                                                     <span class="red"><?php echo form_error('pharma'); ?></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
                                                 <div class="col-sm-offset-3 col-md-6">
                                                     <div class="ui buttons">
                                                         <input type="submit" name="submit" class="ui positive button btn btn-success" value="Save">&nbsp;
@@ -183,7 +186,6 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        //$('select').niceSelect();
         // medicine list
         $('body').on('keyup change click', '.medicine', function() {
             $(this).autocomplete({
@@ -192,10 +194,6 @@
                 ]
             });
         });
-
-        //#------------------------------------
-        //   STARTS OF MEDICINE 
-        //#------------------------------------    
         //add row
         $('body').on('click', '.MedAddBtn', function() {
             var itemData = $(this).parent().parent().parent();
@@ -206,10 +204,6 @@
         $('body').on('click', '.MedRemoveBtn', function() {
             $(this).parent().parent().parent().remove();
         });
-
-        //#------------------------------------
-        //   STARTS OF DIAGNOSIS 
-        //#------------------------------------    
         //add row
         $('body').on('click', '.DiaAddBtn', function() {
             var itemData = $(this).parent().parent().parent();

@@ -61,7 +61,7 @@
                                     </td>
                                     <td class="center">
                                         <a href="<?php echo base_url('pharma/view_medicine_category/'.$value->id); ?>" title="View"><i class="fa fa-eye" aria-hidden="true"></i></a> |
-                                        <a href="<?php echo base_url('pharma/medicine_category/'.$value->id); ?>" title="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> |
+                                        <a href="<?php echo base_url('pharma/add_billing/'.$value->id); ?>" title="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> |
                                         <a href="javascript:void(0)" onclick="delete_list('<?php echo $value->id?>','<?php echo $count?>')" title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
                                 </tr>
                                 <?php $count++; } }?>
@@ -104,12 +104,21 @@
                 url: "<?php echo base_url('doctor/delete')?>",
                 data: {
                     id: id,
-                    table: 'notices'
+                    table: 'billed_patient'
                 },
                 type: "POST"
             }).done(function(data) {
-                swal("Deleted!", "Record was successfully deleted!", "success");
-                $('#tr_' + tr_id).remove();
+                $.ajax({
+                    url: "<?php echo base_url('pharma/delete_medicine')?>",
+                    data: {
+                        id: id,
+                        table: 'prescribed_medicine'
+                    },
+                    type: "POST"
+                }).done(function(data) {
+                    swal("Deleted!", "Record was successfully deleted!", "success");
+                    $('#tr_' + tr_id).remove();
+                });
             });
         });
     }

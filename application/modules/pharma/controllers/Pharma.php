@@ -96,19 +96,23 @@ class Pharma extends CI_Controller
     
     public function profile()
     {
-        
         if ($this->controller->checkSession()) {
             $where = array(
                 'users.id' => $this->session->userdata('id')
             );
-            //$where1            = array('doctor.doctor_id' => $this->session->userdata('id'));
-            // $data['countries'] = $this->model->getall('countries');
-            // $data['users']     = $this->model->GetJoinRecord('users', 'id', 'doctor', 'doctor_id', '', $where);
-            // $data['category']  = $this->model->getAll('speciality');
+            
+            $data['countries'] = $this->model->getall('countries');
+            $data['users']     = $this->model->getAllwhere('users', $where);
+            
+            if ($this->input->post('email') != $this->session->email) {
+                $is_unique = '|is_unique[users.email]';
+            } else {
+                $is_unique = '';
+            }
             
             $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|alpha|min_length[2]');
             $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|alpha|min_length[2]');
-            $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+            $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email' . $is_unique);
             $this->form_validation->set_rules('date_of_birth', 'Date Of Birth', 'trim|required');
             
             if ($this->form_validation->run() == false) {
@@ -150,6 +154,7 @@ class Pharma extends CI_Controller
                         }
                     }
                     $result = $this->model->updateFields('users', $data, $where);
+                    $this->session->set_flashdata('info_message', 'Profile successfully updated!!!');
                     redirect('/pharma/profile', 'refresh');
                     
                 }
@@ -183,7 +188,7 @@ class Pharma extends CI_Controller
             $this->form_validation->set_rules('message', 'Message', 'trim|required');
             
             if ($this->form_validation->run() == false) {
-                $user_id          = $this->session->userdata('id');
+                $user_id            = $this->session->userdata('id');
                 $where              = array(
                     'id' => $user_id
                 );
@@ -372,10 +377,6 @@ class Pharma extends CI_Controller
         }
     }
     
-    public function billing()
-    {
-        
-    }
     
     public function medicine_category($id = NULL)
     {
@@ -435,44 +436,62 @@ class Pharma extends CI_Controller
     
     public function add_billing($id = NULL)
     {
-        
-        $patient_id             = $this->input->post('patient_id');
-        $patient_notes          = $this->input->post('patient_notes');
-        $prescription_id        = $this->input->post('prescription_id');
-        $medicine_name[]        = $this->input->post('medicine_name');
-        $medicine_type[]        = $this->input->post('medicine_type');
-        $medicine_instruction[] = $this->input->post('medicine_instruction');
-        $medicine_days[]        = $this->input->post('medicine_days');
-        
-        if ($this->controller->checkSession()) {
-            $where           = array(
+            $patient_id             = $this->input->post('patient_id');
+            $patient_notes          = $this->input->post('patient_notes');
+            $prescription_id        = $this->input->post('prescription_id');
+            $medicine_name[]        = $this->input->post('medicine_name');
+            $medicine_type[]        = $this->input->post('medicine_type');
+            $medicine_instruction[] = $this->input->post('medicine_instruction');
+            $medicine_days[]        = $this->input->post('medicine_days');
+            
+            if ($this->controller->checkSession()) {
+
+            $where = array(
                 'user_role' => 3
             );
-            $data['patient'] = $this->model->getAllwhere('users', $where);
             
+            $field_val       = 'id,first_name,last_name,gender,date_of_birth,address';
+            $data['patient'] = $this->model->getAllwhere('users', $where, $field_val);
+
             $this->form_validation->set_rules('patient_id', 'Patient', 'trim|required');
-            $this->form_validation->set_rules('prescription_id', 'Prescription ID', 'trim|required|is_unique[billed_patient.prescription_code]');
+            if(!empty($id)){
+                //$this->form_validation->set_rules('prescription_id', 'Prescription ID', 'trim|required|is_unique[billed_patient_by_pharma.prescription_code]');    
+            }else{
+                $this->form_validation->set_rules('prescription_id', 'Prescription ID', 'trim|required|is_unique[billed_patient_by_pharma.prescription_code]');
+            }
+            
             $this->form_validation->set_rules('medicine_name[]', 'Medicine Name', 'trim|required');
             $this->form_validation->set_rules('medicine_type[]', 'Medicine Type', 'trim|required');
             $this->form_validation->set_rules('medicine_instruction[]', 'Medicine Instruction', 'trim|required');
             $this->form_validation->set_rules('medicine_days[]', 'Medicine Days', 'trim|required');
             
-            $where = array(
-                'id' => $id
-            );
+            
+            if (!empty($id)) {
+                $where                       = array(
+                    'id' => $id,
+                    'is_active' => 1
+                );
+                $field_val                   = 'id,patient_id,prescription_code,notes';
+                $data['billed_patient_by_pharma']      = $this->model->getAllwhere('billed_patient_by_pharma', $where, $field_val);
+                $where1                      = array(
+                    'prescription_id' => $id,
+                    'is_active' => 1
+                );
+                $field_val1                  = 'id,prescription_id,medicine_name,medicine_type,instruction,days';
+                $data['prescribed_medicine_by_pharma'] = $this->model->getAllwhere('prescribed_medicine_by_pharma', $where1, $field_val1);
+
+            }
+            
             if ($this->form_validation->run() == false) {
-                // if(!empty($id)){
-                //     $data['medicine_category'] = $this->model->getAllwhere('medicine_category', $where);
-                // }
                 $this->session->set_flashdata('errors', validation_errors());
                 $data['body'] = 'add_billing';
+                
                 $this->controller->load_view($data);
             } else {
                 
-                $patient_id      = $this->input->post('patient_id');
-                $prescription_id = $this->input->post('prescription_id');
-                $patient_notes   = $this->input->post('patient_notes');
-                
+                $patient_id           = $this->input->post('patient_id');
+                $prescription_id      = $this->input->post('prescription_id');
+                $patient_notes        = $this->input->post('patient_notes');
                 $medicine_name        = $this->input->post('medicine_name');
                 $medicine_type        = $this->input->post('medicine_type');
                 $medicine_instruction = $this->input->post('medicine_instruction');
@@ -487,47 +506,52 @@ class Pharma extends CI_Controller
                     'is_active' => 1
                 );
                 
-                
                 if (!empty($id)) {
                     unset($data['created_at']);
-                    $result = $this->model->updateFields('billed_patient', $data, $where);
+                    $where  = array(
+                        'id' => $id
+                    );
+                    $result = $this->model->updateFields('billed_patient_by_pharma', $data, $where);
                 } else {
-                    $result = $this->model->insertData('billed_patient', $data);
-                    
-                    if (!empty($medicine_name[0])) {
-                        
-                        $medicine_type        = $this->input->post('medicine_type');
-                        $medicine_instruction = $this->input->post('medicine_instruction');
-                        $medicine_days        = $this->input->post('medicine_days');
-                        
-                        if (!empty($id)) {
-                            // $where = array(
-                            //     'prescription_id' => $id
-                            // );
-                            // $this->model->delete('medicine', $where);
-                        }
-                        for ($i = 0; $i < count($medicine_name); $i++) {
-                            $data1[] = array(
-                                'prescription_id' => $result,
-                                'medicine_name' => $medicine_name[$i],
-                                'medicine_type' => $medicine_type[$i],
-                                'instruction' => $medicine_instruction[$i],
-                                'days' => $medicine_days[$i],
-                                'is_active' => 1,
-                                'created_at' => date('Y-m-d H:i:s')
-                            );
-                            
-                        }
-                        $medicine = $this->model->insertBatch('prescribed_medicine', $data1);
-                    }
+                    $result = $this->model->insertData('billed_patient_by_pharma', $data);
                 }
-                redirect('pharma/add_billing', 'refresh');
-            }
-        } else {
-            redirect('admin/index');
-        }
-        
+                
+                if (!empty($medicine_name)) {
+                    
+                    $medicine_type[]        = $this->input->post('medicine_type');
+                    $medicine_instruction[] = $this->input->post('medicine_instruction');
+                    $medicine_days[]        = $this->input->post('medicine_days');
+                    
+                    
+                    for ($i = 0; $i < count($medicine_name); $i++) {
+                        $data1[] = array(
+                            'prescription_id' => $result,
+                            'medicine_name' => $medicine_name[$i],
+                            'medicine_type' => $medicine_type[$i],
+                            'instruction' => $medicine_instruction[$i],
+                            'days' => $medicine_days[$i],
+                            'is_active' => 1,
+                            'created_at' => date('Y-m-d H:i:s')
+                        );
+                        
+                    }
+                    
+                    if (!empty($id)) {
+                        $where = array(
+                            'prescription_id' => $id
+                        );
+                        $this->model->delete('prescribed_medicine_by_pharma', $where);
+                    }
+                    
+                    $medicine = $this->model->insertBatch('prescribed_medicine_by_pharma', $data1);
+                }
+                $this->session->set_flashdata('info_message', 'Billing added successfully !!!');
+                redirect('pharma/list_billing', 'refresh');
+            }            
+        } 
     }
+        
+    
     
     public function get_user()
     {
@@ -549,14 +573,14 @@ class Pharma extends CI_Controller
         if ($this->controller->checkSession()) {
             $id       = $this->session->id;
             $where    = array(
-                'billed_patient.added_by' => $id
+                'billed_patient_by_pharma.added_by' => $id
             );
             $group_by = array(
-                'billed_patient.prescription_code'
+                'billed_patient_by_pharma.prescription_code'
             );
-            //$data['billing'] = $this->model->GetJoinRecord('billed_patient', 'id', 'prescribed_medicine', 'prescription_id', '', $where, $group_by);
+            //$data['billing'] = $this->model->GetJoinRecord('billed_patient_by_pharma', 'id', 'prescribed_medicine_by_pharma', 'prescription_id', '', $where, $group_by);
             
-            $data['billing'] = $this->model->getAllwhere('billed_patient', $where);
+            $data['billing'] = $this->model->getAllwhere('billed_patient_by_pharma', $where);
             $data['body']    = 'list_billing';
             $this->controller->load_view($data);
         } else {
@@ -567,17 +591,21 @@ class Pharma extends CI_Controller
     public function view_medicine_category($id = NULL)
     {
         if ($this->controller->checkSession()) {
-            $where                = array('prescribed_medicine.prescription_id' => $id);
-            $field_val            = 'CONCAT(users.first_name," ", users.last_name) as patient_name , users.date_of_birth , users.gender, billed_patient.* ,prescribed_medicine.*';
-            $data['prescription'] = $this->model->GetJoinRecordNew('billed_patient', 'patient_id', 'id', 'users', 'id', 'prescribed_medicine', 'prescription_id', 'id', $id, $field_val);
-            $where1               = array('prescription_id' => $id);
+            $where                = array(
+                'prescribed_medicine_by_pharma.prescription_id' => $id
+            );
+            $field_val            = 'CONCAT(users.first_name," ", users.last_name) as patient_name , users.date_of_birth , users.gender, billed_patient_by_pharma.* ,prescribed_medicine_by_pharma.*';
+            $data['prescription'] = $this->model->GetJoinRecordNew('billed_patient_by_pharma', 'patient_id', 'id', 'users', 'id', 'prescribed_medicine_by_pharma', 'prescription_id', 'id', $id, $field_val);
+            $where1               = array(
+                'prescription_id' => $id
+            );
             $data['body']         = 'view_prescription';
             $this->controller->load_view($data);
         } else {
             redirect('admin/index');
         }
     }
-
+    
     public function add_inventory($id = null)
     {
         if ($this->controller->checkSession()) {
@@ -622,8 +650,8 @@ class Pharma extends CI_Controller
             redirect('admin/index');
         }
     }
-
-
+    
+    
     public function inventory_list()
     {
         if ($this->controller->checkSession()) {
@@ -641,12 +669,28 @@ class Pharma extends CI_Controller
     public function edit_inventory($id)
     {
         if ($this->controller->checkSession()) {
-            $where  =  array('doctor_id' => $this->session->id,'id' => $id);
+            $where             = array(
+                'doctor_id' => $this->session->id,
+                'id' => $id
+            );
             $data['inventory'] = $this->model->getAllwhere('inventory', $where);
             $data['body']      = 'edit_inventory';
             $this->controller->load_view($data);
         } else {
             redirect('admin/index');
         }
-    }  
+    }
+
+    public function delete_medicine(){
+        if ($this->controller->checkSession()) {
+            $id    = $this->input->post('id');
+            $table = $this->input->post('table');
+            $where = array(
+                'prescription_id' => $id
+            );
+            $this->model->delete($table, $where);
+        } else {
+            redirect('admin/index');
+        }
+    }
 }
