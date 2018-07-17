@@ -49,14 +49,11 @@ class Front extends CI_Controller
             } else {
                 if ($this->checkSession()) {
                     $log = $this->session->userdata['user_role'];
-                    if ($log == 1 || $log == 4) {
-                        redirect('admin/dashboard');
-                    } else if ($log == 2) {
-                        redirect('doctor/dashboard');
-                    } else if ($log == 3) {
+                    if ($log == 3) {
                         redirect('patient/dashboard');
-                    } else if ($log == 5) {
-                        redirect('pharma/dashboard');
+                    }else{
+                    	$this->session->set_flashdata('alert', 'Username & Password not matched...!!!');
+                    	redirect('front/index');
                     }
                 }
             }
@@ -262,9 +259,7 @@ class Front extends CI_Controller
         $data['speciality'] = $this->model->getAllwhere('speciality', $where, 'all');
         $city_name          = $_COOKIE['user_location'];
         $id                 = $this->uri->segment(3);
-        $where              = array(
-            'name' => $city_name
-        );
+        $where              = array('name' => $city_name);
         $city               = $this->model->getsingle('cities', $where);
         $field_val          = 'doctor.consultancy_fees,doctor.experience,doctor.degree,users.id,users.first_name,users.last_name,users.profile_pic,users.address,`users`.`mobile`,`users`.`phone_no`';
         if (!empty($city->id)) {
@@ -290,6 +285,8 @@ class Front extends CI_Controller
     
     public function filter_doctor()
     {
+    	//print_r($_POST); 
+    	// die;
         
         if (!empty($this->input->post('hospital'))) {
             $hospital = $this->input->post('hospital');
@@ -374,9 +371,7 @@ class Front extends CI_Controller
                 }
             }
         }
-        // echo '<pre>';
-        // print_r($data);
-        // die;
+        
         $data['body'] = 'search_doctor';
         $this->controller->load_view1($data);
     }

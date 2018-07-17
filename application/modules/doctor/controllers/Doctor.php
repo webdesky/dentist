@@ -45,7 +45,6 @@ class Doctor extends CI_Controller
                 'appointment_date >=' => date('Y-m-d')
             );
             $where4       = array(
-                
                 'reciever_id ' => $this->session->userdata('id')
             );
             
@@ -148,7 +147,6 @@ class Doctor extends CI_Controller
                 $this->session->set_flashdata('errors', validation_errors());
                 $data['body'] = 'add_appointment';
                 
-                
                 $where  = array(
                     'user_role' => 2
                 );
@@ -156,10 +154,8 @@ class Doctor extends CI_Controller
                     'user_role ' => 3
                 );
                 
-                
                 $data['doctor']  = $this->model->getAllwhere('users', $where);
                 $data['patient'] = $this->model->getAllwhere('users', $wheres);
-                
                 $this->controller->load_view($data);
             } else {
                 
@@ -210,8 +206,6 @@ class Doctor extends CI_Controller
             $field_val   = 'appointment.appointment_id,appointment.id,appointment.appointment_date,appointment.appointment_time,users.first_name,users.last_name,appointment.hospital_id,appointment.is_active';
             $appointment = $this->model->GetJoinRecord('appointment', 'patient_id', 'users', 'id', $field_val, $where);
 
-           
-            
             if (!empty($appointment)) {
                 foreach ($appointment as $key => $value) {
                     $hospital_name                    = $this->model->getAllwhere('hospitals', array(
@@ -226,7 +220,6 @@ class Doctor extends CI_Controller
             }
 
             $data['appointmentList'] = $appointment;
-
             $data['body']            = 'list_appointment';
             $this->controller->load_view($data);
         } else {
@@ -820,6 +813,8 @@ class Doctor extends CI_Controller
                     $chief_complain = $this->input->post('chief_complain');
                     $medicine_name  = $this->input->post('medicine_name');
                     $diagnosis_name = $this->input->post('diagnosis_name');
+                    $pharma         = $this->input->post('pharma'); 
+
                     
                     $data = array(
                         'patient_id' => $patient_id,
@@ -830,6 +825,8 @@ class Doctor extends CI_Controller
                         'blood_pressure' => $blood_pressure,
                         'reference' => $reference,
                         'type' => $patient_type,
+                        'assign_to_pharma' =>$pharma,
+                        'pharma_status'=>0,
                         'patient_note' => $patient_notes,
                         'chief_complain' => $chief_complain,
                         'visiting_fee' => $visiting_fees,

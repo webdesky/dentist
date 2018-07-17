@@ -1,14 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-class Pharma extends CI_Controller
-{
-    function __construct()
-    {
+class Pharma extends CI_Controller {
+    function __construct() {
         parent::__construct();
     }
-    
-    public function index($msg = NULL)
-    {
+    public function index($msg = NULL) {
         if (!empty($this->session->userdata['user_role'])) {
             $log = $this->session->userdata['user_role'];
             if (isset($log) && $log == 1) {
@@ -29,10 +25,7 @@ class Pharma extends CI_Controller
             $this->load->view('admin/login', $data);
         }
     }
-    
-    
-    public function dashboard()
-    {
+    public function dashboard() {
         if ($this->controller->checkSession()) {
             $data['body']          = 'dashboard';
             $where4                = array(
@@ -40,43 +33,36 @@ class Pharma extends CI_Controller
             );
             $field_val             = 'message.*,users.first_name,users.last_name';
             $data['messages_list'] = $this->model->GetJoinRecord('message', 'sender_id', 'users', 'id', $field_val, $where4);
-            
             $this->controller->load_view($data);
         } else {
             $this->index();
         }
     }
-    
-    public function change_password()
-    {
+    public function change_password() {
         if ($this->controller->checkSession()) {
             $this->form_validation->set_rules('old_password', 'Old Password', 'trim|required|callback_oldpass_check');
             $this->form_validation->set_rules('new_password', 'New Password', 'trim|required|md5');
             $this->form_validation->set_rules('confirm_password', 'Confirm Password', 'trim|required|matches[new_password]|md5');
-            
             if ($this->form_validation->run() == false) {
                 $this->session->set_flashdata('errors', validation_errors());
                 $data['body'] = 'change_password';
                 $this->controller->load_view($data);
             } else {
-                $data  = array(
+                $data   = array(
                     'password' => MD5($this->input->post('new_password', TRUE))
                 );
-                $where = array(
+                $where  = array(
                     'id' => $this->session->userdata('id')
                 );
-                
                 $table  = 'users';
                 $result = $this->model->updateFields($table, $data, $where);
                 redirect('pharma/change_password', 'refresh');
-                
             }
         } else {
             redirect('admin/index');
         }
     }
-    public function oldpass_check($oldpass)
-    {
+    public function oldpass_check($oldpass) {
         if ($this->controller->checkSession()) {
             $user_id = $this->session->userdata('id');
             $result  = $this->model->check_oldpassword($oldpass, $user_id);
@@ -91,39 +77,29 @@ class Pharma extends CI_Controller
             redirect('admin/index');
         }
     }
-    
-    
-    
-    public function profile()
-    {
+    public function profile() {
         if ($this->controller->checkSession()) {
-            $where = array(
+            $where             = array(
                 'users.id' => $this->session->userdata('id')
             );
-            
             $data['countries'] = $this->model->getall('countries');
             $data['users']     = $this->model->getAllwhere('users', $where);
-            
             if ($this->input->post('email') != $this->session->email) {
                 $is_unique = '|is_unique[users.email]';
             } else {
                 $is_unique = '';
             }
-            
             $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|alpha|min_length[2]');
             $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|alpha|min_length[2]');
             $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email' . $is_unique);
             $this->form_validation->set_rules('date_of_birth', 'Date Of Birth', 'trim|required');
-            
             if ($this->form_validation->run() == false) {
                 $this->session->set_flashdata('errors', validation_errors());
                 $data['body'] = 'profile';
                 $this->controller->load_view($data);
             } else {
                 if ($this->controller->checkSession()) {
-                    
-                    $data = $this->input->post();
-                    
+                    $data        = $this->input->post();
                     $user_role   = '5';
                     $first_name  = $this->input->post('first_name');
                     $last_name   = $this->input->post('last_name');
@@ -134,8 +110,7 @@ class Pharma extends CI_Controller
                     $dob         = $this->input->post('date_of_birth');
                     $gender      = $this->input->post('gender');
                     $blood_group = $this->input->post('blood_group');
-                    
-                    $data = array(
+                    $data        = array(
                         'first_name' => $first_name,
                         'last_name' => $last_name,
                         'email' => $email,
@@ -146,28 +121,22 @@ class Pharma extends CI_Controller
                         'gender' => $gender,
                         'blood_group' => $blood_group
                     );
-                    
                     if (isset($_FILES['image']['name']) && !empty($_FILES['image']['name'])) {
                         if (move_uploaded_file($_FILES['image']['tmp_name'], 'asset/uploads/' . $_FILES['image']['name'])) {
-                            
                             $data['profile_pic'] = $_FILES['image']['name'];
                         }
                     }
                     $result = $this->model->updateFields('users', $data, $where);
                     $this->session->set_flashdata('info_message', 'Profile successfully updated!!!');
                     redirect('/pharma/profile', 'refresh');
-                    
                 }
             }
         } else {
             redirect('admin/index');
         }
     }
-    
-    public function logout()
-    {
+    public function logout() {
         $user_data = $this->session->all_userdata();
-        
         foreach ($user_data as $key => $value) {
             if ($key != 'session_id' && $key != 'ip_address' && $key != 'user_agent' && $key != 'last_activity') {
                 $this->session->unset_userdata($key);
@@ -176,17 +145,12 @@ class Pharma extends CI_Controller
         $this->session->sess_destroy();
         $msg = "You have been successfully logged out!";
         $this->index($msg);
-        
     }
-    
-    
-    public function send_message()
-    {
+    public function send_message() {
         if ($this->controller->checkSession()) {
             $this->form_validation->set_rules('reciever_id[]', 'Message to', 'trim|required');
             $this->form_validation->set_rules('subject', 'Subject', 'trim|required');
             $this->form_validation->set_rules('message', 'Message', 'trim|required');
-            
             if ($this->form_validation->run() == false) {
                 $user_id            = $this->session->userdata('id');
                 $where              = array(
@@ -199,8 +163,6 @@ class Pharma extends CI_Controller
                 $table              = 'users';
                 $field              = 'hospital_id';
                 $data['users_data'] = $this->Common_model->get_hospitals_by_id($id, $table, $select, $field);
-                // echo $this->db->last_query(); 
-                // die;
                 $this->session->set_flashdata('errors', validation_errors());
                 $data['body'] = 'send_message';
                 $this->controller->load_view($data);
@@ -209,7 +171,6 @@ class Pharma extends CI_Controller
                     $reciever_id = $this->input->post('reciever_id');
                     $subject     = $this->input->post('subject');
                     $message     = $this->input->post('message');
-                    
                     for ($i = 0; $i < count($reciever_id); $i++) {
                         $data[] = array(
                             'reciever_id' => $reciever_id[$i],
@@ -228,9 +189,7 @@ class Pharma extends CI_Controller
             redirect('admin/index');
         }
     }
-    
-    public function message_list()
-    {
+    public function message_list() {
         if ($this->controller->checkSession()) {
             $where                 = array(
                 'message.sender_id' => $this->session->id,
@@ -244,10 +203,7 @@ class Pharma extends CI_Controller
             redirect('admin/index');
         }
     }
-    
-    
-    public function delete()
-    {
+    public function delete() {
         if ($this->controller->checkSession()) {
             $id    = $this->input->post('id');
             $table = $this->input->post('table');
@@ -259,13 +215,7 @@ class Pharma extends CI_Controller
             redirect('admin/index');
         }
     }
-    
-    
-    
-    
-    
-    public function notices_list()
-    {
+    public function notices_list() {
         if ($this->controller->checkSession()) {
             $this->db->select('notices.*,CONCAT(u.first_name," ", u.last_name) as sender_name');
             $this->db->from('notices');
@@ -281,14 +231,11 @@ class Pharma extends CI_Controller
             redirect('admin/index');
         }
     }
-    
-    public function send_mail()
-    {
+    public function send_mail() {
         if ($this->controller->checkSession()) {
             $this->form_validation->set_rules('reciever_id[]', 'Mail to', 'trim|required');
             $this->form_validation->set_rules('subject', 'Subject', 'trim|required');
             $this->form_validation->set_rules('message', 'Message', 'trim|required');
-            
             if ($this->form_validation->run() == false) {
                 $doctor_id          = $this->session->userdata('id');
                 $where              = array(
@@ -306,12 +253,10 @@ class Pharma extends CI_Controller
                 $this->controller->load_view($data);
             } else {
                 if ($this->controller->checkSession()) {
-                    
                     $reciever_id = $this->input->post('reciever_id');
                     $subject     = $this->input->post('subject');
                     $message     = $this->input->post('message');
-                    
-                    $config = Array(
+                    $config      = Array(
                         'protocol' => 'smtp',
                         'smtp_host' => 'ssl://smtp.googlemail.com',
                         'smtp_port' => 465,
@@ -320,7 +265,6 @@ class Pharma extends CI_Controller
                         'mailtype' => 'html',
                         'charset' => 'iso-8859-1'
                     );
-                    
                     $this->load->library('email', $config);
                     $this->email->set_newline("\r\n");
                     for ($i = 0; $i < count($reciever_id); $i++) {
@@ -337,7 +281,6 @@ class Pharma extends CI_Controller
                         $this->email->subject($subject);
                         $this->email->message($message);
                     }
-                    
                     $this->db->insert_batch('mail', $data);
                     redirect('pharma/mail_list');
                 }
@@ -346,9 +289,7 @@ class Pharma extends CI_Controller
             redirect('admin/index');
         }
     }
-    
-    public function mail_list()
-    {
+    public function mail_list() {
         if ($this->controller->checkSession()) {
             $where             = array(
                 'mail.sender_id' => $this->session->userdata('id')
@@ -361,9 +302,7 @@ class Pharma extends CI_Controller
             redirect('admin/index');
         }
     }
-    
-    public function mail_list_me()
-    {
+    public function mail_list_me() {
         if ($this->controller->checkSession()) {
             $where             = array(
                 'reciever_id' => $this->session->userdata('email')
@@ -376,10 +315,7 @@ class Pharma extends CI_Controller
             redirect('admin/index');
         }
     }
-    
-    
-    public function medicine_category($id = NULL)
-    {
+    public function medicine_category($id = NULL) {
         if ($this->controller->checkSession()) {
             $this->form_validation->set_rules('category_name', 'Category Name', 'trim|required|alpha|min_length[2]');
             $this->form_validation->set_rules('status', 'Status', 'trim|required');
@@ -388,7 +324,6 @@ class Pharma extends CI_Controller
             );
             if ($this->form_validation->run() == false) {
                 if (!empty($id)) {
-                    
                     $data['medicine_category'] = $this->model->getAllwhere('medicine_category', $where);
                 }
                 $this->session->set_flashdata('errors', validation_errors());
@@ -417,10 +352,7 @@ class Pharma extends CI_Controller
             redirect('admin/index');
         }
     }
-    
-    
-    public function medicine_category_list()
-    {
+    public function medicine_category_list() {
         if ($this->controller->checkSession()) {
             $id                        = $this->session->id;
             $where                     = array(
@@ -433,62 +365,49 @@ class Pharma extends CI_Controller
             redirect('admin/index');
         }
     }
-    
-    public function add_billing($id = NULL)
-    {
-            $patient_id             = $this->input->post('patient_id');
-            $patient_notes          = $this->input->post('patient_notes');
-            $prescription_id        = $this->input->post('prescription_id');
-            $medicine_name[]        = $this->input->post('medicine_name');
-            $medicine_type[]        = $this->input->post('medicine_type');
-            $medicine_instruction[] = $this->input->post('medicine_instruction');
-            $medicine_days[]        = $this->input->post('medicine_days');
-            
-            if ($this->controller->checkSession()) {
-
-            $where = array(
+    public function add_billing($id = NULL) {
+        $patient_id             = $this->input->post('patient_id');
+        $patient_notes          = $this->input->post('patient_notes');
+        $prescription_id        = $this->input->post('prescription_id');
+        $medicine_name[]        = $this->input->post('medicine_name');
+        $medicine_type[]        = $this->input->post('medicine_type');
+        $medicine_instruction[] = $this->input->post('medicine_instruction');
+        $medicine_days[]        = $this->input->post('medicine_days');
+        if ($this->controller->checkSession()) {
+            $where           = array(
                 'user_role' => 3
             );
-            
             $field_val       = 'id,first_name,last_name,gender,date_of_birth,address';
             $data['patient'] = $this->model->getAllwhere('users', $where, $field_val);
-
             $this->form_validation->set_rules('patient_id', 'Patient', 'trim|required');
-            if(!empty($id)){
+            if (!empty($id)) {
                 //$this->form_validation->set_rules('prescription_id', 'Prescription ID', 'trim|required|is_unique[billed_patient_by_pharma.prescription_code]');    
-            }else{
+            } else {
                 $this->form_validation->set_rules('prescription_id', 'Prescription ID', 'trim|required|is_unique[billed_patient_by_pharma.prescription_code]');
             }
-            
             $this->form_validation->set_rules('medicine_name[]', 'Medicine Name', 'trim|required');
             $this->form_validation->set_rules('medicine_type[]', 'Medicine Type', 'trim|required');
             $this->form_validation->set_rules('medicine_instruction[]', 'Medicine Instruction', 'trim|required');
             $this->form_validation->set_rules('medicine_days[]', 'Medicine Days', 'trim|required');
-            
-            
             if (!empty($id)) {
-                $where                       = array(
+                $where                                 = array(
                     'id' => $id,
                     'is_active' => 1
                 );
-                $field_val                   = 'id,patient_id,prescription_code,notes';
+                $field_val                             = 'id,patient_id,prescription_code,notes';
                 $data['billed_patient_by_pharma']      = $this->model->getAllwhere('billed_patient_by_pharma', $where, $field_val);
-                $where1                      = array(
+                $where1                                = array(
                     'prescription_id' => $id,
                     'is_active' => 1
                 );
-                $field_val1                  = 'id,prescription_id,medicine_name,medicine_type,instruction,days';
+                $field_val1                            = 'id,prescription_id,medicine_name,medicine_type,instruction,days';
                 $data['prescribed_medicine_by_pharma'] = $this->model->getAllwhere('prescribed_medicine_by_pharma', $where1, $field_val1);
-
             }
-            
             if ($this->form_validation->run() == false) {
                 $this->session->set_flashdata('errors', validation_errors());
                 $data['body'] = 'add_billing';
-                
                 $this->controller->load_view($data);
             } else {
-                
                 $patient_id           = $this->input->post('patient_id');
                 $prescription_id      = $this->input->post('prescription_id');
                 $patient_notes        = $this->input->post('patient_notes');
@@ -496,8 +415,7 @@ class Pharma extends CI_Controller
                 $medicine_type        = $this->input->post('medicine_type');
                 $medicine_instruction = $this->input->post('medicine_instruction');
                 $medicine_days        = $this->input->post('medicine_days');
-                
-                $data = array(
+                $data                 = array(
                     'patient_id' => $patient_id,
                     'prescription_code' => $prescription_id,
                     'notes' => $patient_notes,
@@ -505,7 +423,6 @@ class Pharma extends CI_Controller
                     'created_at' => date('Y-m-d H:i:s'),
                     'is_active' => 1
                 );
-                
                 if (!empty($id)) {
                     unset($data['created_at']);
                     $where  = array(
@@ -515,14 +432,10 @@ class Pharma extends CI_Controller
                 } else {
                     $result = $this->model->insertData('billed_patient_by_pharma', $data);
                 }
-                
                 if (!empty($medicine_name)) {
-                    
                     $medicine_type[]        = $this->input->post('medicine_type');
                     $medicine_instruction[] = $this->input->post('medicine_instruction');
                     $medicine_days[]        = $this->input->post('medicine_days');
-                    
-                    
                     for ($i = 0; $i < count($medicine_name); $i++) {
                         $data1[] = array(
                             'prescription_id' => $result,
@@ -533,28 +446,21 @@ class Pharma extends CI_Controller
                             'is_active' => 1,
                             'created_at' => date('Y-m-d H:i:s')
                         );
-                        
                     }
-                    
                     if (!empty($id)) {
                         $where = array(
                             'prescription_id' => $id
                         );
                         $this->model->delete('prescribed_medicine_by_pharma', $where);
                     }
-                    
                     $medicine = $this->model->insertBatch('prescribed_medicine_by_pharma', $data1);
                 }
                 $this->session->set_flashdata('info_message', 'Billing added successfully !!!');
                 redirect('pharma/list_billing', 'refresh');
-            }            
-        } 
+            }
+        }
     }
-        
-    
-    
-    public function get_user()
-    {
+    public function get_user() {
         if ($this->controller->checkSession()) {
             $where        = array(
                 'id' => $this->input->post('id'),
@@ -566,20 +472,15 @@ class Pharma extends CI_Controller
             redirect('admin/index');
         }
     }
-    
-    
-    public function list_billing()
-    {
+    public function list_billing() {
         if ($this->controller->checkSession()) {
-            $id       = $this->session->id;
-            $where    = array(
+            $id              = $this->session->id;
+            $where           = array(
                 'billed_patient_by_pharma.added_by' => $id
             );
-            $group_by = array(
+            $group_by        = array(
                 'billed_patient_by_pharma.prescription_code'
             );
-            //$data['billing'] = $this->model->GetJoinRecord('billed_patient_by_pharma', 'id', 'prescribed_medicine_by_pharma', 'prescription_id', '', $where, $group_by);
-            
             $data['billing'] = $this->model->getAllwhere('billed_patient_by_pharma', $where);
             $data['body']    = 'list_billing';
             $this->controller->load_view($data);
@@ -587,43 +488,30 @@ class Pharma extends CI_Controller
             redirect('admin/index');
         }
     }
-    
-    public function view_medicine_category($id = NULL)
-    {
+    public function view_medicine_category($id = NULL) {
         if ($this->controller->checkSession()) {
-            $where                = array(
-                'prescribed_medicine_by_pharma.prescription_id' => $id
-            );
-            $field_val            = 'CONCAT(users.first_name," ", users.last_name) as patient_name , users.date_of_birth , users.gender, billed_patient_by_pharma.* ,prescribed_medicine_by_pharma.*';
-            $data['prescription'] = $this->model->GetJoinRecordNew('billed_patient_by_pharma', 'patient_id', 'id', 'users', 'id', 'prescribed_medicine_by_pharma', 'prescription_id', 'id', $id, $field_val);
-            $where1               = array(
-                'prescription_id' => $id
-            );
+            $field_val            = 'CONCAT(users.first_name," ", users.last_name) as patient_name , users.date_of_birth , users.gender, prescription.*,medicine.*';
+            $data['prescription'] = $this->model->GetJoinRecordNew('prescription', 'patient_id', 'id', 'users', 'id', 'medicine', 'prescription_id', 'id', $id, $field_val);
             $data['body']         = 'view_prescription';
             $this->controller->load_view($data);
         } else {
             redirect('admin/index');
         }
     }
-    
-    public function add_inventory($id = null)
-    {
+    public function add_inventory($id = null) {
         if ($this->controller->checkSession()) {
             $this->form_validation->set_rules('equipment_name', 'Equipment Name', 'trim|required');
             $this->form_validation->set_rules('no_of_equipment', 'No of Equipment', 'trim|required|numeric|xss_clean');
-            
             if ($this->form_validation->run() == false) {
                 $this->session->set_flashdata('errors', validation_errors());
                 $data['body'] = 'inventory';
                 $this->controller->load_view($data);
             } else {
                 if ($this->controller->checkSession()) {
-                    
                     $equipment_name  = $this->input->post('equipment_name');
                     $no_of_equipment = $this->input->post('no_of_equipment');
                     $others          = $this->input->post('others');
-                    
-                    $data = array(
+                    $data            = array(
                         'doctor_id' => $this->session->id,
                         'equipment_name' => $equipment_name,
                         'no_of_equipment' => $no_of_equipment,
@@ -631,7 +519,6 @@ class Pharma extends CI_Controller
                         'is_active' => 1,
                         'created_at' => date('Y-m-d H:i:s')
                     );
-                    
                     if (!empty($id)) {
                         $where = array(
                             'id' => $id
@@ -641,19 +528,14 @@ class Pharma extends CI_Controller
                     } else {
                         $result = $this->model->insertData('inventory', $data);
                     }
-                    
                     $this->inventory_list();
-                    
                 }
             }
         } else {
             redirect('admin/index');
         }
     }
-    
-    
-    public function inventory_list()
-    {
+    public function inventory_list() {
         if ($this->controller->checkSession()) {
             $where                  = array(
                 'doctor_id' => $this->session->id
@@ -665,9 +547,7 @@ class Pharma extends CI_Controller
             redirect('admin/index');
         }
     }
-    
-    public function edit_inventory($id)
-    {
+    public function edit_inventory($id) {
         if ($this->controller->checkSession()) {
             $where             = array(
                 'doctor_id' => $this->session->id,
@@ -680,8 +560,7 @@ class Pharma extends CI_Controller
             redirect('admin/index');
         }
     }
-
-    public function delete_medicine(){
+    public function delete_medicine() {
         if ($this->controller->checkSession()) {
             $id    = $this->input->post('id');
             $table = $this->input->post('table');
@@ -692,5 +571,124 @@ class Pharma extends CI_Controller
         } else {
             redirect('admin/index');
         }
+    }
+    public function edit_billing($id) {
+        $patient_id             = $this->input->post('patient_id');
+        $patient_notes          = $this->input->post('patient_notes');
+        $prescription_id        = $this->input->post('prescription_id');
+        $medicine_name[]        = $this->input->post('medicine_name');
+        $medicine_type[]        = $this->input->post('medicine_type');
+        $medicine_instruction[] = $this->input->post('medicine_instruction');
+        $medicine_days[]        = $this->input->post('medicine_days');
+        if ($this->controller->checkSession()) {
+            $this->form_validation->set_rules('patient_id', 'Patient', 'trim|required');
+            $this->form_validation->set_rules('medicine_name[]', 'Medicine Name', 'trim|required');
+            $this->form_validation->set_rules('medicine_type[]', 'Medicine Type', 'trim|required');
+            $this->form_validation->set_rules('medicine_instruction[]', 'Medicine Instruction', 'trim|required');
+            $this->form_validation->set_rules('medicine_days[]', 'Medicine Days', 'trim|required');
+            if ($this->form_validation->run() == false) {
+                $where                                 = array(
+                    'user_role' => 3
+                );
+                $field_val                             = 'id,first_name,last_name,gender,date_of_birth,address';
+                $data['patient']                       = $this->model->getAllwhere('users', $where, $field_val);
+                $where                                 = array(
+                    'billed_patient_by_pharma.id' => $id,
+                    'billed_patient_by_pharma.is_active' => 1
+                );
+                $field_val                             = 'billed_patient_by_pharma.id as billed_id,billed_patient_by_pharma.prescription_code,billed_patient_by_pharma.notes,users.first_name,users.last_name,users.gender,users.date_of_birth,users.address,users.id';
+                $data['billed_patient_by_pharma']      = $this->model->GetJoinRecord('billed_patient_by_pharma', 'patient_id', 'users', 'id', $field_val, $where);
+                $where1                                = array(
+                    'prescription_id' => $id,
+                    'is_active' => 1
+                );
+                $field_val1                            = 'id,prescription_id,medicine_name,medicine_type,instruction,days';
+                $data['prescribed_medicine_by_pharma'] = $this->model->getAllwhere('prescribed_medicine_by_pharma', $where1, $field_val1);
+                $this->session->set_flashdata('errors', validation_errors());
+                $data['body'] = 'edit_billing';
+                $this->controller->load_view($data);
+            } else {
+                $patient_id           = $this->input->post('patient_id');
+                $prescription_id      = $this->input->post('prescription_id');
+                $patient_notes        = $this->input->post('patient_notes');
+                $medicine_name        = $this->input->post('medicine_name');
+                $medicine_type        = $this->input->post('medicine_type');
+                $medicine_instruction = $this->input->post('medicine_instruction');
+                $medicine_days        = $this->input->post('medicine_days');
+                $data                 = array(
+                    'patient_id' => $patient_id,
+                    'prescription_code' => $prescription_id,
+                    'notes' => $patient_notes,
+                    'added_by' => $this->session->id,
+                    'is_active' => 1
+                );
+                $where                = array(
+                    'id' => $id
+                );
+                $result               = $this->model->updateFields('billed_patient_by_pharma', $data, $where);
+                if (!empty($medicine_name)) {
+                    $medicine_type[]        = $this->input->post('medicine_type');
+                    $medicine_instruction[] = $this->input->post('medicine_instruction');
+                    $medicine_days[]        = $this->input->post('medicine_days');
+                    for ($i = 0; $i < count($medicine_name); $i++) {
+                        $data1[] = array(
+                            'prescription_id' => $result,
+                            'medicine_name' => $medicine_name[$i],
+                            'medicine_type' => $medicine_type[$i],
+                            'instruction' => $medicine_instruction[$i],
+                            'days' => $medicine_days[$i],
+                            'is_active' => 1,
+                            'created_at' => date('Y-m-d H:i:s')
+                        );
+                    }
+                    if (!empty($id)) {
+                        $where = array(
+                            'prescription_id' => $id
+                        );
+                        $this->model->delete('prescribed_medicine_by_pharma', $where);
+                    }
+                    $medicine = $this->model->insertBatch('prescribed_medicine_by_pharma', $data1);
+                }
+                $this->session->set_flashdata('info_message', 'Billing updated successfully !!!');
+                redirect('pharma/list_billing', 'refresh');
+            }
+        }
+    }
+    public function get_prescription_from_doc() {
+        if ($this->controller->checkSession()) {
+            $table = 'prescription';
+            $where = array(
+                'hospital_id' => $this->session->hospital_id,
+                'assign_to_pharma' => 1,
+                'pharma_status' => 0
+            );
+            echo $notification_count = $this->model->getcount($table, $where);
+        }
+    }
+    public function view_prescribed_medicine() {
+        if ($this->controller->checkSession()) {
+            $table           = 'prescription';
+            $where           = array(
+                'hospital_id' => $this->session->hospital_id,
+                'assign_to_pharma' => 1,
+                'pharma_status' => 0
+            );
+            $data['billing'] = $this->model->getAllwhere($table, $where);
+            $data['body']    = 'view_prescribed_medicine';
+            $this->controller->load_view($data);
+        } else {
+            redirect('admin/index');
+        }
+    }
+    public function update_status() {
+        $id     = $this->input->post('id');
+        $table  = $this->input->post('table');
+        $data   = array(
+            'pharma_status' => 1
+        );
+        $where  = array(
+            'id' => $id
+        );
+        $result = $this->model->updateFields($table, $data, $where);
     }
 }

@@ -1,7 +1,11 @@
 <?php if($this->session->flashdata('msg')): ?>
-
     <div class="alert alert-success">
       <strong>Success!</strong> <?php echo $this->session->flashdata('msg'); ?>
+    </div>
+<?php endif; ?>
+<?php if($this->session->flashdata('alert')): ?>
+    <div class="alert alert-danger">
+      <strong>ALert!</strong> <?php echo $this->session->flashdata('alert'); ?>
     </div>
 <?php endif; ?>
 <body>

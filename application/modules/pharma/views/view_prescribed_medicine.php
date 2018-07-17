@@ -1,7 +1,7 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Billing List</h1>
+            <h1 class="page-header">Prescribed Medicine</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -15,7 +15,7 @@
             <?php endif ?>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <button class="btn btn-primary"><i class="fa fa-th-list">&nbsp; Billing List</i></button>
+                    <button class="btn btn-primary"><i class="fa fa-th-list">&nbsp; Prescribed Medicine</i></button>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -24,7 +24,7 @@
                             <thead>
                                 <tr class="bg-primary">
                                     <th>S.No</th>
-                                    <th>Prescription Code</th>
+                                    <th>Appointment Code</th>
                                     <th>Notes</th>
                                     <th>Status</th>
                                     <th>Created Date</th>
@@ -43,14 +43,14 @@
                                         <?php echo $count; ?>
                                     </td>
                                     <td class="center">
-                                        <?php echo $value->prescription_code;?>
+                                        <?php echo $value->appointment_id;?>
                                     </td>
 
                                     <td class="center">
-                                        <?php echo $value->notes;  ?>
+                                        <?php echo $value->patient_note;  ?>
                                     </td>
                                     <td class="center">
-                                        <?php if($value->is_active==1){ ?>
+                                        <?php if($value->pharma_status==0){ ?>
                                         <button class="btn btn-primary">Active</button>
                                         <?php } else{ ?>
                                         <button class="btn btn-danger">Inactive</button>
@@ -60,9 +60,9 @@
                                         <?php echo $value->created_at;  ?>
                                     </td>
                                     <td class="center">
-                                        <a href="<?php echo base_url('pharma/view_medicine_category/'.$value->id); ?>" title="View"><i class="fa fa-eye" aria-hidden="true"></i></a> |
-                                        <a href="<?php echo base_url('pharma/edit_billing/'.$value->id); ?>" title="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> |
-                                        <a href="javascript:void(0)" onclick="delete_list('<?php echo $value->id?>','<?php echo $count?>')" title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                                        <a href="<?php echo base_url('pharma/view_medicine_category/'.$value->id); ?>" title="View">View</a> | 
+                                        <a href="javascript:void(0)" title="Change Status" onclick="change_status('<?php echo $value->id;?>')">Change Status</a>
+                                    </td>
                                 </tr>
                                 <?php $count++; } }?>
                             </tbody>
@@ -90,36 +90,27 @@
     });
 
 
-    function delete_list(id, tr_id) {
-        swal({
-            title: "Are you sure?",
-            text: "Are you sure that you want to delete?",
-            type: "warning",
-            showCancelButton: true,
-            closeOnConfirm: false,
-            confirmButtonText: "Yes, Delete it!",
-            confirmButtonColor: "#ec6c62"
-        }, function() {
-            $.ajax({
-                url: "<?php echo base_url('doctor/delete')?>",
-                data: {
-                    id: id,
-                    table: 'billed_patient'
-                },
-                type: "POST"
-            }).done(function(data) {
-                $.ajax({
-                    url: "<?php echo base_url('pharma/delete_medicine')?>",
-                    data: {
-                        id: id,
-                        table: 'prescribed_medicine'
-                    },
-                    type: "POST"
-                }).done(function(data) {
-                    swal("Deleted!", "Record was successfully deleted!", "success");
-                    $('#tr_' + tr_id).remove();
-                });
-            });
+function change_status(id, tr_id) {
+    swal({
+        title: "Are you sure?",
+        text: "Are you sure that you want to Change Status?",
+        type: "warning",
+        showCancelButton: true,
+        closeOnConfirm: false,
+        confirmButtonText: "Yes, Change it!",
+        confirmButtonColor: "#ec6c62"
+    }, function() {
+        $.ajax({
+            url: "<?php echo base_url('pharma/update_status')?>",
+            data: {
+                id: id,
+                table: 'prescription'
+            },
+            type: "POST"
+        }).done(function(data) {
+            swal("Updated!", "Record was successfully Updated!", "success");
+           // $('#tr_' + tr_id).remove();
         });
-    }
+    });
+}
 </script>

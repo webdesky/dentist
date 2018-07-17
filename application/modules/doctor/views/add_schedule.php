@@ -110,7 +110,7 @@
             $("#app").after('<div class="form-group" id="box' + counter + '"><label class="col-md-2"></label><div class="col-lg-2"><select class="wide" name="schedule[]" ><option value="">Select Days</option><option value="sunday">Sunday</option><option value="monday">Monday</option><option value="tuesday">Tuesday</option><option value="wednesday">Wednesday</option><option value="thursday">Thursday</option><option value="friday">Friday</option><option value="saturday">Saturday</option></select></div> <div class="col-lg-2"><input type="text" id="starttime" name="starttime[]" class="form-control time" autocomplete="off" readonly="readonly"  placeholder="StartTime"></div><div class="col-lg-2"><input type="text" id="endtime" name="endtime[]" class="form-control time" autocomplete="off" readonly="readonly"  placeholder="EndTime"></div><i class="fa fa-minus-circle remove" aria-hidden="true" id="removeButton" style="font-size:25px;margin-left: 15px;"></i></div>');
             $('.time').each(function() {
                 $(this).timepicker({
-                    timeFormat: 'H:mm'
+                    timeFormat: 'HH:mm'
                 });
             });
             $('select').each(function() {
@@ -122,40 +122,40 @@
         $("body").on("click", ".remove", function() {
             $(this).closest("div").remove();
         });
-        
+
         $('.time').each(function() {
             $(this).timepicker({
                 timeFormat: 'HH:mm'
             });
         });
-        
+
         $('select').niceSelect();
     });
 
-    function getSchedule(id) {
-        var doctor_id = "<?php echo $this->session->userdata('id');?>";
-        var appointment_date = $('#appointment_date').val();
-        var appointment_time = $('#timepicker').val();
-        var hospital_id = id;
-        $.ajax({
-            type: "POST",
-            url: "<?php echo base_url('doctor/get_schedule')?>",
-            data: {
-                'doctor_id': doctor_id,
-                'appointment_date': appointment_date,
-                'appointment_time': appointment_time
-            },
-            success: function(data) {
-                var obj = JSON.parse(data);
-                $('#table tr').html('');
-                $('#table').append('<tr><th>Day</th><th>StartTime</th><th>EndTime</th></tr>');
-                for (var i = 0; i < obj.length; i++) {
-                    $('#table').append('<tr><td>' + obj[i].day + '</td><td>' + obj[i].starttime + '</td><td>' + obj[i].endtime + '</td></tr>');
-                    $('#data').show();
-                }
+function getSchedule(id) {
+    var doctor_id           =   "<?php echo $this->session->userdata('id');?>";
+    var appointment_date    =   $('#appointment_date').val();
+    var appointment_time    =   $('#timepicker').val();
+    var hospital_id = id;
+    $.ajax({
+        type: "POST",
+        url: "<?php echo base_url('doctor/get_schedule')?>",
+        data: {
+            'doctor_id': doctor_id,
+            'appointment_date': appointment_date,
+            'appointment_time': appointment_time
+        },
+        success: function(data) {
+            var obj = JSON.parse(data);
+            $('#table tr').html('');
+            $('#table').append('<tr><th>Day</th><th>StartTime</th><th>EndTime</th></tr>');
+            for (var i = 0; i < obj.length; i++) {
+                $('#table').append('<tr><td>' + obj[i].day + '</td><td>' + obj[i].starttime + '</td><td>' + obj[i].endtime + '</td></tr>');
+                $('#data').show();
             }
-        });
-    }
+        }
+    });
+}
 </script>
 
 
